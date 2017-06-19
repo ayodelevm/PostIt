@@ -1,0 +1,57 @@
+{
+  "name": "postit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node ./server/app.js",
+    "test": "mocha --compilers js:babel-core/register ./server/test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayodelevm/PostIt.git"
+  },
+  "author": "Ayodele Victor",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "bcrypt-nodejs": "latest",
+    "body-parser": "^1.12.4",
+    "chai": "^4.0.2",
+    "concurrently": "^3.4.0",
+    "connect-flash": "~0.1.1",
+    "connect-multiparty": "^2.0.0",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.6",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "express": "^4.15.3",
+    "express-session": "^1.11.2",
+    "method-override": "^2.3.9",
+    "mocha": "^3.4.2",
+    "morgan": "^1.5.3",
+    "passport": "^0.3.2",
+    "passport-facebook": "~1.0.2",
+    "passport-google-oauth": "~0.1.5",
+    "passport-local": "~0.1.6",
+    "passport-local-sequelize": "^0.7.0",
+    "permission": "^1.0.4",
+    "pg": "^4.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.2.0",
+    "should": "^11.2.1",
+    "supertest": "^3.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/ayodelevm/PostIt/issues"
+  },
+  "homepage": "https://github.com/ayodelevm/PostIt#readme"
+}

@@ -60,3 +60,5 @@ typings/
 # Sass cache
 .sass-cache
 
+# Views 
+server/views

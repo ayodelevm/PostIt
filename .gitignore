@@ -61,5 +61,5 @@ typings/
 .sass-cache
 
 # Views 
-./server/views
+server/views
 

@@ -26,6 +26,8 @@ const loginUser = {
 before((done) => {
   User.sync().then(() => {
     done();
+  }).catch((errors) => {
+    done(errors);
   });
 });
 
@@ -40,6 +42,8 @@ describe('Authentication', () => {
     User.sync({ force: true })
       .then(() => {
         done(null);
+      }).catch((errors) => {
+        done(errors);
       });
   });
 
@@ -110,6 +114,8 @@ describe('Authentication', () => {
     User.sync({ force: true })
       .then(() => {
         done(null);
+      }).catch((errors) => {
+        done(errors);
       });
   });
 

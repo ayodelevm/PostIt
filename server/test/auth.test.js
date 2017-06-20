@@ -7,35 +7,54 @@ import User from '../models/user';
 // import users from './../../seed/users.json';
 
 const server = supertest.agent(app);
-const user = {
+const user = [{
   username: 'tundun',
   password: 'tundun05',
   email: 'tundun05@gmail.com',
   fullName: 'tundun oluwalonimi'
+}, {
+  username: 'lolade',
+  password: 'lolade05',
+  email: 'lolade05@gmail.com',
+  fullName: 'lolade toluwanimi'
+}];
+const loginUser = {
+  username: 'lolade',
+  password: 'lolade05'
 };
 
-// beforeEach(() => {
-//   User.sync();
-// });
-
-afterEach(() => {
-  User.sync({ force: true });
-  User.sync();
+before((done) => {
+  User.sync().then(() => {
+    done();
+  });
 });
 
 describe('Authentication', () => {
-  it('allows a registered user to login', (done) => {
+  // beforeEach((done) => {
+  //   User.sync().then(() => {
+  //     done();
+  //   });
+  // });
+
+  afterEach((done) => {
+    User.sync({ force: true })
+      .then(() => {
+        done(null);
+      });
+  });
+
+  it('allows a new user to register', (done) => {
     server
       .post('/register')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send(user)
+      .send(user[0])
       .expect(200)
-      .end((err, res, req) => {
-        res.status.should.equal(302);
-        res.body.username.should.equal('tundun');
-        req.user.dataValues.username.should.equal('tundun');
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.user.should.equal('tundun');
+        // res.body.email.should.equal('tundun05@gmail.com');
         done();
       });
   });
@@ -84,4 +103,52 @@ describe('Authentication', () => {
   //       done();
   //     });
   // });
+});
+
+describe('Authentication', () => {
+  after((done) => {
+    User.sync({ force: true })
+      .then(() => {
+        done(null);
+      });
+  });
+
+  it('allows a new user to create account and login later', (done) => {
+    server
+      .post('/register')
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .send(user[1])
+      .expect(200)
+      .end((err, res) => {
+        done();
+      });
+  });
+
+  it('allows a registered user to login successfully', (done) => {
+    server
+    .post('/login')
+    .set('Connection', 'keep alive')
+    .set('Content-Type', 'application/json')
+    .type('form')
+    .send(loginUser)
+    .expect(200)
+    .end((err, res) => {
+      res.status.should.equal(200);
+      res.body.user.should.equal('lolade');
+      done();
+    });
+  });
+
+  it('allows a loggedin user to logout successfully', (done) => {
+    server
+    .get('/logout')
+    .expect(200)
+    .end((err, res) => {
+      res.status.should.equal(200);
+      res.body.message.should.equal('Logged out successfully');
+      done();
+    });
+  });
 });

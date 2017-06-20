@@ -1,0 +1,2 @@
+dropdb postit_test
+createdb postit_test

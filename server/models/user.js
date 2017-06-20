@@ -1,8 +1,16 @@
+const dotenv = require('dotenv');
 const Sequelize = require('sequelize');
 const passportLocalSequelize = require('passport-local-sequelize');
 
-const sequelize = new Sequelize('postit', 'postgres', 'ayo3276dapov', {
-  dialect: 'postgres',
+const env = process.env.NODE_ENV || 'development';
+const config = require('./../config.json')[env];
+
+
+dotenv.config({ silent: true });
+
+
+const sequelize = new Sequelize(config.database, config.username, process.env.SECRET, {
+  dialect: config.dialect,
 
 });
 
@@ -13,6 +21,8 @@ const User = passportLocalSequelize.defineUser(sequelize, {
   fullName: Sequelize.STRING
 });
 
-User.sync();
+if (env !== 'test') {
+  User.sync();
+}
 
 module.exports = User;

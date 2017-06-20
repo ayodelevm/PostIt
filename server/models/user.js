@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const passportLocalSequelize = require('passport-local-sequelize');
 
 const env = process.env.NODE_ENV || 'development';
-const config = require('./../config.json')[env];
+const config = require('./../config.json')[0][env];
 
 
 dotenv.config({ silent: true });

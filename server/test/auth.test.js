@@ -23,7 +23,7 @@ const loginUser = {
   password: 'lolade05'
 };
 
-before((done) => {
+beforeAll((done) => {
   User.sync().then(() => {
     done();
   }).catch((errors) => {
@@ -110,7 +110,7 @@ describe('Authentication', () => {
 });
 
 describe('Authentication', () => {
-  after((done) => {
+  afterAll((done) => {
     User.sync({ force: true })
       .then(() => {
         done(null);

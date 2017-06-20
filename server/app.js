@@ -42,7 +42,7 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.error = req.flash('error');
   res.locals.success = req.flash('success');
-  if (req.user != undefined) console.log(res.locals.currentUser.dataValues);
+  if (req.user != undefined) console.log('from here--->', res.locals.currentUser.dataValues);
   next();
 });
 

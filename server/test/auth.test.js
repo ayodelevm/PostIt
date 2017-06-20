@@ -23,13 +23,13 @@ const loginUser = {
   password: 'lolade05'
 };
 
-beforeAll((done) => {
-  User.sync().then(() => {
-    done();
-  }).catch((errors) => {
-    done(errors);
-  });
-});
+// before((done) => {
+//   User.sync().then(() => {
+//     done(null);
+//   }).catch((errors) => {
+//     done(errors);
+//   });
+// });
 
 describe('Authentication', () => {
   // beforeEach((done) => {
@@ -110,7 +110,7 @@ describe('Authentication', () => {
 });
 
 describe('Authentication', () => {
-  afterAll((done) => {
+  after((done) => {
     User.sync({ force: true })
       .then(() => {
         done(null);

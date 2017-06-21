@@ -1,16 +1,31 @@
-{
+[{
   "test": {
     "username": "postgres",
     "password": null,
-    "database": "postit_test",
+    "database": "postit_auth_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "development": {
     "username": "postgres",
     "password": null,
-    "database": "postit",
+    "database": "postit_auth",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }
-}
+}, {
+  "test": {
+    "username": "postgres",
+    "password": null,
+    "database": "postit_group_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "development": {
+    "username": "postgres",
+    "password": null,
+    "database": "postit_group",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}]

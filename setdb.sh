@@ -1,2 +1,2 @@
-dropdb postit_test
-createdb postit_test
+dropdb postit_auth_test
+createdb postit_auth_test

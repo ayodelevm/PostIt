@@ -4,7 +4,7 @@ import path from 'path';
 import Sequelize from 'sequelize';
 import cookieParser from 'cookie-parser';
 import flash from 'connect-flash';
-import User from './models/user';
+import models from './models/index';
 
 // ROUTES
 
@@ -34,9 +34,9 @@ app.use(require('express-session')({
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use(models.User.createStrategy());
+passport.serializeUser(models.User.serializeUser());
+passport.deserializeUser(models.User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;

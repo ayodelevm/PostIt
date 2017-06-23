@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import flash from 'connect-flash';
-import User from '../models/user';
+import models from '../models/index';
 
 const router = express.Router();
 
@@ -11,17 +11,15 @@ const router = express.Router();
 
 // Sign up logic
 router.post('/register', (req, res) => {
-  User.register(req.body.username, req.body.password, (err, newUser) => {
-
+  models.User.register(req.body.username, req.body.password, (err, newUser) => {
     if (err) {
       req.flash('error', `${err.message}`);
       return res.status(500).json({
         message: err.message
       });
     }
-    newUser.isAdmin = false;
     newUser.email = req.body.email;
-    newUser.fullName = req.body.fullName;
+    newUser.fullname = req.body.fullname;
     newUser.save();
 
     passport.authenticate('local')(req, res, () => {

@@ -8,20 +8,26 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
       },
       description: {
         type: Sequelize.STRING
       },
       imageUrl: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+          isUrl: true
+        }
       },
       UserId: {
         type: Sequelize.UUID,
         onDelete: 'CASCADE',
         references: {
           model: 'Users',
-          key: 'id'
+          key: 'id',
+          // deferrable: Sequelize.Deferrable.INITIALLY_DEFERRED
         }
       },
       createdAt: {

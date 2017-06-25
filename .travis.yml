@@ -4,6 +4,7 @@ node_js:
 services:
   - postgresql
 before_script:
+  - npm install -g sequelize-cli
   - psql -c 'create database postit;' -U postgres
   - psql -c 'create database postit_test;' -U postgres
 script: 

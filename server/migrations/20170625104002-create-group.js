@@ -3,9 +3,9 @@ module.exports = {
     queryInterface.createTable('Groups', {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4
+        type: Sequelize.INTEGER
       },
       name: {
         type: Sequelize.STRING,
@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       imageUrl: {
         type: Sequelize.STRING,
@@ -22,12 +22,11 @@ module.exports = {
         }
       },
       UserId: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
           model: 'Users',
-          key: 'id',
-          // deferrable: Sequelize.Deferrable.INITIALLY_DEFERRED
+          key: 'id'
         }
       },
       createdAt: {
@@ -40,7 +39,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     queryInterface.dropTable('Groups');
   }
 };

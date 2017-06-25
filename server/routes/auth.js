@@ -25,7 +25,7 @@ router.post('/register', (req, res) => {
     passport.authenticate('local')(req, res, () => {
       req.flash('success', 'Welcome to PostIt');
       res.status(200).json({
-        message: `Welcome to PostIt + ${req.session.passport.user}`,
+        message: `Welcome to PostIt ${req.session.passport.user}`,
         user: req.session.passport.user
       });
     });

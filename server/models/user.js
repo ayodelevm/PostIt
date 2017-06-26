@@ -1,28 +1,49 @@
-const dotenv = require('dotenv');
-const Sequelize = require('sequelize');
-const passportLocalSequelize = require('passport-local-sequelize');
+import passportLocalSequelize from 'passport-local-sequelize';
 
-const env = process.env.NODE_ENV || 'development';
-const config = require('./../config.json')[0][env];
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: true
+      }
+    },
+    password: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    username: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
+    fullname: {
+      type: DataTypes.STRING
+    },
+    mysalt: {
+      type: DataTypes.STRING
+    }
+  }, {
+    classMethods: {
+      associate: (models) => {
+        User.hasMany(models.Group, {
+          foreignKey: 'UserId',
+          onDelete: 'CASCADE'
+        });
+        User.belongsToMany(models.Group, {
+          through: 'UserGroup',
+          foreignKey: 'UserId',
+          onDelete: 'CASCADE'
+        });
+      }
+    }
+  });
 
+  passportLocalSequelize.attachToUser(User, {
+    usernameField: 'username',
+    hashField: 'password',
+    saltField: 'mysalt'
+  });
 
-dotenv.config({ silent: true });
-
-
-const sequelize = new Sequelize(config.database, config.username, process.env.SECRET, {
-  dialect: config.dialect,
-
-});
-
-const User = passportLocalSequelize.defineUser(sequelize, {
-  favoriteColor: Sequelize.STRING,
-  isAdmin: Sequelize.BOOLEAN,
-  email: Sequelize.STRING,
-  fullName: Sequelize.STRING
-});
-
-if (env !== 'test') {
-  User.sync();
-}
-
-module.exports = User;
+  return User;
+};

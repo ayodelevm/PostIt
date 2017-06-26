@@ -3,7 +3,7 @@ import 'mocha';
 import 'chai';
 import should from 'should';
 import app from './../app';
-import User from '../models/user';
+import models from '../models/index';
 // import users from './../../seed/users.json';
 
 const server = supertest.agent(app);
@@ -11,12 +11,12 @@ const user = [{
   username: 'tundun',
   password: 'tundun05',
   email: 'tundun05@gmail.com',
-  fullName: 'tundun oluwalonimi'
+  fullname: 'tundun oluwalonimi'
 }, {
   username: 'lolade',
   password: 'lolade05',
   email: 'lolade05@gmail.com',
-  fullName: 'lolade toluwanimi'
+  fullname: 'lolade toluwanimi'
 }];
 const loginUser = {
   username: 'lolade',
@@ -24,7 +24,7 @@ const loginUser = {
 };
 
 before((done) => {
-  User.sync().then(() => {
+  models.User.sync().then(() => {
     done(null);
   }).catch((errors) => {
     done(errors);
@@ -39,7 +39,7 @@ describe('Authentication', () => {
   // });
 
   afterEach((done) => {
-    User.sync({ force: true })
+    models.User.sync({ force: true })
       .then(() => {
         done(null);
       }).catch((errors) => {
@@ -111,7 +111,7 @@ describe('Authentication', () => {
 
 describe('Authentication', () => {
   after((done) => {
-    User.sync({ force: true })
+    models.User.sync({ force: true })
       .then(() => {
         done(null);
       }).catch((errors) => {

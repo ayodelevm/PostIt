@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
+        User.hasMany(models.Message);
         User.hasMany(models.Group, {
           foreignKey: 'UserId',
           onDelete: 'CASCADE'

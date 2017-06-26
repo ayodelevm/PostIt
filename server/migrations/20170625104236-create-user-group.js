@@ -12,13 +12,13 @@ module.exports = {
         }
       },
       UserId: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
         onDelete: 'CASCADE',
         references: {
           model: 'Users',
-          key: 'username'
+          key: 'id'
         }
       },
       createdAt: {

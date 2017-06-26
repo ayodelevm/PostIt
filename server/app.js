@@ -10,6 +10,7 @@ import models from './models/index';
 
 import authRoutes from './routes/auth';
 import groupRoutes from './routes/group';
+import addUsersRoutes from './routes/addusers';
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -53,6 +54,7 @@ app.use((req, res, next) => {
 // ROUTES CONFIG
 app.use(authRoutes);
 app.use(groupRoutes);
+app.use(addUsersRoutes);
 
 
 // MiddleWares

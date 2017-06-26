@@ -5,59 +5,40 @@ const router = express.Router();
 
 // Get All
 router.get('/api/group', (req, res, next) => {
-  models.UserGroup.findAll({
-    where: {
-      UserId: req.session.id
-    },
+  models.User.findAll({
+    where: { id: req.user.dataValues.id },
     include: [
-      { model: models.Group },
-      { model: models.User }
+      { model: models.Group }
     ],
-    order: [['createAt', 'DESC']]
-  }).then((userGroups) => {
-    res.status(200).json(userGroups);
+    order: [['createdAt', 'DESC']],
+  }).then((found) => {
+    res.status(200).json(found);
   }).catch((err) => {
     res.status(500).json({
       message: err
     });
     next(err);
   });
-
-
-  // models.Group.findAll({
-  //   include: [
-  //     { model: models.User }
-  //   ],
-  //   order: [['createAt', 'DESC']]
-  // }).then((groups) => {
-  //   res.status(200).json(groups);
-  // }).catch((err) => {
-  //   res.status(500).json({
-  //     message: err
-  //   });
-  //   next(err);
-  // });
 });
 
 router.post('/api/group', (req, res, next) => {
-  // const newDetails = Object.assign(req.body, { Owner: req.session.id });
-  const newDetails = req.body;
-  if (!req.body.name) {
+  if (req.session.passport === undefined) {
     res.status(400).json({
-      message: 'A new group needs to have a name'
+      message: 'You need to be logged in to do that.'
     });
   } else {
-    console.log('=====', typeof req.body.Owner);
+    if (!req.body.name) {
+      res.status(400).json({
+        message: 'A new group needs to have a name'
+      });
+    }
+    const newDetails = Object.assign(req.body, { UserId: req.user.dataValues.id });
     models.Group.create(newDetails).then((newGroup) => {
-      console.log('=====>>>>', typeof newGroup.id);
       models.UserGroup
       .create({
-        message: 'It a beautiful day today',
-        // Owner: req.session.id,
-        UserId: req.body.UserId,
+        UserId: req.user.dataValues.id,
         GroupId: newGroup.id
       })
-      // .save()
       .then(() => {
         res.status(201).json({
           message: 'New group created successfully.',
@@ -73,28 +54,34 @@ router.post('/api/group', (req, res, next) => {
   }
 });
 
-router.post('/api/usergroup', (req, res) => {
-  models.sequelize.sync({ force: true }).then(() => {
-    models.UserGroup.create({
-      UserId: req.body.UserId
-    }).then((newg) => {
-      res.json(newg);
-    });
-  });
-});
 // Get One
-router.get('/api/group', (req, res, next) => {
-  models.UserGroup.findAll({
-    where: {
-      GroupId: req.params.id
+router.get('/api/group/:id', (req, res, next) => {
+  models.UserGroup.findOne({
+    where: { $and: [
+      { UserId: req.user.dataValues.id },
+      { GroupId: req.params.id }]
     },
-    include: [
-      { model: models.Group },
-      { model: models.User }
-    ],
-    order: [['createAt', 'DESC']]
-  }).then((userGroups) => {
-    res.status(200).json(userGroups);
+  }).then((found) => {
+    if (found === null) {
+      res.status(400).json({
+        message: 'You are not a member of this group!'
+      });
+    } else {
+      models.Group.findAll({
+        where: { id: req.params.id },
+        include: [
+          { model: models.Message,
+            order: [['createdAt', 'DESC']]
+          }]
+      }).then((foundGroup) => {
+        res.status(200).json({
+          message: 'Successful.',
+          foundGroup
+        });
+      }).catch((err) => {
+        res.status(500).json(err);
+      });
+    }
   }).catch((err) => {
     res.status(500).json({
       message: err

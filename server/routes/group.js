@@ -22,6 +22,7 @@ router.get('/api/group', Middleware.isLoggedIn, (req, res, next) => {
   });
 });
 
+// Create New Group
 router.post('/api/group', Middleware.isLoggedIn, (req, res, next) => {
   if (!req.body.name) {
     res.status(400).json({

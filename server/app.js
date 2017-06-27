@@ -10,6 +10,7 @@ import models from './models/index';
 
 import authRoutes from './routes/auth';
 import groupRoutes from './routes/group';
+import messageRoutes from './routes/message';
 import addUsersRoutes from './routes/addusers';
 
 const passport = require('passport');
@@ -46,7 +47,7 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.error = req.flash('error');
   res.locals.success = req.flash('success');
-  if (req.user != undefined) console.log('from here--->', res.locals.currentUser.dataValues);
+  // if (req.user != undefined) console.log('from here--->', res.locals.currentUser.dataValues);
   next();
 });
 
@@ -54,6 +55,7 @@ app.use((req, res, next) => {
 // ROUTES CONFIG
 app.use(authRoutes);
 app.use(groupRoutes);
+app.use(messageRoutes);
 app.use(addUsersRoutes);
 
 

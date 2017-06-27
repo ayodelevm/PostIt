@@ -1,10 +1,12 @@
 import express from 'express';
 import models from '../models/index';
+import Middleware from './../middlewares';
 
 const router = express.Router();
 
 
-router.get('/api/user', (req, res, next) => {
+// Get all Users
+router.get('/api/user', Middleware.isLoggedIn, (req, res, next) => {
   models.User.findAll().then((users) => {
     res.status(200).json({
       message: 'Successful',
@@ -16,7 +18,8 @@ router.get('/api/user', (req, res, next) => {
   });
 });
 
-router.get('/api/group/:id/user', (req, res, next) => {
+// Get all Users that belongs to a group
+router.get('/api/group/:id/user', Middleware.isLoggedIn, Middleware.isAuthorized, (req, res, next) => {
   models.Group.findAll({
     where: { id: req.params.id },
     include: [
@@ -34,7 +37,8 @@ router.get('/api/group/:id/user', (req, res, next) => {
   });
 });
 
-router.post('/api/group/:id/user', (req, res, next) => {
+// Add New Users to a group
+router.post('/api/group/:id/user', Middleware.isLoggedIn, Middleware.isAuthorized, (req, res, next) => {
   let existingUser = [];
   const usersList = req.body.usersList;
   usersList.forEach((eachUserId) => {

@@ -72,7 +72,7 @@ const isLoggedIn = (req, res, next) => {
 app.use((req, res, next) => {
   res.status(501).send({
     status: false,
-    message: 'This API doesn\'t support that function.'
+    message: 'Sorry, this route is not supported by this API.'
   });
   next();
 });

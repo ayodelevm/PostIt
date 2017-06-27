@@ -44,6 +44,7 @@ export default class AuthCtrl {
       }
       if (!user) {
         return res.status(401).json({
+          message: 'User not found.',
           error: info
         });
       }

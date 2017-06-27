@@ -19,7 +19,10 @@ export default class GroupCtrl {
       ],
       order: [['createdAt', 'DESC']],
     }).then((found) => {
-      res.status(200).json(found);
+      res.status(200).json({
+        success: 'Successful.',
+        found
+      });
     }).catch((err) => {
       res.status(500).json({
         message: err
@@ -49,7 +52,7 @@ export default class GroupCtrl {
       })
       .then(() => {
         res.status(201).json({
-          message: 'New group created successfully.',
+          success: 'New group created successfully.',
           newGroup
         });
       });
@@ -74,7 +77,7 @@ export default class GroupCtrl {
       if (group.UserId === req.user.dataValues.id) {
         group.update(req.body).then(() => {
           res.status(200).json({
-            message: 'Group details updated successfully'
+            success: 'Group details updated successfully.'
           });
         }).catch((err) => {
           res.status(500).json({
@@ -110,7 +113,7 @@ export default class GroupCtrl {
       if (group.UserId === req.user.dataValues.id) {
         group.destroy().then(() => {
           res.status(200).json({
-            message: 'Group deleted successfully.'
+            success: 'Group deleted successfully.'
           });
         }).catch((err) => {
           res.status(500).json({

@@ -4,24 +4,10 @@ import 'chai';
 import should from 'should';
 import app from './../app';
 import models from '../models/index';
-// import users from './../../seed/users.json';
+import { user, loginUser, invalidUser } from './../seeders/authSeeds';
 
 const server = supertest.agent(app);
-const user = [{
-  username: 'tundun',
-  password: 'tundun05',
-  email: 'tundun05@gmail.com',
-  fullname: 'tundun oluwalonimi'
-}, {
-  username: 'lolade',
-  password: 'lolade05',
-  email: 'lolade05@gmail.com',
-  fullname: 'lolade toluwanimi'
-}];
-const loginUser = {
-  username: 'lolade',
-  password: 'lolade05'
-};
+
 
 before((done) => {
   models.User.sync().then(() => {
@@ -32,12 +18,6 @@ before((done) => {
 });
 
 describe('Authentication', () => {
-  // beforeEach((done) => {
-  //   User.sync().then(() => {
-  //     done();
-  //   });
-  // });
-
   afterEach((done) => {
     models.User.sync({ force: true })
       .then(() => {
@@ -47,9 +27,19 @@ describe('Authentication', () => {
       });
   });
 
+  it('prevents accessing an undefined route', (done) => {
+    server
+    .get('/api/post')
+    .expect(501)
+    .end((err, res) => {
+      res.body.message.should.equal('Sorry, this route is not supported by this API.');
+      done();
+    });
+  });
+
   it('allows a new user to register', (done) => {
     server
-      .post('/register')
+      .post('/api/user/register')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
@@ -58,55 +48,9 @@ describe('Authentication', () => {
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.user.should.equal('tundun');
-        // res.body.email.should.equal('tundun05@gmail.com');
         done();
       });
   });
-
-  // const invalidUser = {
-  //   username: 'test',
-  //   password: 1234
-  // };
-
-  // it('prevents an invalid user from logging in', (done) => {
-  //   server
-  //     .post('/api/users/login')
-  //     .send(invalidUser)
-  //     .expect(404)
-  //     .end((err, res) => {
-  //       res.status.should.equal(404);
-  //       res.body.message.should.equal('Authentication failed. User not found.');
-  //       done();
-  //     });
-  // });
-
-  // const wrongPasswordUser = {
-  //   username: 'pescobar',
-  //   password: '1234'
-  // };
-
-  // it('prevents a user with a wrong password from logging in', (done) => {
-  //   server
-  //     .post('/api/users/login')
-  //     .send(wrongPasswordUser)
-  //     .expect(403)
-  //     .end((err, res) => {
-  //       res.status.should.equal(403);
-  //       res.body.message.should.equal('Authentication failed. Wrong password.');
-  //       done();
-  //     });
-  // });
-
-  // it('allows for logging users out', (done) => {
-  //   server
-  //     .post('/api/users/logout')
-  //     .expect(200)
-  //     .end((err, res) => {
-  //       res.status.should.equal(200);
-  //       res.body.message.should.equal('Logged out successfully.');
-  //       done();
-  //     });
-  // });
 });
 
 describe('Authentication', () => {
@@ -119,26 +63,53 @@ describe('Authentication', () => {
       });
   });
 
+  it('prevents an invalid user from logging in', (done) => {
+    server
+      .post('/api/user/login')
+      .send(invalidUser)
+      .expect(404)
+      .end((err, res) => {
+        res.status.should.equal(401);
+        res.body.message.should.equal('User not found.');
+        res.body.error.message.should.equal('Incorrect username');
+        done();
+      });
+  });
+
   it('allows a new user to create account and login later', (done) => {
     server
-      .post('/register')
+      .post('/api/user/register')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
       .send(user[1])
       .expect(200)
       .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.user.should.equal('lolade');
+        done();
+      });
+  });
+
+  it('prevents a user with a wrong password from logging in', (done) => {
+    server
+      .post('/api/user/login')
+      .send(loginUser[1])
+      .expect(501)
+      .end((err, res) => {
+        res.status.should.equal(401);
+        res.body.error.message.should.equal('Incorrect password');
         done();
       });
   });
 
   it('allows a registered user to login successfully', (done) => {
     server
-    .post('/login')
+    .post('/api/user/login')
     .set('Connection', 'keep alive')
     .set('Content-Type', 'application/json')
     .type('form')
-    .send(loginUser)
+    .send(loginUser[0])
     .expect(200)
     .end((err, res) => {
       res.status.should.equal(200);
@@ -149,7 +120,7 @@ describe('Authentication', () => {
 
   it('allows a loggedin user to logout successfully', (done) => {
     server
-    .get('/logout')
+    .get('/api/user/logout')
     .expect(200)
     .end((err, res) => {
       res.status.should.equal(200);

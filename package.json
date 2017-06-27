@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "migrate":"sequelize db:migrate",
+    "migrate": "sequelize db:migrate",
     "start": "npm run migrate && nodemon --exec babel-node ./server/app.js",
     "test": "set NODE_ENV=test&& npm run migrate && mocha --timeout 10000 --compilers js:babel-core/register ./server/test",
     "clean": "./setdb.sh",
@@ -45,6 +45,7 @@
     "method-override": "^2.3.9",
     "mocha": "^3.4.2",
     "morgan": "^1.5.3",
+    "npm": "^5.0.3",
     "passport": "^0.3.2",
     "passport-facebook": "~1.0.2",
     "passport-google-oauth": "~0.1.5",

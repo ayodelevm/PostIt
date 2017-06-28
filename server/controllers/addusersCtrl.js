@@ -14,7 +14,7 @@ export default class AddUsersCtrl {
   static getAllUsers(req, res, next) {
     models.User.findAll().then((users) => {
       res.status(200).json({
-        message: 'Successful',
+        success: 'Successful.',
         users
       });
     }).catch((err) => {
@@ -38,7 +38,7 @@ export default class AddUsersCtrl {
       order: [['createdAt', 'DESC']]
     }).then((found) => {
       res.status(200).json({
-        message: 'Successful',
+        success: 'Successful.',
         groupMembers: found
       });
     }).catch((err) => {
@@ -73,12 +73,12 @@ export default class AddUsersCtrl {
             }
           });
         });
-        res.status(200).json({
-          message: 'Successful!',
+        res.status(201).json({
+          success: 'Successful.',
         });
       } else {
         res.status(400).json({
-          message: 'You are not allowed to add new users to this group, please contact admin!'
+          error: 'You are not allowed to add new users to this group, please contact admin!'
         });
       }
     }).catch((err) => {

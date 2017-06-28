@@ -36,24 +36,29 @@ export default class messageCtrl {
  * @param {*} next 
  */
   static createNewMessage(req, res, next) {
-    models.Group.findOne({
-      where: { id: req.params.id }
-    }).then(() => {
-      const newMessage = Object.assign(req.body, {
-        UserId: req.user.dataValues.id
-      }, {
-        GroupId: req.params.id
+    if (!req.body.message) {
+      res.status(400).json({
+        error: 'Message cannot be empty'
       });
-      models.Message.create(newMessage).then((addedMessage) => {
-        res.status(201).json({
-          success: 'New message added successfully.',
-          addedMessage
+    } else {
+      models.Group.findOne({
+        where: { id: req.params.id }
+      }).then(() => {
+        const newMessage = Object.assign(req.body, {
+          UserId: req.user.dataValues.id }, { GroupId: req.params.id });
+        models.Message.create(newMessage).then((addedMessage) => {
+          res.status(201).json({
+            success: 'New message added successfully.',
+            addedMessage
+          });
+        }).catch((err) => {
+          res.status(500).json({
+            error: err.errors[0].message
+          });
+          next(err);
         });
-      }).catch((err) => {
-        res.status(500).json(err);
-        next(err);
       });
-    });
+    }
   }
 }
 

@@ -18,14 +18,22 @@ export default class AuthCtrl {
           error: err.message
         });
       }
-      newUser.email = req.body.email;
-      newUser.fullname = req.body.fullname;
-      newUser.save();
-
-      passport.authenticate('local')(req, res, () => {
-        res.status(200).json({
-          message: `Welcome to PostIt ${req.session.passport.user}`,
-          user: req.session.passport.user
+      newUser.update({
+        email: req.body.email,
+        fullname: req.body.fullname
+      }).then(() => {
+        passport.authenticate('local')(req, res, () => {
+          res.status(200).json({
+            message: `Welcome to PostIt ${req.session.passport.user}`,
+            user: req.session.passport.user
+          });
+        });
+      }).catch(() => {
+        models.User.destroy({
+          where: { username: req.body.username }
+        });
+        return res.status(500).json({
+          error: 'Invalid Email.'
         });
       });
     });

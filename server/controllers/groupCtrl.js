@@ -40,28 +40,30 @@ export default class GroupCtrl {
   static createNewGroup(req, res, next) {
     if (!req.body.name) {
       res.status(400).json({
-        message: 'A new group needs to have a name'
+        error: 'A new group needs to have a name'
+      });
+    } else {
+      const newDetails = Object.assign(req.body, { UserId: req.user.dataValues.id });
+      models.Group.create(newDetails).then((newGroup) => {
+        models.UserGroup
+        .create({
+          UserId: req.user.dataValues.id,
+          GroupId: newGroup.id
+        })
+        .then(() => {
+          res.status(201).json({
+            success: 'New group created successfully.',
+            newGroup
+          });
+        });
+      }).catch((err) => {
+        // console.log(err)
+        res.status(500).json({
+          error: err.errors[0].message
+        });
+        next(err);
       });
     }
-    const newDetails = Object.assign(req.body, { UserId: req.user.dataValues.id });
-    models.Group.create(newDetails).then((newGroup) => {
-      models.UserGroup
-      .create({
-        UserId: req.user.dataValues.id,
-        GroupId: newGroup.id
-      })
-      .then(() => {
-        res.status(201).json({
-          success: 'New group created successfully.',
-          newGroup
-        });
-      });
-    }).catch((err) => {
-      res.status(500).json({
-        message: err
-      });
-      next(err);
-    });
   }
 
 /**
@@ -87,12 +89,12 @@ export default class GroupCtrl {
         });
       } else {
         res.status(401).json({
-          message: 'You do not have permission to edit this group\'s details'
+          error: 'You do not have permission to edit this group\'s details'
         });
       }
     }).catch((err) => {
       res.status(500).json({
-        message: err
+        error: err.errors[0].message
       });
       next(err);
     });
@@ -123,12 +125,12 @@ export default class GroupCtrl {
         });
       } else {
         res.status(401).json({
-          message: 'You do not have permission to delete this group'
+          error: 'You do not have permission to delete this group'
         });
       }
     }).catch((err) => {
       res.status(500).json({
-        message: err
+        error: err.errors[0].message
       });
       next(err);
     });

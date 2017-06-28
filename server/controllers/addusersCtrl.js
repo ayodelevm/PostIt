@@ -1,17 +1,17 @@
 import models from './../models/index';
 
 /**
- *
+ * This class handles adding of users to a group
  */
 export default class AddUsersCtrl {
 
 /**
- *
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * This method gets all users that have been registerd
+ * @param {object} req
+ * @param {object} res
+ * @returns {void}
  */
-  static getAllUsers(req, res, next) {
+  static getAllUsers(req, res) {
     models.User.findAll().then((users) => {
       res.status(200).json({
         success: 'Successful.',
@@ -19,17 +19,16 @@ export default class AddUsersCtrl {
       });
     }).catch((err) => {
       res.status(500).json(err);
-      next(err);
     });
   }
 
 /**
- *
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * This methods gets all the users that are in a particular group
+ * @param {object} req
+ * @param {object} res - A group and it's members
+ * @returns {void}
  */
-  static getUsersInGroup(req, res, next) {
+  static getUsersInGroup(req, res) {
     models.Group.findAll({
       where: { id: req.params.id },
       include: [
@@ -43,17 +42,16 @@ export default class AddUsersCtrl {
       });
     }).catch((err) => {
       res.status(500).json(err);
-      next(err);
     });
   }
 
 /**
- *
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * This method add new users to a group
+ * @param {object} req
+ * @param {object} res
+ * @returns {void}
  */
-  static addUsersToGroup(req, res, next) {
+  static addUsersToGroup(req, res) {
     const usersList = [].concat(req.body.usersList);
     models.Group.findOne({
       where: {
@@ -83,7 +81,6 @@ export default class AddUsersCtrl {
       }
     }).catch((err) => {
       res.status(500).json(err);
-      next(err);
     });
   }
 }

@@ -1,17 +1,17 @@
 import models from './../models/index';
 
 /**
- *
+ * This class handles posting messages in groups
  */
 export default class messageCtrl {
 
 /**
- *
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * This method handles getting one group and all it's messages
+ * @param {object} req
+ * @param {object} res
+ * @returns {void}
  */
-  static getGroupAndMessages(req, res, next) {
+  static getGroupAndMessages(req, res) {
     models.Group.findAll({
       where: { id: req.params.id },
       include: [
@@ -25,17 +25,16 @@ export default class messageCtrl {
       });
     }).catch((err) => {
       res.status(500).json(err);
-      next(err);
     });
   }
 
 /**
- *
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * This method handles posting messages to member groups
+ * @param {object} req
+ * @param {object} res
+ * @returns {void}
  */
-  static createNewMessage(req, res, next) {
+  static createNewMessage(req, res) {
     if (!req.body.message) {
       res.status(400).json({
         error: 'Message cannot be empty'
@@ -55,7 +54,6 @@ export default class messageCtrl {
           res.status(500).json({
             error: err.errors[0].message
           });
-          next(err);
         });
       });
     }

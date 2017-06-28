@@ -2,14 +2,15 @@ import passport from 'passport';
 import models from './../models/index';
 
 /**
- *
+ * This class handles the logic for registering an account signin and signing out
  */
 export default class AuthCtrl {
 
 /**
- *
- * @param {*} req 
- * @param {*} res 
+ * This method handles logic for registering a user
+ * @param {*} req
+ * @param {*} res
+ * @returns {void}
  */
   static register(req, res) {
     models.User.register(req.body.username, req.body.password, (err, newUser) => {
@@ -40,10 +41,11 @@ export default class AuthCtrl {
   }
 
 /**
- *
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ *  This method handles logging in an existing user
+ * @param {object} req
+ * @param {object} res
+ * @param {object} next
+ * @returns {void}
  */
   static login(req, res, next) {
     passport.authenticate('local', (error, user, info) => {
@@ -52,7 +54,6 @@ export default class AuthCtrl {
       }
       if (!user) {
         return res.status(401).json({
-          message: 'User not found.',
           error: info
         });
       }
@@ -71,9 +72,10 @@ export default class AuthCtrl {
   }
 
 /**
- *
- * @param {*} req 
- * @param {*} res 
+ * This method handles the logic for logging a user out
+ * @param {object} req
+ * @param {object} res
+ * @returns {void}
  */
   static logout(req, res) {
     req.logout();

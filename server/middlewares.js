@@ -24,7 +24,6 @@ export default class Middlewares {
    *
    * @param {*} req 
    * @param {*} res 
-   * @param {*} next 
    */
   static isAuthorized(req, res, next) {
     models.UserGroup.findOne({
@@ -42,7 +41,6 @@ export default class Middlewares {
       }
     }).catch((err) => {
       res.status(500).json(err);
-      next(err);
     });
   }
 }

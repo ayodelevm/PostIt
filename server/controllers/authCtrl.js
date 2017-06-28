@@ -2,40 +2,50 @@ import passport from 'passport';
 import models from './../models/index';
 
 /**
- *
+ * This class handles the logic for registering an account signin and signing out
  */
 export default class AuthCtrl {
 
 /**
- *
- * @param {*} req 
- * @param {*} res 
+ * This method handles logic for registering a user
+ * @param {*} req
+ * @param {*} res
+ * @returns {void}
  */
   static register(req, res) {
     models.User.register(req.body.username, req.body.password, (err, newUser) => {
       if (err) {
         return res.status(500).json({
-          message: err.message
+          error: err.message
         });
       }
-      newUser.email = req.body.email;
-      newUser.fullname = req.body.fullname;
-      newUser.save();
-
-      passport.authenticate('local')(req, res, () => {
-        res.status(200).json({
-          message: `Welcome to PostIt ${req.session.passport.user}`,
-          user: req.session.passport.user
+      newUser.update({
+        email: req.body.email,
+        fullname: req.body.fullname
+      }).then(() => {
+        passport.authenticate('local')(req, res, () => {
+          res.status(200).json({
+            message: `Welcome to PostIt ${req.session.passport.user}`,
+            user: req.session.passport.user
+          });
+        });
+      }).catch(() => {
+        models.User.destroy({
+          where: { username: req.body.username }
+        });
+        return res.status(500).json({
+          error: 'Invalid Email.'
         });
       });
     });
   }
 
 /**
- *
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ *  This method handles logging in an existing user
+ * @param {object} req
+ * @param {object} res
+ * @param {object} next
+ * @returns {void}
  */
   static login(req, res, next) {
     passport.authenticate('local', (error, user, info) => {
@@ -62,9 +72,10 @@ export default class AuthCtrl {
   }
 
 /**
- *
- * @param {*} req 
- * @param {*} res 
+ * This method handles the logic for logging a user out
+ * @param {object} req
+ * @param {object} res
+ * @returns {void}
  */
   static logout(req, res) {
     req.logout();

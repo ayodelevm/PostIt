@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 // Get all Users
-router.get('/api/user', Middleware.isLoggedIn, AddUsersCtrl.getAllUsers);
+router.get('/api/users', Middleware.isLoggedIn, AddUsersCtrl.getAllUsers);
 
 // Get all Users that belongs to a group
 router.get('/api/group/:id/user', Middleware.isLoggedIn, Middleware.isAuthorized, AddUsersCtrl.getUsersInGroup);

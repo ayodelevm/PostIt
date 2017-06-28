@@ -1,9 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
-import Sequelize from 'sequelize';
-import cookieParser from 'cookie-parser';
-import flash from 'connect-flash';
 import models from './models/index';
 
 // ROUTES
@@ -14,7 +11,6 @@ import messageRoutes from './routes/message';
 import addUsersRoutes from './routes/addusers';
 
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
 
 const app = express();
 
@@ -24,7 +20,6 @@ app.use(bodyParser.json());
 app.use(require('connect-multiparty')());
 
 app.use(express.static(path.join(__dirname, '/public')));
-app.use(flash());
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -45,8 +40,6 @@ passport.deserializeUser(models.User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
-  res.locals.error = req.flash('error');
-  res.locals.success = req.flash('success');
   // if (req.user != undefined) console.log('from here--->', res.locals.currentUser.dataValues);
   next();
 });
@@ -59,26 +52,16 @@ app.use(messageRoutes);
 app.use(addUsersRoutes);
 
 
-// MiddleWares
-
-const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-};
-
 // If no route is matched return a 404
 app.use((req, res, next) => {
   res.status(501).send({
     status: false,
-    message: 'Sorry, this route is not supported by this API.'
+    message: 'Sorry, this address is not supported by this API.'
   });
   next();
 });
 
-
-
+// Listening PORT
 app.listen(process.env.PORT || 3002, () => {
   console.log('serving on port 3002');
 });

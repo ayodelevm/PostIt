@@ -106,7 +106,7 @@ describe('Authentication', () => {
       .set('Content-Type', 'application/json')
       .type('form')
       .send(user[1])
-      .expect(200)
+      .expect(500)
       .end((err, res) => {
         res.status.should.equal(500);
         res.body.error.should.equal('User already exists with lolade');
@@ -141,7 +141,6 @@ describe('Authentication', () => {
       .expect(404)
       .end((err, res) => {
         res.status.should.equal(401);
-        res.body.message.should.equal('User not found.');
         res.body.error.message.should.equal('Incorrect username');
         done();
       });

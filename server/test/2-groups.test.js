@@ -8,7 +8,7 @@ import { groupDetails, updateInfo, noGrpName } from './../seeders/groupSeeds';
 
 const server = supertest.agent(app);
 
-describe('Create Group Routes', () => {
+describe('Group Routes', () => {
   it('allows a registered user to login successfully', (done) => {
     server
     .post('/api/user/login')
@@ -72,6 +72,17 @@ describe('Create Group Routes', () => {
   it('allows a logged in user to get all the groups he belongs to', (done) => {
     server
     .get('/api/group')
+    .expect(200)
+    .end((err, res) => {
+      res.status.should.equal(200);
+      res.body.success.should.equal('Successful.');
+      done();
+    });
+  });
+
+  it('allows a group admin to get one group details for editing', (done) => {
+    server
+    .get('/api/group/2/edit')
     .expect(200)
     .end((err, res) => {
       res.status.should.equal(200);

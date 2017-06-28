@@ -20,7 +20,7 @@ export default class messageCtrl {
         }]
     }).then((foundGroup) => {
       res.status(200).json({
-        message: 'Successful.',
+        success: 'Successful.',
         foundGroup
       });
     }).catch((err) => {
@@ -44,10 +44,9 @@ export default class messageCtrl {
       }, {
         GroupId: req.params.id
       });
-
       models.Message.create(newMessage).then((addedMessage) => {
-        res.status(200).json({
-          message: 'New message added successfully.',
+        res.status(201).json({
+          success: 'New message added successfully.',
           addedMessage
         });
       }).catch((err) => {

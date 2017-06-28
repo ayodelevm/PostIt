@@ -15,7 +15,7 @@ export default class AuthCtrl {
     models.User.register(req.body.username, req.body.password, (err, newUser) => {
       if (err) {
         return res.status(500).json({
-          message: err.message
+          error: err.message
         });
       }
       newUser.email = req.body.email;

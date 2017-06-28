@@ -4,7 +4,7 @@ import 'chai';
 import should from 'should';
 import app from './../app';
 import { loginUser } from './../seeders/authSeeds';
-import { groupDetails, updateInfo } from './../seeders/groupSeeds';
+import { groupDetails, updateInfo, noGrpName } from './../seeders/groupSeeds';
 
 const server = supertest.agent(app);
 
@@ -120,6 +120,37 @@ describe('Create Group Routes', () => {
       done();
     });
   });
+
+  it('ensures that a group has a name', (done) => {
+    server
+    .post('/api/group')
+    .set('Connection', 'keep alive')
+    .set('Content-Type', 'application/json')
+    .type('form')
+    .send(noGrpName)
+    .expect(400)
+    .end((err, res) => {
+      res.status.should.equal(400);
+      res.body.error.should.equal('A new group needs to have a name');
+      done();
+    });
+  });
+
+  it('ensures that group name is unique', (done) => {
+    server
+    .post('/api/group')
+    .set('Connection', 'keep alive')
+    .set('Content-Type', 'application/json')
+    .type('form')
+    .send(groupDetails[2])
+    .expect(500)
+    .end((err, res) => {
+      res.status.should.equal(500);
+      res.body.error.should.equal('name must be unique');
+      done();
+    });
+  });
+
 
   it('prevents a user from editing a group he is not a member of', (done) => {
     server

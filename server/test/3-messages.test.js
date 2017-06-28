@@ -64,4 +64,19 @@ describe('Messages Routes', () => {
       done();
     });
   });
+
+  it('should ensure that messages are not empty', (done) => {
+    server
+    .post('/api/group/3/message')
+    .set('Connection', 'keep alive')
+    .set('Content-Type', 'application/json')
+    .type('form')
+    .send({ message: null })
+    .expect(400)
+    .end((err, res) => {
+      res.status.should.equal(400);
+      res.body.error.should.equal('Message cannot be empty');
+      done();
+    });
+  });
 });

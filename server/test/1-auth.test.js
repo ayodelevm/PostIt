@@ -4,7 +4,7 @@ import 'chai';
 import should from 'should';
 import app from './../app';
 import models from '../models/index';
-import { user, loginUser, invalidUser, incorrectPassword } from './../seeders/authSeeds';
+import { user, loginUser, invalidUser, incorrectPassword, invalidEmail } from './../seeders/authSeeds';
 
 const server = supertest.agent(app);
 
@@ -98,21 +98,6 @@ describe('Authentication', () => {
         done();
       });
   });
-});
-
-describe('Authentication', () => {
-  it('prevents an invalid user from logging in', (done) => {
-    server
-      .post('/api/user/login')
-      .send(invalidUser)
-      .expect(404)
-      .end((err, res) => {
-        res.status.should.equal(401);
-        res.body.message.should.equal('User not found.');
-        res.body.error.message.should.equal('Incorrect username');
-        done();
-      });
-  });
 
   it('should ensure that username is unique', (done) => {
     server
@@ -129,11 +114,47 @@ describe('Authentication', () => {
       });
   });
 
+  it('validates email during registration', (done) => {
+    server
+      .post('/api/user/register')
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .send(invalidEmail)
+      .expect(500)
+      .end((err, res) => {
+        res.status.should.equal(500);
+        res.body.error.should.equal('Invalid Email.');
+        done();
+      });
+  });
+});
+
+describe('Authentication', () => {
+  it('prevents an invalid user from logging in', (done) => {
+    server
+      .post('/api/user/login')
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .send(invalidUser)
+      .expect(404)
+      .end((err, res) => {
+        res.status.should.equal(401);
+        res.body.message.should.equal('User not found.');
+        res.body.error.message.should.equal('Incorrect username');
+        done();
+      });
+  });
+
   it('prevents a user with a wrong password from logging in', (done) => {
     server
       .post('/api/user/login')
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .type('form')
       .send(incorrectPassword)
-      .expect(501)
+      .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
         res.body.error.message.should.equal('Incorrect password');

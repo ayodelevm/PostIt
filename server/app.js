@@ -5,10 +5,10 @@ import models from './models/index';
 
 // ROUTES
 
-import authRoutes from './routes/auth';
-import groupRoutes from './routes/group';
-import messageRoutes from './routes/message';
-import addUsersRoutes from './routes/addusers';
+import authRoutes from './routes/authRoutes';
+import groupRoutes from './routes/groupRoutes';
+import messageRoutes from './routes/messageRoutes';
+import addUsersRoutes from './routes/addusersRoutes';
 
 const passport = require('passport');
 

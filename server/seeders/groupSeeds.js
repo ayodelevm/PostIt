@@ -17,3 +17,8 @@ export const updateInfo = {
   description: 'We speak the pythonic language',
   imageUrl: 'https://farm9.staticflickr.com/8076/8319742380_4c6dc9c3ef.jpg'
 };
+
+export const noGrpName = {
+  description: 'For all Java lovers!',
+  imageUrl: 'https://farm9.staticflickr.com/8076/8319742380_4c6dc9c3ef.jpg'
+};

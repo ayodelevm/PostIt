@@ -37,3 +37,10 @@ export const invalidUser = {
   username: 'test',
   password: 1234
 };
+
+export const invalidEmail = {
+  username: 'tunji',
+  password: 'tunji05',
+  email: 'tunji05@y',
+  fullname: 'tunji olaleye'
+};

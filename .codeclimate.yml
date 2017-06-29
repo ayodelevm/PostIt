@@ -7,17 +7,11 @@ engines:
         config:
           languages:
           - javascript:
-    
-engines:
   eslint:
     enabled: true
     checks:
       import/extensions:
         enabled: false
-engines:
-  eslint:
-    enabled: true
-    checks:
       no-multiple-empty-lines:
         enabled: false
 

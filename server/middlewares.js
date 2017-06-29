@@ -1,15 +1,16 @@
 import models from './models/index';
 
 /**
- *
+ * This class handles all middlewares for authorization
  */
 export default class Middlewares {
 
   /**
-   *
-   * @param {*} req 
-   * @param {*} res 
-   * @param {*} next 
+   * This method checks if a user is logged in and prevents jumping routes
+   * @param {object} req
+   * @param {object} res
+   * @param {object} next
+   * @returns {void}
    */
   static isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
@@ -21,9 +22,12 @@ export default class Middlewares {
   }
 
   /**
-   *
-   * @param {*} req 
-   * @param {*} res 
+   * This method checks if the user is in a group before allowing the user to perform
+   * any action in that group
+   * @param {object} req
+   * @param {object} res
+   * @param {object} next
+   * @returns {void}
    */
   static isAuthorized(req, res, next) {
     models.UserGroup.findOne({

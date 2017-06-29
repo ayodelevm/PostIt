@@ -56,21 +56,21 @@ The Inverted-Index-Api-Module enables you to create index for words in a JSON Ar
 
 name   |     url       |      verb      |     description
 ------ | ------------- | -------------- | -------------------
-       |      AUTH     |                 |
+AUTH    |               |                 |
 REGISTER     |  /api/user/register     |     POST     |     Allows users to register an account on PostIt
 LOGIN     |    /api/user/login   |    POST      |    Allows a registered user to login
 LOGOUT     |  /api/user/logout     |     GET     |     Allows a logged in user to logout
-         |          GROUP       |                  |
+GROUP |
 GET ALL     |    /api/group   |    GET      |    Allows a registered user to retrieve all groups he belongs to
 CREATE     |  /api/group/     |     POST     |     Allows a registered user to create a new group
 GET ONE     |    /api/group/:id/edit   |    GET      |    Allows a group owner to retrieve details of his group for editing purpose
 UPDATE     |  /api/group/:id/edit     |     PUT     |     Allows a group owner to update his group details
 DELETE     |    /api/group/delete   |    DELETE      |    Allows a group owner to delete his group
-        |             USERS   |                  |
+USERS |
 GET ALL     |  /api/users     |     GET     |     Retrieves all registered users
 GET GROUP USERS     |    /api/group/:id/user   |    GET      |    Retrieves all the users in a particular group
 CREATE     |  /api/group/:id/user     |     POST     |     Allows group owner to add registered users to his group
-          |           MESSAGES    |                |
+MESSAGES |
 GET     |    /api/group/:id/messages   |    GET      |    Retrieves one group and all it's messages
 CREATE     |  /api/group/:id/message     |     POST     |     Allows group members to post messages in memeber groups
 

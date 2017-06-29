@@ -9,6 +9,8 @@ engines:
           - javascript:
   eslint:
     enabled: true
+  exclude_paths:
+  - "templates/"
     checks:
       import/extensions:
         enabled: false

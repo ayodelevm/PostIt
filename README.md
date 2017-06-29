@@ -1,6 +1,6 @@
 # PostIt
 
-[![Build Status](https://travis-ci.org/ayodelevm/PostIt.svg?branch=development)](https://travis-ci.org/ayodelevm/PostIt)  [![Coverage Status](https://coveralls.io/repos/github/ayodelevm/PostIt/badge.svg?branch=development)](https://coveralls.io/github/ayodelevm/PostIt?branch=development)
+[![Build Status](https://travis-ci.org/ayodelevm/PostIt.svg?branch=development)](https://travis-ci.org/ayodelevm/PostIt)  [![Coverage Status](https://coveralls.io/repos/github/ayodelevm/PostIt/badge.svg?branch=development)](https://coveralls.io/github/ayodelevm/PostIt?branch=development)  [![Code Climate](https://codeclimate.com/github/ayodelevm/PostIt/badges/gpa.svg)](https://codeclimate.com/github/ayodelevm/PostIt)  [![Issue Count](https://codeclimate.com/github/ayodelevm/PostIt/badges/issue_count.svg)](https://codeclimate.com/github/ayodelevm/PostIt)
 
 ## Introduction
 **`PostIt`** is a simple application that allows friends and colleagues create groups for notifications. It allows a person post notifications to everyone in his group by sending a message once.

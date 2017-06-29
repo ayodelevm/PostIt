@@ -22,6 +22,8 @@
   *  **[Sequelize-cli](https://github.com/sequelize/cli)** - The Sequelize Command Line Interface (CLI)
   *  **[Postgres](https://www.postgresql.org/)** - A a promise-based ORM for Node.js and io.js. Used in this project as ORM for postgres
   *  **[Body-Parser](https://www.npmjs.com/package/body-parser)** - This package parse incoming request bodies in a middleware and makes it available under *req.body* property
+  *  **[Passport](http://passportjs.org/)** - The module is a middleware for authenticating node.js applications
+  *  **[Passport-local-sequelize](https://www.npmjs.com/package/passport-local-sequelize)** - A sequelize plugin for setting up username and password. Used in this project to hash password and compare password during login
   *  **[dotenv](https://github.com/kennethreitz/autoenv)** - Enables loading environment variables from a .env file into process.env.
 
 ## Installation and setup
@@ -42,6 +44,8 @@
 
     >In order to use need to have **nodeJs** and **npm** installed on your system.
     >For database you need to install **PostGres** locally or setup with an online client eg. **ElephantSql**
+    >Create two (2) databases one for *development* and the other for *testing*
+    >Change database config variables in the config.json file, based on your own db set-up
     >In other to interact effectively with endpoints, install and use **Postman**
 
 * Run the app

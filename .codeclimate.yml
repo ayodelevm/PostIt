@@ -9,11 +9,10 @@ engines:
           - javascript:
   eslint:
     enabled: true
-  exclude_paths:
-  - "templates/"
     checks:
       import/extensions:
         enabled: false
       no-multiple-empty-lines:
         enabled: false
-
+exclude_paths:
+- "templates/"

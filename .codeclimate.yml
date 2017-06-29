@@ -16,3 +16,7 @@ engines:
         enabled: false
 exclude_paths:
 - "templates/"
+ratings:
+   paths:
+   - "server/**/*"
+   - "server/*"

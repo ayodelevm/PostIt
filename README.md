@@ -56,8 +56,7 @@ The Inverted-Index-Api-Module enables you to create index for words in a JSON Ar
 
 name   |     url       |      verb      |     description
 ------ | ------------- | -------------- | -------------------
-        |               |                | 
-        |             AUTH          |
+AUTH |                 |                 |
 REGISTER     |  /api/user/register     |     POST     |     Allows users to register an account on PostIt
 LOGIN     |    /api/user/login   |    POST      |    Allows a registered user to login
 LOGOUT     |  /api/user/logout     |     GET     |     Allows a logged in user to logout

@@ -73,4 +73,10 @@ div.card-content p.light.italics {
 div.row div.in.input-field {
   margin-top: 0; }
 
+.message-input {
+  position: relative; }
+
+.text-input {
+  position: absolute; }
+
 /*# sourceMappingURL=main.css.map */

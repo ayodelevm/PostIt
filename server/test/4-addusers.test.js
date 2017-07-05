@@ -2,7 +2,7 @@ import supertest from 'supertest';
 import 'mocha';
 import 'chai';
 import should from 'should';
-import app from './../app';
+import app from './../../app';
 import { loginUser } from './../seeders/authSeeds';
 import { updateInfo } from './../seeders/groupSeeds';
 import usersList from './../seeders/adduserSeeds';

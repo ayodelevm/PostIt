@@ -138,5 +138,5 @@ N:B: You can only post message in groups you have created or have been added to
   *  `npm run test`
 *  If the tests are successful, they will complete without failures or errors.
 
-Copyright 2017, Ayodele Victor
+##### Copyright 2017, Ayodele Victor
 

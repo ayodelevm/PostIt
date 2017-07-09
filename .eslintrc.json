@@ -6,6 +6,10 @@
     "es6": true,
     "jasmine": true
   },
+  "globals": {
+    "before": true,
+    "should": true
+  },
   "rules": {
     "one-var": 0,
     "one-var-declaration-per-line": 0,

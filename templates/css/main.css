@@ -1,6 +1,39 @@
 @import url("https://fonts.googleapis.com/css?family=Pacifico");
 @import url("https://fonts.googleapis.com/css?family=Sacramento");
 @import url("https://fonts.googleapis.com/css?family=Homemade+Apple");
+div #frame_1 {
+  width: 100%;
+  height: 360px; }
+
+div #frame_2 {
+  height: 350px;
+  overflow: auto; }
+
+ul.tab_font.tabs li a {
+  text-transform: capitalize; }
+ul.tab_font.tabs li a.active {
+  text-transform: capitalize; }
+
+footer {
+  position: fixed;
+  height: 150px;
+  background-color: none;
+  bottom: 0px;
+  /*padding-top: 150px;*/
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px; }
+
+#textarea1 {
+  height: 0px; }
+
+body#message {
+  margin-bottom: 150px; }
+
+#site_name {
+  font-family: 'Homemade Apple', cursive;
+  font-weight: 100px; }
+
 body#register_signin {
   display: flex;
   min-height: 100vh;
@@ -15,41 +48,9 @@ body#register_signin {
 div #below_nav {
   margin-top: 50px; }
 
-#site_name {
-  font-family: 'Homemade Apple', cursive;
-  font-weight: 100px; }
-
 div.slide_sec {
-  margin-top: 9px; }
-
-main {
-  flex: 1 0 auto; }
-
-div #frame_1 {
-  width: 100%;
-  height: 360px; }
-
-div #frame_2 {
-  height: 350px;
-  overflow: auto; }
-
-img.profile_image {
-  max-height: 100px;
-  max-width: 100px;
-  border-radius: 50%;
-  margin-left: 40px; }
-
-img.background_img {
-  max-height: 50px;
-  max-width: 50px;
-  margin: 0;
-  padding: 0; }
-
-span #name_center {
-  margin-left: 70px; }
-
-span #email_center {
-  margin-left: 40px; }
+  margin-top: 9px;
+  border-bottom: 1px solid grey; }
 
 div.notification {
   font-size: 100;
@@ -57,11 +58,6 @@ div.notification {
 
 div .collection {
   font-size: 0.8em; }
-
-ul.tab_font.tabs li a {
-  text-transform: capitalize; }
-ul.tab_font.tabs li a.active {
-  text-transform: capitalize; }
 
 div.card-content span.span_font {
   font-weight: bold;
@@ -72,5 +68,25 @@ div.card-content p.light.italics {
 
 div.row div.in.input-field {
   margin-top: 0; }
+
+.footer-ish {
+  bottom: 0;
+  position: fixed;
+  width: 100%; }
+
+.user_details {
+  font-size: 0.8em; }
+
+img.user_img {
+  box-sizing: border-box;
+  max-height: 100%;
+  max-width: 100%; }
+
+img.profile_img_header {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  bottom: 0; }
 
 /*# sourceMappingURL=main.css.map */

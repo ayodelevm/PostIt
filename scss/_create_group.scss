@@ -1,39 +1,3 @@
-img.profile_image {
-  max-height: 100px;
-  max-width: 100px;
-  border-radius: 50%;
-  margin-left: 40px;
-  // box-sizing: border-box;
-  // max-width: 100%;
-}
-
-img.background_img {
-  max-height: 50px;
-  max-width: 50px;
-  margin: 0;
-  padding: 0;
-  // position: relative;
-}
-
-span #name_center {
-  margin-left: 70px;
-}
-
-span #email_center {
-  margin-left: 40px;
-}
-
-div.notification {
-  font-size: 100;
-  text-transform: capitalize;
-}
-
-div {
-  .collection {
-    font-size: 0.8em;
-  }
-}
-
 ul.tab_font.tabs {
   // font-size: 0.8em;
   li a {
@@ -44,19 +8,4 @@ ul.tab_font.tabs {
   }
 }
 
-div.card-content {
-  span.span_font {
-    font-weight: bold;
-    font-size: 1.2em;
-  }
-  p.light.italics {
-    font-style: italic;
-    margin-top: 0.4em;
-  }
-}
 
-div.row {
-  div.in.input-field {
-    margin-top: 0;
-  }
-}

@@ -118,7 +118,7 @@ N:B: You can only edit details of groups you created
 To add new users to a group, send all the userId's in an array `(Example below)`:
 ```
 {
-  usersList: [1, 3, 4]
+  "usersList": [1, 3, 4]
 }
 ```
 N:B: You can only add users to a group you create

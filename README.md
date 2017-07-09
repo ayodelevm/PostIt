@@ -26,7 +26,7 @@ This app's functionality depends on multiple NPM packages including;
   *  **[Passport-local-sequelize](https://www.npmjs.com/package/passport-local-sequelize)** - A sequelize plugin for setting up username and password. Used in this project to hash password and compare password during login
   *  **[dotenv](https://github.com/kennethreitz/autoenv)** - Enables loading environment variables from a .env file into process.env.
 
-## Installation and setup
+## Installation and Setup
 *  Navigate to a directory of choice on `terminal`.
 *  Clone this repository on that directory.
   *  Using SSH;
@@ -41,7 +41,7 @@ This app's functionality depends on multiple NPM packages including;
   *  `cd PostIt/`
 * Install the app's backend dependencies using `npm install`
 
-  #### NOTE
+  #### Note
   * In order to begin using, you need to have __nodeJs__ and **npm** installed on your system.
   * For database you need to install __PostGres__ locally or setup with an online client eg. **ElephantSql**
   * Create two (2) databases one for __development__ and the other for **testing**
@@ -52,11 +52,7 @@ This app's functionality depends on multiple NPM packages including;
   *  `npm start`
   *  Running the command above will run the app at localhost://3002.
 
-## Usage
-
-The Inverted-Index-Api-Module enables you to create index for words in a JSON Array and search the index.
-
-## ENDPOINTS SUMMARY
+## Endpoints Summary
 
 name   |     url       |      verb      |     description
 ------ | ------------- | -------------- | -------------------
@@ -78,7 +74,7 @@ CREATE     |  /api/group/:id/user s    |     POST     |     Allows group owner t
 GET     |    /api/group/:id/messages   |    GET      |    Retrieves one member-group and all it's messages
 CREATE     |  /api/group/:id/message     |     POST     |     Allows group members to post messages in memeber groups
 
-## PAYLOAD EXAMPLES FOR POST AND PUT REQUESTS
+## Payload Examples for POST and PUT Requests
 
 #### Register New User: `/api/user/register`
 To register a new user, send the following parameters `(example below)`:
@@ -138,5 +134,5 @@ N:B: You can only post message in groups you have created or have been added to
   *  `npm run test`
 *  If the tests are successful, they will complete without failures or errors.
 
-##### Copyright 2017, Ayodele Victor
+###### Copyright 2017, Ayodele Victor
 

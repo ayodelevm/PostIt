@@ -19,6 +19,7 @@
       <nav class="purple darken-4">
         <div class="nav-wrapper">
           <a href="#" class="brand-logo center"><i class="left large material-icons">insert_chart  </i><span id="site_name">PostIt</span></a>
+          <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li class="active"><a href="signin.html">Login</a></li>
             <li><a href="signup.html">Create Account</a></li>
@@ -103,6 +104,15 @@
       </div>
     </main>
 
+    <!-- Side Nav -->
+    <ul id="slide-out" class="side-nav">
+      <li><div class="divider"></div></li>
+      <li><a class="waves-effect waves-light" href="">Create New Account</a></li>
+      <li><div class="divider"></div></li>
+      <li class="active"><a class="waves-effect waves-light" href="">Login</a></li>
+      <li><div class="divider"></div></li>
+    </ul>
+
 <!-- Footer Section -->
     <footer class="page-footer transparent">
 
@@ -126,6 +136,7 @@
 
   <!-- Materialize Script -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+  <script src="../js/modal.js"></script>
 
   <!-- My custom JavaScript -->
   <script src="../js/main.js"></script>

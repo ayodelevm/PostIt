@@ -42,7 +42,7 @@ This app's functionality depends on multiple NPM packages including;
 * Install the app's backend dependencies using `npm install`
 
   #### Note
-  * In order to use need to have __nodeJs__ and **npm** installed on your system.
+  * In order to begin using, you need to have __nodeJs__ and **npm** installed on your system.
   * For database you need to install __PostGres__ locally or setup with an online client eg. **ElephantSql**
   * Create two (2) databases one for __development__ and the other for **testing**
   * Change database config variables in the config.json file, based on your own db set-up
@@ -114,7 +114,7 @@ N:B: You can only edit details of groups you created
 To add new users to a group, send all the userId's in an array `(Example below)`:
 ```
 {
-  usersList: [1, 3, 4]
+  "usersList": [1, 3, 4]
 }
 ```
 N:B: You can only add users to a group you create

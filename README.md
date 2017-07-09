@@ -42,7 +42,7 @@ This app's functionality depends on multiple NPM packages including;
 * Install the app's backend dependencies using `npm install`
 
   #### NOTE
-  * In order to use need to have __nodeJs__ and **npm** installed on your system.
+  * In order to begin using, you need to have __nodeJs__ and **npm** installed on your system.
   * For database you need to install __PostGres__ locally or setup with an online client eg. **ElephantSql**
   * Create two (2) databases one for __development__ and the other for **testing**
   * Change database config variables in the config.json file, based on your own db set-up

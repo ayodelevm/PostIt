@@ -12,16 +12,24 @@ export default class messageCtrl {
  * @returns {void}
  */
   static getGroupAndMessages(req, res) {
-    models.Group.findAll({
+    models.Group.findOne({
       where: { id: req.params.id },
       include: [
         { model: models.Message,
+          attributes: ['id', 'message', 'GroupId', 'createdAt', ['UserId', 'ownerId']],
           order: [['createdAt', 'DESC']]
         }]
-    }).then((foundGroup) => {
+    }).then((found) => {
+      const currentGroup = { groupId: found.id,
+        name: found.name,
+        description: found.description,
+        imageUrl: found.imageUrl,
+        ownerId: found.UserId,
+        createdAt: found.createdAt };
       res.status(200).json({
         success: 'Successful.',
-        foundGroup
+        currentGroup,
+        groupMessages: found.Messages
       });
     }).catch((err) => {
       res.status(500).json(err);

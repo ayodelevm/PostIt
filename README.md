@@ -61,7 +61,7 @@ REGISTER     |  /api/user/register     |     POST     |     Allows users to regi
 LOGIN     |    /api/user/login   |    POST      |    Allows a registered user to login
 LOGOUT     |  /api/user/logout     |     GET     |     Allows a logged in user to logout
 **GROUP** |
-GET ALL     |    /api/group   |    GET      |    Allows a registered user to retrieve all groups he belongs to
+GET ALL     |    /api/groups   |    GET      |    Allows a registered user to retrieve all groups he belongs to
 CREATE     |  /api/group     |     POST     |     Allows a registered user to create a new group
 GET ONE     |    /api/group/:id/edit   |    GET      |    Allows a group owner to retrieve details of his group for editing purpose
 UPDATE     |  /api/group/:id/edit     |     PUT     |     Allows a group owner to update his group details
@@ -69,7 +69,7 @@ DELETE     |    /api/group/delete   |    DELETE      |    Allows a group owner t
 **USERS** |
 GET ALL     |  /api/users     |     GET     |     Retrieves all registered users. Accessible only in a group you have created.
 GET GROUP USERS     |    /api/group/:id/users   |    GET      |    Retrieves all the users in a particular group
-CREATE     |  /api/group/:id/user s    |     POST     |     Allows group owner to add registered users to his group
+CREATE     |  /api/group/:id/user    |     POST     |     Allows group owner to add registered users to his group
 **MESSAGES** |
 GET     |    /api/group/:id/messages   |    GET      |    Retrieves one member-group and all it's messages
 CREATE     |  /api/group/:id/message     |     POST     |     Allows group members to post messages in memeber groups
@@ -110,16 +110,17 @@ To edit/ update group details, you can send any of the following parameters `(Na
 ```
 N:B: You can only edit details of groups you created
 
-#### Add New Users to a Group: `/api/group/:id/users`
-To add new users to a group, send all the userId's in an array `(Example below)`:
+#### Add New Users to a Group: `/api/group/:id/user`
+To add new users to a group, send the following parameter `(Example below)`:
 ```
 {
-  "usersList": [1, 3, 4]
+  "idToAdd": 1
 }
 ```
 N:B: You can only add users to a group you create
 
 #### Post messages in Groups you belong: `/api/group/:id/message`
+To post messages in group, you need to send the following parameters `(Example below)`:
 ```
 {
   "message": "I enjoyed every bit of learning today"

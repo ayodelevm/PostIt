@@ -1,7 +1,9 @@
-const usersList = [{
-  usersList: [2, 3]
+const idToAdd = [{
+  idToAdd: 2
 }, {
-  usersList: [3, 4]
+  idToAdd: 3
+}, {
+  idToAdd: 4
 }];
 
-export default usersList;
+export default idToAdd;

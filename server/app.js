@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
@@ -9,6 +10,8 @@ import authRoutes from './routes/authRoutes';
 import groupRoutes from './routes/groupRoutes';
 import messageRoutes from './routes/messageRoutes';
 import addUsersRoutes from './routes/addusersRoutes';
+
+dotenv.config();
 
 const passport = require('passport');
 

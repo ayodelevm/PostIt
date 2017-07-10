@@ -12,7 +12,9 @@ export default class AddUsersCtrl {
  * @returns {void}
  */
   static getAllUsers(req, res) {
-    models.User.findAll().then((users) => {
+    models.User.findAll({
+      attributes: { exclude: ['mysalt', 'updatedAt'] }
+    }).then((users) => {
       res.status(200).json({
         success: 'Successful.',
         users
@@ -29,16 +31,26 @@ export default class AddUsersCtrl {
  * @returns {void}
  */
   static getUsersInGroup(req, res) {
-    models.Group.findAll({
+    models.Group.findOne({
       where: { id: req.params.id },
       include: [
-      { model: models.User }
+        { model: models.User,
+          attributes: { exclude: ['mysalt', 'updatedAt'] },
+          through: { attributes: [] } }
       ],
       order: [['createdAt', 'DESC']]
     }).then((found) => {
+      const currentGroup = { groupId: found.id,
+        name: found.name,
+        description: found.description,
+        imageUrl: found.imageUrl,
+        ownerId: found.UserId,
+        createdAt: found.createdAt };
+
       res.status(200).json({
         success: 'Successful.',
-        groupMembers: found
+        currentGroup,
+        groupMembers: found.Users
       });
     }).catch((err) => {
       res.status(500).json(err);
@@ -52,24 +64,22 @@ export default class AddUsersCtrl {
  * @returns {void}
  */
   static addUsersToGroup(req, res) {
-    const usersList = [].concat(req.body.usersList);
+    const idToAdd = Number(req.body.idToAdd);
     models.Group.findOne({
       where: {
         id: req.params.id
       }
     }).then((group) => {
       if (group.UserId === req.user.dataValues.id) {
-        usersList.forEach((eachId) => {
-          models.UserGroup.findOrCreate({
-            where: { $and: {
-              GroupId: req.params.id,
-              UserId: eachId
-            } },
-            defaults: {
-              GroupId: req.params.id,
-              UserId: eachId
-            }
-          });
+        models.UserGroup.findOrCreate({
+          where: { $and: {
+            GroupId: req.params.id,
+            UserId: idToAdd
+          } },
+          defaults: {
+            GroupId: req.params.id,
+            UserId: idToAdd
+          }
         });
         res.status(201).json({
           success: 'Successful.',

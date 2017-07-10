@@ -25,6 +25,10 @@ module.exports = {
       fullname: {
         type: Sequelize.STRING
       },
+      profileImage: {
+        type: Sequelize.STRING,
+        defaultValue: 'https://www.conncoll.edu/media/major-images/Art.jpg'
+      },
       mysalt: {
         type: Sequelize.STRING
       },

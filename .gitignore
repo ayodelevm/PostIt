@@ -62,3 +62,7 @@ typings/
 
 # Views 
 server/views
+
+#DS_STORE
+.DS_STORE
+templates/html/.DS_STORE

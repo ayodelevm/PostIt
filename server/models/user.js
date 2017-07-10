@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     fullname: {
       type: DataTypes.STRING
     },
+    profileImage: {
+      type: DataTypes.STRING,
+      defaultValue: 'https://www.conncoll.edu/media/major-images/Art.jpg'
+    },
     mysalt: {
       type: DataTypes.STRING
     }

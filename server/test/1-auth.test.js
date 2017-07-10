@@ -30,7 +30,7 @@ describe('Authentication', () => {
 
   it('prevents access to other routes if not logged in', (done) => {
     server
-      .get('/api/group')
+      .get('/api/groups')
       .expect(400)
       .end((err, res) => {
         res.status.should.equal(400);

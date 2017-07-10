@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/api/users', Middleware.isLoggedIn, AddUsersCtrl.getAllUsers);
 
 // Get all Users that belongs to a group
-router.get('/api/group/:id/user', Middleware.isLoggedIn, Middleware.isAuthorized, AddUsersCtrl.getUsersInGroup);
+router.get('/api/group/:id/users', Middleware.isLoggedIn, Middleware.isAuthorized, AddUsersCtrl.getUsersInGroup);
 
 // Add New Users to a group
 router.post('/api/group/:id/user', Middleware.isLoggedIn, Middleware.isAuthorized, AddUsersCtrl.addUsersToGroup);

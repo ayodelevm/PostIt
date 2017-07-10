@@ -5,12 +5,12 @@ import should from 'should';
 import app from './../app';
 import { loginUser } from './../seeders/authSeeds';
 import { updateInfo } from './../seeders/groupSeeds';
-import usersList from './../seeders/adduserSeeds';
+import idToAdd from './../seeders/adduserSeeds';
 import message from './../seeders/messageSeeds';
 
 const server = supertest.agent(app);
 
-describe('Add Users Route Routes', () => {
+describe('Add Users Route', () => {
   it('allows a registered user to login successfully', (done) => {
     server
     .post('/api/user/login')
@@ -43,7 +43,22 @@ describe('Add Users Route Routes', () => {
     .set('Connection', 'keep alive')
     .set('Content-Type', 'application/json')
     .type('form')
-    .send(usersList[0])
+    .send(idToAdd[0])
+    .expect(201)
+    .end((err, res) => {
+      res.status.should.equal(201);
+      res.body.success.should.equal('Successful.');
+      done();
+    });
+  });
+
+  it('allows an admin to add other users to his group', (done) => {
+    server
+    .post('/api/group/2/user')
+    .set('Connection', 'keep alive')
+    .set('Content-Type', 'application/json')
+    .type('form')
+    .send(idToAdd[1])
     .expect(201)
     .end((err, res) => {
       res.status.should.equal(201);
@@ -58,7 +73,22 @@ describe('Add Users Route Routes', () => {
     .set('Connection', 'keep alive')
     .set('Content-Type', 'application/json')
     .type('form')
-    .send(usersList[1])
+    .send(idToAdd[1])
+    .expect(201)
+    .end((err, res) => {
+      res.status.should.equal(201);
+      res.body.success.should.equal('Successful.');
+      done();
+    });
+  });
+
+  it('allows an admin to add other users to his group', (done) => {
+    server
+    .post('/api/group/3/user')
+    .set('Connection', 'keep alive')
+    .set('Content-Type', 'application/json')
+    .type('form')
+    .send(idToAdd[2])
     .expect(201)
     .end((err, res) => {
       res.status.should.equal(201);
@@ -69,7 +99,7 @@ describe('Add Users Route Routes', () => {
 
   it('allows a user to get all users in a group he belongs', (done) => {
     server
-    .get('/api/group/3/user')
+    .get('/api/group/3/users')
     .expect(200)
     .end((err, res) => {
       res.status.should.equal(200);
@@ -114,7 +144,7 @@ describe('Add Users Route Routes', () => {
     .set('Connection', 'keep alive')
     .set('Content-Type', 'application/json')
     .type('form')
-    .send(usersList[0])
+    .send(idToAdd[0])
     .expect(400)
     .end((err, res) => {
       res.status.should.equal(400);

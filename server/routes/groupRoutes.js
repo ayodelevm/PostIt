@@ -5,7 +5,7 @@ import GroupCtrl from './../controllers/groupCtrl';
 const router = express.Router();
 
 // Get All Groups
-router.get('/api/group', Middleware.isLoggedIn, GroupCtrl.getAll);
+router.get('/api/groups', Middleware.isLoggedIn, GroupCtrl.getAll);
 
 // Create New Group
 router.post('/api/group', Middleware.isLoggedIn, GroupCtrl.createNewGroup);

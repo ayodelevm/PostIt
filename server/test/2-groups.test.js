@@ -71,7 +71,7 @@ describe('Group Routes', () => {
 
   it('allows a logged in user to get all the groups he belongs to', (done) => {
     server
-    .get('/api/group')
+    .get('/api/groups')
     .expect(200)
     .end((err, res) => {
       res.status.should.equal(200);
@@ -87,6 +87,21 @@ describe('Group Routes', () => {
     .end((err, res) => {
       res.status.should.equal(200);
       res.body.success.should.equal('Successful.');
+      done();
+    });
+  });
+
+  it('ensures that a group has a name when updating', (done) => {
+    server
+    .put('/api/group/2/edit')
+    .set('Connection', 'keep alive')
+    .set('Content-Type', 'application/json')
+    .type('form')
+    .send(noGrpName)
+    .expect(400)
+    .end((err, res) => {
+      res.status.should.equal(400);
+      res.body.error.should.equal('A group needs to have a name');
       done();
     });
   });
@@ -189,5 +204,3 @@ describe('Group Routes', () => {
     });
   });
 });
-
-

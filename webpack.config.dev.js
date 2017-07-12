@@ -1,6 +1,6 @@
-import webpack from 'webpack';
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   debug: true,
@@ -9,22 +9,22 @@ module.exports = {
   entry: [
     'eventsource-polyfill', // necessary for hot reloading with IE
     'webpack-hot-middleware/client?reload=true', // note that it reloads the page if hot module reloading fails.
-    path.resolve(__dirname, 'client/src/index')
+    path.resolve(__dirname, 'client/dev/js/index.js')
   ],
   target: 'web',
   output: {
     path: path.join(__dirname, '/build'), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'js/bundle.min.js'
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'client/src')
+    contentBase: path.resolve(__dirname, 'client/dev')
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'client/src/index.html'),
+      template: path.resolve(__dirname, 'client/build/index.html'),
       filename: 'index.html'
     }),
     new webpack.ProvidePlugin({
@@ -40,7 +40,7 @@ module.exports = {
   ],
   module: {
     loaders: [
-      { test: /\.js$/, include: path.join(__dirname, 'client/src'), loaders: ['babel'] },
+      { test: /\.js$/, include: path.join(__dirname, 'client/dev'), loaders: ['babel-loader'] },
       { test: /(\.css)$/, loaders: ['style', 'css'] },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
       { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?prefix=font/&limit=5000' },

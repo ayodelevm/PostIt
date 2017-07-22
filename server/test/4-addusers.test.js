@@ -37,7 +37,7 @@ describe('Add Users Route', () => {
     });
   });
 
-  it('allows an admin to add other users to his group', (done) => {
+  it('prevents a user/admin from being re-added to a group if already a member', (done) => {
     server
     .post('/api/group/2/user')
     .set('Connection', 'keep alive')
@@ -46,8 +46,8 @@ describe('Add Users Route', () => {
     .send(idToAdd[0])
     .expect(201)
     .end((err, res) => {
-      res.status.should.equal(201);
-      res.body.success.should.equal('Successful.');
+      res.status.should.equal(401);
+      res.body.error.should.equal('lolade is already a member of this group');
       done();
     });
   });
@@ -62,7 +62,7 @@ describe('Add Users Route', () => {
     .expect(201)
     .end((err, res) => {
       res.status.should.equal(201);
-      res.body.success.should.equal('Successful.');
+      res.body.success.should.equal('bolu added successfully');
       done();
     });
   });
@@ -77,7 +77,7 @@ describe('Add Users Route', () => {
     .expect(201)
     .end((err, res) => {
       res.status.should.equal(201);
-      res.body.success.should.equal('Successful.');
+      res.body.success.should.equal('bolu added successfully');
       done();
     });
   });
@@ -92,7 +92,7 @@ describe('Add Users Route', () => {
     .expect(201)
     .end((err, res) => {
       res.status.should.equal(201);
-      res.body.success.should.equal('Successful.');
+      res.body.success.should.equal('jide added successfully');
       done();
     });
   });

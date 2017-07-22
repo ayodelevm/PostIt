@@ -13,6 +13,11 @@ export default class AuthCtrl {
  * @returns {void}
  */
   static register(req, res) {
+    if (!req.body.fullname) {
+      return res.status(400).json({ error: 'fullname field cannot be empty' });
+    } else if (!req.body.email) {
+      return res.status(400).json({ error: 'email filed cannot be empty' });
+    }
     models.User.register(req.body.username, req.body.password, (err, newUser) => {
       if (err) {
         return res.status(400).json({

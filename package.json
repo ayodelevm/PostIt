@@ -19,6 +19,7 @@
   "author": "Ayodele Victor",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-istanbul": "^0.12.2",
@@ -49,6 +50,9 @@
     "express": "^4.15.3",
     "express-session": "^1.11.2",
     "history": "^4.6.3",
+    "isomorphic-fetch": "^2.2.1",
+    "jquery": "^3.2.1",
+    "materialize-css": "^0.100.1",
     "method-override": "^2.3.9",
     "mocha": "^3.4.2",
     "morgan": "^1.5.3",
@@ -64,6 +68,7 @@
     "permission": "^1.0.4",
     "pg": "^4.3.0",
     "pg-hstore": "^2.3.2",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-addons-test-utils": "^15.6.0",
     "react-dom": "^15.6.1",
@@ -72,6 +77,7 @@
     "react-router-dom": "^4.1.1",
     "react-transform-hmr": "^1.0.4",
     "redux": "^3.7.1",
+    "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
@@ -86,8 +92,10 @@
     "webpack-dev-server": "^2.5.1",
     "webpack-hot-middleware": "^2.18.2"
   },
+  "proxy": "http://localhost:3002",
   "bugs": {
     "url": "https://github.com/ayodelevm/PostIt/issues"
   },
-  "homepage": "https://github.com/ayodelevm/PostIt#readme"
+  "homepage": "https://github.com/ayodelevm/PostIt#readme",
+  "devDependencies": {}
 }

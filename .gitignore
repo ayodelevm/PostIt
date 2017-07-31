@@ -66,3 +66,8 @@ server/views
 #DS_STORE
 .DS_STORE
 templates/html/.DS_STORE
+
+#build
+client/build/js/
+client/build/*.woff
+client/build/*.woff2

@@ -15,7 +15,7 @@ export default class AuthCtrl {
   static register(req, res) {
     models.User.register(req.body.username, req.body.password, (err, newUser) => {
       if (err) {
-        return res.status(500).json({
+        return res.status(400).json({
           error: err.message
         });
       }
@@ -25,7 +25,7 @@ export default class AuthCtrl {
       }).then(() => {
         passport.authenticate('local')(req, res, () => {
           res.status(200).json({
-            message: `Welcome to PostIt ${req.session.passport.user}`,
+            success: `Welcome to PostIt ${req.session.passport.user}`,
             user: req.session.passport.user
           });
         });
@@ -60,11 +60,11 @@ export default class AuthCtrl {
       req.login(user, (err) => {
         if (err) {
           return res.status(500).json({
-            message: 'Cannot log in user'
+            error: 'Cannot log in user'
           });
         }
         res.status(200).json({
-          message: `Welcome back ${req.session.passport.user}`,
+          success: `Welcome back ${req.session.passport.user}`,
           user: req.session.passport.user
         });
       });

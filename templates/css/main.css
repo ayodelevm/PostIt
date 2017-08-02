@@ -34,7 +34,8 @@ i.material-icons {
   .form-section form .input-field.col label {
     font-weight: bold;
     color: black;
-    top: -5px; }
+    top: -5px;
+    position: absolute; }
 
 .parallax-container .landing {
   position: relative; }

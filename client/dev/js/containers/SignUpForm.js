@@ -10,10 +10,12 @@ class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      fullname: '',
+      email: '',
+      telephone: '',
       username: '',
       password: '',
-      email: '',
-      fullname: '',
+      password2: '',
       redirect: false
     };
 
@@ -44,43 +46,73 @@ class SignUpForm extends React.Component {
 
   render() {
     const form = (
-      <form className="col s12">
-        <div className="input-field col s12">
-          <input
-            id="full_name" type="text" className="validate"
-            name="fullname" onChange={this.handleChange} value={this.state.fullname}
-          />
-          <label htmlFor="full_name">Full Name</label>
+      <form className="col s12" onSubmit={this.handleFormSubmit}>
+        <div className="divider" />
+        <br />
+        <div className="row">
+          <div className="input-field col s12">
+            <input
+              placeholder="Victor ayo" id="fullname" type="text"
+              name="fullname" onChange={this.handleChange} value={this.state.fullname}
+            />
+            <label htmlFor="fullname">Fullname *</label>
+          </div>
         </div>
         <div className="row">
           <div className="input-field col s12">
             <input
-              id="email" type="email" className="validate"
+              placeholder="vicayo@domainname.com" id="email" type="email"
               name="email" onChange={this.handleChange} value={this.state.email}
             />
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email *</label>
           </div>
         </div>
         <div className="row">
           <div className="input-field col s12">
             <input
-              id="username" type="text" className="validate"
+              placeholder="Mobile number" id="telephone" type="tel"
+              name="telephone" onChange={this.handleChange} value={this.state.telephone}
+            />
+            <label htmlFor="telephone">Mobile number *</label>
+          </div>
+        </div>
+        <div className="row">
+          <div className="input-field col s12">
+            <input
+              placeholder="John Doe" id="username" type="text"
               name="username" onChange={this.handleChange} value={this.state.username}
             />
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Username *</label>
           </div>
         </div>
         <div className="row">
           <div className="input-field col s12">
             <input
-              id="password" type="password" className="validate"
+              placeholder="Your Password" id="password" type="password"
               name="password" onChange={this.handleChange} value={this.state.password}
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password *</label>
           </div>
         </div>
         <div className="row">
-          <Link to="/home" className="waves-effect waves-light btn" onClick={this.handleFormSubmit}>Create Account</Link>
+          <div className="input-field col s12">
+            <input
+              placeholder="Confirm Password" id="password2" type="password"
+              name="password2" onChange={this.handleChange} value={this.state.password2}
+            />
+            <label htmlFor="password2">Confirm Password *</label>
+          </div>
+        </div>
+
+        <div className="row">
+
+          <div className="row">
+            <div className="input-field col s12">
+              <button className="btn lime accent-4 waves-effect waves-light center" type="submit" name="action">Create Account
+                  <i className="material-icons left">person_add</i>
+              </button>
+            </div>
+          </div>
         </div>
       </form>
     );

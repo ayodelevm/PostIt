@@ -1,125 +1,95 @@
 @import url("https://fonts.googleapis.com/css?family=Pacifico");
 @import url("https://fonts.googleapis.com/css?family=Sacramento");
 @import url("https://fonts.googleapis.com/css?family=Homemade+Apple");
-div #frame_1 {
-  width: 100%;
-  height: 360px; }
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+.container.register {
+  padding-top: 30px; }
 
-div #frame_2 {
-  height: 350px;
-  overflow: auto; }
+.card-head {
+  height: 30px;
+  background-color: #aeea00; }
 
-ul.tab_font.tabs li a {
-  text-transform: capitalize; }
-ul.tab_font.tabs li a.active {
-  text-transform: capitalize; }
+span.card-title.v-align {
+  vertical-align: middle; }
 
-footer {
-  position: fixed;
-  height: 150px;
-  background-color: none;
-  bottom: 0px;
-  /*padding-top: 150px;*/
-  left: 0px;
-  right: 0px;
-  margin-bottom: 0px; }
+i.material-icons {
+  font-size: 1.2em; }
 
-#textarea1 {
-  height: 0px; }
+.form-section {
+  padding: 0 100px; }
+  .form-section p {
+    padding-left: 20px; }
+  .form-section form input:not([type]), .form-section form input[type=text]:not(.browser-default),
+  .form-section form input[type=password]:not(.browser-default), .form-section form input[type=email]:not(.browser-default),
+  .form-section form input[type=url]:not(.browser-default), .form-section form input[type=time]:not(.browser-default),
+  .form-section form input[type=date]:not(.browser-default), .form-section form input[type=datetime]:not(.browser-default),
+  .form-section form input[type=datetime-local]:not(.browser-default), .form-section form input[type=tel]:not(.browser-default),
+  .form-section form input[type=number]:not(.browser-default), .form-section form input[type=search]:not(.browser-default), .form-section form textarea.materialize-textarea {
+    background-color: #eee;
+    padding: 0px 10px;
+    margin: 0px 0px;
+    height: 2.5rem;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px; }
+  .form-section form .input-field.col label {
+    font-weight: bold;
+    color: black;
+    top: -5px; }
 
-body#message {
-  margin-bottom: 150px; }
+.parallax-container .landing {
+  position: relative; }
+.parallax-container .below_landing {
+  position: relative; }
+
+.landing-btn .btn-large.btn-flat {
+  border: 2px solid green;
+  border-radius: 10px; }
+.landing-btn .btn-large.btn-flat.lime-text.accent-2:hover {
+  background-color: green;
+  color: white; }
+
+.parallax-container {
+  min-height: 100vh;
+  height: auto;
+  color: white; }
+  .parallax-container .container {
+    width: 100vw; }
+
+#overlay {
+  background: #000;
+  min-height: 500px;
+  height: 100%;
+  min-width: 100%;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  position: absolute;
+  padding: 0;
+  transition: opacity .5s; }
+
+.below_landing {
+  margin-top: -25px;
+  height: 200px;
+  background-color: #E9DCCC;
+  min-width: 100vw; }
+  .below_landing #guide_bottom_border {
+    border-bottom: 4px solid #c6ff00; }
+  .below_landing h3 {
+    font-weight: bold;
+    margin: 0 auto; }
+
+body {
+  font-family: 'Open Sans', sans-serif; }
 
 #site_name {
   font-family: 'Homemade Apple', cursive;
   font-weight: 100px; }
 
-body#register_signin {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  background: #ef32d9;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #89fffd, #ef32d9);
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #89fffd, #ef32d9);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ }
+.nav-wrapper {
+  background-color: black;
+  padding: 0 30px; }
 
-div #below_nav {
-  margin-top: 50px; }
-
-div.slide_sec {
-  margin-top: 9px;
-  border-bottom: 1px solid grey; }
-
-div.notification {
-  font-size: 100;
-  text-transform: capitalize; }
-
-div .collection {
-  font-size: 0.8em; }
-
-div.card-content span.span_font {
-  font-weight: bold;
-  font-size: 1.2em; }
-div.card-content p.light.italics {
-  font-style: italic;
-  margin-top: 0.4em; }
-div.card-content a.waves-effect.waves-light.btn {
-  font-size: 0.8em;
-  font-weight: bold; }
-
-div.row div.in.input-field {
-  margin-top: 0; }
-
-.footer-ish {
-  bottom: 0;
-  position: fixed;
-  width: 100%; }
-
-.user_details {
-  font-size: 0.8em; }
-
-img.user_img {
-  box-sizing: border-box;
-  max-height: 100%;
-  max-width: 100%; }
-
-div.card-image {
-  background-size: cover; }
-
-@media (max-width: 1150px) {
-  div.card-content span.span_font {
-    font-weight: bold;
-    font-size: 1.0em; }
-  div.card-content a.waves-effect.waves-light.btn {
-    font-size: 0.6em; }
-
-  li.collection-item.avatar {
-    font-size: 0.8em; }
-
-  .collection .collection-item.avatar span.title.profile {
-    font-size: 1.6em; } }
-@media (max-width: 1030px) {
-  div.card-content a.waves-effect.waves-light.btn {
-    font-size: 0.6em; }
-
-  li.collection-item.avatar {
-    font-size: 0.7em; }
-
-  .collection .collection-item.avatar span.title.profile {
-    font-size: 1.5em; } }
-@media (max-width: 1003px) {
-  div.card-content span.span_font {
-    font-weight: bold;
-    font-size: 0.9em; }
-  div.card-content a.waves-effect.waves-light.btn {
-    font-size: 0.5em; }
-
-  li.collection-item.avatar {
-    font-size: 0.7em; }
-
-  .collection .collection-item.avatar span.title.profile {
-    font-size: 1.4em; } }
+nav i.material-icons {
+  font-size: 1.5em; }
 
 /*# sourceMappingURL=main.css.map */

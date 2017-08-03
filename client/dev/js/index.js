@@ -31,13 +31,12 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
-         <App> 
-          <Switch>
-            <Route path="/register" component={SignUpComponent} />
-            <Route path="/login" component={LoginComponent} />
-          </Switch>
-          <Route path="/home" component={Home} />
-         </App>
+        <Route exact path="/" component={App} />
+        <Switch>
+          <Route path="/register" component={SignUpComponent} />
+          <Route path="/login" component={LoginComponent} />
+        </Switch>
+        <Route path="/home" component={Home} />
       </div>
     </BrowserRouter>
   </Provider>,

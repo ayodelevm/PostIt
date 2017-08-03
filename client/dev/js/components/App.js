@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // import UserDetails from '../containers/user-detail';
 import Nav from './Nav';
 import Footer from './LandingFooter';
-import Slider from './Slider';
+import Landing from './Landing';
 
 
 class App extends React.Component {
@@ -13,7 +13,7 @@ class App extends React.Component {
       <div id="register_signin">
         <Nav />
         <main id="below_nav" className="row">
-          <Slider />
+          <Landing />
           { this.props.children }
         </main>
         <Footer />

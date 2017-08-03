@@ -39,27 +39,38 @@ class LoginForm extends React.Component {
 
   render() {
     const form = (
-      <form className="col s12">
+      <form className="col s12" onSubmit={this.handleFormSubmit}>
+        <div className="divider" />
+        <br />
+
         <div className="row">
           <div className="input-field col s12">
             <input
-              id="username" type="text" className="validate"
+              placeholder="John Doe" id="username" type="text"
               name="username" onChange={this.handleChange} value={this.state.username}
             />
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Username *</label>
           </div>
         </div>
         <div className="row">
           <div className="input-field col s12">
             <input
-              id="password" type="password" className="validate"
+              placeholder="Your Password" id="password" type="password"
               name="password" onChange={this.handleChange} value={this.state.password}
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password *</label>
           </div>
         </div>
+
         <div className="row">
-          <Link to="/home" className="waves-effect waves-light btn" onClick={this.handleFormSubmit}>Login</Link>
+
+          <div className="row">
+            <div className="input-field col s12">
+              <button className="btn lime accent-4 waves-effect waves-light center" type="submit" name="action">Login
+                <i className="material-icons left">person</i>
+              </button>
+            </div>
+          </div>
         </div>
       </form>
     );

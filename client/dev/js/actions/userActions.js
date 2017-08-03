@@ -29,8 +29,13 @@ export const createNewUser = data => dispatch => api.postEndpoint(endpoints.SIGN
       (success) => {
         dispatch(createUser(success));
       },
-      (error) => { dispatch(createUserFailure(error)); }
+      (error) => {
+        console.log('in fetch');
+
+        dispatch(createUserFailure(error)); 
+}
   ).catch((err) => {
+    console.log('in catch');
     dispatch(createUserFailure(err.message));
   });
 

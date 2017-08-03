@@ -31,8 +31,8 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
-        <Route exact path="/" component={App} />
         <Switch>
+          <Route exact path="/" forceRefresh component={App} />
           <Route path="/register" component={SignUpComponent} />
           <Route path="/login" component={LoginComponent} />
         </Switch>

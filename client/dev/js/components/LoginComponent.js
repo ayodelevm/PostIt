@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LoginForm from '../containers/LoginForm';
 
 const LoginComponent = () => (
@@ -10,7 +10,11 @@ const LoginComponent = () => (
           <div className="card white z-depth-5">
             <div className="card-head" />
             <div className="card-content black-text">
-              <span className="card-title v-align"><a href="/" className="brand-logo"><i className="material-icons lime-text lighthen-5">insert_chart</i><span id="site_name">PostIt</span></a></span>
+              <span className="card-title v-align">
+                <a to="/" className="brand-logo">
+                  <i className="material-icons lime-text lighthen-5">insert_chart</i><span id="site_name">PostIt</span>
+                </a>
+              </span>
               <p>Log into your account.</p>
               <br />
               <br />

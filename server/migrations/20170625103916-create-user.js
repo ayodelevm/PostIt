@@ -29,7 +29,7 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: 'https://www.conncoll.edu/media/major-images/Art.jpg'
       },
-      mysalt: {
+      telephone: {
         type: Sequelize.STRING
       },
       createdAt: {

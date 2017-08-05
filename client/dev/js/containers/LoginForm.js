@@ -10,7 +10,7 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      userIdentifier: '',
       password: '',
       redirect: false
     };
@@ -30,8 +30,10 @@ class LoginForm extends React.Component {
     this.props.loginAUser(this.state)
     .then(
       () => {
-        if (this.props.loginResponse.success) {
+        if (this.props.loginResponse.isAuthenticated) {
           this.setState({ redirect: true });
+        } else {
+          window.localStorage.removeItem('token');
         }
       }
     );
@@ -46,10 +48,10 @@ class LoginForm extends React.Component {
         <div className="row">
           <div className="input-field col s12">
             <input
-              placeholder="John Doe" id="username" type="text"
-              name="username" onChange={this.handleChange} value={this.state.username}
+              placeholder="John Doe" id="userIdentifier" type="text"
+              name="userIdentifier" onChange={this.handleChange} value={this.state.username}
             />
-            <label htmlFor="username">Username *</label>
+            <label htmlFor="userIdentifier">Username or E-mail *</label>
           </div>
         </div>
         <div className="row">

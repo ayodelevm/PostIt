@@ -15,7 +15,7 @@ class SignUpForm extends React.Component {
       telephone: '',
       username: '',
       password: '',
-      password2: '',
+      passwordConfirmation: '',
       redirect: false
     };
 
@@ -37,8 +37,10 @@ class SignUpForm extends React.Component {
         console.log('=====props', this.props);
         console.log('=====???', this.props.signupResponse);
         console.log('=====???========', this.props.signupResponse);
-        if (this.props.signupResponse.success) {
+        if (this.props.signupResponse.isAuthenticated) {
           this.setState({ redirect: true });
+        } else {
+          window.localStorage.removeItem('token');
         }
       }
     );
@@ -97,10 +99,10 @@ class SignUpForm extends React.Component {
         <div className="row">
           <div className="input-field col s12">
             <input
-              placeholder="Confirm Password" id="password2" type="password"
-              name="password2" onChange={this.handleChange} value={this.state.password2}
+              placeholder="Confirm Password" id="passwordConfirmation" type="password"
+              name="passwordConfirmation" onChange={this.handleChange} value={this.state.password2}
             />
-            <label htmlFor="password2">Confirm Password *</label>
+            <label htmlFor="passwordConfirmation">Confirm Password *</label>
           </div>
         </div>
 

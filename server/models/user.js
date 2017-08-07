@@ -1,4 +1,4 @@
-import passportLocalSequelize from 'passport-local-sequelize';
+import bcrypt from 'bcryptjs';
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: true
       }
+    },
+    telephone: {
+      type: DataTypes.STRING
     },
     password: {
       type: DataTypes.TEXT,
@@ -23,9 +26,6 @@ module.exports = (sequelize, DataTypes) => {
     profileImage: {
       type: DataTypes.STRING,
       defaultValue: 'https://www.conncoll.edu/media/major-images/Art.jpg'
-    },
-    mysalt: {
-      type: DataTypes.STRING
     }
   }, {
     classMethods: {
@@ -44,10 +44,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  passportLocalSequelize.attachToUser(User, {
-    usernameField: 'username',
-    hashField: 'password',
-    saltField: 'mysalt'
+  User.beforeCreate((user) => {
+    const salt = bcrypt.genSaltSync(10);
+    user.password = bcrypt.hashSync(user.password, salt);
   });
 
   return User;

@@ -12,7 +12,8 @@
     "should": true,
     "window": true,
     "document": true,
-    "fetch": true
+    "fetch": true,
+    "require": true
   },
   "compilerOptions": {
     "target": "ES6",

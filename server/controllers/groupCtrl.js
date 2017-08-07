@@ -14,24 +14,18 @@ export default class GroupCtrl {
   static getAll(req, res) {
     models.User.findOne({
       where: { id: req.user.dataValues.id },
-      include: [
-        { model: models.Group,
-          attributes: ['id', 'name', 'description', 'imageUrl', 'createdAt', ['UserId', 'ownerId']],
-          through: { attributes: [] } }
-      ],
-      order: [['createdAt', 'DESC']],
-    }).then((found) => {
-      const currentUser = { userId: found.id,
-        username: found.username,
-        fullname: found.fullname,
-        email: found.email,
-        profileImage: found.profileImage,
-        createdAt: found.createdAt };
-
-      res.status(200).json({
-        success: 'Successful.',
-        currentUser,
-        memberGroups: found.Groups
+      attributes: { exclude: ['mysalt', 'updatedAt', 'password'] }
+    }).then((foundUser) => {
+      foundUser.getGroups({
+        attributes: ['id', 'name', 'description', 'imageUrl', 'createdAt', ['UserId', 'ownerId']],
+        joinTableAttributes: [],
+        order: [['createdAt', 'DESC']],
+      }).then((foundGroup) => {
+        const found = Object.assign(JSON.parse(JSON.stringify(foundUser)), { Groups: foundGroup });
+        res.status(200).json({
+          success: 'Successful.',
+          found
+        });
       });
     }).catch((err) => {
       res.status(500).json({
@@ -41,12 +35,21 @@ export default class GroupCtrl {
   }
 
 /**
- * This method handles creating of a new group
+ * This method handles creating a new group and adding members to group when creating group
  * @param {object} req
  * @param {object} res
  * @returns {void}
  */
   static createNewGroup(req, res) {
+    let initialGroupMembers = [].concat(req.user.dataValues.id);
+    if (req.body.initialGroupMembers) {
+      const approved = true, disapproved = false;
+      initialGroupMembers = ([...req.body.initialGroupMembers, req.user.dataValues.id])
+                        /* eslint no-confusing-arrow: ["error", {"allowParens": true}] */
+                        /* eslint-env es6 */
+                        .filter(id => (!id && id !== 0 ? disapproved : approved))
+                        .map(id => Number(id));
+    }
     if (!req.body.name) {
       res.status(400).json({
         error: 'A new group needs to have a name'
@@ -54,16 +57,18 @@ export default class GroupCtrl {
     } else {
       const newDetails = Object.assign(req.body, { UserId: req.user.dataValues.id });
       models.Group.create(newDetails).then((newGroup) => {
-        models.UserGroup
-        .create({
-          UserId: req.user.dataValues.id,
-          GroupId: newGroup.id
+        models.User.findAll({
+          where: { id: initialGroupMembers }
         })
-        .then(() => {
-          res.status(201).json({
-            success: 'New group created successfully.',
-            newGroup
+        .then((foundUsers) => {
+          newGroup.addUsers(foundUsers).then(() => {
+            res.status(201).json({
+              success: 'New group created successfully.',
+              newGroup
+            });
           });
+        }).catch((err) => {
+          res.status(500).send(err);
         });
       }).catch((err) => {
         res.status(500).json({

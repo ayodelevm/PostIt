@@ -10,6 +10,24 @@ $(document).ready(($, Materialize) => {
     draggable: true,
   });
   $('.parallax').parallax();
+
+  $('.chips').material_chip();
+
+$('.chips-placeholder').material_chip({
+    placeholder: 'Search username',
+    // secondaryPlaceholder: '+Tag',
+  });
+  $('.chips-autocomplete').material_chip({
+    autocompleteOptions: {
+      data: {
+        'Apple': null,
+        'Microsoft': null,
+        'Google': null
+      },
+      limit: Infinity,
+      minLength: 0
+    }
+  });
   Materialize.updateTextFields();
 });
 

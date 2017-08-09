@@ -10,7 +10,8 @@ export const checkStatus = (response) => {
 };
 
 export const getEndpoint = (endpoint) => {
-  const url = `${apiUrls.BASE_PATH}${endpoint}`;
+  // const url = `${apiUrls.BASE_PATH}${endpoint}`;
+  const url = `${'http://localhost:3002'}${endpoint}`;
   return fetch(url, {
     credentials: 'include'
   }).then(checkStatus);
@@ -30,7 +31,8 @@ export const postEndpoint = (endpoint, data) => {
 };
 
 export const updateEndpoint = (endpoint, data) => {
-  const url = `${apiUrls.BASE_PATH}${endpoint}`;
+  // const url = `${apiUrls.BASE_PATH}${endpoint}`;
+  const url = `${'http://localhost:3002'}${endpoint}`;
   return fetch(url, {
     method: 'PUT',
     body: JSON.stringify(data),
@@ -42,7 +44,8 @@ export const updateEndpoint = (endpoint, data) => {
 };
 
 export const deleteEndpoint = (endpoint, data) => {
-  const url = `${apiUrls.BASE_PATH}${endpoint}`;
+  // const url = `${apiUrls.BASE_PATH}${endpoint}`;
+  const url = `${'http://localhost:3002'}${endpoint}`;
   return fetch(url, {
     method: 'DELETE',
     body: JSON.stringify(data),

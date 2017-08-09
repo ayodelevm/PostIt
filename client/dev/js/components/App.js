@@ -13,10 +13,10 @@ class App extends React.Component {
       <div id="register_signin">
         <Nav />
         <main id="below_nav" className="row">
-          <Landing />
+          {/* <Landing /> */}
           { this.props.children }
         </main>
-        <Footer />
+        {/* <Footer /> */}
         <div className="container" />
       </div>
     );

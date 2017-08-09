@@ -19,6 +19,10 @@ import store from './store/store';
 // import allReducers from './reducers';
 import App from './components/App';
 import Home from './components/Home';
+import Footer from './components/LandingFooter';
+import Dashboard from './components/Dashboard';
+import Landing from './components/Landing';
+
 
 // import UserList from './containers/user-list';
 // import UserDetails from './containers/user-detail';
@@ -30,14 +34,15 @@ import SignUpComponent from './components/SignUpComponent';
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <div>
+      <App>
         <Switch>
-          <Route exact path="/" forceRefresh component={App} />
-          <Route path="/register" component={SignUpComponent} />
-          <Route path="/login" component={LoginComponent} />
+          <Route exact path="/" forceRefresh component={Landing} />
+          <Route exact path="/register" component={SignUpComponent} />
+          <Route exact path="/login" component={LoginComponent} />
+          <Route path="/dashboard" component={Dashboard} />
         </Switch>
-        <Route path="/home" component={Home} />
-      </div>
+        {/* <Route path="/home" component={Home} /> */}
+      </App>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

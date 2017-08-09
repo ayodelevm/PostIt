@@ -111,7 +111,7 @@ class SignUpForm extends React.Component {
           <div className="row">
             <div className="input-field col s12">
               <button className="btn lime accent-4 waves-effect waves-light center" type="submit" name="action">Create Account
-                  <i className="material-icons left">person_add</i>
+                  <i className="material-icons right">person_add</i>
               </button>
             </div>
           </div>
@@ -122,7 +122,7 @@ class SignUpForm extends React.Component {
     return (
       <div>
         {
-          this.state.redirect ? <Redirect to="/home" /> : form
+          this.state.redirect ? <Redirect to="/dashboard" /> : form
         }
       </div>
     );

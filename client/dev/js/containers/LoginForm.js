@@ -69,7 +69,7 @@ class LoginForm extends React.Component {
           <div className="row">
             <div className="input-field col s12">
               <button className="btn lime accent-4 waves-effect waves-light center" type="submit" name="action">Login
-                <i className="material-icons left">person</i>
+                <i className="material-icons right">person</i>
               </button>
             </div>
           </div>
@@ -80,7 +80,7 @@ class LoginForm extends React.Component {
     return (
       <div>
         {
-          this.state.redirect ? <Redirect to="/home" /> : form
+          this.state.redirect ? <Redirect push to="/dashboard" /> : form
         }
       </div>
     );

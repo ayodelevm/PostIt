@@ -10,6 +10,6 @@ $(document).ready(($) => {
     draggable: true,
   });
   $('.parallax').parallax();
-  // Materialize.updateTextFields();
+  Materialize.updateTextFields();
 });
 

@@ -1,9 +1,15 @@
 import { combineReducers } from 'redux';
 
-import userReducer from './userReducer';
+import authReducer from './authReducer';
+import addUserReducer from './addUserReducer';
+import groupReducer from './groupReducer';
+import messageReducer from './messageReducer';
 
 const rootReducer = combineReducers({
-  userReducer
+  authReducer,
+  addUserReducer,
+  groupReducer,
+  messageReducer
 });
 
 export default rootReducer;

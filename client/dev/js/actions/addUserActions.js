@@ -22,8 +22,8 @@ export const newGroupUsersFailure = failure => ({
   failure
 });
 
-export const getAllUsers = () => (dispatch) => {
-  api.getEndpoint(endpoints.GET_ALL_USERS_PATH)
+export const getAllUsers = token => (dispatch) => {
+  return api.getEndpoint(endpoints.GET_ALL_USERS_PATH, token)
     .then(
       (success) => {
         dispatch(getUsers(success));
@@ -34,8 +34,9 @@ export const getAllUsers = () => (dispatch) => {
     );
 };
 
-export const addNewUsersToGroup = data => dispatch => api
-  .postEndpoint(endpoints.ADD_USERS_TO_GROUP_PATH, data)
+export const addNewUsersToGroup = (data, token) => (dispatch) => {
+  return api
+  .postEndpoint(endpoints.ADD_USERS_TO_GROUP_PATH, data, token)
   .then(
     (success) => {
       dispatch(newGroupUsers(success));
@@ -44,3 +45,5 @@ export const addNewUsersToGroup = data => dispatch => api
       dispatch(newGroupUsersFailure(error));
     }
   );
+};
+

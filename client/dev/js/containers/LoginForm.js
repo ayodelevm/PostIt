@@ -2,8 +2,11 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Notifications, { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
-import { loginAUser } from '../actions/userActions';
+import classnames from 'classnames';
+import { loginAUser } from '../actions/authActions';
+import { validateLoginInput } from '../utils/validations';
 
 
 class LoginForm extends React.Component {
@@ -12,7 +15,8 @@ class LoginForm extends React.Component {
     this.state = {
       userIdentifier: '',
       password: '',
-      redirect: false
+      redirect: false,
+      errors: {}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,48 +24,97 @@ class LoginForm extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    e.persist();
+    if (!!this.state.errors && this.state.errors[e.target.name]) {
+      this.setState((prevState) => {
+        const errors = Object.assign({}, prevState.errors);
+        delete errors[e.target.name];
+
+        return {
+          [e.target.name]: e.target.value,
+          errors
+        };
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value
+      });
+    }
   }
 
   handleFormSubmit(e) {
     e.preventDefault();
+
+    const { isValid, errors } = validateLoginInput(this.state);
+
+    if (!isValid) {
+      return this.setState({ errors });
+    }
+
+    this.setState({ errors: {} });
+
     this.props.loginAUser(this.state)
     .then(
       () => {
         if (this.props.loginResponse.isAuthenticated) {
           this.setState({ redirect: true });
+          notify.show('Welcome back!', 'success', 10000);
         } else {
+          if (this.props.loginResponse.errors.errors) {
+            return this.setState({ errors: this.props.loginResponse.errors.errors });
+          }
+          notify.show(this.props.loginResponse.errors.globals, 'warning', 10000);
           window.localStorage.removeItem('token');
         }
       }
     );
   }
 
+  // componentWillReceiveProps() {
+  //   $(document).ready(() => {
+      // $('.modal').modal({
+      //   dismissible: true,
+        // complete: () => {
+        //   this.setState({
+        //     name: '',
+        //     description: ''
+        //   });
+        // }
+      // });
+      // Materialize.updateTextFields();
+  //   });
+  // }
+
   render() {
     const form = (
-      <form className="col s12" onSubmit={this.handleFormSubmit}>
+      <form className="col s12" onSubmit={this.handleFormSubmit} noValidate>
+        <div className="main">
+          <Notifications />
+        </div>
         <div className="divider" />
         <br />
 
         <div className="row">
           <div className="input-field col s12">
             <input
+              className={classnames({ 'has-error': !!this.state.errors.userIdentifier })}
               placeholder="John Doe" id="userIdentifier" type="text"
-              name="userIdentifier" onChange={this.handleChange} value={this.state.username}
+              name="userIdentifier" onChange={this.handleChange} value={this.state.userIdentifier}
             />
             <label htmlFor="userIdentifier">Username or E-mail *</label>
           </div>
+          <span className="left error-message grey-text">{this.state.errors.userIdentifier}</span>
         </div>
         <div className="row">
           <div className="input-field col s12">
             <input
+              className={classnames({ 'has-error': !!this.state.errors.password })}
               placeholder="Your Password" id="password" type="password"
               name="password" onChange={this.handleChange} value={this.state.password}
             />
             <label htmlFor="password">Password *</label>
           </div>
+          <span className="left error-message grey-text">{this.state.errors.password}</span>
         </div>
 
         <div className="row">
@@ -98,7 +151,7 @@ LoginForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  loginResponse: state.userReducer
+  loginResponse: state.authReducer
 });
 
 const matchDispatchToProps = dispatch => bindActionCreators({ loginAUser }, dispatch);

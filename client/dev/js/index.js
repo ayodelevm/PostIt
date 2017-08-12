@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import createBrowserHistory from 'history/createBrowserHistory';
@@ -16,19 +17,19 @@ import '../../../scss/main.scss';
 import store from './store/store';
 
 
-// import allReducers from './reducers';
 import App from './components/App';
 import Home from './components/Home';
 import Footer from './components/LandingFooter';
-import Dashboard from './components/Dashboard';
+import DashBoardContainer from './containers/DashBoardContainer';
 import Landing from './components/Landing';
+import authorize from './utils/authorizeRoutes';
 
-
-// import UserList from './containers/user-list';
-// import UserDetails from './containers/user-detail';
 
 import LoginComponent from './components/LoginComponent';
 import SignUpComponent from './components/SignUpComponent';
+
+
+injectTapEventPlugin();
 
 
 ReactDOM.render(
@@ -39,7 +40,7 @@ ReactDOM.render(
           <Route exact path="/" forceRefresh component={Landing} />
           <Route exact path="/register" component={SignUpComponent} />
           <Route exact path="/login" component={LoginComponent} />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard" component={authorize(DashBoardContainer)} />
         </Switch>
         {/* <Route path="/home" component={Home} /> */}
       </App>

@@ -68,7 +68,6 @@ export const validateSignup = (data, inputValidations) => {
 };
 
 export const validateLoginInput = (data) => {
-  console.log(data)
   const errors = {};
 
   if (!data.password || Validator.isEmpty(data.password)) {
@@ -82,4 +81,38 @@ export const validateLoginInput = (data) => {
     errors,
     isValid: !Object.keys(errors).length
   };
+};
+
+export const validateGroupInput = (data) => {
+  const errors = {};
+
+  if (!data.name || Validator.isEmpty(data.name)) {
+    errors.name = 'This field is required';
+  }
+
+  return {
+    errors,
+    isValid: !Object.keys(errors).length
+  };
+};
+
+export const groupValidation = (data, inputValidations) => {
+  const { errors } = inputValidations(data);
+
+  return models.Group.findOne({
+    where: {
+      name: data.name
+    },
+  }).then((foundGroup) => {
+    if (foundGroup) {
+      if (foundGroup.name === data.name) {
+        errors.name = 'A group with this name already exists';
+      }
+    }
+
+    return {
+      errors,
+      isValid: !Object.keys(errors).length
+    };
+  });
 };

@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Notifications from 'react-notify-toast';
+import NavButtons from '../containers/NavButtons';
 
 const Nav = () => (
   <div className="navbar-fixed">
+    {/* <div className="main">
+      <Notifications options={{ zIndex: 5000 }} />
+    </div>  */}
     <nav className="lime-text accent-2 z-depth-0" role="navigation">
       <div className="nav-wrapper lime-text accent-2">
         <Link to="/home" href="#" className="brand-logo left">
@@ -12,27 +17,7 @@ const Nav = () => (
         <a href="" data-activates="slide-out" className="button-collapse">
           <i className="material-icons">menu</i>
         </a>
-        <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li className="active">
-            <a href="" className="lime-text lighthen-5">Site Guide</a>
-          </li>
-          <li>
-            <a href="/register" className="lime-text lighthen-5">Create Account</a>
-          </li>
-          <li>
-            <a href="/login" className="lime-text lighthen-5">Login</a>
-          </li>
-        </ul>
-
-        <ul id="slide-out" className="side-nav">
-          <li><div className="divider" /></li>
-          <li className="active">
-            <a href="/register" className="waves-effect waves-light">Create New Account</a>
-          </li>
-          <li><div className="divider" /></li>
-          <li><a href="/login" className="waves-effect waves-light">Login</a></li>
-          <li><div className="divider" /></li>
-        </ul>
+        <NavButtons />
       </div>
     </nav>
   </div>

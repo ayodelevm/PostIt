@@ -34,6 +34,14 @@ i.material-icons {
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
     }
+    .has-error {
+      border: 2px solid red;
+      filter: blur(0.6px);      
+    }
+    .error-message {
+      margin-left: 10px;
+      font-size: 0.8rem;
+    }
     .input-field.col label {
       font-weight: bold;
       color: black;

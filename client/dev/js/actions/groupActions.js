@@ -3,7 +3,7 @@ import * as api from '../utils/apis';
 import endpoints from '../utils/apiUrls';
 
 export const getGroups = allGroups => ({
-  types: Types.GET_USER_GROUPS,
+  type: Types.GET_USER_GROUPS,
   allGroups
 });
 
@@ -13,22 +13,22 @@ export const groupUsers = grpUsers => ({
 });
 
 export const createGroup = newGroup => ({
-  types: Types.CREATE_GROUP,
+  type: Types.CREATE_GROUP,
   newGroup
 });
 
 export const updateGroup = updatedGroup => ({
-  types: Types.EDIT_A_GROUP,
+  type: Types.EDIT_A_GROUP,
   updatedGroup
 });
 
 export const archiveGroup = archivedGroup => ({
-  types: Types.ARCHIVE_A_GROUP,
+  type: Types.ARCHIVE_A_GROUP,
   archivedGroup
 });
 
 export const getGroupsFailure = failure => ({
-  types: Types.GET_USER_GROUPS_FAILURE,
+  type: Types.GET_USER_GROUPS_FAILURE,
   failure
 });
 
@@ -38,22 +38,24 @@ export const groupUsersFailure = failure => ({
 });
 
 export const createGroupFailure = failure => ({
-  types: Types.createGroupFailure,
+  type: Types.CREATE_GROUP_FAILURE,
   failure
 });
 
 export const updateGroupFailure = failure => ({
-  types: Types.EDIT_A_GROUP_FAILURE,
+  type: Types.EDIT_A_GROUP_FAILURE,
   failure
 });
 
 export const archiveGroupFailure = failure => ({
-  types: Types.ARCHIVE_A_GROUP_FAILURE,
+  type: Types.ARCHIVE_A_GROUP_FAILURE,
   failure
 });
 
-export const getAllGroups = () => (dispatch) => {
-  api.getEndpoint(endpoints.GET_ALL_GROUPS_PATH)
+// const token = window.localStorage.token;
+
+export const getAllGroups = token => (dispatch) => {
+  return api.getEndpoint(endpoints.GET_ALL_GROUPS_PATH, token)
   .then(
     (success) => {
       dispatch(getGroups(success));
@@ -64,8 +66,8 @@ export const getAllGroups = () => (dispatch) => {
   );
 };
 
-export const getGroupUsers = () => (dispatch) => {
-  api.getEndpoint(endpoints.GET_GROUP_USERS_PATH)
+export const getGroupUsers = token => (dispatch) => {
+  return api.getEndpoint(endpoints.GET_GROUP_USERS_PATH, token)
   .then(
     (success) => {
       dispatch(groupUsers(success));
@@ -76,20 +78,23 @@ export const getGroupUsers = () => (dispatch) => {
   );
 };
 
-export const createNewGroup = data => (dispatch) => {
-  api.postEndpoint(endpoints.CREATE_GROUP_PATH, data)
+export const createNewGroup = (data, token) => (dispatch) => {
+  return api.postEndpoint(endpoints.CREATE_GROUP_PATH, data, token)
   .then(
     (success) => {
-      dispatch(createGroup(success));
+      dispatch(createGroup(success.newGroup));
     },
     (error) => {
       dispatch(createGroupFailure(error));
     }
-  );
+  ).catch((err) => {
+    console.log('in catch');
+    dispatch(createGroupFailure(err.message));
+  });
 };
 
-export const updateAGroup = data => (dispatch) => {
-  api.updateEndpoint(endpoints.EDIT_ONE_GROUP_PATH, data)
+export const updateAGroup = (data, token) => (dispatch) => {
+  return api.updateEndpoint(endpoints.EDIT_ONE_GROUP_PATH, data, token)
   .then(
     (success) => {
       dispatch(updateGroup(success));

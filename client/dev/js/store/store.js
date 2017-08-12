@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import jwtDecode from 'jwt-decode';
 import rootReducer from '../reducers/rootReducer';
-import { setCurrentUser } from '../actions/userActions';
+import { setCurrentUser } from '../actions/authActions';
 
 
 const logger = createLogger();

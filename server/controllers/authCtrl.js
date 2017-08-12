@@ -55,7 +55,7 @@ export default class AuthCtrl {
       }).then((founduser) => {
         if (!founduser) {
           return res.status(400).json({
-            error: 'invalid login credentials'
+            globals: 'Invalid login credentials'
           });
         }
         if (bcrypt.compareSync(req.body.password, founduser.password)) {
@@ -71,7 +71,7 @@ export default class AuthCtrl {
           });
         }
         return res.status(400).json({
-          error: 'Invalid login credentials'
+          globals: 'Invalid login credentials'
         });
       });
     } else {

@@ -1,5 +1,5 @@
 import 'isomorphic-fetch';
-import apiUrls from './apiUrls';
+// import apiUrls from './apiUrls';
 
 
 export const checkStatus = (response) => {
@@ -9,48 +9,70 @@ export const checkStatus = (response) => {
   return response.json().then(Promise.reject.bind(Promise));
 };
 
-export const getEndpoint = (endpoint) => {
+export const getEndpoint = (endpoint, token) => {
   // const url = `${apiUrls.BASE_PATH}${endpoint}`;
+  const auth = { Authorization: '' };
+  if (token) {
+    auth.Authorization = `Bearer ${token}`;
+  }
   const url = `${'http://localhost:3002'}${endpoint}`;
   return fetch(url, {
-    credentials: 'include'
+    credentials: 'include',
+    headers: auth
   }).then(checkStatus);
 };
 
-export const postEndpoint = (endpoint, data) => {
+export const postEndpoint = (endpoint, data, token) => {
   // const url = `${apiUrls.BASE_PATH}${endpoint}`;
+  console.log(token, '===tok====')  
+  const auth = { Authorization: '' };
+  if (token) {
+    auth.Authorization = `Bearer ${token}`;
+  }
+  console.log({Authorization: auth.Authorization}, '=======')
   const url = `${'http://localhost:3002'}${endpoint}`;
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: auth.Authorization
     },
     credentials: 'include'
   }).then(checkStatus);
 };
 
-export const updateEndpoint = (endpoint, data) => {
+export const updateEndpoint = (endpoint, data, token) => {
   // const url = `${apiUrls.BASE_PATH}${endpoint}`;
+  const auth = { Authorization: '' };
+  if (token) {
+    auth.Authorization = `Bearer ${token}`;
+  }
   const url = `${'http://localhost:3002'}${endpoint}`;
   return fetch(url, {
     method: 'PUT',
     body: JSON.stringify(data),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      [auth.Authorization]: auth.Authorization
     },
     credentials: 'include'
   }).then(checkStatus);
 };
 
-export const deleteEndpoint = (endpoint, data) => {
+export const deleteEndpoint = (endpoint, data, token) => {
   // const url = `${apiUrls.BASE_PATH}${endpoint}`;
+  const auth = { Authorization: '' };
+  if (token) {
+    auth.Authorization = `Bearer ${token}`;
+  }
   const url = `${'http://localhost:3002'}${endpoint}`;
   return fetch(url, {
     method: 'DELETE',
     body: JSON.stringify(data),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      [auth.Authorization]: auth.Authorization
     },
     credentials: 'include'
   }).then(checkStatus);

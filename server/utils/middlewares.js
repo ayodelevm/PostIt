@@ -20,14 +20,14 @@ export default class Middlewares {
       const token = authorizationHeader.split(' ')[1];
       jwt.verify(token, process.env.secret, (err, decoded) => {
         if (err) {
-          res.status(401).json({ error: 'You need to be logged first!' });
+          res.status(401).json({ globals: 'You need to be logged first!' });
         } else {
           models.User.findOne({
             where: { id: decoded.id },
             attributes: ['fullname', 'email', 'telephone', 'profileImage', 'id', 'username']
           }).then((foundUser) => {
             if (!foundUser) {
-              res.status(404).json({ error: 'No such user, please create an account!' });
+              res.status(404).json({ globals: 'No such user, please create an account!' });
             } else {
               req.user = foundUser;
               next();
@@ -36,8 +36,8 @@ export default class Middlewares {
         }
       });
     } else {
-      res.status(403).json({
-        error: 'Access denied! Please create an account or login first!'
+      return res.status(403).json({
+        globals: 'Access denied! Please create an account or login first!'
       });
     }
   }
@@ -59,13 +59,15 @@ export default class Middlewares {
     }).then((found) => {
       if (found === null) {
         res.status(400).json({
-          error: 'You are not authorized to access this group!'
+          globals: 'You are not authorized to access this group!'
         });
       } else {
         next();
       }
     }).catch((err) => {
-      res.status(500).json(err);
+      res.status(500).json({
+        globals: err.errors[0].message || err.message
+      });
     });
   }
 }

@@ -5,7 +5,7 @@ const initialState = {
   user: {}
 };
 
-const userReducer = (state = initialState, action = {}) => {
+const authReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.CREATE_NEW_USER:
       return Object.assign({}, state, {
@@ -27,16 +27,16 @@ const userReducer = (state = initialState, action = {}) => {
 
     case Types.LOGIN_USER_FAILURE:
       return Object.assign({}, state, {
-        errors: action.newUser,
+        errors: action.errors,
         isAuthenticated: false
       });
-    
+
     case Types.LOG_USER_OUT:
       return Object.assign({}, state, {
         successMessage: action.successMessage,
         isAuthenticated: false
       });
-    
+
     case Types.SET_CURRENT_USER:
       return Object.assign({}, state, {
         user: action.currentUser,
@@ -47,4 +47,4 @@ const userReducer = (state = initialState, action = {}) => {
   }
 };
 
-export default userReducer;
+export default authReducer;

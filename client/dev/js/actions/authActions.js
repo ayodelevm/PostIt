@@ -37,7 +37,6 @@ export const createNewUser = data => dispatch => api.postEndpoint(endpoints.SIGN
   .then(
   (success) => {
     const token = success.token;
-    console.log(token);
     window.localStorage.setItem('token', token);
     dispatch(createUser(jwtDecode(token)));
   },
@@ -45,7 +44,6 @@ export const createNewUser = data => dispatch => api.postEndpoint(endpoints.SIGN
     dispatch(createUserFailure(error));
   }
   ).catch((err) => {
-    console.log('in catch');
     dispatch(createUserFailure(err.message));
   });
 
@@ -53,7 +51,6 @@ export const loginAUser = data => dispatch => api.postEndpoint(endpoints.LOGIN_P
   .then(
     (success) => {
       const token = success.token;
-      console.log(token);
       window.localStorage.setItem('token', token);
       dispatch(loginUser(jwtDecode(token)));
     },
@@ -61,7 +58,6 @@ export const loginAUser = data => dispatch => api.postEndpoint(endpoints.LOGIN_P
       dispatch(loginUserFailure(error));
     }
   ).catch((err) => {
-    console.log('in catch');
     dispatch(loginUserFailure(err.message));
   });
 

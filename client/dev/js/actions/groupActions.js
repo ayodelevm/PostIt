@@ -88,7 +88,6 @@ export const createNewGroup = (data, token) => (dispatch) => {
       dispatch(createGroupFailure(error));
     }
   ).catch((err) => {
-    console.log('in catch');
     dispatch(createGroupFailure(err.message));
   });
 };

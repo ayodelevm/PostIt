@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { loginAUser } from '../actions/authActions';
 import { validateLoginInput } from '../utils/validations';
+import InputFieldGroup from '../components/common/InputFields';
 
 
 class LoginForm extends React.Component {
@@ -95,36 +96,39 @@ class LoginForm extends React.Component {
         <br />
 
         <div className="row">
-          <div className="input-field col s12">
-            <input
-              className={classnames({ 'has-error': !!this.state.errors.userIdentifier })}
-              placeholder="John Doe" id="userIdentifier" type="text"
-              name="userIdentifier" onChange={this.handleChange} value={this.state.userIdentifier}
-            />
-            <label htmlFor="userIdentifier">Username or E-mail *</label>
-          </div>
+          <InputFieldGroup
+            name={'userIdentifier'}
+            placeholder={'vic ayo'}
+            id={'userIdentifier'}
+            value={this.state.userIdentifier}
+            label={'Username or E-mail *'}
+            error={this.state.errors.userIdentifier}
+            type={'text'}
+            onChange={this.handleChange}
+            htmlFor={'userIdentifier'}
+          />
           <span className="left error-message grey-text">{this.state.errors.userIdentifier}</span>
         </div>
         <div className="row">
-          <div className="input-field col s12">
-            <input
-              className={classnames({ 'has-error': !!this.state.errors.password })}
-              placeholder="Your Password" id="password" type="password"
-              name="password" onChange={this.handleChange} value={this.state.password}
-            />
-            <label htmlFor="password">Password *</label>
-          </div>
+          <InputFieldGroup
+            name={'password'}
+            placeholder={'Your Password'}
+            id={'password'}
+            value={this.state.password}
+            label={'Password *'}
+            error={this.state.errors.password}
+            type={'password'}
+            onChange={this.handleChange}
+            htmlFor={'password'}
+          />
           <span className="left error-message grey-text">{this.state.errors.password}</span>
         </div>
 
         <div className="row">
-
-          <div className="row">
-            <div className="input-field col s12">
-              <button className="btn lime accent-4 waves-effect waves-light center" type="submit" name="action">Login
-                <i className="material-icons right">person</i>
-              </button>
-            </div>
+          <div className="input-field col s12">
+            <button className="btn lime accent-4 waves-effect waves-light center" type="submit" name="action">Login
+              <i className="material-icons right">person</i>
+            </button>
           </div>
         </div>
       </form>

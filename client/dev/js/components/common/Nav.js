@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Notifications from 'react-notify-toast';
-import NavButtons from '../containers/NavButtons';
+import NavButtons from '../../containers/NavButtons';
 
 const Nav = () => (
   <div className="navbar-fixed">

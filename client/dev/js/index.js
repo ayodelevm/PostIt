@@ -1,5 +1,4 @@
 import 'babel-polyfill';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import createBrowserHistory from 'history/createBrowserHistory';
@@ -29,22 +28,19 @@ import LoginComponent from './components/LoginComponent';
 import SignUpComponent from './components/SignUpComponent';
 
 
-injectTapEventPlugin();
-
-
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App>
-        <Switch>
-          <Route exact path="/" forceRefresh component={Landing} />
-          <Route exact path="/register" component={SignUpComponent} />
-          <Route exact path="/login" component={LoginComponent} />
-          <Route path="/dashboard" component={authorize(DashBoardContainer)} />
-        </Switch>
-        {/* <Route path="/home" component={Home} /> */}
-      </App>
-    </BrowserRouter>
-  </Provider>,
+    <Provider store={store}>
+      <BrowserRouter>
+        <App>
+          <Switch>
+            <Route exact path="/" forceRefresh component={Landing} />
+            <Route exact path="/register" component={SignUpComponent} />
+            <Route exact path="/login" component={LoginComponent} />
+            <Route path="/dashboard" component={authorize(DashBoardContainer)} />
+          </Switch>
+          {/* <Route path="/home" component={Home} /> */}
+        </App>
+      </BrowserRouter>
+    </Provider>,
   document.getElementById('root')
 );

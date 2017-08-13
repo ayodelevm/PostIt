@@ -7,7 +7,7 @@ const initialState = {
   editSuccess: false,
   archiveSuccess: false,
   newGroup: {},
-  groups: []
+  groups: {}
 };
 
 const groupReducer = (state = initialState, action = {}) => {

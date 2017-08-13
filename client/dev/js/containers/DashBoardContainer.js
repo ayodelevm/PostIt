@@ -17,17 +17,14 @@ class DashBoardContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps, '===next props====');
     const { groups, newGroup } = nextProps.getAllGroupsResponse;
     const mergedGroup = _.merge(groups, { Groups: [newGroup] });
-    console.log(mergedGroup, '===mergedGroup====');
     this.setState({
       groups: mergedGroup
     });
   }
 
   componentDidMount() {
-    console.log('in dashboard container');
     const token = window.localStorage.token;
     this.props.getAllGroups(token).then(() => {
       this.props.getAllUsers(token).then(
@@ -45,13 +42,9 @@ class DashBoardContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state.groups, '=====grps====');
-    console.log(this.state.users, '=====users====');
-    // <div>
     return (
       <Dashboard groups={this.state.groups} users={this.state.users} />
     );
-    // </div>
   }
 }
 

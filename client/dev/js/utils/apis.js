@@ -24,12 +24,10 @@ export const getEndpoint = (endpoint, token) => {
 
 export const postEndpoint = (endpoint, data, token) => {
   // const url = `${apiUrls.BASE_PATH}${endpoint}`;
-  console.log(token, '===tok====')  
   const auth = { Authorization: '' };
   if (token) {
     auth.Authorization = `Bearer ${token}`;
   }
-  console.log({Authorization: auth.Authorization}, '=======')
   const url = `${'http://localhost:3002'}${endpoint}`;
   return fetch(url, {
     method: 'POST',

@@ -43,14 +43,14 @@ export default class GroupCtrl {
  * @returns {void}
  */
   static createNewGroup(req, res) {
-    let initialGroupMembers = [].concat(req.user.dataValues.id);
+    let initialGroupMembers = [].concat(req.user.dataValues.username);
     if (req.body.initialGroupMembers) {
-      const approved = true, disapproved = false;
-      initialGroupMembers = ([...req.body.initialGroupMembers, req.user.dataValues.id])
+      // const approved = true, disapproved = false;
+      initialGroupMembers = ([...req.body.initialGroupMembers, req.user.dataValues.username])
                         /* eslint no-confusing-arrow: ["error", {"allowParens": true}] */
                         /* eslint-env es6 */
-                        .filter(id => (!id && id !== 0 ? disapproved : approved))
-                        .map(id => Number(id));
+                        // .filter(id => (!id && id !== 0 ? disapproved : approved))
+                        // .map(id => Number(id));
     }
 
     groupValidation(req.body, validateGroupInput).then(({ errors, isValid }) => {
@@ -58,7 +58,7 @@ export default class GroupCtrl {
         const newDetails = Object.assign(req.body, { UserId: req.user.dataValues.id });
         models.Group.create(newDetails).then((newGroup) => {
           models.User.findAll({
-            where: { id: initialGroupMembers }
+            where: { username: initialGroupMembers }
           })
           .then((foundUsers) => {
             newGroup.addUsers(foundUsers).then(() => {

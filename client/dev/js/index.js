@@ -16,30 +16,31 @@ import '../../../scss/main.scss';
 import store from './store/store';
 
 
-// import allReducers from './reducers';
 import App from './components/App';
 import Home from './components/Home';
+import Footer from './components/LandingFooter';
+import DashBoardContainer from './containers/DashBoardContainer';
+import Landing from './components/Landing';
+import authorize from './utils/authorizeRoutes';
 
-// import UserList from './containers/user-list';
-// import UserDetails from './containers/user-detail';
 
 import LoginComponent from './components/LoginComponent';
 import SignUpComponent from './components/SignUpComponent';
 
 
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <div>
-         <App> 
+    <Provider store={store}>
+      <BrowserRouter>
+        <App>
           <Switch>
-            <Route path="/register" component={SignUpComponent} />
-            <Route path="/login" component={LoginComponent} />
+            <Route exact path="/" forceRefresh component={Landing} />
+            <Route exact path="/register" component={SignUpComponent} />
+            <Route exact path="/login" component={LoginComponent} />
+            <Route path="/dashboard" component={authorize(DashBoardContainer)} />
           </Switch>
-          <Route path="/home" component={Home} />
-         </App>
-      </div>
-    </BrowserRouter>
-  </Provider>,
+          {/* <Route path="/home" component={Home} /> */}
+        </App>
+      </BrowserRouter>
+    </Provider>,
   document.getElementById('root')
 );

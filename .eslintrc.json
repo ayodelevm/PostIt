@@ -12,7 +12,9 @@
     "should": true,
     "window": true,
     "document": true,
-    "fetch": true
+    "fetch": true,
+    "require": true,
+    "Materialize": true
   },
   "compilerOptions": {
     "target": "ES6",

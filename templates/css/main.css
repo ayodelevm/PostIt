@@ -32,10 +32,17 @@ i.material-icons {
     height: 2.5rem;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px; }
+  .form-section form .has-error {
+    border: 2px solid red;
+    filter: blur(0.6px); }
+  .form-section form .error-message {
+    margin-left: 10px;
+    font-size: 0.8rem; }
   .form-section form .input-field.col label {
     font-weight: bold;
     color: black;
-    top: -5px; }
+    top: -5px;
+    position: absolute; }
 
 .dashboard-container {
   display: block;
@@ -232,7 +239,7 @@ i.material-icons.add-groups {
 
 .group-list {
   overflow: auto;
-  max-height: 200px; }
+  max-height: 100vh; }
 
 .modal {
   width: 100%;
@@ -278,6 +285,12 @@ i.material-icons.add-groups {
     height: 2.5rem;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px; }
+  .card-form-section form .has-error {
+    border: 2px solid red;
+    filter: blur(0.6px); }
+  .card-form-section form .error-message {
+    margin-left: 10px;
+    font-size: 0.8rem; }
   .card-form-section form .name-desc {
     padding-right: 20px; }
   .card-form-section form .input-field.col label {

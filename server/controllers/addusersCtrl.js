@@ -13,7 +13,7 @@ export default class AddUsersCtrl {
  */
   static getAllUsers(req, res) {
     models.User.findAll({
-      attributes: { exclude: ['mysalt', 'updatedAt'] }
+      attributes: { exclude: ['mysalt', 'updatedAt', 'password'] }
     }).then((users) => {
       res.status(200).json({
         success: 'Successful.',
@@ -33,24 +33,19 @@ export default class AddUsersCtrl {
   static getUsersInGroup(req, res) {
     models.Group.findOne({
       where: { id: req.params.id },
-      include: [
-        { model: models.User,
-          attributes: { exclude: ['mysalt', 'updatedAt'] },
-          through: { attributes: [] } }
-      ],
-      order: [['createdAt', 'DESC']]
-    }).then((found) => {
-      const currentGroup = { groupId: found.id,
-        name: found.name,
-        description: found.description,
-        imageUrl: found.imageUrl,
-        ownerId: found.UserId,
-        createdAt: found.createdAt };
-
-      res.status(200).json({
-        success: 'Successful.',
-        currentGroup,
-        groupMembers: found.Users
+      attributes: ['id', 'name', 'description', 'imageUrl', 'createdAt', ['UserId', 'ownerId']],
+    }).then((foundGroup) => {
+      foundGroup.getUsers({
+        attributes: { exclude: ['mysalt', 'updatedAt', 'password'] },
+        joinTableAttributes: []
+      }).then((foundUsers) => {
+        const found = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Users: foundUsers });
+        res.status(200).json({
+          success: 'Successful.',
+          found,
+        });
+      }).catch((err) => {
+        res.status(500).json(err);
       });
     }).catch((err) => {
       res.status(500).json(err);
@@ -64,25 +59,33 @@ export default class AddUsersCtrl {
  * @returns {void}
  */
   static addUsersToGroup(req, res) {
-    const idToAdd = Number(req.body.idToAdd);
+    const newUserId = Number(req.body.idToAdd);
     models.Group.findOne({
       where: {
         id: req.params.id
       }
-    }).then((group) => {
-      if (group.UserId === req.user.dataValues.id) {
-        models.UserGroup.findOrCreate({
-          where: { $and: {
-            GroupId: req.params.id,
-            UserId: idToAdd
-          } },
-          defaults: {
-            GroupId: req.params.id,
-            UserId: idToAdd
+    }).then((foundGroup) => {
+      if (foundGroup.UserId === req.user.dataValues.id) {
+        models.User.findOne({
+          where: {
+            id: newUserId
           }
-        });
-        res.status(201).json({
-          success: 'Successful.',
+        }).then((foundUser) => {
+          foundGroup.addUser(foundUser).then((addedUser) => {
+            if (!addedUser[0]) {
+              res.status(401).json({
+                error: `${foundUser.username} is already a member of this group`,
+              });
+            } else {
+              res.status(201).json({
+                success: `${foundUser.username} added successfully`
+              });
+            }
+          });
+        }).catch(() => {
+          res.status(404).json({
+            error: 'User not found'
+          });
         });
       } else {
         res.status(400).json({

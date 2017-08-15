@@ -1,5 +1,7 @@
-import passport from 'passport';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import models from './../models/index';
+import { validateSignup, validateInput, validateLoginInput } from '../utils/validations';
 
 /**
  * This class handles the logic for registering an account signin and signing out
@@ -13,30 +15,22 @@ export default class AuthCtrl {
  * @returns {void}
  */
   static register(req, res) {
-    models.User.register(req.body.username, req.body.password, (err, newUser) => {
-      if (err) {
-        return res.status(400).json({
-          error: err.message
+    validateSignup(req.body, validateInput).then(({ errors, isValid }) => {
+      if (isValid) {
+        models.User.create(req.body).then((newUser) => {
+          const token = jwt.sign({
+            username: newUser.username,
+            email: newUser.email,
+            id: newUser.id,
+            telephone: newUser.telephone,
+            fullname: newUser.fullname
+          }, process.env.secret, { expiresIn: 60 * 60 });
+
+          return res.status(201).json({ token });
         });
+      } else {
+        return res.status(400).json({ errors });
       }
-      newUser.update({
-        email: req.body.email,
-        fullname: req.body.fullname
-      }).then(() => {
-        passport.authenticate('local')(req, res, () => {
-          res.status(200).json({
-            success: `Welcome to PostIt ${req.session.passport.user}`,
-            user: req.session.passport.user
-          });
-        });
-      }).catch(() => {
-        models.User.destroy({
-          where: { username: req.body.username }
-        });
-        return res.status(500).json({
-          error: 'Invalid Email.'
-        });
-      });
     });
   }
 
@@ -47,40 +41,41 @@ export default class AuthCtrl {
  * @param {object} next
  * @returns {void}
  */
-  static login(req, res, next) {
-    passport.authenticate('local', (error, user, info) => {
-      if (error) {
-        return next(error);
-      }
-      if (!user) {
-        return res.status(401).json({
-          error: info
-        });
-      }
-      req.login(user, (err) => {
-        if (err) {
-          return res.status(500).json({
-            error: 'Cannot log in user'
+  static login(req, res) {
+
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    if (isValid) {
+      models.User.findOne({
+        where: { $or: [
+      { username: req.body.userIdentifier },
+      { email: req.body.userIdentifier }]
+        }
+      }).then((founduser) => {
+        if (!founduser) {
+          return res.status(400).json({
+            globals: 'Invalid login credentials'
           });
         }
-        res.status(200).json({
-          success: `Welcome back ${req.session.passport.user}`,
-          user: req.session.passport.user
+        if (bcrypt.compareSync(req.body.password, founduser.password)) {
+          const token = jwt.sign({
+            username: founduser.username,
+            email: founduser.email,
+            id: founduser.id,
+            telephone: founduser.telephone,
+            fullname: founduser.fullname
+          }, process.env.secret, { expiresIn: 60 * 60 });
+          return res.status(200).json({
+            token
+          });
+        }
+        return res.status(400).json({
+          globals: 'Invalid login credentials'
         });
       });
-    })(req, res, next);
+    } else {
+      return res.status(400).json({ errors });
+    }
   }
 
-/**
- * This method handles the logic for logging a user out
- * @param {object} req
- * @param {object} res
- * @returns {void}
- */
-  static logout(req, res) {
-    req.logout();
-    res.status(200).json({
-      message: 'Logged out successfully'
-    });
-  }
 }

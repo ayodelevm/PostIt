@@ -14,7 +14,5 @@ router.post('/api/user/register', AuthCtrl.register);
 
 router.post('/api/user/login', AuthCtrl.login);
 
-// Add logout route
-router.get('/api/user/logout', AuthCtrl.logout);
 
 export default router;

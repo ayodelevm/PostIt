@@ -1,0 +1,22 @@
+.dashboard-container {
+  display:block;
+  width:100%;
+  height:87vh;
+  overflow-y: scroll;
+  font-family: 'Rambla', sans-serif;
+}
+
+// .card-stacked {
+//   overflow-y: scroll;
+// }
+
+.card.horizontal .card-stacked {
+  padding: 0;
+  margin: 0;
+}
+
+.description {
+  font-size: 0.5rem;
+  color: grey;
+  font-style: italic;
+}

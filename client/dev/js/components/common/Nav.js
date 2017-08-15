@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Notifications from 'react-notify-toast';
-import NavButtons from '../../containers/NavButtons';
+import NavContainer from '../../containers/NavContainer';
 
 const Nav = () => (
   <div className="navbar-fixed">
@@ -17,7 +17,7 @@ const Nav = () => (
         <a href="" data-activates="slide-out" className="button-collapse">
           <i className="material-icons">menu</i>
         </a>
-        <NavButtons />
+        <NavContainer />
       </div>
     </nav>
   </div>

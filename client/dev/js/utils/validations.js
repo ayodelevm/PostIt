@@ -1,5 +1,4 @@
 import Validator from 'validator';
-import models from '../models/index';
 
 export const validateInput = (data) => {
   const errors = {};
@@ -42,31 +41,6 @@ export const validateInput = (data) => {
   };
 };
 
-export const validateSignup = (data, inputValidations) => {
-  const { errors } = inputValidations(data);
-
-  return models.User.findOne({
-    where: { $or: [
-        { username: data.username },
-        { email: data.email }]
-    },
-  }).then((foundUser) => {
-    if (foundUser) {
-      if (foundUser.username === data.username) {
-        errors.username = 'username is not available';
-      }
-      if (foundUser.email === data.email) {
-        errors.email = 'email is not available';
-      }
-    }
-
-    return {
-      errors,
-      isValid: !Object.keys(errors).length
-    };
-  });
-};
-
 export const validateLoginInput = (data) => {
   const errors = {};
 
@@ -94,25 +68,4 @@ export const validateGroupInput = (data) => {
     errors,
     isValid: !Object.keys(errors).length
   };
-};
-
-export const groupValidation = (data, inputValidations) => {
-  const { errors } = inputValidations(data);
-
-  return models.Group.findOne({
-    where: {
-      name: data.name
-    },
-  }).then((foundGroup) => {
-    if (foundGroup) {
-      if (foundGroup.name === data.name) {
-        errors.name = 'A group with this name already exists';
-      }
-    }
-
-    return {
-      errors,
-      isValid: !Object.keys(errors).length
-    };
-  });
 };

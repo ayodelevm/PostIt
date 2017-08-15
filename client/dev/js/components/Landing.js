@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Notifications from 'react-notify-toast';
+import Nav from './common/Nav';
 
-const Slider = () => (
+const Landing = () => (
   <div>
+    <div className="main">
+      <Notifications />
+    </div>
+    <Nav />
     <div className="parallax-container valign-wrapper">
       <div className="container landing center-align">
         <div className="row center-align">
@@ -35,4 +41,4 @@ const Slider = () => (
     </div>
   </div>
 );
-export default Slider;
+export default Landing;

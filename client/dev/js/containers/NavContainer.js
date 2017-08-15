@@ -6,7 +6,7 @@ import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import { logoutAUser } from '../actions/authActions';
 
-class NavButtons extends React.Component {
+class NavContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -99,5 +99,5 @@ const mapStateToProps = state => ({
 
 const matchDispatchToProps = dispatch => bindActionCreators({ logoutAUser }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(NavButtons);
+export default connect(mapStateToProps, matchDispatchToProps)(NavContainer);
 

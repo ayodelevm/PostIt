@@ -28,6 +28,18 @@ $('.chips-placeholder').material_chip({
       minLength: 0
     }
   });
+  $('select').material_select();
   Materialize.updateTextFields();
+  $('.dropdown-button').dropdown({
+    inDuration: 300,
+    outDuration: 225,
+    constrainWidth: false,
+    hover: true,
+    gutter: 0,
+    belowOrigin: true,
+    alignment: 'left',
+    stopPropagation: false
+  }
+  );
 });
 

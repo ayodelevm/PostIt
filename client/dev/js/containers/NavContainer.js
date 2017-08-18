@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { notify } from 'react-notify-toast';
@@ -14,16 +14,8 @@ class NavContainer extends React.Component {
   }
 
   logout(e) {
-    // e.preventDefault();
     this.props.logoutAUser();
-    // .then(() => {
-    //   notify.show(this.props.logoutAction.successMessage, 'success', 10000);
-    //   return <Redirect to="/" />;
-    // });
     notify.show(this.props.logoutAction.successMessage, 'success', 10000);
-    // return (
-    //   <Redirect to="/" />
-    // );
     window.location.href('/');
   }
 
@@ -60,7 +52,7 @@ class NavContainer extends React.Component {
       <div>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li className="active"><a href="" className="lime-text lighthen-5"><i className="material-icons left">notifications</i><span id="notification-number">5</span></a></li>
-          <li><a className="lime-text lighthen-5" href=""><i className="material-icons">people</i></a></li>
+          <li><Link className="lime-text lighthen-5" to="/dashboard">Dashboard</Link></li>
           <li><Link className="lime-text lighthen-5" onClick={this.logout} to="/">Logout</Link></li>
         </ul>
 
@@ -70,7 +62,7 @@ class NavContainer extends React.Component {
             <a href="" className="waves-effect waves-light"><i className="material-icons left">notifications</i><span id="notification-number">5</span></a>
           </li>
           <li><div className="divider" /></li>
-          <li><a href="" className="waves-effect waves-light"><i className="material-icons">people</i></a></li>
+          <li><Link className="lime-text lighthen-5" to="/dashboard">Dashboard</Link></li>
           <li><div className="divider" /></li>
           <li><a href="/" onClick={this.logout} className="waves-effect waves-light">Logout</a></li>
           <li><div className="divider" /></li>
@@ -87,7 +79,7 @@ class NavContainer extends React.Component {
 
 }
 
-NavButtons.propTypes = {
+NavContainer.propTypes = {
   logoutAUser: PropTypes.func.isRequired,
   // eslint-disable-next-line
   logoutAction: PropTypes.object

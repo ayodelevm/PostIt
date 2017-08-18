@@ -14,22 +14,18 @@ export default class messageCtrl {
   static getGroupAndMessages(req, res) {
     models.Group.findOne({
       where: { id: req.params.id },
-      include: [
-        { model: models.Message,
-          attributes: ['id', 'message', 'GroupId', 'createdAt', ['UserId', 'ownerId']],
-          order: [['createdAt', 'DESC']]
-        }]
-    }).then((found) => {
-      const currentGroup = { groupId: found.id,
-        name: found.name,
-        description: found.description,
-        imageUrl: found.imageUrl,
-        ownerId: found.UserId,
-        createdAt: found.createdAt };
-      res.status(200).json({
-        success: 'Successful.',
-        currentGroup,
-        groupMessages: found.Messages
+    }).then((foundGroup) => {
+      foundGroup.getMessages({
+        where: { archived: false },
+        attributes: ['id', 'message', 'GroupId', 'priority', 'createdAt', ['UserId', 'ownerId']],
+        joinTableAttributes: [],
+        order: [['createdAt', 'ASC']]
+      }).then((foundMessages) => {
+        const found = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Messages: foundMessages === null ? [] : foundMessages });
+        res.status(200).json({
+          success: 'Successful.',
+          found
+        });
       });
     }).catch((err) => {
       res.status(500).json(err);
@@ -54,9 +50,10 @@ export default class messageCtrl {
         const newMessage = Object.assign(req.body, {
           UserId: req.user.dataValues.id }, { GroupId: req.params.id });
         models.Message.create(newMessage).then((addedMessage) => {
+          const found = Object.assign({}, addedMessage.dataValues, { ownerId: addedMessage.dataValues.UserId });
           res.status(201).json({
             success: 'New message added successfully.',
-            addedMessage
+            found
           });
         }).catch((err) => {
           res.status(500).json({

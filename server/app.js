@@ -18,7 +18,6 @@ const app = express();
 // Allow Cross-Origin
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  // res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -47,9 +46,11 @@ app.use((req, res, next) => {
 });
 
 // Listening PORT
-app.listen(process.env.PORT || 3002, () => {
-  console.log('serving on port 3002');
+models.sequelize.sync().then(() => {
+  app.listen(process.env.PORT || 3002, () => {
+    // eslint-disable-next-line
+    console.log('serving on port 3002');
+  });
 });
-
 
 export default app;

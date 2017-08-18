@@ -343,6 +343,14 @@ ul li a.groups {
     vertical-align: middle;
     margin: 1.04rem 0 0.112rem 0; }
 
+.hidden-submit {
+  border: 0 none;
+  height: 0;
+  width: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden; }
+
 .parallax-container .landing {
   position: relative; }
 .parallax-container .below_landing {

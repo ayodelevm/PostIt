@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Notifications, { notify } from 'react-notify-toast';
+import Notifications from 'react-notify-toast';
 import PropTypes from 'prop-types';
-import Chips, { Chip } from 'react-chips';
-import GroupForm from '../containers/GroupForm';
+import Chips from 'react-chips';
 import InputFieldGroup from './common/InputFields';
 
 
@@ -13,7 +12,7 @@ const GroupModal = (props) => {
 
     <div id="group-new" className="modal">
       <div className="row modal-close-div">
-        <Link to="/dashboard" className="modal-action modal-close waves-effect waves-green btn-flat right"><i className="material-icons center">close</i></Link>
+        <Link to={`/${props.closeModalRoute}`} className="modal-action modal-close waves-effect waves-green btn-flat right"><i className="material-icons center">close</i></Link>
       </div>
 
       <div className="row">

@@ -24,7 +24,8 @@ export default class AuthCtrl {
             email: newUser.email,
             id: newUser.id,
             telephone: newUser.telephone,
-            fullname: newUser.fullname
+            fullname: newUser.fullname,
+            profileImage: newUser.profileImage
           }, process.env.secret, { expiresIn: 60 * 60 });
 
           return res.status(201).json({ token });
@@ -43,7 +44,6 @@ export default class AuthCtrl {
  * @returns {void}
  */
   static login(req, res) {
-
     const { errors, isValid } = validateLoginInput(req.body);
 
     if (isValid) {
@@ -64,7 +64,8 @@ export default class AuthCtrl {
             email: founduser.email,
             id: founduser.id,
             telephone: founduser.telephone,
-            fullname: founduser.fullname
+            fullname: founduser.fullname,
+            profileImage: founduser.profileImage
           }, process.env.secret, { expiresIn: 60 * 60 });
           return res.status(200).json({
             token
@@ -79,4 +80,30 @@ export default class AuthCtrl {
     }
   }
 
+  /**
+ * This method handles logic for registering a user
+ * @param {*} req
+ * @param {*} res
+ * @returns {void}
+ */
+  static updateOneUser(req, res) {
+    models.User.findOne({
+      where: { id: req.params.id }
+    }).then((foundUser) => {
+      foundUser.update(req.body).then((updatedUser) => {
+        res.status(200).json({
+          success: 'Group details updated successfully.',
+          updatedUser
+        });
+      }).catch((err) => {
+        res.status(500).json({
+          globals: err.errors[0].message || err.message
+        });
+      });
+    }).catch((err) => {
+      res.status(500).json({
+        globals: err.errors[0].message || err.message
+      });
+    });
+  }
 }

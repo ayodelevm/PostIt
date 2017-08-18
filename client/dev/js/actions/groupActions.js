@@ -66,8 +66,8 @@ export const getAllGroups = token => (dispatch) => {
   );
 };
 
-export const getGroupUsers = token => (dispatch) => {
-  return api.getEndpoint(endpoints.GET_GROUP_USERS_PATH, token)
+export const getGroupUsers = (token, groupId) => (dispatch) => {
+  return api.getEndpoint(endpoints.GET_GROUP_USERS_PATH.replace(':id', `${groupId}`), token)
   .then(
     (success) => {
       dispatch(groupUsers(success));

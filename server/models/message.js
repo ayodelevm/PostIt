@@ -3,6 +3,14 @@ module.exports = (sequelize, DataTypes) => {
     message: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    priority: {
+      type: DataTypes.STRING,
+      defaultValue: 'Normal'
+    },
+    archived: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, {
     classMethods: {

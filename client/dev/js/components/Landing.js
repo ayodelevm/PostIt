@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Notifications from 'react-notify-toast';
 import Nav from './common/Nav';
 

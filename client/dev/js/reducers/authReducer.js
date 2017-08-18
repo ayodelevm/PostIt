@@ -2,14 +2,14 @@ import Types from '../actions/actionTypes';
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  currentUser: {}
 };
 
 const authReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.CREATE_NEW_USER:
       return Object.assign({}, state, {
-        user: action.newUser,
+        currentUser: action.newUser,
         isAuthenticated: !!Object.keys(action.newUser)
       });
 
@@ -21,7 +21,7 @@ const authReducer = (state = initialState, action = {}) => {
 
     case Types.LOGIN_USER:
       return Object.assign({}, state, {
-        user: action.user,
+        currentUser: action.user,
         isAuthenticated: !!Object.keys(action.user)
       });
 
@@ -39,7 +39,7 @@ const authReducer = (state = initialState, action = {}) => {
 
     case Types.SET_CURRENT_USER:
       return Object.assign({}, state, {
-        user: action.currentUser,
+        currentUser: action.currentUser,
         isAuthenticated: !!Object.keys(action.currentUser).length
       });
 

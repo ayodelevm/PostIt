@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Notifications, { notify } from 'react-notify-toast';
@@ -73,15 +73,6 @@ class SignUpForm extends React.Component {
         }
       );
   }
-
-  // componentWillReceiveProps() {
-  //   $(document).ready(() => {
-  //     $('.modal').modal({
-  //       dismissible: true,
-  //     });
-  //     Materialize.updateTextFields();
-  //   });
-  // }
 
   render() {
     const form = (
@@ -187,7 +178,6 @@ SignUpForm.defaultProps = {
 
 SignUpForm.propTypes = {
   createNewUser: PropTypes.func.isRequired,
-  // signupError: PropTypes.string,
   // eslint-disable-next-line
   signupResponse: PropTypes.object
 };

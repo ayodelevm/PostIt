@@ -7,9 +7,9 @@ export const groupAndMessages = grpMessages => ({
   grpMessages
 });
 
-export const newGroupMessages = newMessages => ({
+export const newGroupMessages = newMessage => ({
   type: Types.CREATE_NEW_MESSAGES,
-  newMessages
+  newMessage
 });
 
 export const archiveMessages = archivedMessages => ({
@@ -32,8 +32,8 @@ export const archiveMessagesFailure = failure => ({
   failure
 });
 
-export const getOneGroupWithMessages = () => (dispatch) => {
-  api.getEndpoint(endpoints.GET_ONE_GROUP_AND_MESSAGES_PATH)
+export const getOneGroupWithMessages = (token, groupId) => (dispatch) => {
+  return api.getEndpoint(endpoints.GET_ONE_GROUP_AND_MESSAGES_PATH.replace(':id', `${groupId}`), token)
   .then(
     (success) => {
       dispatch(groupAndMessages(success));
@@ -44,8 +44,8 @@ export const getOneGroupWithMessages = () => (dispatch) => {
   );
 };
 
-export const createNewMessages = data => (dispatch) => {
-  api.postEndpoint(endpoints.POST_MESSAGES_PATH, data)
+export const createNewMessages = (token, data, groupId) => (dispatch) => {
+  return api.postEndpoint(endpoints.POST_MESSAGES_PATH.replace(':id', `${groupId}`), data, token)
   .then(
     (success) => {
       dispatch(newGroupMessages(success));

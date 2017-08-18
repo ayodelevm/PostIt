@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { notify } from 'react-notify-toast';
+import { push } from 'react-router-redux';
+import store from '../store/store';
 
 const authorize = (ProtectedComponent) => {
   class AuthorizeRoutes extends React.Component {
     componentWillMount() {
       if (!this.props.status.isAuthenticated) {
-        window.location.replace('/');
+        store.dispatch(push('/login'));
         setTimeout(() => {
           notify.show('You need to be logged in to access this page!', 'warning', 10000);
         }, 1000);
@@ -16,7 +18,7 @@ const authorize = (ProtectedComponent) => {
 
     componentWillUpdate(nextProps) {
       if (!nextProps.status.isAuthenticated) {
-        window.location.replace('/');
+        store.dispatch(push('/'));
       }
     }
 

@@ -1,14 +1,10 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Notifications, { notify } from 'react-notify-toast';
+import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import Chips, { Chip } from 'react-chips';
 import { createNewGroup } from '../actions/groupActions';
 import { validateGroupInput } from '../utils/validations';
-import InputFieldGroup from '../components/common/InputFields';
 import GroupModal from '../components/GroupModal';
 
 class GroupForm extends React.Component {
@@ -109,6 +105,7 @@ class GroupForm extends React.Component {
         state={this.state} onChange={this.handleChange}
         name={this.state.name} error={this.state.errors.name}
         onChipsChange={this.onChange} suggestions={allusernames}
+        closeModalRoute={this.props.closeModalRoute}
       />
 
     );

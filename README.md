@@ -1,5 +1,4 @@
 # PostIt
-
 [![Build Status](https://travis-ci.org/ayodelevm/PostIt.svg?branch=development)](https://travis-ci.org/ayodelevm/PostIt)  [![Coverage Status](https://coveralls.io/repos/github/ayodelevm/PostIt/badge.svg?branch=development)](https://coveralls.io/github/ayodelevm/PostIt?branch=development)  [![Code Climate](https://codeclimate.com/github/ayodelevm/PostIt/badges/gpa.svg)](https://codeclimate.com/github/ayodelevm/PostIt)  [![Issue Count](https://codeclimate.com/github/ayodelevm/PostIt/badges/issue_count.svg)](https://codeclimate.com/github/ayodelevm/PostIt)
 
 ## Introduction
@@ -136,4 +135,5 @@ N:B: You can only post message in groups you have created or have been added to
 *  If the tests are successful, they will complete without failures or errors.
 
 ###### Copyright 2017, Ayodele Victor
+
 

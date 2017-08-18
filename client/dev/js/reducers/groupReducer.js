@@ -7,7 +7,8 @@ const initialState = {
   editSuccess: false,
   archiveSuccess: false,
   newGroup: {},
-  groups: {}
+  groups: {},
+  grpUsers: {}
 };
 
 const groupReducer = (state = initialState, action = {}) => {
@@ -19,7 +20,10 @@ const groupReducer = (state = initialState, action = {}) => {
       });
 
     case Types.GET_GROUP_USERS:
-      return action.grpUsers;
+      return Object.assign({}, state, {
+        grpUsers: action.grpUsers.found,
+        getGrpUsersSuccess: !!Object.keys(action.grpUsers)
+      });
 
     case Types.CREATE_GROUP:
       return Object.assign({}, state, {

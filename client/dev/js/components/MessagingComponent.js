@@ -71,7 +71,8 @@ const MessagingComponent = (props) => {
               <div className="row group-section">
                 <ul>
                   {
-                    Groups && Groups.map(group => (
+                    Groups && Groups.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+                    .map(group => (
                       [
                         groups.id === group.ownerId ?
                           <div key={group.id}>

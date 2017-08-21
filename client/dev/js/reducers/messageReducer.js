@@ -20,6 +20,12 @@ const messageReducer = (state = intialState, action = {}) => {
         newMessage: action.newMessage.found,
         newMessageSuccess: !!Object.keys(action.newMessage)
       });
+    
+    case Types.SET_CURRENT_MESSAGES:
+      return Object.assign({}, state, {
+        grpMessages: action.mergedMessages,
+        newMessageSuccess: !!Object.keys(action.mergedMessages)
+      });
 
     case Types.ARCHIVE_MESSAGES:
       return action.archivedMessages;

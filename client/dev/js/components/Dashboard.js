@@ -7,6 +7,12 @@ import Nav from './common/Nav';
 
 const Dashboard = (props) => {
   const { Groups } = props.groups;
+  let sortedGroups = [];
+  let filteredGroups = [];
+  if (Groups) {
+    sortedGroups = Groups.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    filteredGroups = Groups.filter(group => group.ownerId === props.groups.id);
+  }
   return (
     <div id="message-board-background">
       <Nav />
@@ -37,18 +43,15 @@ const Dashboard = (props) => {
 
                 <h5 className="center">Personal Groups</h5>
                 <ul>
-                  {Groups && Groups.map(group => (
-                    [props.groups.id === group.ownerId &&
+                  {filteredGroups && filteredGroups.map(group => (
                     <div key={group.id}>
                       <li className="group-display"><a href="" id={group.id} className="groups grey-text">
-                        <span className="left truncate"><i className="material-icons group-icons">lock
-                        </i> {group.name}</span><i className="material-icons right">settings</i></a>
+                        <span className="left truncate"><i className="material-icons group-icons">lock_open
+                          </i> {group.name}</span><i className="material-icons right">settings</i></a>
                       </li><br />
                     </div>
-                    ]
-                  ))
+                    ))
                   }
-
                 </ul>
               </div>
             </div>
@@ -56,7 +59,7 @@ const Dashboard = (props) => {
 
           <div className="col s12 l9">
             <div className="dashboard-container">
-              {Groups && Groups.map(group => (
+              {sortedGroups && sortedGroups.map(group => (
                 <div key={group.id} className="col s12 m6">
                   <div className="card horizontal">
                     <div className="card-image">

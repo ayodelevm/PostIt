@@ -34,7 +34,7 @@ const config = [{
         loader: 'babel-loader',
 
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'react', 'stage-2']
         },
       },
       {
@@ -61,13 +61,6 @@ const config = [{
           limit: 250000,
         },
       },
-    //   {
-    //     test: /\.js$/,
-    //     include: [
-    //       path.join(__dirname, 'client'),
-    //       path.join(__dirname, 'server/')
-    //     ]
-    //   }
     ]
   }
 }];

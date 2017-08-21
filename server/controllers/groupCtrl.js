@@ -56,12 +56,13 @@ export default class GroupCtrl {
     groupValidation(req.body, validateGroupInput).then(({ errors, isValid }) => {
       if (isValid) {
         const newDetails = Object.assign(req.body, { UserId: req.user.dataValues.id });
-        models.Group.create(newDetails).then((newGroup) => {
+        models.Group.create(newDetails).then((createdGroup) => {
           models.User.findAll({
             where: { username: initialGroupMembers }
           })
           .then((foundUsers) => {
-            newGroup.addUsers(foundUsers).then(() => {
+            createdGroup.addUsers(foundUsers).then(() => {
+              const newGroup = Object.assign({}, createdGroup.dataValues, { ownerId: createdGroup.dataValues.UserId });
               return res.status(201).json({
                 success: 'New group created successfully.',
                 newGroup

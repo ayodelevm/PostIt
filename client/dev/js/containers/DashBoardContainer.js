@@ -16,34 +16,20 @@ class DashBoardContainer extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { groups, newGroup } = nextProps.getAllGroupsResponse;
-    const mergedGroup = _.merge(groups, { Groups: [newGroup] });
-    this.setState({
-      groups: mergedGroup
-    });
-  }
 
   componentDidMount() {
     const token = window.localStorage.token;
-    this.props.getAllGroups(token).then(() => {
-      this.props.getAllUsers(token).then(
-        () => {
-          if (this.props.getAllGroupsResponse.getGrpSuccess &&
-            this.props.getAllUsersResponse.getSuccess) {
-            this.setState({
-              groups: this.props.getAllGroupsResponse.groups,
-              users: this.props.getAllUsersResponse.users
-            });
-          }
-        }
-      );
-    });
+    this.props.getAllGroups(token)
+    .then(() => this.props.getAllUsers(token));
   }
 
   render() {
     return (
-      <Dashboard groups={this.state.groups} users={this.state.users} />
+      <Dashboard
+        groups={this.props.getAllGroupsResponse.groups}
+        users={this.props.getAllUsersResponse.users}
+        currentUser={this.props.currentUser.currentUser}
+      />
     );
   }
 }
@@ -61,7 +47,8 @@ DashBoardContainer.propTypes = {
 
 const mapStateToProps = state => ({
   getAllGroupsResponse: state.groupReducer,
-  getAllUsersResponse: state.addUserReducer
+  getAllUsersResponse: state.addUserReducer,
+  currentUser: state.authReducer
 });
 
 const matchDispatchToProps = dispatch => bindActionCreators({ getAllGroups, getAllUsers }, dispatch);

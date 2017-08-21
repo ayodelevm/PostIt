@@ -3,10 +3,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { getOneGroupWithMessages } from '../actions/messageActions';
+import { getOneGroupWithMessages, setCurrentMessages } from '../actions/messageActions';
 import { getGroupUsers, getAllGroups } from '../actions/groupActions';
 import { getAllUsers } from '../actions/addUserActions';
 import MessagingComponent from '../components/MessagingComponent';
+import store from '../store/store';
 
 class MessagingContainer extends React.Component {
   constructor(props) {
@@ -14,28 +15,23 @@ class MessagingContainer extends React.Component {
     this.state = {
       grpMessages: {},
       grpUsers: {},
-      groupId: ''
+      users: [],
+      groups: {},
+      currentUser: {}
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { grpMessages, newMessage } = nextProps.groupMessages;
-    _.merge(grpMessages, { Messages: [newMessage] });
   }
 
   componentDidMount() {
     const token = window.localStorage.token;
     const { match } = this.props;
-    this.props.getOneGroupWithMessages(token, match.params.id).then(() => {
-      this.props.getGroupUsers(token, match.params.id).then(() => {
-        this.props.getAllGroups(token).then(() => {
-          this.props.getAllUsers(token);
-        });
-      });
-    });
+    this.props.getOneGroupWithMessages(token, match.params.id)
+    .then(() => this.props.getGroupUsers(token, match.params.id))
+    .then(() => this.props.getAllGroups(token))
+    .then(() => this.props.getAllUsers(token));
   }
 
   render() {
+    console.log('===state===', this.state);
     return (
       <MessagingComponent
         messages={this.props.groupMessages.grpMessages}
@@ -71,7 +67,7 @@ const mapStateToProps = state => ({
 });
 
 const matchDispatchToProps = dispatch => bindActionCreators({
-  getGroupUsers, getOneGroupWithMessages, getAllGroups, getAllUsers
+  getGroupUsers, getOneGroupWithMessages, getAllGroups, getAllUsers, setCurrentMessages
 }, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(MessagingContainer);

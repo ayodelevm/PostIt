@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import GroupForm from '../containers/GroupForm';
-import UploadFileContainer from '../containers/UploadFileContainer';
-import Nav from './common/Nav';
-import MessagingForm from '../containers/MessagingForm';
+import GroupForm from '../containers/GroupForm.jsx';
+import UploadFileContainer from '../containers/UploadFileContainer.jsx';
+import Nav from './common/Nav.jsx';
+import MessagingForm from '../containers/MessagingForm.jsx';
 
 const renderMessage = (users, message) => {
   if (users && message) {

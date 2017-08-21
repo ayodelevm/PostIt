@@ -1,6 +1,6 @@
 import React from 'react';
 import Notifications from 'react-notify-toast';
-import Nav from './common/Nav';
+import Nav from './common/Nav.jsx';
 
 const Landing = () => (
   <div>

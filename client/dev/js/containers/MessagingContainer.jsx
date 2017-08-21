@@ -2,12 +2,10 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { getOneGroupWithMessages, setCurrentMessages } from '../actions/messageActions';
 import { getGroupUsers, getAllGroups } from '../actions/groupActions';
 import { getAllUsers } from '../actions/addUserActions';
-import MessagingComponent from '../components/MessagingComponent';
-import store from '../store/store';
+import MessagingComponent from '../components/MessagingComponent.jsx';
 
 class MessagingContainer extends React.Component {
   constructor(props) {

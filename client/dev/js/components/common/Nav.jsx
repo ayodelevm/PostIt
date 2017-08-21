@@ -1,5 +1,5 @@
 import React from 'react';
-import NavContainer from '../../containers/NavContainer';
+import NavContainer from '../../containers/NavContainer.jsx';
 
 const Nav = () => (
   <div className="navbar-fixed">

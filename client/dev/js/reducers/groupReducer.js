@@ -31,6 +31,12 @@ const groupReducer = (state = initialState, action = {}) => {
         createSuccess: !!Object.keys(action.newGroup)
       });
 
+    case Types.SET_CURRENT_GROUPS:
+      return Object.assign({}, state, {
+        groups: action.mergedGroups,
+        createSuccess: !!Object.keys(action.mergedGroups),
+      });
+
     case Types.EDIT_A_GROUP:
       return action.updatedGroup;
 

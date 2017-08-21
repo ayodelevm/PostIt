@@ -48,7 +48,7 @@ ReactDOM.render(
             <Route exact path="/register" component={SignUpComponent} />
             <Route exact path="/login" component={LoginComponent} />
             <Route path="/dashboard" component={authorize(DashBoardContainer)} />
-            <Route path="/groups/:id/message" component={authorize(MessagingContainer)} />
+            <Route path="/groups/:id/message" component={MessagingContainer} />
           </Switch>
         </App>
       </ConnectedRouter>

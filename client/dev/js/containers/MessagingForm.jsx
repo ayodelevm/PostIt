@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createNewMessages } from '../actions/messageActions';
-import MessagingFormComponent from '../components/MessagingFormComponent';
+import MessagingFormComponent from '../components/MessagingFormComponent.jsx';
 
 class MessagingForm extends React.Component {
 

@@ -2,10 +2,9 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { getAllGroups } from '../actions/groupActions';
 import { getAllUsers } from '../actions/addUserActions';
-import Dashboard from '../components/Dashboard';
+import Dashboard from '../components/Dashboard.jsx';
 
 class DashBoardContainer extends React.Component {
   constructor(props) {

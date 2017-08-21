@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUpForm from '../containers/SignUpForm';
+import SignUpForm from '../containers/SignUpForm.jsx';
 
 const SignUpComponent = () => (
   <div className="parallax-container">

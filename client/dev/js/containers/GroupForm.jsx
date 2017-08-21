@@ -5,7 +5,7 @@ import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import { createNewGroup } from '../actions/groupActions';
 import { validateGroupInput } from '../utils/validations';
-import GroupModal from '../components/GroupModal';
+import GroupModal from '../components/GroupModal.jsx';
 
 class GroupForm extends React.Component {
 

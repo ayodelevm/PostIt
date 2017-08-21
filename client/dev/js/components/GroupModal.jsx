@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Notifications from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import Chips from 'react-chips';
-import InputFieldGroup from './common/InputFields';
+import InputFieldGroup from './common/InputFields.jsx';
 
 
 const GroupModal = (props) => {

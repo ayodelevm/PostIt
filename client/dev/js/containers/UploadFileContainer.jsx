@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { createNewGroup } from '../actions/groupActions';
 import { validateGroupInput } from '../utils/validations';
-import UploadsModal from '../components/UploadsModal';
+import UploadsModal from '../components/UploadsModal.jsx';
 
 class GroupForm extends React.Component {
 

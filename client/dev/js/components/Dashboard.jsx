@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import GroupForm from '../containers/GroupForm';
-import UploadFileContainer from '../containers/UploadFileContainer';
-import Nav from './common/Nav';
+import GroupForm from '../containers/GroupForm.jsx';
+import UploadFileContainer from '../containers/UploadFileContainer.jsx';
+import Nav from './common/Nav.jsx';
 
 const Dashboard = (props) => {
   const { Groups } = props.groups;

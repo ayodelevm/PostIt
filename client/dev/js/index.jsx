@@ -17,15 +17,15 @@ import '../../../scss/main.scss';
 import store, { history } from './store/store';
 
 
-import App from './components/App';
-import DashBoardContainer from './containers/DashBoardContainer';
-import MessagingContainer from './containers/MessagingContainer';
-import Landing from './components/Landing';
+import App from './components/App.jsx';
+import DashBoardContainer from './containers/DashBoardContainer.jsx';
+import MessagingContainer from './containers/MessagingContainer.jsx';
+import Landing from './components/Landing.jsx';
 import authorize from './utils/authorizeRoutes';
 
 
-import LoginComponent from './components/LoginComponent';
-import SignUpComponent from './components/SignUpComponent';
+import LoginComponent from './components/LoginComponent.jsx';
+import SignUpComponent from './components/SignUpComponent.jsx';
 
 // Initialize Firebase
 const config = {

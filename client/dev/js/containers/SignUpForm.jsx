@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Notifications, { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import $ from 'jquery';
 import { createNewUser } from '../actions/authActions';
 import { validateInput } from '../utils/validations';
 

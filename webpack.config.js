@@ -15,7 +15,7 @@ module.exports = {
       {
         test: /\.js$/,
         loaders: ['babel-loader'],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.scss/,
@@ -66,7 +66,6 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
-      Hammer: 'hammerjs/hammer'
     }),
     new webpack.optimize.OccurrenceOrderPlugin()
   ]

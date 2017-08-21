@@ -52,7 +52,10 @@ export const archiveGroupFailure = failure => ({
   failure
 });
 
-// const token = window.localStorage.token;
+export const setCurrentGroups = mergedGroups => ({
+  type: Types.SET_CURRENT_GROUPS,
+  mergedGroups
+});
 
 export const getAllGroups = token => (dispatch) => {
   return api.getEndpoint(endpoints.GET_ALL_GROUPS_PATH, token)
@@ -78,11 +81,18 @@ export const getGroupUsers = (token, groupId) => (dispatch) => {
   );
 };
 
-export const createNewGroup = (data, token) => (dispatch) => {
+export const createNewGroup = (data, token) => (dispatch, getState) => {
   return api.postEndpoint(endpoints.CREATE_GROUP_PATH, data, token)
   .then(
     (success) => {
-      dispatch(createGroup(success.newGroup));
+      const previousState = getState();
+      const { groups } = previousState.groupReducer;
+
+      const mergedGroups = groups.Groups.concat(success.newGroup);
+      const currentGroups = { ...groups,
+        Groups: mergedGroups
+      };
+      dispatch(setCurrentGroups(currentGroups));
     },
     (error) => {
       dispatch(createGroupFailure(error));

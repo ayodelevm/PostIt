@@ -32,8 +32,12 @@ export const archiveMessagesFailure = failure => ({
   failure
 });
 
-export const getOneGroupWithMessages = (token, groupId) => (dispatch) => {
-  return api.getEndpoint(endpoints.GET_ONE_GROUP_AND_MESSAGES_PATH.replace(':id', `${groupId}`), token)
+export const setNewGroupMessages = mergedMessages => ({
+  type: Types.SET_CURRENT_MESSAGES,
+  mergedMessages
+});
+
+export const getOneGroupWithMessages = (token, groupId) => dispatch => api.getEndpoint(endpoints.GET_ONE_GROUP_AND_MESSAGES_PATH.replace(':id', `${groupId}`), token)
   .then(
     (success) => {
       dispatch(groupAndMessages(success));
@@ -42,16 +46,20 @@ export const getOneGroupWithMessages = (token, groupId) => (dispatch) => {
       dispatch(groupAndMessagesFailure(error));
     }
   );
-};
 
-export const createNewMessages = (token, data, groupId) => (dispatch) => {
-  return api.postEndpoint(endpoints.POST_MESSAGES_PATH.replace(':id', `${groupId}`), data, token)
+export const createNewMessages = (token, data, groupId) => (dispatch, getState) => api.postEndpoint(endpoints.POST_MESSAGES_PATH.replace(':id', `${groupId}`), data, token)
   .then(
     (success) => {
-      dispatch(newGroupMessages(success));
+      const previousState = getState();
+      const { grpMessages } = previousState.messageReducer;
+
+      const mergedMessages = grpMessages.Messages.concat(success.found);
+      const currentMessages = { ...grpMessages,
+        Messages: mergedMessages
+      };
+      dispatch(setNewGroupMessages(currentMessages));
     },
     (error) => {
       dispatch(newGroupMessagesFailure(error));
     }
   );
-};

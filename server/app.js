@@ -46,15 +46,6 @@ app.use(messageRoutes);
 app.use(addUsersRoutes);
 
 
-// If no route is matched return a 404
-// app.use((req, res, next) => {
-//   res.status(501).send({
-//     status: false,
-//     message: 'Sorry, this address is not supported by this API.'
-//   });
-//   next();
-// });
-
 const compiler = webpack(webpackConfig);
 
 app.use(webpackMiddleware(compiler, {

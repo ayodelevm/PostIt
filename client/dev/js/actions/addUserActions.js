@@ -34,9 +34,9 @@ export const getAllUsers = token => (dispatch) => {
     );
 };
 
-export const addNewUsersToGroup = (data, token) => (dispatch) => {
+export const addNewUsersToGroup = (token, data, groupId) => (dispatch) => {
   return api
-  .postEndpoint(endpoints.ADD_USERS_TO_GROUP_PATH, data, token)
+  .postEndpoint(endpoints.ADD_USERS_TO_GROUP_PATH.replace(':id', `${groupId}`), data, token)
   .then(
     (success) => {
       dispatch(newGroupUsers(success));

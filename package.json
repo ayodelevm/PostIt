@@ -17,7 +17,7 @@
     "build": "webpack",
     "dev": "webpack-dev-server",
     "migrate": "sequelize db:migrate",
-    "start": "NODE_ENV=production npm run build && npm run migrate && nodemon --exec babel-node ./server/app.js",
+    "start": "NODE_ENV=production npm run migrate && nodemon --exec babel-node ./server/app.js",
     "test": "NODE_ENV=test npm run migrate && NODE_ENV=test mocha --timeout 15000 --compilers js:babel-core/register ./server/test",
     "test:client": "NODE_ENV=jest jest ./client/test/*/*.test.js --coverage --collectCoverageFrom=client/**/*.{js,jsx}",
     "test:watch": "npm run test:client -- --watch",

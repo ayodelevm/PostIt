@@ -10,12 +10,11 @@ export const checkStatus = (response) => {
 };
 
 export const getEndpoint = (endpoint, token) => {
-  // const url = `${apiUrls.BASE_PATH}${endpoint}`;
   const auth = { Authorization: '' };
   if (token) {
     auth.Authorization = `Bearer ${token}`;
   }
-  const url = `${'http://localhost:3002'}${endpoint}` || endpoint;
+  const url = endpoint;
   return fetch(url, {
     credentials: 'include',
     headers: auth
@@ -23,12 +22,11 @@ export const getEndpoint = (endpoint, token) => {
 };
 
 export const postEndpoint = (endpoint, data, token) => {
-  // const url = `${apiUrls.BASE_PATH}${endpoint}`;
   const auth = { Authorization: '' };
   if (token) {
     auth.Authorization = `Bearer ${token}`;
   }
-  const url = `${'http://localhost:3002'}${endpoint}` || endpoint;
+  const url = endpoint;
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -41,12 +39,11 @@ export const postEndpoint = (endpoint, data, token) => {
 };
 
 export const updateEndpoint = (endpoint, data, token) => {
-  // const url = `${apiUrls.BASE_PATH}${endpoint}`;
   const auth = { Authorization: '' };
   if (token) {
     auth.Authorization = `Bearer ${token}`;
   }
-  const url = `${'http://localhost:3002'}${endpoint}` || endpoint;
+  const url = endpoint;
   return fetch(url, {
     method: 'PUT',
     body: JSON.stringify(data),
@@ -59,12 +56,11 @@ export const updateEndpoint = (endpoint, data, token) => {
 };
 
 export const deleteEndpoint = (endpoint, data, token) => {
-  // const url = `${apiUrls.BASE_PATH}${endpoint}`;
   const auth = { Authorization: '' };
   if (token) {
     auth.Authorization = `Bearer ${token}`;
   }
-  const url = `${'http://localhost:3002'}${endpoint}` || endpoint;
+  const url = endpoint;
   return fetch(url, {
     method: 'DELETE',
     body: JSON.stringify(data),

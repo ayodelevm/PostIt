@@ -23,6 +23,7 @@ const config = [{
       'window.jQuery': 'jquery',
     }),
   ],
+  devtool: 'cheap-module-eval-source-map',
   devServer: {
     inline: true,
     port: 3000

@@ -27,7 +27,7 @@ const GroupModal = (props) => {
 
                 <form className="col s12" onSubmit={props.submit} noValidate>
                   <div className="main">
-                    <Notifications options={{ zIndex: 15000 }} />
+                    <Notifications options={{ zIndex: 5000 }} />
                   </div>
                   <div className="divider" />
                   <br />

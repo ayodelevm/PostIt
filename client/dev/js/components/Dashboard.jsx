@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Notifications from 'react-notify-toast';
 import GroupForm from '../containers/GroupForm.jsx';
 import UploadFileContainer from '../containers/UploadFileContainer.jsx';
 import Nav from './common/Nav.jsx';
@@ -16,7 +17,9 @@ const Dashboard = (props) => {
   return (
     <div id="message-board-background">
       <Nav />
-
+      <div className="main">
+        <Notifications />
+      </div>
       <div className="row">
         <div id="message-container">
           <div className="col l3 hide-on-med-and-down">

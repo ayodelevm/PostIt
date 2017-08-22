@@ -47,7 +47,8 @@ export const getOneGroupWithMessages = (token, groupId) => dispatch => api.getEn
     }
   );
 
-export const createNewMessages = (token, data, groupId) => (dispatch, getState) => api.postEndpoint(endpoints.POST_MESSAGES_PATH.replace(':id', `${groupId}`), data, token)
+export const createNewMessages = (token, data, groupId) => (dispatch, getState) => api
+  .postEndpoint(endpoints.POST_MESSAGES_PATH.replace(':id', `${groupId}`), data, token)
   .then(
     (success) => {
       const previousState = getState();

@@ -29,7 +29,6 @@ class MessagingContainer extends React.Component {
   }
 
   render() {
-    console.log('===state===', this.state);
     return (
       <MessagingComponent
         messages={this.props.groupMessages.grpMessages}

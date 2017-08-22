@@ -2,10 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import Notifications from 'react-notify-toast';
 import GroupForm from '../containers/GroupForm.jsx';
 import UploadFileContainer from '../containers/UploadFileContainer.jsx';
 import Nav from './common/Nav.jsx';
 import MessagingForm from '../containers/MessagingForm.jsx';
+import AddUsersContainer from '../containers/AddUsersContainer.jsx';
+import GroupMembersModal from './GroupMembersModal.jsx';
 
 const renderMessage = (users, message) => {
   if (users && message) {
@@ -38,7 +41,7 @@ const renderMessage = (users, message) => {
 };
 
 const MessagingComponent = (props) => {
-  const { messages, grpUsers, currentUser, users, groups } = props;
+  const { messages, currentUser, users, groups } = props;
   const { Groups } = props.groups;
   const { Messages } = props.messages;
   let sortedMessages = [];
@@ -49,6 +52,9 @@ const MessagingComponent = (props) => {
 
   return (<div id="message-board-background">
     <Nav />
+    <div className="main">
+      <Notifications />
+    </div>
     <div className="row">
       <div id="message-container">
         <div className="col l3 hide-on-med-and-down">
@@ -76,14 +82,14 @@ const MessagingComponent = (props) => {
                       [
                         groups.id === group.ownerId ?
                           <div key={group.id}>
-                            <li className="group-display"><Link to={`/groups/${group.id}/message`} className="groups grey-text">
+                            <li className="group-display"><a href={`/groups/${group.id}/message`} className="groups grey-text">
                               <span className="left truncate"><i className="material-icons group-icons">lock_open
-                            </i> {group.name}</span><span className="right">6</span></Link></li><br />
+                            </i> {group.name}</span><span className="right" /></a></li><br />
                           </div> :
                           <div key={group.id}>
-                            <li className="group-display"><Link to={`/groups/${group.id}/message`} className="groups grey-text">
+                            <li className="group-display"><a href={`/groups/${group.id}/message`} className="groups grey-text">
                               <span className="left truncate"><i className="material-icons group-icons">lock
-                            </i> {group.name}</span><span className="right">6</span></Link></li><br />
+                            </i> {group.name}</span><span className="right" /></a></li><br />
                           </div>
                       ]
                     ))
@@ -107,8 +113,8 @@ const MessagingComponent = (props) => {
                 <div className="col s2">
                   {messages.UserId === currentUser.id ?
                     <ul className="group-icons">
-                      <li><a href=""><i className="material-icons left">group_add</i></a></li>
-                      <li><a href=""><i className="material-icons left">group</i></a></li>
+                      <li><a className="modal-trigger" href="#add-new"><i className="material-icons left">group_add</i></a></li>
+                      <li><a className="modal-trigger" href="#group-members"><i className="material-icons left">group</i></a></li>
                       <li><a href=""><i className="material-icons">settings</i></a></li>
                     </ul> :
                     <ul className="group-icons">
@@ -136,6 +142,15 @@ const MessagingComponent = (props) => {
         </div>
         <GroupForm closeModalRoute={`groups/${messages.id}/message`} />
         <UploadFileContainer />
+        <AddUsersContainer
+          closeModalRoute={`groups/${messages.id}/message`}
+          groupId={messages.id}
+          groupMembers={props.grpUsers}
+        />
+        <GroupMembersModal
+          closeModalRoute={`groups/${messages.id}/message`}
+          groupMembers={props.grpUsers.Users}
+        />
 
       </div>
     </div>

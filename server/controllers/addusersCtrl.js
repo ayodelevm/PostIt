@@ -60,7 +60,6 @@ export default class AddUsersCtrl {
  */
   static addUsersToGroup(req, res) {
     const newGroupMembers = [].concat(req.body.newGroupMembers);
-    console.log('**********new*******', newGroupMembers);
     models.Group.findOne({
       where: {
         id: req.params.id

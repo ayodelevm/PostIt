@@ -59,37 +59,33 @@ export default class AddUsersCtrl {
  * @returns {void}
  */
   static addUsersToGroup(req, res) {
-    const newUserId = Number(req.body.idToAdd);
+    const newGroupMembers = [].concat(req.body.newGroupMembers);
+    console.log('**********new*******', newGroupMembers);
     models.Group.findOne({
       where: {
         id: req.params.id
       }
     }).then((foundGroup) => {
       if (foundGroup.UserId === req.user.dataValues.id) {
-        models.User.findOne({
+        models.User.findAll({
           where: {
-            id: newUserId
+            username: newGroupMembers
           }
-        }).then((foundUser) => {
-          foundGroup.addUser(foundUser).then((addedUser) => {
-            if (!addedUser[0]) {
-              res.status(401).json({
-                error: `${foundUser.username} is already a member of this group`,
-              });
-            } else {
-              res.status(201).json({
-                success: `${foundUser.username} added successfully`
-              });
-            }
+        }).then((foundUsers) => {
+          foundGroup.addUsers(foundUsers).then((addedUsers) => {
+            res.status(201).json({
+              success: 'new users added successfully',
+              addedUsers
+            });
           });
         }).catch(() => {
           res.status(404).json({
-            error: 'User not found'
+            globals: 'User not found'
           });
         });
       } else {
         res.status(400).json({
-          error: 'You are not allowed to add new users to this group, please contact admin!'
+          globals: 'You are not allowed to add new users to this group, please contact admin!'
         });
       }
     }).catch((err) => {

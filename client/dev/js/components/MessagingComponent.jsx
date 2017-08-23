@@ -119,7 +119,7 @@ const MessagingComponent = (props) => {
                     </ul> :
                     <ul className="group-icons">
                       <li><a><i className="material-icons left" /></a></li>
-                      <li><a href=""><i className="material-icons left">group</i></a></li>
+                      <li><a className="modal-trigger" href="#group-members"><i className="material-icons left">group</i></a></li>
                       <li><a><i className="material-icons" /></a></li>
                     </ul>
                   }
@@ -145,7 +145,7 @@ const MessagingComponent = (props) => {
         <AddUsersContainer
           closeModalRoute={`groups/${messages.id}/message`}
           groupId={messages.id}
-          groupMembers={props.grpUsers}
+          groupMembers={props.grpUsers.Users}
         />
         <GroupMembersModal
           closeModalRoute={`groups/${messages.id}/message`}

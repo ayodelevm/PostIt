@@ -7,7 +7,7 @@
     "build": "webpack",
     "dev": "webpack-dev-server",
     "migrate": "sequelize db:migrate",
-    "start": "npm run build && npm run migrate && nodemon --exec babel-node ./server/app.js",
+    "start": "npm run migrate && nodemon --exec babel-node ./server/app.js",
     "test": "NODE_ENV=test npm run migrate && NODE_ENV=test mocha --timeout 15000 --compilers js:babel-core/register ./server/test",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "coverage": "rm -rf /coverage && node_modules/.bin/babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha ./server/test"

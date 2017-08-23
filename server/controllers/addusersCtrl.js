@@ -60,7 +60,6 @@ export default class AddUsersCtrl {
  */
   static addUsersToGroup(req, res) {
     const newGroupMembers = [].concat(req.body.newGroupMembers);
-    console.log('**********new*******', newGroupMembers);
     models.Group.findOne({
       where: {
         id: req.params.id
@@ -72,19 +71,28 @@ export default class AddUsersCtrl {
             username: newGroupMembers
           }
         }).then((foundUsers) => {
+          console.log('**********foundusers*******', foundUsers);
+          if (Array.isArray(foundUsers) && foundUsers.length === 0) {
+            return res.status(404).json({
+              globals: 'User not found'
+            });
+          }
           foundGroup.addUsers(foundUsers).then((addedUsers) => {
-            res.status(201).json({
+            console.log('**********addedusers*******', addedUsers);
+            if (addedUsers.length === 0) {
+              return res.status(400).json({
+                globals: 'Selected users are already members of this group'
+              });
+            }
+            return res.status(201).json({
               success: 'new users added successfully',
               addedUsers
             });
           });
         }).catch(() => {
-          res.status(404).json({
-            globals: 'User not found'
-          });
         });
       } else {
-        res.status(400).json({
+        return res.status(400).json({
           globals: 'You are not allowed to add new users to this group, please contact admin!'
         });
       }

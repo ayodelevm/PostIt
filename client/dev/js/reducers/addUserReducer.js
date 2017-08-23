@@ -2,7 +2,7 @@ import Types from '../actions/actionTypes';
 
 
 const inititalState = {
-  createSuccess: false,
+  addSuccess: false,
   getSuccess: false,
   newUsers: [],
   users: []
@@ -19,7 +19,7 @@ const addUserReducer = (state = inititalState, action = {}) => {
     case Types.ADD_USERS_TO_GROUP:
       return Object.assign({}, state, {
         newUsers: action.newUsers.addedUsers,
-        createSuccess: !!Object.keys(action.newUsers.addedUsers)
+        addSuccess: !!Object.keys(action.newUsers.addedUsers)
       });
 
     case Types.GET_ALL_USERS_FAILURE:
@@ -31,7 +31,7 @@ const addUserReducer = (state = inititalState, action = {}) => {
     case Types.ADD_USERS_TO_GROUP_FAILURE:
       return Object.assign({}, state, {
         errors: action.failure,
-        createSuccess: false
+        addSuccess: false
       });
 
     default: return state;

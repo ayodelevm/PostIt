@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import { addNewUsersToGroup } from '../actions/addUserActions';
+import { getGroupUsers } from '../actions/groupActions';
 import AddUsersModal from '../components/AddUsersModal.jsx';
 
 class AddUsersContainer extends React.Component {
@@ -33,14 +34,12 @@ class AddUsersContainer extends React.Component {
     this.props.addNewUsersToGroup(token, this.state, groupId)
     .then(
       () => {
-        if (this.props.addUsersResponse.createSuccess) {
-          notify.show('Members added successfully!', 'success', 10000);
+        if (this.props.addUsersResponse.addSuccess) {
+          notify.show('Members added successfully!', 'success', 5000);
+          this.props.getGroupUsers(token, groupId);
           $('#add-new').modal('close');
-        } else {
-          if (this.props.addUsersResponse.errors.errors) {
-            return this.setState({ errors: this.props.addUsersResponse.errors.errors });
-          }
-          notify.show(this.props.addUsersResponse.errors.globals, 'warning', 10000);
+        } else if (this.props.addUsersResponse.errors) {
+          notify.show(this.props.addUsersResponse.errors.globals, 'warning', 5000);
         }
       }
     );
@@ -63,9 +62,13 @@ class AddUsersContainer extends React.Component {
 
   render() {
     const allUsers = this.props.addUsersResponse.users;
-    const allusernames = allUsers.map((user) => {
-      return user.username;
-    });
+    const groupMembers = this.props.groupMembers;
+    let allusernames;
+    if (groupMembers) {
+      allusernames = allUsers.filter(user => !groupMembers
+        .find(existing => existing.id === user.id))
+        .map(user => user.username);
+    }
 
     return (
       <AddUsersModal
@@ -81,6 +84,7 @@ class AddUsersContainer extends React.Component {
 
 AddUsersContainer.propTypes = {
   addNewUsersToGroup: PropTypes.func.isRequired,
+  getGroupUsers: PropTypes.func.isRequired,
   // eslint-disable-next-line
   addUsersResponse: PropTypes.object.isRequired,
   closeModalRoute: PropTypes.string.isRequired,
@@ -92,6 +96,6 @@ const mapStateToProps = state => ({
   addUsersResponse: state.addUserReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ addNewUsersToGroup }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({ addNewUsersToGroup, getGroupUsers }, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddUsersContainer);

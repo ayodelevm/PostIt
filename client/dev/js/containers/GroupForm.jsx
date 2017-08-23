@@ -95,9 +95,17 @@ class GroupForm extends React.Component {
 
   render() {
     const allUsers = this.props.usersResponse.users;
-    const allusernames = allUsers.map((user) => {
-      return user.username;
-    });
+    const groupMembers = this.props.groupMembers;
+    const currentUser = this.props.currentUser.currentUser;
+    let allusernames;
+    if (groupMembers !== undefined) {
+      allusernames = allUsers.filter(user => !groupMembers
+      .find(existing => existing.id === user.id))
+      .map(user => user.username);
+    } else {
+      allusernames = allUsers.filter(user => user.id !== currentUser.id)
+        .map(user => user.username);
+    }
 
     return (
       <GroupModal
@@ -120,7 +128,8 @@ GroupForm.propTypes = {
 
 const mapStateToProps = state => ({
   groupResponse: state.groupReducer,
-  usersResponse: state.addUserReducer
+  usersResponse: state.addUserReducer,
+  currentUser: state.authReducer
 });
 
 const matchDispatchToProps = dispatch => bindActionCreators({ createNewGroup }, dispatch);

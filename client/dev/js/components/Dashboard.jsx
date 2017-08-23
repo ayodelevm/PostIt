@@ -26,12 +26,12 @@ const Dashboard = (props) => {
             <div className="card right-side grey lighten-4 z-depth-3">
               <div className="row valign-wrapper">
                 <div id="img-div" className="col s3">
-                  <a className="modal-trigger" href="#user-new"><div className="profile-icon" style={{ backgroundImage: `url(${props.groups.profileImage})` }} /></a>
+                  <a className="modal-trigger" href="#user-new"><div className="profile-icon" style={{ backgroundImage: `url(${props.currentUser.profileImage})` }} /></a>
                 </div>
                 <div className="col s9">
                   <span className="black-text">
-                    {props.groups.fullname} <br />
-                    {props.groups.email}
+                    {props.currentUser.fullname} <br />
+                    {props.currentUser.email}
                   </span>
                 </div>
               </div>
@@ -84,7 +84,9 @@ const Dashboard = (props) => {
               }
             </div>
           </div>
-          <GroupForm closeModalRoute={'dashboard'} />
+          <GroupForm
+            closeModalRoute={'dashboard'}
+          />
           <UploadFileContainer />
         </div>
       </div>
@@ -98,7 +100,8 @@ Dashboard.propTypes = {
   // eslint-disable-next-line
   users: PropTypes.array.isRequired,
   // eslint-disable-next-line
-  groups: PropTypes.object
+  groups: PropTypes.object,
+  currentUser: PropTypes.object
 };
 
 export default Dashboard;

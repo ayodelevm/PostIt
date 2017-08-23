@@ -22,14 +22,15 @@ class MessagingContainer extends React.Component {
   componentDidMount() {
     const token = window.localStorage.token;
     const { match } = this.props;
-    this.props.getOneGroupWithMessages(token, match.params.id)
-    .then(() => this.props.getGroupUsers(token, match.params.id))
-    .then(() => this.props.getAllGroups(token))
-    .then(() => this.props.getAllUsers(token));
+    if (match !== undefined) {
+      this.props.getOneGroupWithMessages(token, match.params.id)
+        .then(() => this.props.getGroupUsers(token, match.params.id))
+        .then(() => this.props.getAllGroups(token))
+        .then(() => this.props.getAllUsers(token));
+    }
   }
 
   render() {
-    console.log('===state===', this.state);
     return (
       <MessagingComponent
         messages={this.props.groupMessages.grpMessages}

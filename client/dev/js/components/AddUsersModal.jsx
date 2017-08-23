@@ -23,7 +23,7 @@ const AddUsersModal = (props) => {
               </div>
               <div className="row card-form-section">
 
-                <form className="col s12" noValidate>
+                <form className="col s12" onSubmit={props.submit} noValidate>
                   <div className="main">
                     <Notifications options={{ zIndex: 5000 }} />
                   </div>
@@ -41,8 +41,8 @@ const AddUsersModal = (props) => {
 
                   <div className="row">
                     <div className="input-field col s12">
-                      <a onClick={props.submit} href={`/${props.closeModalRoute}`} className="btn lime accent-4 right waves-effect waves-light center" >Add Users
-                      </a>
+                      <button className="btn lime accent-4 right waves-effect waves-light center" type="submit" name="action">Add Users
+                      </button>
                     </div>
                   </div>
                 </form>

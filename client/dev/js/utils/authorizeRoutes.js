@@ -11,14 +11,17 @@ const authorize = (ProtectedComponent) => {
       if (!this.props.status.isAuthenticated) {
         store.dispatch(push('/login'));
         setTimeout(() => {
-          notify.show('You need to be logged in to access this page!', 'warning', 10000);
+          notify.show('You need to be logged in to access this page!', 'warning', 5000);
         }, 1000);
       }
     }
 
     componentWillUpdate(nextProps) {
       if (!nextProps.status.isAuthenticated) {
-        store.dispatch(push('/'));
+        store.dispatch(push('/login'));
+        setTimeout(() => {
+          notify.show('You need to be logged in to access this page!', 'warning', 5000);
+        }, 1000);
       }
     }
 

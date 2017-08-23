@@ -41,7 +41,7 @@ DashBoardContainer.propTypes = {
   // eslint-disable-next-line
   getAllUsersResponse: PropTypes.object,
   // eslint-disable-next-line
-  // newGroup: PropTypes.object
+  currentUser: PropTypes.object
 };
 
 const mapStateToProps = state => ({

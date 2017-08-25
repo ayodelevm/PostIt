@@ -71,14 +71,12 @@ export default class AddUsersCtrl {
             username: newGroupMembers
           }
         }).then((foundUsers) => {
-          console.log('**********foundusers*******', foundUsers);
           if (Array.isArray(foundUsers) && foundUsers.length === 0) {
             return res.status(404).json({
               globals: 'User not found'
             });
           }
           foundGroup.addUsers(foundUsers).then((addedUsers) => {
-            console.log('**********addedusers*******', addedUsers);
             if (addedUsers.length === 0) {
               return res.status(400).json({
                 globals: 'Selected users are already members of this group'
@@ -98,6 +96,33 @@ export default class AddUsersCtrl {
       }
     }).catch((err) => {
       res.status(500).json(err);
+    });
+  }
+
+  /**
+ * This method handles logic for updating a user
+ * @param {*} req
+ * @param {*} res
+ * @returns {void}
+ */
+  static updateOneUser(req, res) {
+    models.User.findOne({
+      where: { id: req.user.dataValues.id }
+    }).then((foundUser) => {
+      foundUser.update(req.body).then((updatedUser) => {
+        res.status(200).json({
+          success: 'User details updated successfully.',
+          updatedUser
+        });
+      }).catch((err) => {
+        res.status(500).json({
+          globals: err.errors[0].message || err.message
+        });
+      });
+    }).catch((err) => {
+      res.status(500).json({
+        globals: err.errors[0].message || err.message
+      });
     });
   }
 }

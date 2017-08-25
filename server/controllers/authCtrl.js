@@ -78,31 +78,4 @@ export default class AuthCtrl {
       return res.status(400).json({ errors });
     }
   }
-
-  /**
- * This method handles logic for registering a user
- * @param {*} req
- * @param {*} res
- * @returns {void}
- */
-  static updateOneUser(req, res) {
-    models.User.findOne({
-      where: { id: req.params.id }
-    }).then((foundUser) => {
-      foundUser.update(req.body).then((updatedUser) => {
-        res.status(200).json({
-          success: 'Group details updated successfully.',
-          updatedUser
-        });
-      }).catch((err) => {
-        res.status(500).json({
-          globals: err.errors[0].message || err.message
-        });
-      });
-    }).catch((err) => {
-      res.status(500).json({
-        globals: err.errors[0].message || err.message
-      });
-    });
-  }
 }

@@ -14,4 +14,7 @@ router.get('/api/group/:id/users', Middleware.isAuthenticated, Middleware.isAuth
 // Add New Users to a group
 router.post('/api/group/:id/user', Middleware.isAuthenticated, Middleware.isAuthorized, AddUsersCtrl.addUsersToGroup);
 
+// Update User details
+router.put('/api/user/:id/edit', Middleware.isAuthenticated, AddUsersCtrl.updateOneUser);
+
 export default router;

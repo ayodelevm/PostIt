@@ -4,8 +4,10 @@ import Types from '../actions/actionTypes';
 const inititalState = {
   addSuccess: false,
   getSuccess: false,
+  uploadSuccess: false,
   newUsers: [],
-  users: []
+  users: [],
+  updatedUser: {}
 };
 
 const addUserReducer = (state = inititalState, action = {}) => {
@@ -22,6 +24,12 @@ const addUserReducer = (state = inititalState, action = {}) => {
         addSuccess: !!Object.keys(action.newUsers.addedUsers)
       });
 
+    case Types.UPLOAD_PROFILE_IMAGE:
+      return Object.assign({}, state, {
+        updatedUser: action.newUserImage,
+        uploadSuccess: !!Object.keys(action.newUserImage)
+      });
+
     case Types.GET_ALL_USERS_FAILURE:
       return Object.assign({}, state, {
         errors: action.failure,
@@ -32,6 +40,12 @@ const addUserReducer = (state = inititalState, action = {}) => {
       return Object.assign({}, state, {
         errors: action.failure,
         addSuccess: false
+      });
+
+    case Types.UPLOAD_PROFILE_IMAGE_FAILURE:
+      return Object.assign({}, state, {
+        errors: action.failure,
+        uploadSuccess: false
       });
 
     default: return state;

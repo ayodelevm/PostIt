@@ -61,12 +61,12 @@ const MessagingComponent = (props) => {
           <div className="card right-side grey lighten-4 z-depth-3">
             <div className="row valign-wrapper">
               <div id="img-div" className="col s3">
-                <a className="modal-trigger" href="#user-new"><div className="profile-icon" style={{ backgroundImage: `url(${currentUser.profileImage})` }} /></a>
+                <a className="modal-trigger" href="#user-new"><div className="profile-icon" style={{ backgroundImage: `url(${groups.profileImage})` }} /></a>
               </div>
               <div className="col s9">
                 <span className="black-text">
-                  {currentUser.fullname} <br />
-                  {currentUser.email}
+                  {groups.fullname} <br />
+                  {groups.email}
                 </span>
               </div>
             </div>
@@ -141,7 +141,10 @@ const MessagingComponent = (props) => {
           </div>
         </div>
         <GroupForm closeModalRoute={`groups/${messages.id}/message`} />
-        <UploadFileContainer />
+        <UploadFileContainer
+          userId={props.currentUser.id}
+          groupId={messages.id}
+        />
         <AddUsersContainer
           closeModalRoute={`groups/${messages.id}/message`}
           groupId={messages.id}

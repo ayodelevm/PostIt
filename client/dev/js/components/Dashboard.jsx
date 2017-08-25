@@ -26,12 +26,12 @@ const Dashboard = (props) => {
             <div className="card right-side grey lighten-4 z-depth-3">
               <div className="row valign-wrapper">
                 <div id="img-div" className="col s3">
-                  <a className="modal-trigger" href="#user-new"><div className="profile-icon" style={{ backgroundImage: `url(${props.currentUser.profileImage})` }} /></a>
+                  <a className="modal-trigger" href="#user-new"><div className="profile-icon" style={{ backgroundImage: `url(${props.groups.profileImage})` }} /></a>
                 </div>
                 <div className="col s9">
                   <span className="black-text">
-                    {props.currentUser.fullname} <br />
-                    {props.currentUser.email}
+                    {props.groups.fullname} <br />
+                    {props.groups.email}
                   </span>
                 </div>
               </div>
@@ -87,7 +87,7 @@ const Dashboard = (props) => {
           <GroupForm
             closeModalRoute={'dashboard'}
           />
-          <UploadFileContainer />
+          <UploadFileContainer userId={props.currentUser.id} />
         </div>
       </div>
 

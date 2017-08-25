@@ -52,7 +52,7 @@ export const updateEndpoint = (endpoint, data, token) => {
     body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
-      [auth.Authorization]: auth.Authorization
+      Authorization: auth.Authorization
     },
     credentials: 'include'
   }).then(checkStatus);

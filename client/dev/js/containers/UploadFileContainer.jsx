@@ -1,15 +1,17 @@
 import React from 'react';
+import superagent from 'superagent';
 import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Notifications, { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { createNewGroup } from '../actions/groupActions';
-import { validateGroupInput } from '../utils/validations';
+import { notify } from 'react-notify-toast';
+import sha1 from 'sha1';
+import { getAllGroups } from '../actions/groupActions';
+import { getOneGroupWithMessages } from '../actions/messageActions';
 import UploadsModal from '../components/UploadsModal.jsx';
+import { uploadProfileImage, getAllUsers } from '../actions/addUserActions';
 
-class GroupForm extends React.Component {
+class UploadFileContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -20,14 +22,63 @@ class GroupForm extends React.Component {
   }
 
   uploadFile(files) {
-    console.log('fileUploaded', files[0].name);
+    const token = window.localStorage.token;
+    // const userId = props.userId;
     const image = files[0];
+
+    const cloudName = 'dr6ynr4o0';
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+
+    const timestamp = Date.now() / 1000;
+    const uploadPreset = 'cg0ikqnk';
+
+    const paramsStr = `timestamp=${timestamp}&upload_preset=${uploadPreset}bvmxbowzriK0XoPK4X_ZBC-6YaQ`;
+
+    const signature = sha1(paramsStr);
+    const params = {
+      api_key: '335675768189937',
+      timestamp,
+      upload_preset: uploadPreset,
+      signature
+    };
+
+
+    const uploadReq = superagent.post(url);
+    uploadReq.attach('file', image);
+
+    Object.keys(params).forEach((key) => {
+      uploadReq.field(key, params[key]);
+    });
+
+    uploadReq.end((err, resp) => {
+      if (err) {
+        notify.show('Uploads Failed!', 'warning', 5000);
+        $('#user-new').modal('close');
+        return;
+      }
+      const newImage = { profileImage: JSON.stringify(resp.body.secure_url) };
+      this.props.uploadProfileImage(token, newImage, this.props.userId)
+      .then(() => {
+        if (this.props.uploadResponse.uploadSuccess) {
+          notify.show('Upload Successful!', 'success', 5000);
+          this.props.getAllGroups(token)
+          .then(() => {
+            if (this.props.groupId !== undefined) {
+              return this.props.getOneGroupWithMessages(token, this.props.groupId)
+                .then(() => this.props.getAllUsers(token));
+            }
+          });
+          $('#user-new').modal('close');
+        } else {
+          notify.show('Uploads Failed!', 'warning', 5000);
+          $('#user-new').modal('close');
+        }
+      });
+    });
   }
 
 
   render() {
-
-
     return (
       <UploadsModal
         onUploadFile={this.uploadFile}
@@ -37,17 +88,19 @@ class GroupForm extends React.Component {
   }
 }
 
-GroupForm.propTypes = {
-  createNewGroup: PropTypes.func.isRequired,
+UploadFileContainer.propTypes = {
+  getAllGroups: PropTypes.func.isRequired,
+  getAllUsers: PropTypes.func.isRequired,
+  uploadProfileImage: PropTypes.func.isRequired,
+  getOneGroupWithMessages: PropTypes.func.isRequired,
   // eslint-disable-next-line
-  groupResponse: PropTypes.object
+  uploadResponse: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  groupResponse: state.groupReducer,
-  usersResponse: state.addUserReducer
+  uploadResponse: state.addUserReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ createNewGroup }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({ uploadProfileImage, getAllGroups, getOneGroupWithMessages, getAllUsers }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(GroupForm);
+export default connect(mapStateToProps, matchDispatchToProps)(UploadFileContainer);

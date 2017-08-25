@@ -15,8 +15,5 @@ router.post('/api/user/register', AuthCtrl.register);
 
 router.post('/api/user/login', AuthCtrl.login);
 
-// Update User details
-router.put('/api/user/:id/edit', Middleware.isAuthenticated, AuthCtrl.updateOneUser);
-
 
 export default router;

@@ -76,6 +76,20 @@ div#message-container {
   overflow:scroll;
 }
 
+ul {
+  #dropdown1 {
+    width: 422.047px !important;
+    top: 50px!important;
+  }
+
+  #archive-dropdown {
+    position: absolute!important;
+    width: 222.047px !important; 
+    white-space: nowrap;
+    top: 35px!important;
+  }
+}
+
 .message-text {
   display:block;
   width:100%;
@@ -127,15 +141,14 @@ div#message-container {
 // footer {position:fixed;bottom:0;left:0;right:0;height:30px;}
 
 .message-header {
-  position:absolute;
+  position: relative;
   height: 80px;
   top: 0;
   left: 0;
   // border: 2px solid black;
   width: 100%;
-  overflow: scroll;
   .row{
-    margin-bottom: -10px;
+    // margin-bottom: -10px;
     // border-bottom: 1px solid black;
   }
   .row.adjust {
@@ -147,8 +160,11 @@ div#message-container {
     font-style: italic;
     color: grey;
     // margin-top: -500px;
-    margin-left: 10px;
+    // margin-left: 10px;
     
+  }
+  .name-description {
+    // overflow: scroll;
   }
 }
 

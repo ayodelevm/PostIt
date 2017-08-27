@@ -6,6 +6,51 @@
   font-family: 'Rambla', sans-serif;
 }
 
+.collapsible {
+  // background-color: #ddd;
+  border-top: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  margin: .5rem 0 1rem 0;
+}
+
+.collapsible-header {
+  padding: 1rem 0rem;
+  span {
+    i.group-icons {
+      margin-right: 0px;
+    }
+  }
+  span.truncate {
+    margin-right: auto;
+  }
+}
+
+i.material-icons.group-settings {
+  // margin-left: 6rem;
+  font-size: 1.6rem;
+}
+
+.collapsible-body {
+  padding: 0 !important;
+  li > a {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+  }
+  li {
+    a {
+      font-size: 0.8rem;
+      opacity: 0.5;
+      padding: 10px;
+      text-align:center;
+      &:hover {
+        background-color:#fff;
+        opacity: 1;
+      }
+    }
+  }
+}
 // .card-stacked {
 //   overflow-y: scroll;
 // }

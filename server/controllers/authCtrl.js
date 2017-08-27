@@ -15,7 +15,6 @@ export default class AuthCtrl {
  * @returns {void}
  */
   static register(req, res) {
-    
     validateSignup(req.body, validateInput).then(({ errors, isValid }) => {
       if (isValid) {
         models.User.create(req.body).then((newUser) => {

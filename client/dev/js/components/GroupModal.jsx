@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Notifications, { notify } from 'react-notify-toast';
+import Notifications from 'react-notify-toast';
 import PropTypes from 'prop-types';
-import Chips, { Chip } from 'react-chips';
-import GroupForm from '../containers/GroupForm';
-import InputFieldGroup from './common/InputFields';
+import Chips from 'react-chips';
+import InputFieldGroup from './common/InputFields.jsx';
 
 
 const GroupModal = (props) => {
@@ -13,7 +12,7 @@ const GroupModal = (props) => {
 
     <div id="group-new" className="modal">
       <div className="row modal-close-div">
-        <Link to="/dashboard" className="modal-action modal-close waves-effect waves-green btn-flat right"><i className="material-icons center">close</i></Link>
+        <Link to={`/${props.closeModalRoute}`} className="modal-action modal-close waves-effect waves-green btn-flat right"><i className="material-icons center">close</i></Link>
       </div>
 
       <div className="row">
@@ -28,7 +27,7 @@ const GroupModal = (props) => {
 
                 <form className="col s12" onSubmit={props.submit} noValidate>
                   <div className="main">
-                    <Notifications options={{ zIndex: 15000 }} />
+                    <Notifications options={{ zIndex: 5000 }} />
                   </div>
                   <div className="divider" />
                   <br />

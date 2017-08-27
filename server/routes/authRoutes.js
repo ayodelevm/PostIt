@@ -1,4 +1,5 @@
 import express from 'express';
+import Middleware from './../utils/middlewares';
 import AuthCtrl from './../controllers/authCtrl';
 
 const router = express.Router();

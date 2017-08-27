@@ -23,7 +23,8 @@ export default class AuthCtrl {
             email: newUser.email,
             id: newUser.id,
             telephone: newUser.telephone,
-            fullname: newUser.fullname
+            fullname: newUser.fullname,
+            profileImage: newUser.profileImage
           }, process.env.secret, { expiresIn: 60 * 60 });
 
           return res.status(201).json({ token });
@@ -42,7 +43,6 @@ export default class AuthCtrl {
  * @returns {void}
  */
   static login(req, res) {
-
     const { errors, isValid } = validateLoginInput(req.body);
 
     if (isValid) {
@@ -63,7 +63,8 @@ export default class AuthCtrl {
             email: founduser.email,
             id: founduser.id,
             telephone: founduser.telephone,
-            fullname: founduser.fullname
+            fullname: founduser.fullname,
+            profileImage: founduser.profileImage
           }, process.env.secret, { expiresIn: 60 * 60 });
           return res.status(200).json({
             token
@@ -77,5 +78,4 @@ export default class AuthCtrl {
       return res.status(400).json({ errors });
     }
   }
-
 }

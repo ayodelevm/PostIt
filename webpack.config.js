@@ -9,13 +9,13 @@ module.exports = {
     port: 3000
   },
   devtool: 'cheap-module-eval-source-map',
-  entry: path.join(__dirname, '/client/dev/js/index.js'),
+  entry: path.join(__dirname, '/client/dev/js/index.jsx'),
   module: {
     loaders: [
       {
         test: /\.js$/,
         loaders: ['babel-loader'],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.scss/,
@@ -26,7 +26,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'react', 'stage-2']
         }
       },
       // {
@@ -66,7 +66,6 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
-      Hammer: 'hammerjs/hammer'
     }),
     new webpack.optimize.OccurrenceOrderPlugin()
   ]

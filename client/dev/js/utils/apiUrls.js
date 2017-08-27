@@ -12,7 +12,8 @@ const apiUrls = {
   POST_MESSAGES_PATH: '/api/group/:id/message',
   GET_ALL_USERS_PATH: '/api/users',
   GET_GROUP_USERS_PATH: '/api/group/:id/users',
-  ADD_USERS_TO_GROUP_PATH: '/api/group/:id/user'
+  ADD_USERS_TO_GROUP_PATH: '/api/group/:id/user',
+  UPDATE_ONE_USER_PATH: '/api/user/:id/edit'
 };
 
 export default apiUrls;

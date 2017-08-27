@@ -1,15 +1,11 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Notifications, { notify } from 'react-notify-toast';
+import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import Chips, { Chip } from 'react-chips';
 import { createNewGroup } from '../actions/groupActions';
 import { validateGroupInput } from '../utils/validations';
-import InputFieldGroup from '../components/common/InputFields';
-import GroupModal from '../components/GroupModal';
+import GroupModal from '../components/GroupModal.jsx';
 
 class GroupForm extends React.Component {
 
@@ -99,9 +95,17 @@ class GroupForm extends React.Component {
 
   render() {
     const allUsers = this.props.usersResponse.users;
-    const allusernames = allUsers.map((user) => {
-      return user.username;
-    });
+    const groupMembers = this.props.groupMembers;
+    const currentUser = this.props.currentUser.currentUser;
+    let allusernames;
+    if (groupMembers !== undefined) {
+      allusernames = allUsers.filter(user => !groupMembers
+      .find(existing => existing.id === user.id))
+      .map(user => user.username);
+    } else {
+      allusernames = allUsers.filter(user => user.id !== currentUser.id)
+        .map(user => user.username);
+    }
 
     return (
       <GroupModal
@@ -109,6 +113,7 @@ class GroupForm extends React.Component {
         state={this.state} onChange={this.handleChange}
         name={this.state.name} error={this.state.errors.name}
         onChipsChange={this.onChange} suggestions={allusernames}
+        closeModalRoute={this.props.closeModalRoute}
       />
 
     );
@@ -123,7 +128,8 @@ GroupForm.propTypes = {
 
 const mapStateToProps = state => ({
   groupResponse: state.groupReducer,
-  usersResponse: state.addUserReducer
+  usersResponse: state.addUserReducer,
+  currentUser: state.authReducer
 });
 
 const matchDispatchToProps = dispatch => bindActionCreators({ createNewGroup }, dispatch);

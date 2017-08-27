@@ -1,46 +1,46 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import createBrowserHistory from 'history/createBrowserHistory';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-// import promise from 'redux-promise';
 
 import 'jquery/dist/jquery';
 import 'materialize-css/dist/css/materialize.css';
+import 'react-select/dist/react-select.css';
 import 'materialize-css/dist/js/materialize';
 import './js/main';
 
 import '../../../scss/main.scss';
 
-import store from './store/store';
+import store, { history } from './store/store';
 
 
-import App from './components/App';
-import Home from './components/Home';
-import Footer from './components/LandingFooter';
-import DashBoardContainer from './containers/DashBoardContainer';
-import Landing from './components/Landing';
+import App from './components/App.jsx';
+import DashBoardContainer from './containers/DashBoardContainer.jsx';
+import MessagingContainer from './containers/MessagingContainer.jsx';
+import Landing from './components/Landing.jsx';
 import authorize from './utils/authorizeRoutes';
 
 
-import LoginComponent from './components/LoginComponent';
-import SignUpComponent from './components/SignUpComponent';
+import LoginComponent from './components/LoginComponent.jsx';
+import SignUpComponent from './components/SignUpComponent.jsx';
 
 
 ReactDOM.render(
     <Provider store={store}>
-      <BrowserRouter>
+      <ConnectedRouter history={history}>
         <App>
           <Switch>
             <Route exact path="/" forceRefresh component={Landing} />
             <Route exact path="/register" component={SignUpComponent} />
             <Route exact path="/login" component={LoginComponent} />
             <Route path="/dashboard" component={authorize(DashBoardContainer)} />
+            <Route path="/groups/:id/message" component={MessagingContainer} />
           </Switch>
-          {/* <Route path="/home" component={Home} /> */}
         </App>
-      </BrowserRouter>
+      </ConnectedRouter>
     </Provider>,
   document.getElementById('root')
 );
+

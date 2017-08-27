@@ -1,13 +1,12 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Notifications, { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { loginAUser } from '../actions/authActions';
 import { validateLoginInput } from '../utils/validations';
-import InputFieldGroup from '../components/common/InputFields';
+import InputFieldGroup from '../components/common/InputFields.jsx';
 
 
 class LoginForm extends React.Component {
@@ -70,21 +69,6 @@ class LoginForm extends React.Component {
       }
     );
   }
-
-  // componentWillReceiveProps() {
-  //   $(document).ready(() => {
-      // $('.modal').modal({
-      //   dismissible: true,
-        // complete: () => {
-        //   this.setState({
-        //     name: '',
-        //     description: ''
-        //   });
-        // }
-      // });
-      // Materialize.updateTextFields();
-  //   });
-  // }
 
   render() {
     const form = (

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import LoginForm from '../containers/LoginForm';
+import LoginForm from '../containers/LoginForm.jsx';
 
 const LoginComponent = () => (
   <div className="parallax-container">
@@ -11,7 +10,7 @@ const LoginComponent = () => (
             <div className="card-head" />
             <div className="card-content black-text">
               <span className="card-title v-align">
-                <a to="/" className="brand-logo">
+                <a href="/" className="brand-logo">
                   <i className="material-icons lime-text lighthen-5">insert_chart</i><span id="site_name">PostIt</span>
                 </a>
               </span>

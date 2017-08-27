@@ -15,7 +15,7 @@ export const getEndpoint = (endpoint, token) => {
   if (token) {
     auth.Authorization = `Bearer ${token}`;
   }
-  const url = `${'http://localhost:3002'}${endpoint}`;
+  const url = `${'http://localhost:3002'}${endpoint}` || endpoint;
   return fetch(url, {
     credentials: 'include',
     headers: auth
@@ -28,7 +28,7 @@ export const postEndpoint = (endpoint, data, token) => {
   if (token) {
     auth.Authorization = `Bearer ${token}`;
   }
-  const url = `${'http://localhost:3002'}${endpoint}`;
+  const url = `${'http://localhost:3002'}${endpoint}` || endpoint;
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -46,13 +46,13 @@ export const updateEndpoint = (endpoint, data, token) => {
   if (token) {
     auth.Authorization = `Bearer ${token}`;
   }
-  const url = `${'http://localhost:3002'}${endpoint}`;
+  const url = `${'http://localhost:3002'}${endpoint}` || endpoint;
   return fetch(url, {
     method: 'PUT',
     body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
-      [auth.Authorization]: auth.Authorization
+      Authorization: auth.Authorization
     },
     credentials: 'include'
   }).then(checkStatus);
@@ -64,7 +64,7 @@ export const deleteEndpoint = (endpoint, data, token) => {
   if (token) {
     auth.Authorization = `Bearer ${token}`;
   }
-  const url = `${'http://localhost:3002'}${endpoint}`;
+  const url = `${'http://localhost:3002'}${endpoint}` || endpoint;
   return fetch(url, {
     method: 'DELETE',
     body: JSON.stringify(data),

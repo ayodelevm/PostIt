@@ -1,3 +1,4 @@
+import 'isomorphic-fetch';
 import Types from './actionTypes';
 import * as api from '../utils/apis';
 import endpoints from '../utils/apiUrls';
@@ -12,6 +13,11 @@ export const newGroupUsers = newUsers => ({
   newUsers
 });
 
+export const uploadImage = newUserImage => ({
+  type: Types.UPLOAD_PROFILE_IMAGE,
+  newUserImage
+});
+
 export const getUserFailure = failure => ({
   type: Types.GET_ALL_USERS_FAILURE,
   failure
@@ -19,6 +25,11 @@ export const getUserFailure = failure => ({
 
 export const newGroupUsersFailure = failure => ({
   type: Types.ADD_USERS_TO_GROUP_FAILURE,
+  failure
+});
+
+export const uploadImageFailure = failure => ({
+  type: Types.UPLOAD_PROFILE_IMAGE_FAILURE,
   failure
 });
 
@@ -34,9 +45,9 @@ export const getAllUsers = token => (dispatch) => {
     );
 };
 
-export const addNewUsersToGroup = (data, token) => (dispatch) => {
+export const addNewUsersToGroup = (token, data, groupId) => (dispatch) => {
   return api
-  .postEndpoint(endpoints.ADD_USERS_TO_GROUP_PATH, data, token)
+  .postEndpoint(endpoints.ADD_USERS_TO_GROUP_PATH.replace(':id', `${groupId}`), data, token)
   .then(
     (success) => {
       dispatch(newGroupUsers(success));
@@ -47,3 +58,15 @@ export const addNewUsersToGroup = (data, token) => (dispatch) => {
   );
 };
 
+export const uploadProfileImage = (token, data, userId) => (dispatch) => {
+  console.log(token, data, userId);
+  return api.updateEndpoint(endpoints.UPDATE_ONE_USER_PATH.replace(':id', `${userId}`), data, token)
+  .then(
+    (success) => {
+      dispatch(uploadImage(success.updatedUser));
+    },
+    (error) => {
+      dispatch(uploadImageFailure(error));
+    }
+  );
+};

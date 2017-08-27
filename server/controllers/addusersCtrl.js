@@ -59,41 +59,70 @@ export default class AddUsersCtrl {
  * @returns {void}
  */
   static addUsersToGroup(req, res) {
-    const newUserId = Number(req.body.idToAdd);
+    const newGroupMembers = [].concat(req.body.newGroupMembers);
     models.Group.findOne({
       where: {
         id: req.params.id
       }
     }).then((foundGroup) => {
       if (foundGroup.UserId === req.user.dataValues.id) {
-        models.User.findOne({
+        models.User.findAll({
           where: {
-            id: newUserId
+            username: newGroupMembers
           }
-        }).then((foundUser) => {
-          foundGroup.addUser(foundUser).then((addedUser) => {
-            if (!addedUser[0]) {
-              res.status(401).json({
-                error: `${foundUser.username} is already a member of this group`,
-              });
-            } else {
-              res.status(201).json({
-                success: `${foundUser.username} added successfully`
+        }).then((foundUsers) => {
+          if (Array.isArray(foundUsers) && foundUsers.length === 0) {
+            return res.status(404).json({
+              globals: 'User not found'
+            });
+          }
+          foundGroup.addUsers(foundUsers).then((addedUsers) => {
+            if (addedUsers.length === 0) {
+              return res.status(400).json({
+                globals: 'Selected users are already members of this group'
               });
             }
+            return res.status(201).json({
+              success: 'new users added successfully',
+              addedUsers
+            });
           });
         }).catch(() => {
-          res.status(404).json({
-            error: 'User not found'
-          });
         });
       } else {
-        res.status(400).json({
-          error: 'You are not allowed to add new users to this group, please contact admin!'
+        return res.status(400).json({
+          globals: 'You are not allowed to add new users to this group, please contact admin!'
         });
       }
     }).catch((err) => {
       res.status(500).json(err);
+    });
+  }
+
+  /**
+ * This method handles logic for updating a user
+ * @param {*} req
+ * @param {*} res
+ * @returns {void}
+ */
+  static updateOneUser(req, res) {
+    models.User.findOne({
+      where: { id: req.user.dataValues.id }
+    }).then((foundUser) => {
+      foundUser.update(req.body).then((updatedUser) => {
+        res.status(200).json({
+          success: 'User details updated successfully.',
+          updatedUser
+        });
+      }).catch((err) => {
+        res.status(500).json({
+          globals: err.errors[0].message || err.message
+        });
+      });
+    }).catch((err) => {
+      res.status(500).json({
+        globals: err.errors[0].message || err.message
+      });
     });
   }
 }

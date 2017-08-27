@@ -3,6 +3,13 @@
 @import url("https://fonts.googleapis.com/css?family=Homemade+Apple");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 @import url("https://fonts.googleapis.com/css?family=Rambla");
+.card .card-action {
+  vertical-align: middle;
+  padding: 8px 24px; }
+  .card .card-action .card-action-text {
+    margin-top: -15px;
+    display: inline; }
+
 .container.register {
   padding-top: 30px; }
 
@@ -50,6 +57,37 @@ i.material-icons {
   height: 87vh;
   overflow-y: scroll;
   font-family: 'Rambla', sans-serif; }
+
+.collapsible {
+  border-top: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  margin: .5rem 0 1rem 0; }
+
+.collapsible-header {
+  padding: 1rem 0rem; }
+  .collapsible-header span i.group-icons {
+    margin-right: 0px; }
+  .collapsible-header span.truncate {
+    margin-right: auto; }
+
+i.material-icons.group-settings {
+  font-size: 1.6rem; }
+
+.collapsible-body {
+  padding: 0 !important; }
+  .collapsible-body li > a {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    width: 100%; }
+  .collapsible-body li a {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    padding: 10px;
+    text-align: center; }
+    .collapsible-body li a:hover {
+      background-color: #fff;
+      opacity: 1; }
 
 .card.horizontal .card-stacked {
   padding: 0;
@@ -100,6 +138,15 @@ div#message-container {
   height: 87vh;
   overflow: scroll; }
 
+ul #dropdown1 {
+  width: 422.047px !important;
+  top: 50px !important; }
+ul #archive-dropdown {
+  position: absolute !important;
+  width: 222.047px !important;
+  white-space: nowrap;
+  top: 35px !important; }
+
 .message-text {
   display: block;
   width: 100%;
@@ -137,19 +184,15 @@ div#message-container {
   color: orange !important; }
 
 .message-header {
-  position: absolute;
+  position: relative;
   height: 80px;
   top: 0;
   left: 0;
-  width: 100%;
-  overflow: scroll; }
-  .message-header .row {
-    margin-bottom: -10px; }
+  width: 100%; }
   .message-header .group-description {
     font-size: 0.6rem;
     font-style: italic;
-    color: grey;
-    margin-left: 10px; }
+    color: grey; }
 
 .message-body {
   position: absolute;

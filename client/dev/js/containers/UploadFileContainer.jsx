@@ -82,6 +82,7 @@ class UploadFileContainer extends React.Component {
     return (
       <UploadsModal
         onUploadFile={this.uploadFile}
+        closeModalRoute={this.props.closeModalRoute}
       />
 
     );

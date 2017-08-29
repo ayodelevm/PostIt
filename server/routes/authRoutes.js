@@ -9,11 +9,11 @@ const router = express.Router();
 // ======================
 
 // Sign up logic
-router.post('/api/user/register', AuthCtrl.register);
+router.post('/api/v1/user/register', AuthCtrl.register);
 
 // Login logic
 
-router.post('/api/user/login', AuthCtrl.login);
+router.post('/api/v1/user/login', AuthCtrl.login);
 
 
 export default router;

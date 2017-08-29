@@ -51,6 +51,26 @@ i.material-icons.group-settings {
     }
   }
 }
+
+div.row.group-section-message {
+  padding: 1rem 0rem;;
+  li {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+  }
+  li.group-display {
+    a{
+      width: 100%;
+      font-size: 0.8rem;
+      text-align:center;
+    }
+  }
+  li.group-display:hover {
+      background-color:#fff;
+    }
+}
+
 // .card-stacked {
 //   overflow-y: scroll;
 // }

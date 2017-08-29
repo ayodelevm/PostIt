@@ -66,7 +66,7 @@ export default class Middlewares {
       }
     }).catch((err) => {
       res.status(500).json({
-        globals: err.errors[0].message || err.message
+        globals: err.message || err.errors[0].message
       });
     });
   }

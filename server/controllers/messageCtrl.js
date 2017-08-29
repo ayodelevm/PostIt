@@ -16,15 +16,15 @@ export default class messageCtrl {
       where: { id: req.params.id },
     }).then((foundGroup) => {
       foundGroup.getMessages({
-        where: { archived: false },
+        where: { archived: req.query.archived },
         attributes: ['id', 'message', 'GroupId', 'priority', 'createdAt', ['UserId', 'ownerId']],
         joinTableAttributes: [],
         order: [['createdAt', 'ASC']]
-      }).then((foundMessages) => {
-        const found = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Messages: foundMessages === null ? [] : foundMessages });
+      }).then((found) => {
+        const foundMessages = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Messages: found === null ? [] : found });
         res.status(200).json({
           success: 'Successful.',
-          found
+          foundMessages
         });
       });
     }).catch((err) => {
@@ -50,10 +50,10 @@ export default class messageCtrl {
         const newMessage = Object.assign(req.body, {
           UserId: req.user.dataValues.id }, { GroupId: req.params.id });
         models.Message.create(newMessage).then((addedMessage) => {
-          const found = Object.assign({}, addedMessage.dataValues, { ownerId: addedMessage.dataValues.UserId });
+          const createdMessage = Object.assign({}, addedMessage.dataValues, { ownerId: addedMessage.dataValues.UserId });
           res.status(201).json({
             success: 'New message added successfully.',
-            found
+            createdMessage
           });
         }).catch((err) => {
           res.status(500).json({
@@ -62,6 +62,45 @@ export default class messageCtrl {
         });
       });
     }
+  }
+
+  /**
+   * This method handles archiving of messages
+   * @param {object} req
+   * @param {object} res
+   * @returns {void}
+   */
+  static archiveMessages(req, res) {
+    if (req.body.messageIds.length === 0) {
+      return res.status(400).json({
+        globals: 'There are no messages to archive in this group!'
+      });
+    }
+
+    models.Message.findAll({
+      where: { id: req.body.messageIds }
+    }).then((foundMessages) => {
+      if (foundMessages) {
+        Promise.all(
+          foundMessages.map((found) => {
+            return found.update({ archived: true });
+          })
+        ).then((archivedMessages) => {
+          res.status(200).json({
+            success: 'Messages have been archived successfully',
+            archivedMessages
+          });
+        });
+      } else {
+        res.status(404).json({
+          globals: 'Messages not found'
+        });
+      }
+    }).catch((err) => {
+      res.status(500).json({
+        globals: err.message || err.errors[0].message
+      });
+    });
   }
 }
 

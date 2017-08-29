@@ -10,7 +10,7 @@ const UploadsModal = (props) => {
 
     <div id="user-new" className="modal">
       <div className="row modal-close-div">
-        <Link to="/dashboard" className="modal-action modal-close waves-effect waves-green btn-flat right"><i className="material-icons center">close</i></Link>
+        <Link to={`/${props.closeModalRoute}`} className="modal-action modal-close waves-effect waves-green btn-flat right"><i className="material-icons center">close</i></Link>
       </div>
 
       <div className="row">

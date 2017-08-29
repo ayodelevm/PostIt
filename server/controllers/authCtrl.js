@@ -25,7 +25,7 @@ export default class AuthCtrl {
             telephone: newUser.telephone,
             fullname: newUser.fullname,
             profileImage: newUser.profileImage
-          }, process.env.secret, { expiresIn: 60 * 60 });
+          }, process.env.secret, { expiresIn: 60 * 60 * 24 });
 
           return res.status(201).json({ token });
         });
@@ -65,7 +65,7 @@ export default class AuthCtrl {
             telephone: founduser.telephone,
             fullname: founduser.fullname,
             profileImage: founduser.profileImage
-          }, process.env.secret, { expiresIn: 60 * 60 });
+          }, process.env.secret, { expiresIn: 60 * 60 * 24 });
           return res.status(200).json({
             token
           });

@@ -64,13 +64,13 @@ class GroupForm extends React.Component {
     .then(
       () => {
         if (this.props.groupResponse.createSuccess) {
-          notify.show('Group created successfully!', 'success', 10000);
+          notify.show('Group created successfully!', 'success', 5000);
           $('#group-new').modal('close');
         } else {
           if (this.props.groupResponse.errors.errors) {
             return this.setState({ errors: this.props.groupResponse.errors.errors });
           }
-          notify.show(this.props.groupResponse.errors.globals, 'warning', 10000);
+          notify.show(this.props.groupResponse.errors.globals, 'warning', 5000);
         }
       }
     );
@@ -90,6 +90,9 @@ class GroupForm extends React.Component {
         }
       });
       Materialize.updateTextFields();
+      $('.collapsible').collapsible({
+        accordion: true,
+      });
     });
   }
 

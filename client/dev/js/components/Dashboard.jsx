@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Notifications from 'react-notify-toast';
 import GroupForm from '../containers/GroupForm.jsx';
 import UploadFileContainer from '../containers/UploadFileContainer.jsx';
+import ArchiveAllContainer from '../containers/ArchiveAllContainer.jsx';
+import ViewArchivedModal from './ViewArchivedModal.jsx';
 import Nav from './common/Nav.jsx';
 
 const Dashboard = (props) => {
@@ -38,24 +40,31 @@ const Dashboard = (props) => {
               <div className="divider" />
               <div id="content" className="row">
                 <br />
-                <a className="modal-trigger add-new-group" href="#group-new"><span className="card-title black-text">GROUPS <i className="material-icons add-groups right">add_box</i></span></a>
+                <a className="modal-trigger add-new-group" href="#group-new"><span className="card-title black-text">CREATE GROUP <i className="material-icons add-groups right">add_box</i></span></a>
 
               </div>
               <div className="divider" />
               <div className="row group-section">
 
-                <h5 className="center">Personal Groups</h5>
-                <ul>
-                  {filteredGroups && filteredGroups.map(group => (
-                    <div key={group.id}>
-                      <li className="group-display"><a href="" id={group.id} className="groups grey-text">
-                        <span className="left truncate"><i className="material-icons group-icons">lock_open
-                          </i> {group.name}</span><i className="material-icons right">settings</i></a>
-                      </li><br />
-                    </div>
+                <h5 className="">Personal Groups</h5>
+                <div className="divider" />
+                {filteredGroups && filteredGroups.map(group => (
+                  <ul key={group.id} className="collapsible z-depth-0" data-collapsible="accordion">
+                    <li>
+                      <div className="group-display collapsible-header grey lighten-4"><span className="truncate"><i className="material-icons group-icons">lock_open</i> {group.name}</span><i className="material-icons right group-settings">arrow_drop_down</i></div>
+
+                      <div className="collapsible-body ">
+                        <ul>
+                          <li><Link name={group.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.handleActiveGroupClicked} id={group.id} to="#archive-all">Archive All Messages</Link></li>
+                          {/* <li><Link className="modal-trigger waves-effect waves-blue black-text" onClick={props.handleActiveGroupClicked} to="">Archive Selected Messages</Link></li> */}
+                          <li><Link name={group.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.handleActiveGroupClicked} id={group.id} to="#view-archive">View Archived Messages</Link></li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
                     ))
                   }
-                </ul>
+
               </div>
             </div>
           </div>
@@ -87,7 +96,19 @@ const Dashboard = (props) => {
           <GroupForm
             closeModalRoute={'dashboard'}
           />
-          <UploadFileContainer userId={props.currentUser.id} />
+          <UploadFileContainer
+            userId={props.currentUser.id}
+            closeModalRoute={'dashboard'}
+          />
+          <ArchiveAllContainer
+            closeModalRoute={'dashboard'}
+          />
+
+          <ViewArchivedModal
+            closeModalRoute={'dashboard'}
+            users={props.users}
+            archivedMessages={props.archivedMessages}
+          />
         </div>
       </div>
 
@@ -97,6 +118,7 @@ const Dashboard = (props) => {
 };
 
 Dashboard.propTypes = {
+  handleActiveGroupClicked: PropTypes.func.isRequired,
   // eslint-disable-next-line
   users: PropTypes.array.isRequired,
   // eslint-disable-next-line

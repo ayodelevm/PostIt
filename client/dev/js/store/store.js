@@ -11,6 +11,7 @@ import authReducer from '../reducers/authReducer';
 import addUserReducer from '../reducers/addUserReducer';
 import groupReducer from '../reducers/groupReducer';
 import messageReducer from '../reducers/messageReducer';
+import archiveReducer from '../reducers/archiveReducer';
 
 export const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -23,6 +24,7 @@ const store = createStore(
     addUserReducer,
     groupReducer,
     messageReducer,
+    archiveReducer,
     router: routerReducer
   }),
   composeWithDevTools(

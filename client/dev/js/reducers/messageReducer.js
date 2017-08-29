@@ -11,13 +11,13 @@ const messageReducer = (state = intialState, action = {}) => {
   switch (action.type) {
     case Types.GET_GROUP_AND_ITS_MESSAGES:
       return Object.assign({}, state, {
-        grpMessages: action.grpMessages.found,
+        grpMessages: action.grpMessages.foundMessages,
         getMessagesSuccess: !!Object.keys(action.grpMessages)
       });
 
     case Types.CREATE_NEW_MESSAGES:
       return Object.assign({}, state, {
-        newMessage: action.newMessage.found,
+        newMessage: action.newMessage.createdMessage,
         newMessageSuccess: !!Object.keys(action.newMessage)
       });
     
@@ -27,20 +27,12 @@ const messageReducer = (state = intialState, action = {}) => {
         newMessageSuccess: !!Object.keys(action.mergedMessages)
       });
 
-    case Types.ARCHIVE_MESSAGES:
-      return action.archivedMessages;
-
     case Types.GET_GROUP_AND_ITS_MESSAGES_FAILURE:
       return Object.assign({}, state, {
         errors: action.failure,
       });
 
     case Types.CREATE_NEW_MESSAGES_FAILURE:
-      return Object.assign({}, state, {
-        errors: action.failure,
-      });
-
-    case Types.ARCHIVE_MESSAGES_FAILURE:
       return Object.assign({}, state, {
         errors: action.failure,
       });

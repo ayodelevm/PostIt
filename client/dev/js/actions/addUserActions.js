@@ -59,7 +59,6 @@ export const addNewUsersToGroup = (token, data, groupId) => (dispatch) => {
 };
 
 export const uploadProfileImage = (token, data, userId) => (dispatch) => {
-  console.log(token, data, userId);
   return api.updateEndpoint(endpoints.UPDATE_ONE_USER_PATH.replace(':id', `${userId}`), data, token)
   .then(
     (success) => {

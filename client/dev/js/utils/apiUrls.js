@@ -16,6 +16,8 @@ const apiUrls = {
   ADD_USERS_TO_GROUP_PATH: '/api/v1/group/:id/user',
   UPDATE_ONE_USER_PATH: '/api/v1/user/:id/edit',
   ARCHIVE_MESSAGES: '/api/v1/group/:id/archivemessages',
+  FORGOT_PASSWORD: '/api/v1/user/forgotpassword',
+  RESET_PASSWORD: '/api/v1/resetpassword'
 };
 
 export default apiUrls;

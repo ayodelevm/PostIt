@@ -1,5 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import LoginForm from '../containers/LoginForm.jsx';
+import ResetPasswordEmailContainer from '../containers/ResetPasswordEmailContainer.jsx';
+import ResetPasswordEmailModal from './ResetPasswordEmailModal.jsx';
 
 const LoginComponent = () => (
   <div className="parallax-container">
@@ -23,6 +26,9 @@ const LoginComponent = () => (
                 <p className="left">Required fields are marked *</p>
                 <LoginForm />
               </div>
+              <div className="row">
+                <p className="center">Forgot password? <Link to="#reset-email" className="modal-trigger green-text darken-4">Click here</Link> to reset it!</p>
+              </div>
 
             </div>
             <div className="card-action">
@@ -32,7 +38,9 @@ const LoginComponent = () => (
           </div>
         </div>
       </div>
-
+      <ResetPasswordEmailContainer
+        closeModalRoute={'login'}
+      />
     </div>
 
     <div className="parallax"><img className="responsive-img" src={require('../utils/images/jacob-ufkes-195221.jpg')} alt="login section" /><div id="overlay" />

@@ -65,6 +65,7 @@
     "morgan": "^1.5.3",
     "node-libs-browser": "^2.0.0",
     "node-sass": "^4.5.3",
+    "nodemailer": "^4.1.0",
     "nodemon": "^1.11.0",
     "npm": "^5.0.3",
     "passport": "^0.3.2",

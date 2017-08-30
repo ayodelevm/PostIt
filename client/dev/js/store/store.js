@@ -12,6 +12,7 @@ import addUserReducer from '../reducers/addUserReducer';
 import groupReducer from '../reducers/groupReducer';
 import messageReducer from '../reducers/messageReducer';
 import archiveReducer from '../reducers/archiveReducer';
+import resetPasswordReducer from '../reducers/resetPasswordReducer';
 
 export const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -25,6 +26,7 @@ const store = createStore(
     groupReducer,
     messageReducer,
     archiveReducer,
+    resetPasswordReducer,
     router: routerReducer
   }),
   composeWithDevTools(

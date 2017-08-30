@@ -12,8 +12,13 @@ const router = express.Router();
 router.post('/api/v1/user/register', AuthCtrl.register);
 
 // Login logic
-
 router.post('/api/v1/user/login', AuthCtrl.login);
+
+// Forgot Password
+router.post('/api/v1/user/forgotpassword', AuthCtrl.forgotPasswordLink);
+
+// Reset Password
+router.post('/api/v1/resetpassword', AuthCtrl.resetPassword);
 
 
 export default router;

@@ -16,7 +16,7 @@ export const validateInput = (data) => {
     errors.telephone = 'This field is required';
   }
   if (data.telephone && !Validator.isMobilePhone(data.telephone, 'any')) {
-    errors.telephone = 'Mobile number is invalid.';
+    errors.telephone = 'Mobile number is invalid';
   }
   if (data.profileImage && !Validator.isURL(data.profileImage, [{ allow_underscores: true }])) {
     errors.profileImage = 'Url is invalid. Please input a valid one.';

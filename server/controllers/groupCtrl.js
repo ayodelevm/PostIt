@@ -23,10 +23,10 @@ export default class GroupCtrl {
         joinTableAttributes: [],
         order: [['createdAt', 'DESC']],
       }).then((foundGroup) => {
-        const found = Object.assign(JSON.parse(JSON.stringify(foundUser)), { Groups: foundGroup });
+        const foundGroups = Object.assign(JSON.parse(JSON.stringify(foundUser)), { Groups: foundGroup });
         res.status(200).json({
           success: 'Successful.',
-          found
+          foundGroups
         });
       });
     }).catch((err) => {
@@ -45,12 +45,7 @@ export default class GroupCtrl {
   static createNewGroup(req, res) {
     let initialGroupMembers = [].concat(req.user.dataValues.username);
     if (req.body.initialGroupMembers) {
-      // const approved = true, disapproved = false;
-      initialGroupMembers = ([...req.body.initialGroupMembers, req.user.dataValues.username])
-                        /* eslint no-confusing-arrow: ["error", {"allowParens": true}] */
-                        /* eslint-env es6 */
-                        // .filter(id => (!id && id !== 0 ? disapproved : approved))
-                        // .map(id => Number(id));
+      initialGroupMembers = ([...req.body.initialGroupMembers, req.user.dataValues.username]);
     }
 
     groupValidation(req.body, validateGroupInput).then(({ errors, isValid }) => {

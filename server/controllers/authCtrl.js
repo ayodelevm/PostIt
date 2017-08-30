@@ -54,7 +54,7 @@ export default class AuthCtrl {
         }
       }).then((founduser) => {
         if (!founduser) {
-          return res.status(400).json({
+          return res.status(401).json({
             globals: 'Invalid login credentials'
           });
         }
@@ -71,7 +71,7 @@ export default class AuthCtrl {
             token
           });
         }
-        return res.status(400).json({
+        return res.status(401).json({
           globals: 'Invalid login credentials'
         });
       });

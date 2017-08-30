@@ -38,11 +38,11 @@ export default class AddUsersCtrl {
       foundGroup.getUsers({
         attributes: { exclude: ['mysalt', 'updatedAt', 'password'] },
         joinTableAttributes: []
-      }).then((foundUsers) => {
-        const found = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Users: foundUsers });
+      }).then((found) => {
+        const foundUsers = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Users: found });
         res.status(200).json({
           success: 'Successful.',
-          found,
+          foundUsers
         });
       }).catch((err) => {
         res.status(500).json(err);

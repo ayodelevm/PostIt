@@ -23,6 +23,10 @@ class LoginForm extends React.Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
+  componentDidMount() {
+    $('.parallax').parallax();
+  }
+
   handleChange(e) {
     e.persist();
     if (!!this.state.errors && this.state.errors[e.target.name]) {

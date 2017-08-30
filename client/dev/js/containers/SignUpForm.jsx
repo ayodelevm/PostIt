@@ -141,7 +141,7 @@ class SignUpForm extends React.Component {
             <input
               className={classnames({ 'has-error': !!this.state.errors.passwordConfirmation })}
               placeholder="Confirm Password" id="passwordConfirmation" type="password"
-              name="passwordConfirmation" onChange={this.handleChange} value={this.state.password2}
+              name="passwordConfirmation" onChange={this.handleChange} value={this.state.passwordConfirmation}
             />
             <label htmlFor="passwordConfirmation">Confirm Password *</label>
           </div>

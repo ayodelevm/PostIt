@@ -16,7 +16,7 @@ class NavContainer extends React.Component {
   logout(e) {
     this.props.logoutAUser();
     notify.show('Logged out successfully!', 'success', 5000);
-    window.location.href('/');
+    window.location.replace('/');
   }
 
   render() {

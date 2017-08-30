@@ -92,7 +92,7 @@ export default class AuthCtrl {
         const email = req.body.email;
         const token = jwt.sign({
           email
-        }, process.env.secret, { expiresIn: 60 * 60 * 12 });
+        }, process.env.secret, { expiresIn: 60 * 60 * 1 });
 
         const transporter = nodemailer.createTransport({
           service: 'gmail',
@@ -113,7 +113,8 @@ export default class AuthCtrl {
           subject: 'Reset Password',
           text: `You have received this mail because you asked to reset your account on PostIt. Please click the following link or paste link into your browser to begin the process:
           ${req.headers.origin}/resetpassword?tok=${token} \n
-          Please ignore this mail if you did not make this request.`,
+          Please ignore this mail if you did not make this request. \n
+          Note: This link will expire after one hour`,
         };
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {

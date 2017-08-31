@@ -58,7 +58,7 @@ export default class Middlewares {
       },
     }).then((found) => {
       if (found === null) {
-        res.status(400).json({
+        res.status(401).json({
           globals: 'You are not authorized to access this group!'
         });
       } else {

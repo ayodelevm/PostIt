@@ -60,11 +60,9 @@ app.get('/*', (req, res) => {
 });
 
 // Listening PORT
-models.sequelize.sync().then(() => {
-  app.listen(process.env.PORT || 3002, () => {
-    // eslint-disable-next-line
-    console.log('serving on port 3002');
-  });
+app.listen(process.env.PORT || 3002, () => {
+  // eslint-disable-next-line
+  console.log('serving on port 3002');
 });
 
 export default app;

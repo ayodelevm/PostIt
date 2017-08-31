@@ -15,13 +15,13 @@ const groupReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.GET_USER_GROUPS:
       return Object.assign({}, state, {
-        groups: action.allGroups.found,
+        groups: action.allGroups.foundGroups,
         getGrpSuccess: !!Object.keys(action.allGroups)
       });
 
     case Types.GET_GROUP_USERS:
       return Object.assign({}, state, {
-        grpUsers: action.grpUsers.found,
+        grpUsers: action.grpUsers.foundUsers,
         getGrpUsersSuccess: !!Object.keys(action.grpUsers)
       });
 

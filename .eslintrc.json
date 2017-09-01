@@ -48,6 +48,7 @@
     "commonjs": true
   },
   "globals": {
+    "after": true,
     "before": true,
     "should": true,
     "window": true,

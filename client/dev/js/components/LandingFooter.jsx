@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * Gives the presentational view for the footer component on landing page
+ * @param {object} props
+ * @returns {void}
+ */
 const LandingFooter = () => (
   <footer className="page-footer transparent">
     <div className="footer-copyright footer-ish blue-grey darken-2">

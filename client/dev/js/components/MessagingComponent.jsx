@@ -12,6 +12,12 @@ import ArchiveAllContainer from '../containers/ArchiveAllContainer.jsx';
 import GroupMembersModal from './GroupMembersModal.jsx';
 import ViewArchivedModal from './ViewArchivedModal.jsx';
 
+/**
+ * Gives the presentational view for how messages are displayed in the messaging component
+ * @param {array} users
+ * @param {object} message
+ * @returns {jsx} - an xml/html -like syntax extension to javascript
+ */
 const renderMessage = (users, message) => {
   if (users && message) {
     const foundUser = users.find(user => user.id === message.ownerId);
@@ -42,6 +48,11 @@ const renderMessage = (users, message) => {
   }
 };
 
+/**
+ * Gives the presentational view for the users messaging page component
+ * @param {object} props
+ * @returns {jsx} - an xml/html -like syntax extension to javascript
+ */
 const MessagingComponent = (props) => {
   const { messages, currentUser, users, groups } = props;
   const { Groups } = props.groups;

@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import Notifications from 'react-notify-toast';
 import PropTypes from 'prop-types';
 
+/**
+ * Modal giving the presentational view for archiving messages
+ * @param {object} props
+ * @returns {jsx} - an xml/html -like syntax extension to javascript
+ */
 const ArchiveAllModal = (props) => {
-
   return (
 
     <div id="archive-all" className="modal">

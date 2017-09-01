@@ -5,7 +5,11 @@ import PropTypes from 'prop-types';
 import Chips from 'react-chips';
 import InputFieldGroup from './common/InputFields.jsx';
 
-
+/**
+ * Modal for creating a new group. It also allows you to add users to your group while creating
+ * @param {object} props
+ * @returns {jsx} - an xml/html -like syntax extension to javascript
+ */
 const GroupModal = (props) => {
 
   return (
@@ -21,7 +25,9 @@ const GroupModal = (props) => {
             <div className="card-content black-text">
               <div className="row card-title-area">
                 <span className="card-title create">Create a group</span>
-                <p className="flow-text par grey-text">Groups are where you communicate with your friends, family and teams. They are best utilized when organized around a particular purpose</p>
+                <p className="flow-text par grey-text">
+                  Groups are where you communicate with your friends, family and teams.
+                  They are best utilized when organized around a particular purpose</p>
               </div>
               <div className="row card-form-section">
 

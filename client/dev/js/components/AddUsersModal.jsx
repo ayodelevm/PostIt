@@ -4,8 +4,12 @@ import Notifications from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import Chips from 'react-chips';
 
+/**
+ * This component is responsible for the presentational view of the modal for adding users to group
+ * @param {object} props
+ * @returns {jsx} - an xml/html -like syntax extension to javascript
+ */
 const AddUsersModal = (props) => {
-
   return (
 
     <div id="add-new" className="modal">

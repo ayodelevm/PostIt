@@ -2,6 +2,11 @@ import React from 'react';
 import Notifications from 'react-notify-toast';
 import Nav from './common/Nav.jsx';
 
+/**
+ * Gives the presentational view for the landing page component
+ * @param {object} props
+ * @returns {void}
+ */
 const Landing = () => (
   <div>
     <div className="main">

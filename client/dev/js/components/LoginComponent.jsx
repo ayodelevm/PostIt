@@ -2,8 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LoginForm from '../containers/LoginForm.jsx';
 import ResetPasswordEmailContainer from '../containers/ResetPasswordEmailContainer.jsx';
-import ResetPasswordEmailModal from './ResetPasswordEmailModal.jsx';
 
+/**
+ * Gives the presentational view for the users login component
+ * @param {object} props
+ * @returns {void}
+ */
 const LoginComponent = () => (
   <div className="parallax-container">
     <div className="container register center-align">
@@ -14,7 +18,8 @@ const LoginComponent = () => (
             <div className="card-content black-text">
               <span className="card-title v-align">
                 <a href="/" className="brand-logo">
-                  <i className="material-icons lime-text lighthen-5">insert_chart</i><span id="site_name">PostIt</span>
+                  <i className="material-icons lime-text lighthen-5">insert_chart</i>
+                  <span id="site_name">PostIt</span>
                 </a>
               </span>
               <p>Log into your account.</p>
@@ -27,7 +32,10 @@ const LoginComponent = () => (
                 <LoginForm />
               </div>
               <div className="row">
-                <p className="center">Forgot password? <Link to="#reset-email" className="modal-trigger green-text darken-4">Click here</Link> to reset it!</p>
+                <p className="center">Forgot password?
+                  <Link to="#reset-email" className="modal-trigger green-text darken-4">
+                  Click here</Link> to reset it!
+                </p>
               </div>
 
             </div>
@@ -43,7 +51,12 @@ const LoginComponent = () => (
       />
     </div>
 
-    <div className="parallax"><img className="responsive-img" src={require('../utils/images/jacob-ufkes-195221.jpg')} alt="login section" /><div id="overlay" />
+    <div className="parallax">
+      <img
+        className="responsive-img"
+        src={require('../utils/images/jacob-ufkes-195221.jpg')}
+        alt="login section"
+      /><div id="overlay" />
     </div>
   </div>
 );

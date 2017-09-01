@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Sacramento');
+@import url('https://fonts.googleapis.com/css?family=Homemade+Apple');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Rambla');
+
+@import "signin";
+@import "register";
+@import "dashboard";
+@import "message";
+@import "landing_page";
+
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#site_name {
+  font-family: 'Homemade Apple', cursive;
+  font-weight: 100px;
+  // color: greenyellow;
+}
+
+.nav-wrapper {
+  background-color: black;
+  padding: 0 30px;
+}
+
+nav i.material-icons {
+  font-size: 1.5em;
+}

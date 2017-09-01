@@ -10,6 +10,11 @@ export const groupDetails = [{
   name: 'Learn JavaScript',
   description: 'We have that synthetic sugar you love',
   imageUrl: 'https://farm9.staticflickr.com/8076/8319742380_4c6dc9c3ef.jpg'
+}, {
+  name: 'Learn JavaScript',
+  description: 'We have that synthetic sugar you love',
+  imageUrl: 'https://farm9.staticflickr.com/8076/8319742380_4c6dc9c3ef.jpg',
+  initialGroupMembers: ['tundun']
 }];
 
 export const updateInfo = {

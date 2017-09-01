@@ -1,7 +1,6 @@
 import supertest from 'supertest';
-import 'mocha';
-import 'chai';
 import should from 'should';
+import jwtDecode from 'jwt-decode';
 import app from './../app';
 import { loginUser } from './../seeders/authSeeds';
 import { groupDetails, updateInfo, noGrpName } from './../seeders/groupSeeds';
@@ -9,29 +8,40 @@ import { groupDetails, updateInfo, noGrpName } from './../seeders/groupSeeds';
 const server = supertest.agent(app);
 
 describe('Group Routes', () => {
+  let token;
+
   it('allows a registered user to login successfully', (done) => {
     server
-    .post('/api/user/login')
-    .set('Connection', 'keep alive')
-    .set('Content-Type', 'application/json')
-    .type('form')
+    .post('/api/v1/user/login')
     .send(loginUser[0])
     .expect(200)
     .end((err, res) => {
+      token = res.body.token;
       res.status.should.equal(200);
-      res.body.user.should.equal('lolade');
+      res.body.token.should.equal(token);
       done();
     });
   });
 
+  it('prevents user from creating a group without a name', (done) => {
+    server
+      .post('/api/v1/group')
+      .set('Authorization', `Bearer ${token}`)
+      .send(noGrpName)
+      .expect(400)
+      .end((err, res) => {
+        res.status.should.equal(400);
+        res.body.errors.name.should.equal('This field is required');
+        done();
+      });
+  });
+
   it('allows a logged in user to create a new group', (done) => {
     server
-    .post('/api/group')
-    .set('Connection', 'keep alive')
-    .set('Content-Type', 'application/json')
-    .type('form')
+    .post('/api/v1/group')
+    .set('Authorization', `Bearer ${token}`)
     .send(groupDetails[0])
-    .expect(200)
+    .expect(201)
     .end((err, res) => {
       res.status.should.equal(201);
       res.body.success.should.equal('New group created successfully.');
@@ -41,10 +51,8 @@ describe('Group Routes', () => {
 
   it('allows a logged in user to create a new group', (done) => {
     server
-    .post('/api/group')
-    .set('Connection', 'keep alive')
-    .set('Content-Type', 'application/json')
-    .type('form')
+    .post('/api/v1/group')
+    .set('Authorization', `Bearer ${token}`)
     .send(groupDetails[1])
     .expect(200)
     .end((err, res) => {
@@ -54,13 +62,11 @@ describe('Group Routes', () => {
     });
   });
 
-  it('allows a logged in user to create a new group', (done) => {
+  it('allows a logged in user to create a new group and add other users while creating', (done) => {
     server
-    .post('/api/group')
-    .set('Connection', 'keep alive')
-    .set('Content-Type', 'application/json')
-    .type('form')
-    .send(groupDetails[2])
+    .post('/api/v1/group')
+    .set('Authorization', `Bearer ${token}`)
+    .send(groupDetails[3])
     .expect(200)
     .end((err, res) => {
       res.status.should.equal(201);
@@ -71,7 +77,8 @@ describe('Group Routes', () => {
 
   it('allows a logged in user to get all the groups he belongs to', (done) => {
     server
-    .get('/api/groups')
+    .get('/api/v1/groups')
+    .set('Authorization', `Bearer ${token}`)
     .expect(200)
     .end((err, res) => {
       res.status.should.equal(200);
@@ -82,7 +89,8 @@ describe('Group Routes', () => {
 
   it('allows a group admin to get one group details for editing', (done) => {
     server
-    .get('/api/group/2/edit')
+    .get('/api/v1/group/2/edit')
+    .set('Authorization', `Bearer ${token}`)
     .expect(200)
     .end((err, res) => {
       res.status.should.equal(200);
@@ -93,25 +101,21 @@ describe('Group Routes', () => {
 
   it('ensures that a group has a name when updating', (done) => {
     server
-    .put('/api/group/2/edit')
-    .set('Connection', 'keep alive')
-    .set('Content-Type', 'application/json')
-    .type('form')
+    .put('/api/v1/group/2/edit')
+    .set('Authorization', `Bearer ${token}`)
     .send(noGrpName)
     .expect(400)
     .end((err, res) => {
       res.status.should.equal(400);
-      res.body.error.should.equal('A group needs to have a name');
+      res.body.globals.should.equal('A group needs to have a name');
       done();
     });
   });
 
   it('allows a group admin to edit the group details', (done) => {
     server
-    .put('/api/group/2/edit')
-    .set('Connection', 'keep alive')
-    .set('Content-Type', 'application/json')
-    .type('form')
+    .put('/api/v1/group/2/edit')
+    .set('Authorization', `Bearer ${token}`)
     .send(updateInfo)
     .expect(200)
     .end((err, res) => {
@@ -123,7 +127,8 @@ describe('Group Routes', () => {
 
   it('allows a group admin to delete the group he owns', (done) => {
     server
-    .delete('/api/group/1/delete')
+    .delete('/api/v1/group/1/delete')
+    .set('Authorization', `Bearer ${token}`)
     .expect(200)
     .end((err, res) => {
       res.status.should.equal(200);
@@ -134,72 +139,53 @@ describe('Group Routes', () => {
 
   it('allows another registered user to login successfully', (done) => {
     server
-    .post('/api/user/login')
-    .set('Connection', 'keep alive')
-    .set('Content-Type', 'application/json')
-    .type('form')
+    .post('/api/v1/user/login')
+    .set('Authorization', `Bearer ${token}`)
     .send(loginUser[1])
     .expect(200)
     .end((err, res) => {
+      token = res.body.token;
+      const decodedUser = jwtDecode(res.body.token);
       res.status.should.equal(200);
-      res.body.user.should.equal('jide');
+      decodedUser.username.should.equal('jide');
       done();
     });
   });
 
-  it('ensures that a group has a name', (done) => {
+  it('should ensure that group names are unique', (done) => {
     server
-    .post('/api/group')
-    .set('Connection', 'keep alive')
-    .set('Content-Type', 'application/json')
-    .type('form')
-    .send(noGrpName)
-    .expect(400)
-    .end((err, res) => {
-      res.status.should.equal(400);
-      res.body.error.should.equal('A new group needs to have a name');
-      done();
-    });
+      .post('/api/v1/group')
+      .set('Authorization', `Bearer ${token}`)
+      .send(groupDetails[2])
+      .expect(400)
+      .end((err, res) => {
+        res.status.should.equal(400);
+        res.body.errors.name.should.equal('A group with this name already exists');
+        done();
+      });
   });
-
-  it('ensures that group name is unique', (done) => {
-    server
-    .post('/api/group')
-    .set('Connection', 'keep alive')
-    .set('Content-Type', 'application/json')
-    .type('form')
-    .send(groupDetails[2])
-    .expect(500)
-    .end((err, res) => {
-      res.status.should.equal(500);
-      res.body.error.should.equal('name must be unique');
-      done();
-    });
-  });
-
 
   it('prevents a user from editing a group he is not a member of', (done) => {
     server
-    .put('/api/group/2/edit')
-    .set('Connection', 'keep alive')
-    .set('Content-Type', 'application/json')
-    .type('form')
+    .put('/api/v1/group/2/edit')
+    .set('Authorization', `Bearer ${token}`)
     .send(updateInfo)
-    .expect(400)
+    .expect(401)
     .end((err, res) => {
-      res.status.should.equal(400);
-      res.body.error.should.equal('You are not authorized to access this group!');
+      res.status.should.equal(401);
+      res.body.globals.should.equal('You are not authorized to access this group!');
       done();
     });
   });
 
   it('prevents a user from deleting a group he is not a member of', (done) => {
     server
-    .delete('/api/group/1/delete')
-    .expect(400)
+    .delete('/api/v1/group/1/delete')
+    .set('Authorization', `Bearer ${token}`)
+    .expect(401)
     .end((err, res) => {
-      res.status.should.equal(400);
-      res.body.error.should.equal('You are not authorized to access this group!');
+      res.status.should.equal(401);
+      res.body.globals.should.equal('You are not authorized to access this group!');
       done();
     });
   });

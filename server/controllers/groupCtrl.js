@@ -1,6 +1,4 @@
 import models from './../models/index';
-import { validateGroupInput, groupValidation } from '../utils/validations';
-
 
 /**
  * This class CRUD functions for groups
@@ -23,15 +21,15 @@ export default class GroupCtrl {
         joinTableAttributes: [],
         order: [['createdAt', 'DESC']],
       }).then((foundGroup) => {
-        const foundGroups = Object.assign(JSON.parse(JSON.stringify(foundUser)), { Groups: foundGroup });
+        const found = Object.assign(JSON.parse(JSON.stringify(foundUser)), { Groups: foundGroup });
         res.status(200).json({
           success: 'Successful.',
-          foundGroups
+          found
         });
       });
     }).catch((err) => {
       res.status(500).json({
-        globals: err.errors[0].message || err.message
+        message: err
       });
     });
   }
@@ -43,32 +41,41 @@ export default class GroupCtrl {
  * @returns {void}
  */
   static createNewGroup(req, res) {
-    let initialGroupMembers = [].concat(req.user.dataValues.username);
+    let initialGroupMembers = [].concat(req.user.dataValues.id);
     if (req.body.initialGroupMembers) {
-      initialGroupMembers = ([...req.body.initialGroupMembers, req.user.dataValues.username]);
+      const approved = true, disapproved = false;
+      initialGroupMembers = ([...req.body.initialGroupMembers, req.user.dataValues.id])
+                        /* eslint no-confusing-arrow: ["error", {"allowParens": true}] */
+                        /* eslint-env es6 */
+                        .filter(id => (!id && id !== 0 ? disapproved : approved))
+                        .map(id => Number(id));
     }
-
-    groupValidation(req.body, validateGroupInput).then(({ errors, isValid }) => {
-      if (isValid) {
-        const newDetails = Object.assign(req.body, { UserId: req.user.dataValues.id });
-        models.Group.create(newDetails).then((createdGroup) => {
-          models.User.findAll({
-            where: { username: initialGroupMembers }
-          })
-          .then((foundUsers) => {
-            createdGroup.addUsers(foundUsers).then(() => {
-              const newGroup = Object.assign({}, createdGroup.dataValues, { ownerId: createdGroup.dataValues.UserId });
-              return res.status(201).json({
-                success: 'New group created successfully.',
-                newGroup
-              });
+    if (!req.body.name) {
+      res.status(400).json({
+        error: 'A new group needs to have a name'
+      });
+    } else {
+      const newDetails = Object.assign(req.body, { UserId: req.user.dataValues.id });
+      models.Group.create(newDetails).then((newGroup) => {
+        models.User.findAll({
+          where: { id: initialGroupMembers }
+        })
+        .then((foundUsers) => {
+          newGroup.addUsers(foundUsers).then(() => {
+            res.status(201).json({
+              success: 'New group created successfully.',
+              newGroup
             });
           });
+        }).catch((err) => {
+          res.status(500).send(err);
         });
-      } else {
-        return res.status(400).json({ errors });
-      }
-    });
+      }).catch((err) => {
+        res.status(500).json({
+          error: err.errors[0].message
+        });
+      });
+    }
   }
 
 /**
@@ -86,9 +93,7 @@ export default class GroupCtrl {
         foundGroup
       });
     }).catch((err) => {
-      res.status(500).json({
-        globals: err.errors[0].message || err.message
-      });
+      res.status(500).json(err);
     });
   }
 
@@ -102,7 +107,7 @@ export default class GroupCtrl {
   static updateOneGroup(req, res) {
     if (!req.body.name) {
       res.status(400).json({
-        globals: 'A group needs to have a name'
+        error: 'A group needs to have a name'
       });
     } else {
       models.Group.findOne({
@@ -115,17 +120,17 @@ export default class GroupCtrl {
             });
           }).catch((err) => {
             res.status(500).json({
-              globals: err.errors[0].message || err.message
+              message: err
             });
           });
         } else {
           res.status(401).json({
-            globals: 'You do not have permission to edit this group\'s details'
+            error: 'You do not have permission to edit this group\'s details'
           });
         }
       }).catch((err) => {
         res.status(500).json({
-          globals: err.errors[0].message || err.message
+          error: err.errors[0].message
         });
       });
     }
@@ -150,17 +155,17 @@ export default class GroupCtrl {
           });
         }).catch((err) => {
           res.status(500).json({
-            globals: err.errors[0].message || err.message
+            message: err
           });
         });
       } else {
         res.status(401).json({
-          globals: 'You do not have permission to delete this group'
+          error: 'You do not have permission to delete this group'
         });
       }
     }).catch((err) => {
       res.status(500).json({
-        globals: err.errors[0].message || err.message
+        error: err.errors[0].message
       });
     });
   }

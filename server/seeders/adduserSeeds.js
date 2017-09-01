@@ -1,13 +1,9 @@
-const newGroupMembers = [{
-  newGroupMembers: ['tundun']
+const idToAdd = [{
+  idToAdd: 2
 }, {
-  newGroupMembers: ['lolade']
+  idToAdd: 3
 }, {
-  newGroupMembers: ['bolu']
-}, {
-  newGroupMembers: ['adeleke']
-}, {
-  newGroupMembers: ['jide', 'bolu']
+  idToAdd: 4
 }];
 
-export default newGroupMembers;
+export default idToAdd;

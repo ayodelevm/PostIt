@@ -11,14 +11,6 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
-      priority: {
-        type: Sequelize.STRING,
-        defaultValue: 'Normal'
-      },
-      archived: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
-      },
       UserId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',

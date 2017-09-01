@@ -1,8 +1,5 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import nodemailer from 'nodemailer';
+import passport from 'passport';
 import models from './../models/index';
-import { validateSignup, validateInput, validateLoginInput, validateEmailExist, validateEmail, validateResetPassword } from '../utils/validations';
 
 /**
  * This class handles the logic for registering an account signin and signing out
@@ -16,23 +13,35 @@ export default class AuthCtrl {
  * @returns {void}
  */
   static register(req, res) {
-    validateSignup(req.body, validateInput).then(({ errors, isValid }) => {
-      if (isValid) {
-        models.User.create(req.body).then((newUser) => {
-          const token = jwt.sign({
-            username: newUser.username,
-            email: newUser.email,
-            id: newUser.id,
-            telephone: newUser.telephone,
-            fullname: newUser.fullname,
-            profileImage: newUser.profileImage
-          }, process.env.secret, { expiresIn: 60 * 60 * 24 });
-
-          return res.status(201).json({ token });
+    if (!req.body.fullname) {
+      return res.status(400).json({ error: 'fullname field cannot be empty' });
+    } else if (!req.body.email) {
+      return res.status(400).json({ error: 'email filed cannot be empty' });
+    }
+    models.User.register(req.body.username, req.body.password, (err, newUser) => {
+      if (err) {
+        return res.status(500).json({
+          error: err.message
         });
-      } else {
-        return res.status(400).json({ errors });
       }
+      newUser.update({
+        email: req.body.email,
+        fullname: req.body.fullname
+      }).then(() => {
+        passport.authenticate('local')(req, res, () => {
+          res.status(200).json({
+            message: `Welcome to PostIt ${req.session.passport.user}`,
+            user: req.session.passport.user
+          });
+        });
+      }).catch(() => {
+        models.User.destroy({
+          where: { username: req.body.username }
+        });
+        return res.status(500).json({
+          error: 'Invalid Email.'
+        });
+      });
     });
   }
 
@@ -43,129 +52,40 @@ export default class AuthCtrl {
  * @param {object} next
  * @returns {void}
  */
-  static login(req, res) {
-    const { errors, isValid } = validateLoginInput(req.body);
-
-    if (isValid) {
-      models.User.findOne({
-        where: { $or: [
-      { username: req.body.userIdentifier },
-      { email: req.body.userIdentifier }]
-        }
-      }).then((founduser) => {
-        if (!founduser) {
-          return res.status(401).json({
-            globals: 'Invalid login credentials'
-          });
-        }
-        if (bcrypt.compareSync(req.body.password, founduser.password)) {
-          const token = jwt.sign({
-            username: founduser.username,
-            email: founduser.email,
-            id: founduser.id,
-            telephone: founduser.telephone,
-            fullname: founduser.fullname,
-            profileImage: founduser.profileImage
-          }, process.env.secret, { expiresIn: 60 * 60 * 24 });
-          return res.status(200).json({
-            token
-          });
-        }
+  static login(req, res, next) {
+    passport.authenticate('local', (error, user, info) => {
+      if (error) {
+        return next(error);
+      }
+      if (!user) {
         return res.status(401).json({
-          globals: 'Invalid login credentials'
+          error: info
+        });
+      }
+      req.login(user, (err) => {
+        if (err) {
+          return res.status(500).json({
+            message: 'Cannot log in user'
+          });
+        }
+        res.status(200).json({
+          message: `Welcome back ${req.session.passport.user}`,
+          user: req.session.passport.user
         });
       });
-    } else {
-      return res.status(400).json({ errors });
-    }
+    })(req, res, next);
   }
 
 /**
- *  This method handles sending an email to a registered user to reset password
+ * This method handles the logic for logging a user out
  * @param {object} req
  * @param {object} res
  * @returns {void}
  */
-  static forgotPasswordLink(req, res) {
-    validateEmailExist(req.body, validateEmail).then(({ errors, isValid }) => {
-      if (isValid) {
-        const email = req.body.email;
-        const token = jwt.sign({
-          email
-        }, process.env.secret, { expiresIn: 60 * 60 * 1 });
-
-        const transporter = nodemailer.createTransport({
-          service: 'gmail',
-          // port: 25,
-          secure: false,
-          auth: {
-            user: 'noreply.postitapp@gmail.com',
-            pass: process.env.password
-          },
-          tls: {
-            // rejectUnauthorized: false
-          }
-        });
-
-        const mailOptions = {
-          from: 'noreply.postitapp@gmail.com',
-          to: email,
-          subject: 'Reset Password',
-          text: `You have received this mail because you asked to reset your account on PostIt. Please click the following link or paste link into your browser to begin the process:
-          ${req.headers.origin}/resetpassword?tok=${token} \n
-          Please ignore this mail if you did not make this request. \n
-          Note: This link will expire after one hour`,
-        };
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            return res.status(501).json({
-              globals: 'Mail not sent'
-            });
-          }
-          return res.status(200).json({
-            success: 'Please check your mail for the reset link!'
-          });
-        });
-      } else {
-        return res.status(400).json({ errors });
-      }
+  static logout(req, res) {
+    req.logout();
+    res.status(200).json({
+      message: 'Logged out successfully'
     });
-  }
-
-/**
- *  This method handles resetting the password of a registered user to reset password
- * @param {object} req
- * @param {object} res
- * @returns {void}
- */
-  static resetPassword(req, res) {
-    const { errors, isValid } = validateResetPassword(req.body);
-
-    if (isValid) {
-      const token = req.query.tok;
-
-      if (token) {
-        jwt.verify(token, process.env.secret, (error, decoded) => {
-          if (error) {
-            return res.status(401).json({
-              globals: 'This link has expired or is invalid. Please try resetting your password again'
-            });
-          }
-
-          const salt = bcrypt.genSaltSync(10);
-          const hashedPassword = bcrypt.hashSync(req.body.password, salt);
-
-          models.User.update({ password: hashedPassword }, {
-            where: { email: decoded.email }
-          }).then(() => {
-            res.status(201).json({
-              success: 'password reset successful!'
-            });
-          });
-        });
-      }
-    } else {
-      return res.status(400).json({ errors });
-    }
   }
 }

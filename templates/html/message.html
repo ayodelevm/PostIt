@@ -4,249 +4,340 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>PostIt</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+  <title>Document</title>
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
 </head>
-<body>
-  <div  id="message-board-background">
-    <!-- Nav Section -->
+<body id="message">
+
+  <div>
+
+<!-- Nav Section -->
     <div class="navbar-fixed">
-      <nav class="lime-text accent-2 z-depth-0" role="navigation">
-        <div class="nav-wrapper lime-text accent-2">
-          <a href="#" class="brand-logo left"><i class="left large material-icons lime-text lighthen-5">insert_chart  </i><span id="site_name">PostIt</span></a>
+      <nav class="purple darken-4">
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo center"><i class="left large material-icons">insert_chart  </i><span id="site_name">PostIt</span></a>
           <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li data-activates='dropdown1' class="active"><a href="" data-activates='dropdown1' class="dropdown-button lime-text lighthen-5"><i class="material-icons left">notifications</i><span id="notification-number">5</span></a></li>
-            <li><a class="lime-text lighthen-5" href=""><i class="material-icons">people</i></a></li>
-            <li><a class="lime-text lighthen-5" href="">Logout</a></li>
+            <li class="active"><a href="">Welcome, Mary!</a></li>
+            <li><a href="">Edit Profile</a></li>
+            <li><a href="">Logout</a></li>
           </ul>
         </div>
       </nav>
-      <ul id='dropdown1' class='dropdown-content'>
-        <li><a href="#!">I am on my way to see the birds fly again</a></li>
-        <li><a href="#!">two</a></li>
-        <li class="divider"></li>
-      </ul>
     </div>
 
+  <!-- Below Nav Section -->
+  <main class="container">
     <div class="row">
-      <div id="message-container">
-        <div class="col l3 hide-on-med-and-down">
-          <div class="card right-side grey lighten-4 z-depth-3">
-            <div class="row valign-wrapper">
-              <div id="img-div" class="col s3">
-                <!-- <img src="https://pbs.twimg.com/profile_images/660946436801101824/niM7azZS.jpg" alt="" class="circle responsive-img"> -->
-                <div class="profile-icon"   style="background-image: url('https://pbs.twimg.com/profile_images/660946436801101824/niM7azZS.jpg');"></div>
-              </div>
-              <div class="col s9">
-                <span class="black-text">
-                  Sola paulina <br>
-                  solap@gmail.com
-                </span>
+      <div class="col l3">
+
+        <div class="row">
+          <div class="col l12 m12 s12">
+            <div id="nav-mobile" class="card transparent hide-on-med-and-down">
+              <div class="card-image">
+                <img class="profile_img_header" src="https://www.conncoll.edu/media/major-images/Art.jpg">
               </div>
             </div>
-            <div class="divider"></div>
-            <div id="content" class="row">
-              <br>
-              <a class="modal-trigger add-new-group" href="#modal1"><span class="card-title black-text">GROUPS <i class="material-icons add-groups right">add_box</i></span></a>
-              <div class="row group-section-message">
-                 <ul>
-                  <a href="" class="groups grey-text"><li class="group-display"><span class="left truncate"><i class="material-icons group-icons">lock</i> Learn Python</span><span class="right">6</span></li></a><br>
-                  <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">lock</i> Learn Python</span><span class="right">6</span></a></li><br>
-                  <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">forum</i> Learn Python</span><span class="right">6</span></a></li><br>
-                  <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">group</i> Learn Python</span><span class="right">6</span></a></li><br>
-                  <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">lock_open</i> Learn Python</span><span class="right">6</span></a></li><br>
-                  <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">group</i> Learn Python</span><span class="right">6</span></a></li><br>
-                  <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">group</i> Learn Python</span><span class="right">6</span></a></li><br>
-                  <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">group</i> Learn Python</span><span class="right">6</span></a></li><br>
+            <ul class="collection hide-on-med-and-down">
+              <li class="collection-item avatar">
+                <img src="http://www.tsbmag.com/wp-content/uploads/2016/02/rsz_model-429733_640.jpg" alt="" class="circle">
+                <span class="title profile">Mary Jane</span>
+                <p>jdandturk@gmail.com
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-                </ul> 
+        <!-- Groups with Notifications -->
+        <div class="row hide-on-med-and-down">
+          <div class="col l12">
+            <div class="notification card center blue-grey darken-1">
+                <span class="card-title center">Notifications</span>
+            </div>
+            <div class="collection">
+              <a href="#!" class="collection-item"><span class="new badge">1</span>New Css Framework hkhfkd fhjfdhjf </a>
+              <a href="#!" class="collection-item"><span class="new badge">4</span>Learn C#</a>
+              <a href="#!" class="collection-item">Project Nestle Team</a>
+              <a href="#!" class="collection-item"><span class="new badge">14</span>Learn Python</a>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Group name and title -->
+      <div class="col  message-input l6">
+        <div class="row">
+          <div class="col s12 m12 l12">
+            <div class="card sticky-action blue-grey darken-1">
+              <div class="card-content white-text">
+                <span class="card-title">New CSS Framework</span>
+                <div class="divider"></div>
+                <p class="light italics">I am a very simple card. I am good at containing small bits of information.
+                I am convenient because I require little markup to use effectively.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col s12 l9">
-          <div class="message-text z-depth-3"> 
-            <div class="message-header z-depth-2">
-              <div class="row">
-                <div class="col s10 name-description">
-                  <h5 class="group-title"><i class="material-icons group-icons">lock</i> Learn Python</h5>
-                  <div class="row adjust"> 
-                    <span class="group-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi repudiandae, aliquam, dolor itaque nisi expedita, voluptate, voluptatibus doloribus velit quae nemo labore. Sapiente commodi ullam, cum suscipit molestias eaque incidunt.</span>
-                  </div> 
-                </div>                
-                
-                 <!-- <div class="divider"></div>                -->
-               
-              <div class="col s2">
-                <div>
-                  <ul class="group-icons">
-                    <li><a href=""><i class="material-icons left">group_add</i></a></li>
-                    <li><a href=""><i class="material-icons left">group</i></a></li>
-                    <li><a href="" class='dropdown-button' data-activates='archive-dropdown'><i class="material-icons">settings</i></a></li>
-                  </ul>
-                  <ul id='archive-dropdown' class='dropdown-content'>
-                    <li><a class="waves-effect waves-blue black-text" href="#">Archive All Messages</a></li>
-                    <li><a class="waves-effect waves-blue black-text" href="#">Archive Selected Messages</a></li>
-                    <li><a class="waves-effect waves-blue black-text" href="#">View Archived Messages</a></li>
-                  </ul>
-                </div>
-              </div>
-                
+        <!-- Message collections -->
+        <ul class="collection col l12 m12 s12">
+          <li class="collection-item avatar">
+            <img src="images/yuna.jpg" alt="" class="circle">
+            <span class="title">Title</span>
+            <p>First Line <br>
+              Second Line
+            </p>
+          </li>
+          <li class="collection-item avatar">
+            <i class="material-icons circle">folder</i>
+            <span class="title">Title</span>
+            <p>First Line <br>
+              Second Line
+            </p>
+          </li>
+          <li class="collection-item avatar">
+            <i class="material-icons circle green">insert_chart</i>
+            <span class="title">Title</span>
+            <p>First Line <br>
+              Second Line
+            </p>
+          </li>
+          <li class="collection-item avatar">
+            <i class="material-icons circle red">play_arrow</i>
+            <span class="title">Title</span>
+            <p>First Line <br>
+              Second Line
+            </p>
+          </li>
+          <li class="collection-item avatar">
+            <i class="material-icons circle red">play_arrow</i>
+            <span class="title">Title</span>
+            <p>First Line <br>
+              Second Line
+            </p>
+          </li>
+          <li class="collection-item avatar">
+            <i class="material-icons circle red">play_arrow</i>
+            <span class="title">Title</span>
+            <p>First Line <br>
+              Second Line
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Add Group -->
+      <div class="col l3 hide-on-med-and-down">
+        <div class="row">
+          <div class="col s12 m12 l12">
+            <div class="card blue-grey darken-1">
+              <div class="card-content white-text">
+                <span class="span_font card-title">Create New Group</span>
+                <div class="divider"></div>
+                <p class="light italics">Welcome to PostIt. Create a new group and start sharing!</p>
+                <!-- Add Group Modal Trigger -->
+                <a class="waves-effect waves-light btn" href="#newGroup">Get Started</a>
               </div>
             </div>
-            <div class="message-body"> 
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Add Group Modal Structure -->
+      <div id="newGroup" class="modal modal-fixed-footer">
+        <div class="modal-content">
+          <h4>Create New Group</h4>
+          <div class="row">
+            <form class="col s12">
               <div class="row">
-                <div class="z-depth-1">
-                  <div class="col s2 image-div">
-                    <div class="profile-img" style="background-image: url('https://pbs.twimg.com/profile_images/660946436801101824/niM7azZS.jpg');"></div>
-                  </div>
-                  <div class="col s10">
-                    <span class="message-username">@ayodelevm</span> <span class="date-time">mon, 13, 2017 5:39pm</span> <span class="status-normal"> Normal </span><br>
-                    <span class="message-actual">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro sunt vel recusandae magni eum nam unde, laudantium hic quos iusto dignissimos tempora qui quibusdam adipisci at aliquam, magnam, cumque accusantium.</span>
-                  </div>
+                <div class="in input-field col s12">
+                  <input id="title" type="text" class="validate">
+                  <label for="title">Title</label>
                 </div>
               </div>
               <div class="row">
-                <div class="z-depth-1">
-                  <div class="col s2 image-div">
-                    <div class="profile-img" style="background-image: url('https://pbs.twimg.com/profile_images/660946436801101824/niM7azZS.jpg');"></div>
-                  </div>
-                  <div class="col s10">
-                    <span class="message-username">@ayodelevm</span> <span class="date-time">mon, 13, 2017 5:39pm</span> <span class="status-critical"> Critical </span><br>
-                    <span class="message-actual">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro sunt vel recusandae magni eum nam unde, laudantium hic quos iusto dignissimos tempora qui quibusdam adipisci at aliquam, magnam, cumque accusantium.</span>
-                  </div>
+                <div class="in input-field col s12">
+                  <input id="urls" type="url" class="validate">
+                  <label for="urls">Image Url</label>
                 </div>
               </div>
               <div class="row">
-                <div class="z-depth-1">
-                  <div class="col s2 image-div">
-                    <div class="profile-img" style="background-image: url('https://pbs.twimg.com/profile_images/660946436801101824/niM7azZS.jpg');"></div>
-                  </div>
-                  <div class="col s10">
-                    <span class="message-username">@ayodelevm</span> <span class="date-time">mon, 13, 2017 5:39pm</span> <span class="status-urgent"> Urgent </span><br>
-                    <span class="message-actual">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro sunt vel recusandae magni eum nam unde, laudantium hic quos iusto dignissimos tempora qui quibusdam adipisci at aliquam, magnam, cumque accusantium.</span>
-                  </div>
+                <div class="in input-field col s12">
+                  <textarea id="description" class="materialize-textarea"></textarea>
+                  <label for="description">Description</label>
                 </div>
               </div>
-             
+              <div class="row">
+                <a href="" class="modal-action modal-close waves-effect waves-green btn right">Create Group</a>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+      </div>
+      
+      <!-- Add users-->
+      <div class="col l3 hide-on-med-and-down">
+        <div class="row">
+          <div class="col s12 m12 l12">
+            <div class="card blue-grey darken-1">
+              <div class="card-content white-text">
+                <span class="span_font card-title">Add Users</span>
+                <div class="divider"></div>
+                <p class="light italics">Add New users to this group!</p>
+                <!-- Add Users Modal Trigger -->
+                <a class="waves-effect waves-light btn" href="#newUsers">Add Users</a>
+              </div>
             </div>
-            <div class="text-area">
-              <div class="row">
-                <form class="col s12">
+          </div>
+        </div>
+      </div>
+
+      <!-- Add users modal -->
+      <div id="newUsers" class="modal modal-fixed-footer">
+        <div class="modal-content">
+          <h4>Add New Users</h4>
+          <div class="row">
+            <form>
+              <div class="input-field">
+                <input id="search" type="search" required>
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              </div>
+            </form>
+          </div>
+          <div class="row center">
+            <a class="waves-effect waves-light btn col s6 m2 offset-m2 l2 offset-l2">All</a>
+            <a class="waves-effect waves-light btn col s6 m3 l3">Members</a>
+            <a class="waves-effect waves-light btn active col s12 m3 l3">Non-Members</a>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <div class="card-panel grey lighten-2">
+                <form action="#">
+                  <p>
+                    <input type="checkbox" id="test5" />
+                    <label for="test5">mary</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test6" checked="checked" />
+                    <label for="test6">toria</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test6" checked="checked" />
+                    <label for="test6">lolade</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test6" checked="checked" />
+                    <label for="test6">tunji</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="test6" checked="checked" disabled=true />
+                    <label for="test6">sola</label>
+                  </p>
                   <div class="row">
-                    <div class="input-field col s2">
-                      <select class="icons">
-                        <option value="" disabled selected>Choose Status</option>
-                        <option value="1">Normal</option>
-                        <option value="2"><span id="text-1">Urgent</span></option>
-                        <option class="red" value="3">Critical</option>
-                      </select>
-                      <!-- <label>Materialize Select</label> -->
-                    </div>
-                    <div class="input-field col s10 right">
-                      <textarea id="textarea1" placeholder="Enter a message here" class="materialize-textarea"></textarea>
-                      <!-- <label for="textarea1" class="activ">Enter a new message here</label> -->
-                    </div>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn">Add Users</a>
                   </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
-        
-      </div>
-    </div>
- 
-    <!-- Modal Structure -->
-    <div id="modal1" class="modal">
-      <!-- <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
-      </div>
-      <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-      </div> -->
-      <div class="row modal-close-div">
-        <a href="" class="modal-action modal-close waves-effect waves-green btn-flat right"><i class="material-icons center">close</i></a>
-      </div>
-
-      <!-- <div class="container register center-align"> -->
-      <div class="row">
-        <div class="col s12 m8 offset-m2 l6 offset-l3">
-          <div class="card white">
-            <div class="card-content black-text">
-              <div class="row card-title-area">
-                <span class="card-title create">Create a group</span>
-                <p class="flow-text par grey-text">Groups are where you communicate with your friends, family and teams. They are best utilized when organized around a particular purpose</p>
-              </div>
-              <div class="row card-form-section">
-
-                <form class="col s12">
-                  <div class="divider"></div>
-                  <br>
-                    <div class="row">
-                      <div class="input-field name-desc col s12">
-                        <input placeholder="e.g learn-python" id="name" type="text">
-                        <label for="name">Name</label>
-                      </div>
-                      <p class="flow-text form grey-text">Names should be short and not more than 20 chracters</p>
-                    </div>
-                    <div class="row">
-                      <div class="input-field name-desc col s12">
-                        <input placeholder="Learn python" id="description" type="text">
-                        <label for="description">Purpose (optional)</label>
-                      </div>
-                      <p class="flow-text form grey-text">What's this group about?</p>
-                    </div>
-                    <div class="row chips-row">
-                      <p class="flow-text above-chip">Add members to group (optional)</p>
-                      <div class="chips chips-autocomplete"></div>
-                      <p class="flow-text below-chip grey-text">Search by username</p>
-                    </div>                    
-                    <!-- <div class="row"> -->
-
-                      <div class="row">
-                        <div class="input-field col s12">
-                          <button class="btn lime accent-4 right waves-effect waves-light center" type="submit" name="action">Create Group
-                          </button>
-                        </div>
-                      </div>
-                    <!-- </div> -->
-                  </form>
-                </div>
-
-              </div>
-                
-            </div>
-          </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
-        
-      <!-- </div> -->
-    </div>
+      </div>
 
-    
+    </div>
+  </main>
 
     <!-- Side Nav -->
     <ul id="slide-out" class="side-nav">
+      <li>
+        <div class="row">
+            <div class="col l12">
+              <div id="nav-mobile" class="card transparent">
+                <div class="card-image">
+                  <img class="profile_img_header" src="https://www.conncoll.edu/media/major-images/Art.jpg">
+                </div>
+              </div>
+              <ul class="collection">
+                <li class="collection-item avatar">
+                  <img src="http://www.tsbmag.com/wp-content/uploads/2016/02/rsz_model-429733_640.jpg" alt="" class="circle">
+                  <span class="title">Mary Jane</span>
+                  <p>jdandturk@gmail.com
+                  </p>
+                </li>
+              </ul>
+            </div>
+        </div>
+      </li>
       <li><div class="divider"></div></li>
-      <li class="active"><a class="waves-effect waves-light" href="">Create New Account</a></li>
+      <li><a class="waves-effect waves-light" href="">Logout</a></li>
       <li><div class="divider"></div></li>
-      <li><a class="waves-effect waves-light" href="">Login</a></li>
+      <li><a class="waves-effect waves-light" href="#newGroup">Create A New Group</a></li>
       <li><div class="divider"></div></li>
+      <li><a class="waves-effect waves-light" href="#newUsers">Add New Users</a></li>
+      <li><div class="divider"></div></li>
+      <li>        
+        <div id="nav-mobile" class="row">
+          <div class="col l12 m12 s12">
+            <div class="notification card center blue-grey darken-1">
+                <span class="card-title center">Notifications</span>
+            </div>
+            <div class="collection">
+              <a href="#!" class="collection-item"><span class="new badge">1</span>New Css Framework hkhfkd fhjfdhjf </a>
+              <a href="#!" class="collection-item"><span class="new badge">4</span>Learn C#</a>
+              <a href="#!" class="collection-item">Project Nestle Team</a>
+              <a href="#!" class="collection-item"><span class="new badge">14</span>Learn Python</a>
+            </div>
+          </div>
+        </div>
+      </li>
     </ul>
 
   </div>
+  <!-- Text input in footer setup -->
+  <footer class="page-footer blue-grey lighten-5">
+  <div class="container">
+      <div class="row">
+        <div class="col l6 offset-l3 s12">
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field text-input col s12">
+                  <textarea id="textarea1" class="materialize-textarea"></textarea>
+                  <label for="textarea1">Type a message</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </div>
+  </footer>
 
+  <div class="container"> </div>
+
+  <!--SCRIPTS-->
 
   <!--JQuery Script-->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
   <!-- Materialize Script -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
-  <!--My custom JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+  <script src="../js/modal.js"></script>
+
+   <!--My custom JavaScript -->
   <script src="../js/main.js"></script>
 </body>
 </html>

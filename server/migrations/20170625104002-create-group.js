@@ -9,10 +9,7 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
-        unique: {
-          args: true,
-          msg: 'A group with this name already exist'
-        },
+        unique: true,
         allowNull: false
       },
       description: {

@@ -1,5 +1,4 @@
 import express from 'express';
-import Middleware from './../utils/middlewares';
 import AuthCtrl from './../controllers/authCtrl';
 
 const router = express.Router();
@@ -9,16 +8,13 @@ const router = express.Router();
 // ======================
 
 // Sign up logic
-router.post('/api/v1/user/register', AuthCtrl.register);
+router.post('/api/user/register', AuthCtrl.register);
 
 // Login logic
-router.post('/api/v1/user/login', AuthCtrl.login);
 
-// Forgot Password
-router.post('/api/v1/user/forgotpassword', AuthCtrl.forgotPasswordLink);
+router.post('/api/user/login', AuthCtrl.login);
 
-// Reset Password
-router.post('/api/v1/resetpassword', AuthCtrl.resetPassword);
-
+// Add logout route
+router.get('/api/user/logout', AuthCtrl.logout);
 
 export default router;

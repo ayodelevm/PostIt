@@ -1,6 +1,11 @@
 import React from 'react';
 import NavContainer from '../../containers/NavContainer.jsx';
 
+/**
+ * Navbar presentational component
+ * @param {object} props
+ * @returns {void}
+ */
 const Nav = () => (
   <div className="navbar-fixed">
     <nav className="lime-text accent-2 z-depth-0" role="navigation">

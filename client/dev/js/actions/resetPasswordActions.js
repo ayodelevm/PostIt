@@ -18,7 +18,7 @@ export const resetPasswordAction = resetSuccess => ({
 });
 
 export const resetPasswordFailure = failure => ({
-  types: Types.RESET_PASSWORD_FAILURE,
+  type: Types.RESET_PASSWORD_FAILURE,
   failure
 });
 

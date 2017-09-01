@@ -8,7 +8,7 @@ import { user, loginUser, invalidUser, incorrectPassword } from './../seeders/au
 const server = supertest.agent(app);
 
 
-before((done) => {
+after((done) => {
   models.sequelize.sync({ force: true }).then(() => {
     done(null);
   }).catch((errors) => {
@@ -40,7 +40,8 @@ describe('Signup Authentication', () => {
       });
   });
 
-  it('prevents signing up with empty data', (done) => {
+  it('prevents signing up with empty data', function (done) {
+    this.timeout(5000);
     server
       .post('/api/v1/user/register')
       .send(user[0])

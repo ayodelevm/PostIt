@@ -2,6 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+/**
+ * Modal giving the presentational view for members of a group
+ * @param {object} props
+ * @returns {jsx} - an xml/html -like syntax extension to javascript
+ */
 const GroupMembersModal = (props) => {
   return (
 

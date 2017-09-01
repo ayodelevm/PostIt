@@ -7,8 +7,15 @@ import { addNewUsersToGroup } from '../actions/addUserActions';
 import { getGroupUsers } from '../actions/groupActions';
 import AddUsersModal from '../components/AddUsersModal.jsx';
 
+/**
+ * This class is the container component for adding users to a group
+ * It is responsible for managing all the state changes in the component
+ */
 class AddUsersContainer extends React.Component {
-
+  /**
+   * Initializes the state and binds this to the methods in this class
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -20,13 +27,21 @@ class AddUsersContainer extends React.Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
-
+  /**
+   * This method takes in array of the users selected to be added to a group and sets the state
+   * @param {array} chips
+   * @returns {void}
+   */
   onChange(chips) {
     this.setState({
       newGroupMembers: chips
     });
   }
 
+  /**
+   * 
+   * @param {onSubmit} event
+   */
   handleFormSubmit(e) {
     e.preventDefault();
     const token = window.localStorage.token;

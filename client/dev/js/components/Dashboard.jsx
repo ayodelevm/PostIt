@@ -8,6 +8,11 @@ import ArchiveAllContainer from '../containers/ArchiveAllContainer.jsx';
 import ViewArchivedModal from './ViewArchivedModal.jsx';
 import Nav from './common/Nav.jsx';
 
+/**
+ * Gives the presentational view for the users dashboard component
+ * @param {object} props
+ * @returns {jsx} - an xml/html -like syntax extension to javascript
+ */
 const Dashboard = (props) => {
   const { Groups } = props.groups;
   let sortedGroups = [];

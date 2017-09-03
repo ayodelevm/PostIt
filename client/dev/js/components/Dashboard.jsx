@@ -90,7 +90,7 @@ const Dashboard = (props) => {
                         </p>
                       </div>
                       <div className="card-action">
-                        <Link to={`/groups/${group.id}/message`}>Open</Link>
+                        <a href={`/groups/${group.id}/message`}>Open</a>
                       </div>
                     </div>
                   </div>

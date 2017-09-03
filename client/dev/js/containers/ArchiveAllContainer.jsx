@@ -40,13 +40,6 @@ class ArchiveAllContainer extends React.Component {
     .then(() => {
       if (this.props.archiveData.archiveSuccess) {
         notify.show('Messages have been archived successfully!', 'success', 5000);
-        this.props.getAllGroups(token)
-        .then(() => {
-          if (this.props.groupId !== undefined) {
-            return this.props.getOneGroupWithMessages(token, this.props.groupId)
-              .then(() => this.props.getAllUsers(token));
-          }
-        });
         $('#archive-all').modal('close');
       } else {
         notify.show(this.props.archiveData.errors.globals, 'warning', 5000);

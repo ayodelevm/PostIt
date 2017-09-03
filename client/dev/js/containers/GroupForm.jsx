@@ -65,6 +65,7 @@ class GroupForm extends React.Component {
       () => {
         if (this.props.groupResponse.createSuccess) {
           notify.show('Group created successfully!', 'success', 5000);
+          this.setState({ name: '', description: '', initialGroupMembers: [] });
           $('#group-new').modal('close');
         } else {
           if (this.props.groupResponse.errors.errors) {

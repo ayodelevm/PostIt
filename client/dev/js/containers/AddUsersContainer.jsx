@@ -51,7 +51,6 @@ class AddUsersContainer extends React.Component {
       () => {
         if (this.props.addUsersResponse.addSuccess) {
           notify.show('Members added successfully!', 'success', 5000);
-          this.props.getGroupUsers(token, groupId);
           $('#add-new').modal('close');
         } else if (this.props.addUsersResponse.errors) {
           notify.show(this.props.addUsersResponse.errors.globals, 'warning', 5000);

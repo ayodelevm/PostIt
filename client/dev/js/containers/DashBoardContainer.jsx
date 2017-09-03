@@ -7,6 +7,7 @@ import { getAllUsers } from '../actions/addUserActions';
 import { selectedGroupDetails, getArchivedMessages } from '../actions/archiveActions';
 import Dashboard from '../components/Dashboard.jsx';
 
+
 class DashBoardContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +15,6 @@ class DashBoardContainer extends React.Component {
       groups: {},
       users: []
     };
-
     this.onActiveGroupClicked = this.onActiveGroupClicked.bind(this);
   }
 

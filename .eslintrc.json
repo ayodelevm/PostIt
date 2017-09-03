@@ -12,7 +12,6 @@
     // React
     "react/forbid-prop-types": "error",
     "react/no-multi-comp": [ "error", { "ignoreStateless": true }],
-    "react/no-set-state": "error",
     "react/no-string-refs": "error",
     "react/prefer-es6-class": "error",
     "react/prefer-stateless-function": "error",
@@ -26,7 +25,6 @@
     // JSX
     "react/jsx-boolean-value": "error",
     "react/jsx-closing-bracket-location": "error",
-    "react/jsx-curly-spacing": [ "error", "always" ],
     "react/jsx-equals-spacing": "error",
     "react/jsx-first-prop-new-line": "error",
     "react/jsx-handler-names": "error",
@@ -38,30 +36,8 @@
     "react/jsx-no-literals": "off",
     "react/jsx-no-target-blank": "error",
     "react/jsx-pascal-case": "error",
-    "react/jsx-sort-props": "error",
-    "react/jsx-space-before-closing": "error"
-  },
-  "env": {
-    "node": true,
-    "es6": true,
-    "jasmine": true,
-    "commonjs": true
-  },
-  "globals": {
-    "after": true,
-    "before": true,
-    "should": true,
-    "window": true,
-    "document": true,
-    "fetch": true,
-    "require": true,
-    "Materialize": true
-  },
-  "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs"
-  },
-  "rules": {
+
+    // other rules
     "one-var": 0,
     "one-var-declaration-per-line": 0,
     "new-cap": 0,
@@ -84,5 +60,25 @@
             "ClassDeclaration": true
         }
     }]
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+    "jasmine": true,
+    "commonjs": true
+  },
+  "globals": {
+    "after": true,
+    "before": true,
+    "should": true,
+    "window": true,
+    "document": true,
+    "fetch": true,
+    "require": true,
+    "Materialize": true
+  },
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs"
   }
 }

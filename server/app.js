@@ -3,6 +3,8 @@ import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
+import socketIo from 'socket.io';
+import http from 'http';
 
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
@@ -21,6 +23,8 @@ import addUsersRoutes from './routes/addusersRoutes';
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app);
+export const io = socketIo(server);
 
 app.use(express.static(path.resolve(__dirname, 'client/build')));
 app.use(logger('dev'));
@@ -60,7 +64,7 @@ app.get('/*', (req, res) => {
 });
 
 // Listening PORT
-app.listen(process.env.PORT || 3002, () => {
+server.listen(process.env.PORT || 3002, () => {
   // eslint-disable-next-line
   console.log('serving on port 3002');
 });

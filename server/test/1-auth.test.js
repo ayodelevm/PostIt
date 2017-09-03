@@ -41,7 +41,7 @@ describe('Signup Authentication', () => {
   });
 
   it('prevents signing up with empty data', function (done) {
-    this.timeout(5000);
+    this.timeout(10000);
     server
       .post('/api/v1/user/register')
       .send(user[0])

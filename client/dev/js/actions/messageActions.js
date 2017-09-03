@@ -52,15 +52,7 @@ export const getOneGroupWithMessages = (token, groupId) => (dispatch) => {
 export const createNewMessages = (token, data, groupId) => (dispatch, getState) => api
   .postEndpoint(endpoints.POST_MESSAGES_PATH.replace(':id', `${groupId}`), data, token)
   .then(
-    (success) => {
-      const previousState = getState();
-      const { grpMessages } = previousState.messageReducer;
-
-      const mergedMessages = grpMessages.Messages.concat(success.createdMessage);
-      const currentMessages = { ...grpMessages,
-        Messages: mergedMessages
-      };
-      dispatch(setNewGroupMessages(currentMessages));
+    () => {
     },
     (error) => {
       dispatch(newGroupMessagesFailure(error));

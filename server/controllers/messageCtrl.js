@@ -1,4 +1,7 @@
 import models from './../models/index';
+import urgentNotification from '../utils/urgentnotification';
+import criticalNotification from '../utils/criticalnotification';
+import { io } from '../app';
 
 /**
  * This class handles posting messages in groups
@@ -46,18 +49,29 @@ export default class messageCtrl {
     } else {
       models.Group.findOne({
         where: { id: req.params.id }
-      }).then(() => {
+      }).then((foundGroup) => {
         const newMessage = Object.assign(req.body, {
           UserId: req.user.dataValues.id }, { GroupId: req.params.id });
         models.Message.create(newMessage).then((addedMessage) => {
           const createdMessage = Object.assign({}, addedMessage.dataValues, { ownerId: addedMessage.dataValues.UserId });
+          if (createdMessage.priority === 'Urgent') {
+            urgentNotification(foundGroup, req.user.dataValues.username, req.headers.origin);
+          }
+          if (createdMessage.priority === 'Critical') {
+            criticalNotification(foundGroup, req.user.dataValues.username, req.headers.origin);
+          }
+          io.emit('notification.updateMessage', {
+            message: `${req.user.dataValues.username} posted a new message in ${foundGroup.name}`,
+            groupId: foundGroup.id,
+            createdMessage
+          });
           res.status(201).json({
             success: 'New message added successfully.',
             createdMessage
           });
         }).catch((err) => {
           res.status(500).json({
-            error: err.errors[0].message
+            error: err.message || err.errors[0].message
           });
         });
       });
@@ -86,6 +100,9 @@ export default class messageCtrl {
             return found.update({ archived: true });
           })
         ).then((archivedMessages) => {
+          io.emit('archive.success', {
+            groupId: req.params.id
+          });
           res.status(200).json({
             success: 'Messages have been archived successfully',
             archivedMessages

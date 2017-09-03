@@ -1,5 +1,6 @@
 import models from './../models/index';
 import { validateGroupInput, groupValidation } from '../utils/validations';
+import { io } from '../app';
 
 
 /**
@@ -58,7 +59,11 @@ export default class GroupCtrl {
           .then((foundUsers) => {
             createdGroup.addUsers(foundUsers).then(() => {
               const newGroup = Object.assign({}, createdGroup.dataValues, { ownerId: createdGroup.dataValues.UserId });
-              return res.status(201).json({
+              io.emit('new.group', {
+                success: 'New group created successfully.',
+                newGroup
+              });
+              res.status(201).json({
                 success: 'New group created successfully.',
                 newGroup
               });

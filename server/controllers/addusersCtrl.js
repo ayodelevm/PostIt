@@ -1,4 +1,5 @@
 import models from './../models/index';
+import { io } from '../app';
 
 /**
  * This class handles adding of users to a group
@@ -82,7 +83,11 @@ export default class AddUsersCtrl {
                 globals: 'Selected users are already members of this group'
               });
             }
-            return res.status(201).json({
+            io.emit('new.member', {
+              success: 'new users added successfully',
+              groupId: req.params.id
+            });
+            res.status(201).json({
               success: 'new users added successfully',
               addedUsers
             });

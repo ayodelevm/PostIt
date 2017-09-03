@@ -10,6 +10,7 @@ import { getAllGroups } from '../actions/groupActions';
 import { getOneGroupWithMessages } from '../actions/messageActions';
 import UploadsModal from '../components/UploadsModal.jsx';
 import { uploadProfileImage, getAllUsers } from '../actions/addUserActions';
+import { socketConnect } from '../actions/socketActions';
 
 class UploadFileContainer extends React.Component {
 
@@ -19,6 +20,7 @@ class UploadFileContainer extends React.Component {
     };
 
     this.uploadFile = this.uploadFile.bind(this);
+    this.props.socketConnect();
   }
 
   uploadFile(files) {
@@ -102,6 +104,6 @@ const mapStateToProps = state => ({
   uploadResponse: state.addUserReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ uploadProfileImage, getAllGroups, getOneGroupWithMessages, getAllUsers }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({ uploadProfileImage, getAllGroups, getOneGroupWithMessages, getAllUsers, socketConnect }, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(UploadFileContainer);

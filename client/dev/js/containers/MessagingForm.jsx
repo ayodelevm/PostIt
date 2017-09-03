@@ -90,7 +90,8 @@ MessagingForm.propTypes = {
 const mapStateToProps = (state, props) => ({
   groupResponse: state.groupReducer,
   usersResponse: state.addUserReducer,
-  messageResponse: state.messageReducer
+  messageResponse: state.messageReducer,
+  notification: state.notificationReducer
 });
 
 const matchDispatchToProps = dispatch => bindActionCreators({ createNewMessages }, dispatch);

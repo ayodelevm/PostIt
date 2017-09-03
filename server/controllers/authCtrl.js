@@ -96,14 +96,12 @@ export default class AuthCtrl {
 
         const transporter = nodemailer.createTransport({
           service: 'gmail',
-          // port: 25,
           secure: false,
           auth: {
             user: 'noreply.postitapp@gmail.com',
             pass: process.env.password
           },
           tls: {
-            // rejectUnauthorized: false
           }
         });
 
@@ -111,10 +109,10 @@ export default class AuthCtrl {
           from: 'noreply.postitapp@gmail.com',
           to: email,
           subject: 'Reset Password',
-          text: `You have received this mail because you asked to reset your account on PostIt. Please click the following link or paste link into your browser to begin the process:
-          ${req.headers.origin}/resetpassword?tok=${token} \n
-          Please ignore this mail if you did not make this request. \n
-          Note: This link will expire after one hour`,
+          html: `<p>You have received this mail because you asked to reset your account on PostIt. Please
+          <a href="${req.headers.origin}/resetpassword?tok=${token}">Click here</a> to begin the process</p><br />
+          <p>Please ignore this mail if you did not make this request.</p>
+          <p>Note: This link will expire after one hour</p>`,
         };
         transporter.sendMail(mailOptions, (error, info) => {
           if (error) {

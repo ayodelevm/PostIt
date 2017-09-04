@@ -17,7 +17,9 @@ const apiUrls = {
   UPDATE_ONE_USER_PATH: '/api/v1/user/:id/edit',
   ARCHIVE_MESSAGES: '/api/v1/group/:id/archivemessages',
   FORGOT_PASSWORD: '/api/v1/user/forgotpassword',
-  RESET_PASSWORD: '/api/v1/resetpassword'
+  RESET_PASSWORD: '/api/v1/resetpassword',
+  GOOGLE_REGISTER: '/api/v1/user/googlesignup',
+  GOOGLE_LOGIN: '/api/v1/user/googlelogin'
 };
 
 export default apiUrls;

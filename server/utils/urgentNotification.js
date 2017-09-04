@@ -2,6 +2,7 @@ import sendEmail from './sendEmail';
 
 const urgentNotification = (group, sentBy, origin) => {
   group.getUsers({
+    where: { username: { ne: sentBy } },
     attributes: ['email'],
     joinTableAttributes: []
   }).then((foundEmails) => {

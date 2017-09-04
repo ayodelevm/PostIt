@@ -1,7 +1,12 @@
 import React from 'react';
-import SignUpForm from '../containers/SignUpForm.jsx';
+import Notifications from 'react-notify-toast';
+import GoogleLogin from 'react-google-login';
 
-const SignUpComponent = () => (
+// import SignUpForm from '../containers/SignUpForm.jsx';
+import InputFieldGroup from './common/InputFields.jsx';
+
+
+const SignUpComponent = (props) => (
   <div className="parallax-container">
     <div className="container register center-align">
       <div className="row">
@@ -17,13 +22,125 @@ const SignUpComponent = () => (
               <div className="row form-section">
 
                 <p className="left">Required fields are marked *</p>
-                <SignUpForm />
+                <form className="col s12" onSubmit={props.onSubmit} noValidate>
+                  <div className="main">
+                    <Notifications />
+                  </div>
+                  <div className="divider" />
+                  <br />
+                  <div className="row">
+                    <InputFieldGroup
+                      name={'fullname'}
+                      placeholder={'Victor Ayo'}
+                      id={'userIdentifier'}
+                      value={props.state.fullname}
+                      label={'Fullname *'}
+                      error={props.state.errors.fullname}
+                      type={'text'}
+                      onChange={props.onChange}
+                      htmlFor={'fullname'}
+                    />
+                    <span className="left error-message grey-text">{props.state.errors.fullname}</span>
+                  </div>
+                  <div className="row">
+                    <InputFieldGroup
+                      name={'email'}
+                      placeholder={'vicayo@domainname.com'}
+                      id={'email'}
+                      value={props.state.email}
+                      label={'Email *'}
+                      error={props.state.errors.email}
+                      type={'email'}
+                      onChange={props.onChange}
+                      htmlFor={'email'}
+                    />
+                    <span className="left error-message grey-text">{props.state.errors.email}</span>
+                  </div>
+                  <div className="row">
+                    <InputFieldGroup
+                      name={'telephone'}
+                      placeholder={'+2348167845633'}
+                      id={'telephone'}
+                      value={props.state.telephone}
+                      label={'Mobile number *'}
+                      error={props.state.errors.telephone}
+                      type={'tel'}
+                      onChange={props.onChange}
+                      htmlFor={'telephone'}
+                    />
+                    <span className="left error-message grey-text">{props.state.errors.telephone}</span>
+                  </div>
+                  <div className="row">
+                    <InputFieldGroup
+                      name={'username'}
+                      placeholder={'vicayo'}
+                      id={'username'}
+                      value={props.state.username}
+                      label={'Username *'}
+                      error={props.state.errors.username}
+                      type={'text'}
+                      onChange={props.onChange}
+                      htmlFor={'username'}
+                    />
+                    <span className="left error-message grey-text">{props.state.errors.username}</span>
+                  </div>
+                  <div className="row">
+                    <InputFieldGroup
+                      name={'password'}
+                      placeholder={'Your password'}
+                      id={'password'}
+                      value={props.state.password}
+                      label={'Password *'}
+                      error={props.state.errors.password}
+                      type={'password'}
+                      onChange={props.onChange}
+                      htmlFor={'password'}
+                    />
+                    <span className="left error-message grey-text">{props.state.errors.password}</span>
+                  </div>
+                  <div className="row">
+                    <InputFieldGroup
+                      name={'passwordConfirmation'}
+                      placeholder={'Confirm password'}
+                      id={'passwordConfirmation'}
+                      value={props.state.passwordConfirmation}
+                      label={'Password *'}
+                      error={props.state.errors.passwordConfirmation}
+                      type={'password'}
+                      onChange={props.onChange}
+                      htmlFor={'passwordConfirmation'}
+                    />
+                    <span className="left error-message grey-text">{props.state.errors.passwordConfirmation}</span>
+                  </div>
+
+                  <div className="row">
+
+                    <div className="row">
+                      <div className="input-field col s12">
+                        <button className="btn lime accent-4 waves-effect waves-light center" type="submit" name="action">Create Account
+                            <i className="material-icons right">person_add</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
 
             </div>
             <div className="card-action">
-              <span className="black-text">Already have an account on PostIt? </span>
-              <a href="/login" className="green-text darken-4">Sign into your account</a>
+              <div className="card-action-text">
+                <span className="black-text">Already have an account on PostIt? </span>
+                <a href="/login" className="green-text darken-4">Sign into your account</a>
+              </div><br />
+              <span className="black-text"> or SignUp with </span>
+              <GoogleLogin
+                clientId={props.clientId}
+                onSuccess={props.onSuccess}
+                onFailure={props.onFailure}
+                className={'google-login'}
+              >
+                <a className="waves-effect waves-light white-text btn red">Google+</a>
+              </GoogleLogin>
             </div>
           </div>
         </div>

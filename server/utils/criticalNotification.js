@@ -4,6 +4,7 @@ import sendEmail from './sendEmail';
 
 const criticalNotification = (group, sentBy, origin) => {
   group.getUsers({
+    where: { username: { ne: sentBy } },
     attributes: ['telephone', 'email'],
     joinTableAttributes: []
   }).then((foundDetails) => {

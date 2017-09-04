@@ -13,9 +13,12 @@ module.exports = {
           isEmail: true
         }
       },
+      googleSubId: {
+        type: Sequelize.STRING
+      },
       password: {
-        type: Sequelize.TEXT,
-        allowNull: false
+        type: Sequelize.STRING,
+        // allowNull: false
       },
       username: {
         type: Sequelize.STRING,

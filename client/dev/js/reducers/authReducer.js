@@ -15,7 +15,7 @@ const authReducer = (state = initialState, action = {}) => {
 
     case Types.CREATE_USER_FAILURE:
       return Object.assign({}, state, {
-        errors: action.errors,
+        errors: action.failure,
         isAuthenticated: false
       });
 
@@ -27,7 +27,31 @@ const authReducer = (state = initialState, action = {}) => {
 
     case Types.LOGIN_USER_FAILURE:
       return Object.assign({}, state, {
-        errors: action.errors,
+        errors: action.failure,
+        isAuthenticated: false
+      });
+    
+    case Types.GOOGLE_REGISTER:
+      return Object.assign({}, state, {
+        currentUser: action.newUser,
+        isAuthenticated: !!Object.keys(action.newUser)
+      });
+
+    case Types.GOOGLE_REGISTER_FAILURE:
+      return Object.assign({}, state, {
+        errors: action.failure,
+        isAuthenticated: false
+      });
+    
+    case Types.GOOGLE_LOGIN:
+      return Object.assign({}, state, {
+        currentUser: action.user,
+        isAuthenticated: !!Object.keys(action.user)
+      });
+    
+    case Types.GOOGLE_LOGIN_FAILURE:
+      return Object.assign({}, state, {
+        errors: action.failure,
         isAuthenticated: false
       });
 

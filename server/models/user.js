@@ -12,8 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     password: {
-      type: DataTypes.TEXT,
-      allowNull: false
+      type: DataTypes.STRING,
+      // allowNull: false
+    },
+    googleSubId: {
+      type: DataTypes.STRING
     },
     username: {
       type: DataTypes.STRING,
@@ -31,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         User.hasMany(models.Message);
+        User.belongsToMany(models.Message, {
+          through: 'MessageUser',
+          foreignKey: 'UserId',
+          onDelete: 'CASCADE'
+        });
         User.hasMany(models.Group, {
           foreignKey: 'UserId',
           onDelete: 'CASCADE'
@@ -45,8 +53,10 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.beforeCreate((user) => {
-    const salt = bcrypt.genSaltSync(10);
-    user.password = bcrypt.hashSync(user.password, salt);
+    if (user.password) {
+      const salt = bcrypt.genSaltSync(10);
+      user.password = bcrypt.hashSync(user.password, salt);
+    }
   });
 
   return User;

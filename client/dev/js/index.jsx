@@ -24,8 +24,9 @@ import Landing from './components/Landing.jsx';
 import authorize from './utils/authorizeRoutes';
 
 
-import LoginComponent from './components/LoginComponent.jsx';
-import SignUpComponent from './components/SignUpComponent.jsx';
+import LoginContainer from './containers/LoginContainer.jsx';
+import SignUpContainer from './containers/SignUpContainer.jsx';
+
 
 
 ReactDOM.render(
@@ -35,8 +36,8 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/resetpassword" component={ResetPasswordContainer} />
           <Route exact path="/" component={Landing} />
-          <Route exact path="/register" component={SignUpComponent} />
-          <Route exact path="/login" component={LoginComponent} />
+          <Route exact path="/register" component={SignUpContainer} />
+          <Route exact path="/login" component={LoginContainer} />
           <Route path="/dashboard" component={authorize(DashBoardContainer)} />
           <Route path="/groups/:id/message" component={MessagingContainer} />
         </Switch>

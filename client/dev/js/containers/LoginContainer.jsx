@@ -4,8 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Notifications, { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
-import { loginAUser } from '../actions/authActions';
+import { loginAUser, googleLogin } from '../actions/authActions';
 import { validateLoginInput } from '../utils/validations';
+import LoginComponent from '../components/LoginComponent.jsx';
 import InputFieldGroup from '../components/common/InputFields.jsx';
 
 
@@ -21,10 +22,33 @@ class LoginForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleGoogleResponse = this.handleGoogleResponse.bind(this);
   }
 
   componentDidMount() {
     $('.parallax').parallax();
+  }
+
+  handleGoogleResponse(response) {
+    if (response.error) {
+      notify.show('Login unsuccessful, please try again later', 'warning', 10000);
+    } else {
+      this.props.googleLogin({ id_token: response.tokenObj.id_token })
+        .then(
+      () => {
+        if (this.props.loginResponse.isAuthenticated) {
+          this.setState({ redirect: true });
+          notify.show('Welcome back!', 'success', 10000);
+        } else {
+          if (this.props.loginResponse.errors.errors) {
+            return this.setState({ errors: this.props.loginResponse.errors.errors });
+          }
+          notify.show(this.props.loginResponse.errors.globals, 'warning', 10000);
+          window.localStorage.removeItem('token');
+        }
+      }
+    );
+    }
   }
 
   handleChange(e) {
@@ -75,57 +99,19 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const form = (
-      <form className="col s12" onSubmit={this.handleFormSubmit} noValidate>
-        <div className="main">
-          <Notifications />
-        </div>
-        <div className="divider" />
-        <br />
-
-        <div className="row">
-          <InputFieldGroup
-            name={'userIdentifier'}
-            placeholder={'vic ayo'}
-            id={'userIdentifier'}
-            value={this.state.userIdentifier}
-            label={'Username or E-mail *'}
-            error={this.state.errors.userIdentifier}
-            type={'text'}
-            onChange={this.handleChange}
-            htmlFor={'userIdentifier'}
-          />
-          <span className="left error-message grey-text">{this.state.errors.userIdentifier}</span>
-        </div>
-        <div className="row">
-          <InputFieldGroup
-            name={'password'}
-            placeholder={'Your Password'}
-            id={'password'}
-            value={this.state.password}
-            label={'Password *'}
-            error={this.state.errors.password}
-            type={'password'}
-            onChange={this.handleChange}
-            htmlFor={'password'}
-          />
-          <span className="left error-message grey-text">{this.state.errors.password}</span>
-        </div>
-
-        <div className="row">
-          <div className="input-field col s12">
-            <button className="btn lime accent-4 waves-effect waves-light center" type="submit" name="action">Login
-              <i className="material-icons right">person</i>
-            </button>
-          </div>
-        </div>
-      </form>
-    );
 
     return (
       <div>
         {
-          this.state.redirect ? <Redirect push to="/dashboard" /> : form
+          this.state.redirect ? <Redirect push to="/dashboard" /> :
+          <LoginComponent
+            state={this.state}
+            onChange={this.handleChange}
+            onSubmit={this.handleFormSubmit}
+            clientId={'239318376704-022mld5juktsrae2384bbibcc2vlh5cv.apps.googleusercontent.com'}
+            onSuccess={this.handleGoogleResponse}
+            onFailure={this.handleGoogleResponse}
+          />
         }
       </div>
     );
@@ -146,6 +132,6 @@ const mapStateToProps = state => ({
   loginResponse: state.authReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ loginAUser }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({ loginAUser, googleLogin }, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(LoginForm);

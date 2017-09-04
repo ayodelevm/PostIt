@@ -58,6 +58,13 @@ export default class AuthCtrl {
             globals: 'Invalid login credentials'
           });
         }
+
+        if (founduser.googleSubId !== null) {
+          return res.status(400).json({
+            globals: 'It seems you signed up through google, please sign in with google!'
+          });
+        }
+
         if (bcrypt.compareSync(req.body.password, founduser.password)) {
           const token = jwt.sign({
             username: founduser.username,

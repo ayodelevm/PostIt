@@ -1,6 +1,6 @@
 import models from './../models/index';
-import urgentNotification from '../utils/urgentnotification';
-import criticalNotification from '../utils/criticalnotification';
+import urgentNotification from '../utils/urgentNotification';
+import criticalNotification from '../utils/criticalNotification';
 import { io } from '../app';
 
 /**

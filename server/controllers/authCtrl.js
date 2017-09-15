@@ -60,7 +60,7 @@ export default class AuthCtrl {
         }
 
         if (founduser.googleSubId !== null) {
-          return res.status(400).json({
+          return res.status(409).json({
             globals: 'It seems you signed up through google, please sign in with google!'
           });
         }
@@ -121,7 +121,7 @@ export default class AuthCtrl {
           <p>Please ignore this mail if you did not make this request.</p>
           <p>Note: This link will expire after one hour</p>`,
         };
-        transporter.sendMail(mailOptions, (error, info) => {
+        transporter.sendMail(mailOptions, (error) => {
           if (error) {
             return res.status(501).json({
               globals: 'Mail not sent'
@@ -153,7 +153,7 @@ export default class AuthCtrl {
         jwt.verify(token, process.env.secret, (error, decoded) => {
           if (error) {
             return res.status(401).json({
-              globals: 'This link has expired or is invalid. Please try resetting your password again'
+              globals: 'This link has expired or is invalid. Please try again'
             });
           }
 
@@ -164,13 +164,28 @@ export default class AuthCtrl {
             where: { email: decoded.email }
           }).then(() => {
             res.status(201).json({
-              success: 'password reset successful!'
+              success: 'password reset successful, Please login to continue!'
             });
           });
         });
       }
     } else {
       return res.status(400).json({ errors });
+    }
+  }
+
+  /**
+ *  This method handles resetting the password of a registered user to reset password
+ * @param {object} req
+ * @param {object} res
+ * @returns {void}
+ */
+  static verifyUserToken(req, res) {
+    if (req.user) {
+      res.status(200).json({
+        success: 'user verification successful!',
+        token: req.body.token
+      });
     }
   }
 }

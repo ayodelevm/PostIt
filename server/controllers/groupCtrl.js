@@ -17,22 +17,22 @@ export default class GroupCtrl {
   static getAll(req, res) {
     models.User.findOne({
       where: { id: req.user.dataValues.id },
-      attributes: { exclude: ['mysalt', 'updatedAt', 'password'] }
+      attributes: { exclude: ['mysalt', 'updatedAt', 'password', 'googleSubId', 'createdAt'] }
     }).then((foundUser) => {
       foundUser.getGroups({
         attributes: ['id', 'name', 'description', 'imageUrl', 'createdAt', ['UserId', 'ownerId']],
         joinTableAttributes: [],
         order: [['createdAt', 'DESC']],
       }).then((foundGroup) => {
-        const foundGroups = Object.assign(JSON.parse(JSON.stringify(foundUser)), { Groups: foundGroup });
+        const foundUserAndGroups = Object.assign(JSON.parse(JSON.stringify(foundUser)), { Groups: foundGroup });
         res.status(200).json({
           success: 'Successful.',
-          foundGroups
+          foundUserAndGroups
         });
       });
     }).catch((err) => {
       res.status(500).json({
-        globals: err.errors[0].message || err.message
+        globals: err.message || err.errors[0].message
       });
     });
   }
@@ -92,7 +92,7 @@ export default class GroupCtrl {
       });
     }).catch((err) => {
       res.status(500).json({
-        globals: err.errors[0].message || err.message
+        globals: err.message || err.errors[0].message
       });
     });
   }
@@ -120,17 +120,17 @@ export default class GroupCtrl {
             });
           }).catch((err) => {
             res.status(500).json({
-              globals: err.errors[0].message || err.message
+              globals: err.message || err.errors[0].message
             });
           });
         } else {
-          res.status(401).json({
+          res.status(403).json({
             globals: 'You do not have permission to edit this group\'s details'
           });
         }
       }).catch((err) => {
         res.status(500).json({
-          globals: err.errors[0].message || err.message
+          globals: err.message || err.errors[0].message
         });
       });
     }
@@ -155,17 +155,17 @@ export default class GroupCtrl {
           });
         }).catch((err) => {
           res.status(500).json({
-            globals: err.errors[0].message || err.message
+            globals: err.message || err.errors[0].message
           });
         });
       } else {
-        res.status(401).json({
+        res.status(403).json({
           globals: 'You do not have permission to delete this group'
         });
       }
     }).catch((err) => {
       res.status(500).json({
-        globals: err.errors[0].message || err.message
+        globals: err.message || err.errors[0].message
       });
     });
   }

@@ -3,8 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
-import { addNewUsersToGroup } from '../actions/addUserActions';
-import { getGroupUsers } from '../actions/groupActions';
+import { addNewUsersToGroup } from '../actions/userActions';
 import AddUsersModal from '../components/AddUsersModal.jsx';
 
 /**
@@ -25,22 +24,45 @@ class AddUsersContainer extends React.Component {
     };
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
+
+  /**
+   * Updates the materialize modal when the component mounts
+   * and resets form input when the component mounts
+   * @returns {void}
+   */
+  componentDidMount() {
+    $(document).ready(() => {
+      $('.modal').modal({
+        dismissible: true,
+        complete: () => {
+          this.setState({
+            newGroupMembers: [],
+            errors: {}
+          });
+        }
+      });
+      Materialize.updateTextFields();
+    });
+  }
+
   /**
    * This method takes in array of the users selected to be added to a group and sets the state
    * @param {array} chips
    * @returns {void}
    */
-  onChange(chips) {
+  handleChange(chips) {
     this.setState({
       newGroupMembers: chips
     });
   }
 
   /**
-   * 
-   * @param {onSubmit} event
+   * Handles post request to the add new users endpoint
+   * and handles response accordingly
+   * @param {object} e (i.e event)
+   * @returns {void}
    */
   handleFormSubmit(e) {
     e.preventDefault();
@@ -59,21 +81,9 @@ class AddUsersContainer extends React.Component {
     );
   }
 
-  componentDidMount() {
-    $(document).ready(() => {
-      $('.modal').modal({
-        dismissible: true,
-        complete: () => {
-          this.setState({
-            newGroupMembers: [],
-            errors: {}
-          });
-        }
-      });
-      Materialize.updateTextFields();
-    });
-  }
-
+  /**
+   * @returns {jsx} - an xml/html -like syntax extension to javascript
+   */
   render() {
     const allUsers = this.props.addUsersResponse.users;
     const groupMembers = this.props.groupMembers;
@@ -86,9 +96,9 @@ class AddUsersContainer extends React.Component {
 
     return (
       <AddUsersModal
-        close={this.handleClose} submit={this.handleFormSubmit}
+        onSubmit={this.handleFormSubmit}
         state={this.state}
-        onChipsChange={this.onChange} suggestions={allusernames}
+        onChipsChange={this.handleChange} suggestions={allusernames}
         closeModalRoute={this.props.closeModalRoute}
       />
 
@@ -98,11 +108,10 @@ class AddUsersContainer extends React.Component {
 
 AddUsersContainer.propTypes = {
   addNewUsersToGroup: PropTypes.func.isRequired,
-  getGroupUsers: PropTypes.func.isRequired,
-  // eslint-disable-next-line
   addUsersResponse: PropTypes.object.isRequired,
   closeModalRoute: PropTypes.string.isRequired,
-  groupId: PropTypes.number
+  groupId: PropTypes.number,
+  groupMembers: PropTypes.array
 };
 
 const mapStateToProps = state => ({
@@ -110,6 +119,6 @@ const mapStateToProps = state => ({
   addUsersResponse: state.addUserReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ addNewUsersToGroup, getGroupUsers }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({ addNewUsersToGroup }, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddUsersContainer);

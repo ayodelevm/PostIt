@@ -19,7 +19,8 @@ const apiUrls = {
   FORGOT_PASSWORD: '/api/v1/user/forgotpassword',
   RESET_PASSWORD: '/api/v1/resetpassword',
   GOOGLE_REGISTER: '/api/v1/user/googlesignup',
-  GOOGLE_LOGIN: '/api/v1/user/googlelogin'
+  GOOGLE_LOGIN: '/api/v1/user/googlelogin',
+  VERIFY_USER: '/api/v1/verifyuser'
 };
 
 export default apiUrls;

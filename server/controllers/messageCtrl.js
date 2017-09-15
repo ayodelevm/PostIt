@@ -24,10 +24,10 @@ export default class messageCtrl {
         joinTableAttributes: [],
         order: [['createdAt', 'ASC']]
       }).then((found) => {
-        const foundMessages = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Messages: found === null ? [] : found });
+        const foundGroupAndMessages = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Messages: found === null ? [] : found });
         res.status(200).json({
           success: 'Successful.',
-          foundMessages
+          foundGroupAndMessages
         });
       });
     }).catch((err) => {
@@ -61,7 +61,7 @@ export default class messageCtrl {
             criticalNotification(foundGroup, req.user.dataValues.username, req.headers.origin);
           }
           io.emit('notification.updateMessage', {
-            message: `${req.user.dataValues.username} posted a new message in ${foundGroup.name}`,
+            message: `@${req.user.dataValues.username} posted a new message in ${foundGroup.name}`,
             groupId: foundGroup.id,
             createdMessage
           });
@@ -99,13 +99,12 @@ export default class messageCtrl {
           foundMessages.map((found) => {
             return found.update({ archived: true });
           })
-        ).then((archivedMessages) => {
+        ).then(() => {
           io.emit('archive.success', {
             groupId: req.params.id
           });
           res.status(200).json({
             success: 'Messages have been archived successfully',
-            archivedMessages
           });
         });
       } else {

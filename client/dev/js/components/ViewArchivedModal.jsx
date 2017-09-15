@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
+/**
+ * Gives the presentational view for how archived messages
+ * are displayed in the messaging component
+ * @param {array} users
+ * @param {object} message
+ * @returns {jsx} - an xml/html -like syntax extension to javascript
+ */
 const renderMessage = (users, message) => {
   if (users && message) {
     const foundUser = users.find(user => user.id === message.ownerId);
@@ -33,6 +40,11 @@ const renderMessage = (users, message) => {
   }
 };
 
+/**
+ * Gives the presentational view for displaying archived messages
+ * @param {object} props
+ * @returns {jsx} - an xml/html -like syntax extension to javascript
+ */
 const ViewArchivedModal = (props) => {
   const { Messages } = props.archivedMessages;
   return (
@@ -55,7 +67,7 @@ const ViewArchivedModal = (props) => {
 
                   <div className="divider" />
                   <br />
-                  {Messages && Messages.length !== 0 ? 
+                  {Messages && Messages.length !== 0 ?
                     Messages.map(message => renderMessage(props.users, message)) :
                     <h6>There are currently no archived messages in this group</h6>
                   }
@@ -72,20 +84,10 @@ const ViewArchivedModal = (props) => {
   );
 };
 
-ViewArchivedModal.defaultProps = {
-  state: {
-    newGroupMembers: [],
-    errors: {},
-  }
-};
-
 ViewArchivedModal.propTypes = {
-  //eslint-disable-next-line
-  state: PropTypes.object,
-  //eslint-disable-next-line
-  closeModalRoute: PropTypes.string.isRequired,
-  //eslint-disable-next-line
-  groupMembers: PropTypes.array,
+  archivedMessages: PropTypes.object,
+  users: PropTypes.array,
+  closeModalRoute: PropTypes.string.isRequired
 };
 
 export default ViewArchivedModal;

@@ -3,33 +3,33 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllGroups } from '../actions/groupActions';
-import { getAllUsers } from '../actions/addUserActions';
+import { getAllUsers } from '../actions/userActions';
 import { selectedGroupDetails, getArchivedMessages } from '../actions/archiveActions';
 import Dashboard from '../components/Dashboard.jsx';
 
-
-class DashBoardContainer extends React.Component {
+/**
+ * This class is the container component for the users dashboard
+ * It is responsible for managing all the state changes in the component
+ */
+export class DashBoardContainer extends React.Component {
+  /**
+   * Initializes the state and binds this to the methods in this class
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
       groups: {},
       users: []
     };
-    this.onActiveGroupClicked = this.onActiveGroupClicked.bind(this);
+    this.handleActiveGroupClicked = this.handleActiveGroupClicked.bind(this);
   }
 
-  onActiveGroupClicked(e) {
-    e.preventDefault();
-    const token = window.localStorage.token;
-
-    Promise.resolve(
-      this.props.selectedGroupDetails({ id: e.target.id, name: e.target.name })
-    )
-    .then(() => {
-      this.props.getArchivedMessages(token, this.props.archiveData.setGroupDetails.id);
-    });
-  }
-
+  /**
+   * Fetches users and group data when the component mounts
+   * and initializes the materialize collapsible accordion component
+   * @returns {void}
+   */
   componentDidMount() {
     const token = window.localStorage.token;
     this.props.getAllGroups(token)
@@ -41,6 +41,28 @@ class DashBoardContainer extends React.Component {
     });
   }
 
+  /**
+   * Takes in the target object of the onclick event and passes an object
+   * containging the clicked group's id and name to the redux store
+   * then fetches all archived messages in the clicked group
+   * @param {object} e (i.e event)
+   * @returns {void}
+   */
+  handleActiveGroupClicked(e) {
+    e.preventDefault();
+    const token = window.localStorage.token;
+
+    Promise.resolve(
+      this.props.selectedGroupDetails({ id: e.target.id, name: e.target.name })
+    )
+    .then(() => {
+      this.props.getArchivedMessages(token, this.props.archiveData.setGroupDetails.id);
+    });
+  }
+
+  /**
+   * @returns {jsx} - an xml/html -like syntax extension to javascript
+   */
   render() {
     return (
       <Dashboard
@@ -48,7 +70,7 @@ class DashBoardContainer extends React.Component {
         groups={this.props.getAllGroupsResponse.groups}
         users={this.props.getAllUsersResponse.users}
         currentUser={this.props.currentUser.currentUser}
-        handleActiveGroupClicked={this.onActiveGroupClicked}
+        onActiveGroupClicked={this.handleActiveGroupClicked}
       />
     );
   }
@@ -57,12 +79,12 @@ class DashBoardContainer extends React.Component {
 DashBoardContainer.propTypes = {
   getAllGroups: PropTypes.func.isRequired,
   getAllUsers: PropTypes.func.isRequired,
-  // eslint-disable-next-line
+  getArchivedMessages: PropTypes.func.isRequired,
+  selectedGroupDetails: PropTypes.func.isRequired,
   getAllGroupsResponse: PropTypes.object,
-  // eslint-disable-next-line
   getAllUsersResponse: PropTypes.object,
-  // eslint-disable-next-line
-  currentUser: PropTypes.object
+  currentUser: PropTypes.object,
+  archiveData: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -72,6 +94,9 @@ const mapStateToProps = state => ({
   archiveData: state.archiveReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ getAllGroups, getAllUsers, selectedGroupDetails, getArchivedMessages }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({ getAllGroups,
+  getAllUsers,
+  selectedGroupDetails,
+  getArchivedMessages }, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(DashBoardContainer);

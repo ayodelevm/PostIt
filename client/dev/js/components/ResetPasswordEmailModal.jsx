@@ -4,8 +4,13 @@ import Notifications from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import InputFieldGroup from './common/InputFields.jsx';
 
+/**
+ * Gives the presentational view for the form for submitting email where reset
+ * password link will be sent to
+ * @param {object} props
+ * @returns {jsx} - an xml/html -like syntax extension to javascript
+ */
 const ResetPasswordEmailModal = (props) => {
-
   return (
 
     <div id="reset-email" className="modal">
@@ -23,7 +28,7 @@ const ResetPasswordEmailModal = (props) => {
               </div>
               <div className="row card-form-section">
 
-                <form className="col s12" onSubmit={props.submit} noValidate>
+                <form className="col s12" onSubmit={props.onSubmit} noValidate>
                   <div className="main">
                     <Notifications options={{ zIndex: 5000 }} />
                   </div>
@@ -75,13 +80,11 @@ ResetPasswordEmailModal.defaultProps = {
 };
 
 ResetPasswordEmailModal.propTypes = {
-  //eslint-disable-next-line
   state: PropTypes.object,
-  //eslint-disable-next-line
   closeModalRoute: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  submit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default ResetPasswordEmailModal;

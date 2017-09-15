@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 const config = [{
   entry: [
@@ -12,6 +13,7 @@ const config = [{
     filename: 'js/bundle.min.js',
   },
   plugins: [
+    new Dotenv(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),

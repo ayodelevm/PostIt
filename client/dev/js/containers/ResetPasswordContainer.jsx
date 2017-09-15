@@ -3,15 +3,20 @@ import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { notify } from 'react-notify-toast';
-import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
 import { resetPassword } from '../actions/resetPasswordActions';
 import { validateResetPassword } from '../utils/validations';
 import ResetPassword from '../components/ResetPassword.jsx';
-import store from '../store/store';
 
-
+/**
+ * This class is the container component for resetting a users password
+ * It is responsible for managing all the state changes in the component
+ */
 class ResetPasswordContainer extends React.Component {
+  /**
+   * Initializes the state and binds this to the methods in this class
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +30,12 @@ class ResetPasswordContainer extends React.Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
+  /**
+   * Takes in the target object of the onclick event and sets the state
+   * with the form input and new error object
+   * @param {object} e (i.e event)
+   * @returns {void}
+   */
   handleChange(e) {
     e.persist();
     if (!!this.state.errors && this.state.errors[e.target.name]) {
@@ -44,6 +55,13 @@ class ResetPasswordContainer extends React.Component {
     }
   }
 
+  /**
+   * Validates form input. If there's error, sets State with the error
+   * if no error, makes a post request to the reset password endpoint
+   * and handles response accordingly
+   * @param {object} e (i.e event)
+   * @returns {void}
+   */
   handleFormSubmit(e) {
     e.preventDefault();
 
@@ -55,7 +73,6 @@ class ResetPasswordContainer extends React.Component {
     const token = this.props.location.search.split('=')[1];
 
     this.setState({ errors: {} });
-    console.log('*****token', token);
 
     this.props.resetPassword(token, this.state)
     .then(
@@ -73,29 +90,29 @@ class ResetPasswordContainer extends React.Component {
     );
   }
 
+  /**
+   * @returns {jsx} - an xml/html -like syntax extension to javascript
+   */
   render() {
-
     return (
       <div>
         {
-          this.state.redirect ? store.dispatch(push('/login')) :
-          <ResetPassword
-            submit={this.handleFormSubmit}
-            state={this.state}
-            password={this.state.password}
-            passwordConfirmation={this.state.passwordConfirmation}
-            onChange={this.handleChange}
-          />
+          this.state.redirect ?
+            <Redirect
+              push
+              to={{
+                pathname: '/login',
+              }}
+            /> :
+            <ResetPassword
+              onSubmit={this.handleFormSubmit}
+              state={this.state}
+              password={this.state.password}
+              passwordConfirmation={this.state.passwordConfirmation}
+              onChange={this.handleChange}
+            />
         }
       </div>
-          // this.state.redirect ? <Redirect to="/login" /> :
-      // <ResetPassword
-      //   submit={this.handleFormSubmit}
-      //   state={this.state}
-      //   password={this.state.password}
-      //   passwordConfirmation={this.state.passwordConfirmation}
-      //   onChange={this.handleChange}
-      // />
     );
   }
 }
@@ -106,8 +123,8 @@ ResetPasswordContainer.defaultProps = {
 
 ResetPasswordContainer.propTypes = {
   resetPassword: PropTypes.func.isRequired,
-  // eslint-disable-next-line
-  resetResponse: PropTypes.object
+  resetResponse: PropTypes.object,
+  location: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

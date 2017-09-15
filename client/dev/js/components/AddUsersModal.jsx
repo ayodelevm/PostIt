@@ -27,7 +27,7 @@ const AddUsersModal = (props) => {
               </div>
               <div className="row card-form-section">
 
-                <form className="col s12" onSubmit={props.submit} noValidate>
+                <form className="col s12" onSubmit={props.onSubmit} noValidate>
                   <div className="main">
                     <Notifications options={{ zIndex: 5000 }} />
                   </div>
@@ -70,13 +70,12 @@ AddUsersModal.defaultProps = {
 };
 
 AddUsersModal.propTypes = {
-  //eslint-disable-next-line
   state: PropTypes.object,
-  //eslint-disable-next-line
   suggestions: PropTypes.array,
   onChipsChange: PropTypes.func.isRequired,
   closeModalRoute: PropTypes.string.isRequired,
-  submit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  name: PropTypes.string
 };
 
 export default AddUsersModal;

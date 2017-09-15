@@ -9,23 +9,35 @@ import sha1 from 'sha1';
 import { getAllGroups } from '../actions/groupActions';
 import { getOneGroupWithMessages } from '../actions/messageActions';
 import UploadsModal from '../components/UploadsModal.jsx';
-import { uploadProfileImage, getAllUsers } from '../actions/addUserActions';
+import { uploadProfileImage, getAllUsers } from '../actions/userActions';
 import { socketConnect } from '../actions/socketActions';
 
+/**
+ * This class is the container component handling user's profile picture upload
+ * It is responsible for managing all the state changes in the component
+ */
 class UploadFileContainer extends React.Component {
-
+  /**
+   * Initializes the state and binds this to the methods in this class
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
     };
 
-    this.uploadFile = this.uploadFile.bind(this);
-    this.props.socketConnect();
+    this.handleUploadFile = this.handleUploadFile.bind(this);
+    props.socketConnect();
   }
 
-  uploadFile(files) {
+  /**
+   * Handles uploadig a users profile image to cloudinary, saving the returned
+   * link to database and handles response accordingly
+   * @param {array} files
+   * @returns {void}
+   */
+  handleUploadFile(files) {
     const token = window.localStorage.token;
-    // const userId = props.userId;
     const image = files[0];
 
     const cloudName = 'dr6ynr4o0';
@@ -79,11 +91,13 @@ class UploadFileContainer extends React.Component {
     });
   }
 
-
+  /**
+   * @returns {jsx} - an xml/html -like syntax extension to javascript
+   */
   render() {
     return (
       <UploadsModal
-        onUploadFile={this.uploadFile}
+        onUploadFile={this.handleUploadFile}
         closeModalRoute={this.props.closeModalRoute}
       />
 
@@ -96,14 +110,22 @@ UploadFileContainer.propTypes = {
   getAllUsers: PropTypes.func.isRequired,
   uploadProfileImage: PropTypes.func.isRequired,
   getOneGroupWithMessages: PropTypes.func.isRequired,
-  // eslint-disable-next-line
-  uploadResponse: PropTypes.object
+  uploadResponse: PropTypes.object,
+  socketConnect: PropTypes.func.isRequired,
+  closeModalRoute: PropTypes.string.isRequired,
+  groupId: PropTypes.number,
+  userId: PropTypes.number
 };
 
 const mapStateToProps = state => ({
   uploadResponse: state.addUserReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ uploadProfileImage, getAllGroups, getOneGroupWithMessages, getAllUsers, socketConnect }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({
+  uploadProfileImage,
+  getAllGroups,
+  getOneGroupWithMessages,
+  getAllUsers,
+  socketConnect }, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(UploadFileContainer);

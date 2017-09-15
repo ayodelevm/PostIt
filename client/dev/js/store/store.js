@@ -1,41 +1,30 @@
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import createHistory from 'history/createBrowserHistory';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import jwtDecode from 'jwt-decode';
-import { setCurrentUser } from '../actions/authActions';
+import { verifyUser } from '../actions/authActions';
 
-import authReducer from '../reducers/authReducer';
-import addUserReducer from '../reducers/addUserReducer';
-import groupReducer from '../reducers/groupReducer';
-import messageReducer from '../reducers/messageReducer';
-import archiveReducer from '../reducers/archiveReducer';
-import resetPasswordReducer from '../reducers/resetPasswordReducer';
+import rootReducer from '../reducers/rootReducer';
 
 export const history = createHistory();
 const middleware = routerMiddleware(history);
 
 const logger = createLogger();
+const middlewareConditionals = (process.env.NODE_ENV === 'development') ?
+composeWithDevTools(
+  applyMiddleware(thunk, middleware, logger)
+) : applyMiddleware(thunk, middleware);
 
 const store = createStore(
-  combineReducers({
-    authReducer,
-    addUserReducer,
-    groupReducer,
-    messageReducer,
-    archiveReducer,
-    resetPasswordReducer,
-    router: routerReducer
-  }),
-  composeWithDevTools(
-    applyMiddleware(thunk, middleware, logger)
-  )
+  rootReducer,
+  middlewareConditionals
 );
 
 if (window.localStorage.token) {
-  store.dispatch(setCurrentUser(jwtDecode(window.localStorage.token)));
+  const token = window.localStorage.token;
+  store.dispatch(verifyUser({ token }, token));
 }
 
 export default store;

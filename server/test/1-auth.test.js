@@ -20,9 +20,9 @@ describe('Signup Authentication', () => {
   it('prevents access to other routes if not a registered user', (done) => {
     server
       .get('/api/v1/groups')
-      .expect(403)
+      .expect(401)
       .end((err, res) => {
-        res.status.should.equal(403);
+        res.status.should.equal(401);
         res.body.globals.should.equal('Access denied! Please create an account or login first!');
         done();
       });

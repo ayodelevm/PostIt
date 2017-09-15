@@ -471,6 +471,20 @@ body {
   background-color: black;
   padding: 0 30px; }
 
+.before-auth-spinner {
+  display: block;
+  position: fixed;
+  margin: auto;
+  top: 40%;
+  left: 45%; }
+
+.not-found {
+  display: block;
+  position: fixed;
+  margin: auto;
+  top: 40%;
+  left: 45%; }
+
 nav i.material-icons {
   font-size: 1.5em; }
 

@@ -11,7 +11,7 @@ const messageReducer = (state = intialState, action = {}) => {
   switch (action.type) {
     case Types.GET_GROUP_AND_ITS_MESSAGES:
       return Object.assign({}, state, {
-        grpMessages: action.grpMessages.foundMessages,
+        grpMessages: action.grpMessages.foundGroupAndMessages,
         getMessagesSuccess: !!Object.keys(action.grpMessages)
       });
 

@@ -36,7 +36,7 @@ export default class Middlewares {
         }
       });
     } else {
-      return res.status(403).json({
+      return res.status(401).json({
         globals: 'Access denied! Please create an account or login first!'
       });
     }

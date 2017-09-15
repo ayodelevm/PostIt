@@ -33,7 +33,10 @@ const Dashboard = (props) => {
             <div className="card right-side grey lighten-4 z-depth-3">
               <div className="row valign-wrapper">
                 <div id="img-div" className="col s3">
-                  <a className="modal-trigger" href="#user-new"><div className="profile-icon" style={{ backgroundImage: `url(${props.groups.profileImage})` }} /></a>
+                  <a className="modal-trigger tooltipped"
+                    data-position="right" data-tooltip="Upload picture"
+                    href="#user-new">
+                    <div className="profile-icon" style={{ backgroundImage: `url(${props.groups.profileImage})` }} /></a>
                 </div>
                 <div className="col s9">
                   <span className="black-text">
@@ -45,7 +48,8 @@ const Dashboard = (props) => {
               <div className="divider" />
               <div id="content" className="row">
                 <br />
-                <a className="modal-trigger add-new-group" href="#group-new"><span className="card-title black-text">CREATE GROUP <i className="material-icons add-groups right">add_box</i></span></a>
+                <a className="modal-trigger add-new-group" href="#group-new"><span className="card-title black-text">
+                  CREATE GROUP <i className="material-icons add-groups right">add_box</i></span></a>
 
               </div>
               <div className="divider" />
@@ -56,13 +60,18 @@ const Dashboard = (props) => {
                 {filteredGroups && filteredGroups.map(group => (
                   <ul key={group.id} className="collapsible z-depth-0" data-collapsible="accordion">
                     <li>
-                      <div className="group-display collapsible-header grey lighten-4"><span className="truncate"><i className="material-icons group-icons">lock_open</i> {group.name}</span><i className="material-icons right group-settings">arrow_drop_down</i></div>
+                      <div className="group-display collapsible-header grey lighten-4"><span className="truncate">
+                        <i className="material-icons group-icons">lock_open</i> {group.name}
+                      </span><i className="material-icons right group-settings">arrow_drop_down</i></div>
 
                       <div className="collapsible-body ">
                         <ul>
-                          <li><Link name={group.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.handleActiveGroupClicked} id={group.id} to="#archive-all">Archive All Messages</Link></li>
-                          {/* <li><Link className="modal-trigger waves-effect waves-blue black-text" onClick={props.handleActiveGroupClicked} to="">Archive Selected Messages</Link></li> */}
-                          <li><Link name={group.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.handleActiveGroupClicked} id={group.id} to="#view-archive">View Archived Messages</Link></li>
+                          <li><Link name={group.name} className="modal-trigger waves-effect waves-blue black-text"
+                            onClick={props.onActiveGroupClicked}
+                            id={group.id} to="#archive-all">Archive All Messages</Link></li>
+                          <li><Link name={group.name} className="modal-trigger waves-effect waves-blue black-text"
+                            onClick={props.onActiveGroupClicked}
+                            id={group.id} to="#view-archive">View Archived Messages</Link></li>
                         </ul>
                       </div>
                     </li>
@@ -123,10 +132,9 @@ const Dashboard = (props) => {
 };
 
 Dashboard.propTypes = {
-  handleActiveGroupClicked: PropTypes.func.isRequired,
-  // eslint-disable-next-line
+  onActiveGroupClicked: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
-  // eslint-disable-next-line
+  archivedMessages: PropTypes.object,
   groups: PropTypes.object,
   currentUser: PropTypes.object
 };

@@ -7,8 +7,15 @@ import { createNewGroup } from '../actions/groupActions';
 import { validateGroupInput } from '../utils/validations';
 import GroupModal from '../components/GroupModal.jsx';
 
+/**
+ * This class is the container component for creating a new group and adding new users when creating
+ * It is responsible for managing all the state changes in the component
+ */
 class GroupForm extends React.Component {
-
+  /**
+   * Initializes the state and binds this to the methods in this class
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -21,9 +28,41 @@ class GroupForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.handleChipsChange = this.handleChipsChange.bind(this);
   }
 
+  /**
+   * Updates the materialize modal when the component mounts
+   * and resets form input when the component mounts
+   * @returns {void}
+   */
+  componentDidMount() {
+    $(document).ready(() => {
+      $('.modal').modal({
+        dismissible: true,
+        ready: () => {
+          this.setState({
+            name: '',
+            description: '',
+            initialGroupMembers: [],
+            errors: {}
+          });
+        }
+      });
+      $('.tooltipped').tooltip({ delay: 50 });
+      Materialize.updateTextFields();
+      $('.collapsible').collapsible({
+        accordion: true,
+      });
+    });
+  }
+
+  /**
+   * Takes in the target object of the onclick event and sets the state
+   * with the form input and new error object
+   * @param {object} e (i.e event)
+   * @returns {void}
+   */
   handleChange(e) {
     e.persist();
     if (!!this.state.errors && this.state.errors[e.target.name]) {
@@ -43,12 +82,24 @@ class GroupForm extends React.Component {
     }
   }
 
-  onChange(chips) {
+  /**
+   * This method takes in array of the users selected to be added to a group and sets the state
+   * @param {array} chips
+   * @returns {void}
+   */
+  handleChipsChange(chips) {
     this.setState({
       initialGroupMembers: chips
     });
   }
 
+  /**
+   * Validates form input. If there's error, sets State with the error
+   * if no error, makes a post request to the create new group endpoint
+   * and handles response accordingly
+   * @param {object} e (i.e event)
+   * @returns {void}
+   */
   handleFormSubmit(e) {
     e.preventDefault();
 
@@ -77,26 +128,9 @@ class GroupForm extends React.Component {
     );
   }
 
-  componentDidMount() {
-    $(document).ready(() => {
-      $('.modal').modal({
-        dismissible: true,
-        complete: () => {
-          this.setState({
-            name: '',
-            description: '',
-            initialGroupMembers: [],
-            errors: {}
-          });
-        }
-      });
-      Materialize.updateTextFields();
-      $('.collapsible').collapsible({
-        accordion: true,
-      });
-    });
-  }
-
+  /**
+   * @returns {jsx} - an xml/html -like syntax extension to javascript
+   */
   render() {
     const allUsers = this.props.usersResponse.users;
     const groupMembers = this.props.groupMembers;
@@ -113,10 +147,10 @@ class GroupForm extends React.Component {
 
     return (
       <GroupModal
-        close={this.handleClose} submit={this.handleFormSubmit}
+        onSubmit={this.handleFormSubmit}
         state={this.state} onChange={this.handleChange}
         name={this.state.name} error={this.state.errors.name}
-        onChipsChange={this.onChange} suggestions={allusernames}
+        onChipsChange={this.handleChipsChange} suggestions={allusernames}
         closeModalRoute={this.props.closeModalRoute}
       />
 
@@ -126,8 +160,11 @@ class GroupForm extends React.Component {
 
 GroupForm.propTypes = {
   createNewGroup: PropTypes.func.isRequired,
-  // eslint-disable-next-line
-  groupResponse: PropTypes.object
+  groupResponse: PropTypes.object,
+  usersResponse: PropTypes.object,
+  groupMembers: PropTypes.array,
+  closeModalRoute: PropTypes.string.isRequired,
+  currentUser: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

@@ -74,7 +74,10 @@ const MessagingComponent = (props) => {
           <div className="card right-side grey lighten-4 z-depth-3">
             <div className="row valign-wrapper">
               <div id="img-div" className="col s3">
-                <a className="modal-trigger" href="#user-new"><div className="profile-icon" style={{ backgroundImage: `url(${groups.profileImage})` }} /></a>
+                <a className="modal-trigger tooltipped"
+                  data-position="right" data-tooltip="Upload picture"
+                  href="#user-new"><div className="profile-icon"
+                    style={{ backgroundImage: `url(${groups.profileImage})` }} /></a>
               </div>
               <div className="col s9">
                 <span className="black-text">
@@ -86,7 +89,8 @@ const MessagingComponent = (props) => {
             <div className="divider" />
             <div id="content" className="row">
               <br />
-              <a className="modal-trigger add-new-group" href="#group-new"><span className="card-title black-text">GROUPS <i className="material-icons add-groups right">add_box</i></span></a>
+              <a className="modal-trigger add-new-group" href="#group-new"><span className="card-title black-text">GROUPS <i
+                className="material-icons add-groups right">add_box</i></span></a>
               <div className="row group-section-message">
                 <ul>
                   {
@@ -137,25 +141,39 @@ const MessagingComponent = (props) => {
                   {messages.UserId === currentUser.id ?
                     <div>
                       <ul className="group-icons">
-                        <li><Link className="modal-trigger" to="#add-new"><i className="material-icons left">group_add</i></Link></li>
-                        <li><Link className="modal-trigger" to="#group-members"><i className="material-icons left">group</i></Link></li>
-                        <li><a href="" className="dropdown-button" data-activates="archive-dropdown"><i className="material-icons">settings</i></a></li>
+                        <li><Link className="modal-trigger tooltipped"
+                          data-position="left" data-tooltip="Add new members"
+                          to="#add-new"><i className="material-icons left">group_add</i></Link></li>
+                        <li><Link className="modal-trigger tooltipped"
+                          data-position="bottom" data-tooltip="View members"
+                          to="#group-members"><i className="material-icons left">group</i></Link></li>
+                        <li><a href="" className="dropdown-button tooltipped"
+                          data-position="top" data-tooltip="Archives"
+                          data-activates="archive-dropdown"><i className="material-icons">settings</i></a></li>
                       </ul>
                       <ul id="archive-dropdown" className="dropdown-content">
-                        <li><Link name={messages.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.handleActiveGroupClicked} id={messages.id} to="#archive-all">Archive All Messages</Link></li>
-                        {/* <li><a className="waves-effect waves-blue black-text" to="">Archive Selected Messages</a></li> */}
-                        <li><Link name={messages.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.handleActiveGroupClicked} id={messages.id} to="#view-archive">View Archived Messages</Link></li>
+                        <li><Link name={messages.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.onActiveGroupClicked}
+                          id={messages.id} to="#archive-all">Archive All Messages</Link></li>
+                        <li><Link name={messages.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.onActiveGroupClicked}
+                          id={messages.id} to="#view-archive">View Archived Messages</Link></li>
                       </ul>
                     </div>
                     :
                     <div>
                       <ul className="group-icons">
-                        <li><a><i className="material-icons left" /></a></li>
-                        <li><Link className="modal-trigger" to="#group-members"><i className="material-icons left">group</i></Link></li>
-                        <li><a href="" className="dropdown-button" data-activates="archive-dropdown"><i className="material-icons">settings</i></a></li>
+                        <li><Link to=""
+                          data-position="left" data-tooltip="Add new members"
+                          className="tooltipped"><i className="material-icons left" /></Link></li>
+                        <li><Link className="modal-trigger tooltipped"
+                          data-position="bottom" data-delay="50" data-tooltip="View members"
+                          to="#group-members"><i className="material-icons left">group</i></Link></li>
+                        <li><a href="" className="dropdown-button tooltipped"
+                          data-position="top" data-delay="50" data-tooltip="Archives"
+                          data-activates="archive-dropdown"><i className="material-icons">settings</i></a></li>
                       </ul>
                       <ul id="archive-dropdown" className="dropdown-content">
-                        <li><Link name={messages.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.handleActiveGroupClicked} id={messages.id} to="#view-archive">View Archived Messages</Link></li>
+                        <li><Link name={messages.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.onActiveGroupClicked}
+                          id={messages.id} to="#view-archive">View Archived Messages</Link></li>
                       </ul>
                     </div>
                   }
@@ -207,11 +225,10 @@ const MessagingComponent = (props) => {
 };
 
 MessagingComponent.propTypes = {
-  // eslint-disable-next-line
+  archivedMessages: PropTypes.object,
   users: PropTypes.array,
-  // eslint-disable-next-line
   groups: PropTypes.object,
-  handleActiveGroupClicked: PropTypes.func.isRequired,
+  onActiveGroupClicked: PropTypes.func.isRequired,
   currentUser: PropTypes.object,
   grpUsers: PropTypes.object,
   messages: PropTypes.object,

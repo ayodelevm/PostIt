@@ -2,15 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 
+/**
+ * Gives the presentational view for the messaging form text area
+ * and the priority select dropdown
+ * @param {object} props
+ * @returns {void}
+ */
 const MessagingFormComponent = props => (
-  <form className="col s12" onSubmit={props.submit}>
+  <form className="col s12" onSubmit={props.onSubmit}>
     <div className="row">
       <div className="input-field col s2 left">
         <Select
           name={'choose priority'}
           value={props.state.selected}
           options={props.options}
-          onChange={props.logChange}
+          onChange={props.onLogChange}
           placeholder={'choose priority'}
         />
       </div>
@@ -21,7 +27,7 @@ const MessagingFormComponent = props => (
           onKeyPress={(event) => {
             if (event.key === 'Enter' && !event.shiftKey) {
               event.preventDefault();
-              props.submit(event);
+              props.onSubmit(event);
             }
           }}
         />
@@ -39,9 +45,11 @@ MessagingFormComponent.defaultProps = {
 };
 
 MessagingFormComponent.propTypes = {
-  //eslint-disable-next-line
   state: PropTypes.object,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  options: PropTypes.array.isRequired,
+  onLogChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default MessagingFormComponent;

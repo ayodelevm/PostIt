@@ -18,7 +18,7 @@ import models from './models/index';
 import authRoutes from './routes/authRoutes';
 import groupRoutes from './routes/groupRoutes';
 import messageRoutes from './routes/messageRoutes';
-import addUsersRoutes from './routes/addusersRoutes';
+import usersRoutes from './routes/usersRoutes';
 
 dotenv.config();
 
@@ -47,7 +47,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(authRoutes);
 app.use(groupRoutes);
 app.use(messageRoutes);
-app.use(addUsersRoutes);
+app.use(usersRoutes);
 
 
 const compiler = webpack(webpackConfig);

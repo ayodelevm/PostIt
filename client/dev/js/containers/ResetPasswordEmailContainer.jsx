@@ -7,8 +7,15 @@ import { forgotPassword } from '../actions/resetPasswordActions';
 import { validateEmail } from '../utils/validations';
 import ResetPasswordEmailModal from '../components/ResetPasswordEmailModal.jsx';
 
+/**
+ * This class is the container component for submitting email where reset
+ * password link will be sent to and handling it's response
+ */
 class ResetPasswordEmailContainer extends React.Component {
-
+  /**
+   * Initializes the state and binds this to the methods in this class
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -20,6 +27,32 @@ class ResetPasswordEmailContainer extends React.Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
+  /**
+   * Updates the materialize modal when the component mounts
+   * and resets form input when the component mounts
+   * @returns {void}
+   */
+  componentDidMount() {
+    $(document).ready(() => {
+      $('.modal').modal({
+        dismissible: true,
+        complete: () => {
+          this.setState({
+            email: '',
+            errors: {},
+          });
+        }
+      });
+      Materialize.updateTextFields();
+    });
+  }
+
+  /**
+   * Takes in the target object of the onclick event and sets the state
+   * with the form input and new error object
+   * @param {object} e (i.e event)
+   * @returns {void}
+   */
   handleChange(e) {
     e.persist();
     if (!!this.state.errors && this.state.errors[e.target.name]) {
@@ -39,6 +72,13 @@ class ResetPasswordEmailContainer extends React.Component {
     }
   }
 
+  /**
+   * Validates form input. If there's error, sets State with the error
+   * if no error, makes a post request to the forgotpassword endpoint
+   * and handles response accordingly
+   * @param {object} e (i.e event)
+   * @returns {void}
+   */
   handleFormSubmit(e) {
     e.preventDefault();
 
@@ -65,25 +105,13 @@ class ResetPasswordEmailContainer extends React.Component {
     );
   }
 
-  componentDidMount() {
-    $(document).ready(() => {
-      $('.modal').modal({
-        dismissible: true,
-        complete: () => {
-          this.setState({
-            email: '',
-            errors: {},
-          });
-        }
-      });
-      Materialize.updateTextFields();
-    });
-  }
-
+  /**
+   * @returns {jsx} - an xml/html -like syntax extension to javascript
+   */
   render() {
     return (
       <ResetPasswordEmailModal
-        close={this.handleClose} submit={this.handleFormSubmit}
+        onSubmit={this.handleFormSubmit}
         value={this.state.email}
         state={this.state} onChange={this.handleChange}
         email={this.state.email} error={this.state.errors.name}
@@ -96,8 +124,8 @@ class ResetPasswordEmailContainer extends React.Component {
 
 ResetPasswordEmailContainer.propTypes = {
   forgotPassword: PropTypes.func.isRequired,
-  // eslint-disable-next-line
-  resetResponse: PropTypes.object
+  resetResponse: PropTypes.object,
+  closeModalRoute: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({

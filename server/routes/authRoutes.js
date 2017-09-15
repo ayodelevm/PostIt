@@ -19,13 +19,16 @@ router.post('/api/v1/user/login', AuthCtrl.login);
 router.post('/api/v1/user/forgotpassword', AuthCtrl.forgotPasswordLink);
 
 // Reset Password
-router.post('/api/v1/resetpassword', AuthCtrl.resetPassword);
+router.put('/api/v1/resetpassword', AuthCtrl.resetPassword);
 
 // Google SignUp
 router.post('/api/v1/user/googlesignup', GoogleAuthCtrl.googleRegister);
 
 // Google login
 router.post('/api/v1/user/googlelogin', GoogleAuthCtrl.googleLogin);
+
+// Verify Token
+router.post('/api/v1/verifyuser', Middleware.isAuthenticated, AuthCtrl.verifyUserToken);
 
 
 export default router;

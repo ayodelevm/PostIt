@@ -12,20 +12,20 @@ export const groupUsers = grpUsers => ({
   grpUsers
 });
 
-export const createGroup = newGroup => ({
-  type: Types.CREATE_GROUP,
-  newGroup
-});
+// export const createGroup = newGroup => ({
+//   type: Types.CREATE_GROUP,
+//   newGroup
+// });
 
-export const updateGroup = updatedGroup => ({
-  type: Types.EDIT_A_GROUP,
-  updatedGroup
-});
+// export const updateGroup = updatedGroup => ({
+//   type: Types.EDIT_A_GROUP,
+//   updatedGroup
+// });
 
-export const archiveGroup = archivedGroup => ({
-  type: Types.ARCHIVE_A_GROUP,
-  archivedGroup
-});
+// export const archiveGroup = archivedGroup => ({
+//   type: Types.ARCHIVE_A_GROUP,
+//   archivedGroup
+// });
 
 export const getGroupsFailure = failure => ({
   type: Types.GET_USER_GROUPS_FAILURE,
@@ -42,15 +42,15 @@ export const createGroupFailure = failure => ({
   failure
 });
 
-export const updateGroupFailure = failure => ({
-  type: Types.EDIT_A_GROUP_FAILURE,
-  failure
-});
+// export const updateGroupFailure = failure => ({
+//   type: Types.EDIT_A_GROUP_FAILURE,
+//   failure
+// });
 
-export const archiveGroupFailure = failure => ({
-  type: Types.ARCHIVE_A_GROUP_FAILURE,
-  failure
-});
+// export const archiveGroupFailure = failure => ({
+//   type: Types.ARCHIVE_A_GROUP_FAILURE,
+//   failure
+// });
 
 export const setCurrentGroups = mergedGroups => ({
   type: Types.SET_CURRENT_GROUPS,
@@ -97,19 +97,17 @@ export const createNewGroup = (data, token) => (dispatch, getState) => {
     (error) => {
       dispatch(createGroupFailure(error));
     }
-  ).catch((err) => {
-    dispatch(createGroupFailure(err.message));
-  });
-};
-
-export const updateAGroup = (data, token) => (dispatch) => {
-  return api.updateEndpoint(endpoints.EDIT_ONE_GROUP_PATH, data, token)
-  .then(
-    (success) => {
-      dispatch(updateGroup(success));
-    },
-    (error) => {
-      dispatch(updateGroupFailure(error));
-    }
   );
 };
+
+// export const updateAGroup = (data, token) => (dispatch) => {
+//   return api.updateEndpoint(endpoints.EDIT_ONE_GROUP_PATH, data, token)
+//   .then(
+//     (success) => {
+//       dispatch(updateGroup(success));
+//     },
+//     (error) => {
+//       dispatch(updateGroupFailure(error));
+//     }
+//   );
+// };

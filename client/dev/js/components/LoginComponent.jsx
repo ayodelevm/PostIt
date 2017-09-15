@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import GoogleLogin from 'react-google-login';
 import Notifications from 'react-notify-toast';
 import ResetPasswordEmailContainer from '../containers/ResetPasswordEmailContainer.jsx';
@@ -11,7 +12,7 @@ import InputFieldGroup from './common/InputFields.jsx';
  * @param {object} props
  * @returns {void}
  */
-const LoginComponent = (props) => (
+const LoginComponent = props => (
   <div className="parallax-container">
     <div className="container register center-align">
       <div className="row">
@@ -84,22 +85,24 @@ const LoginComponent = (props) => (
                   Click here</Link> to reset it!
                 </p>
               </div>
+              <div className="row center">
+                <span className="black-text"> You can also Login with </span><br />
+                <GoogleLogin
+                  clientId={props.clientId}
+                  onSuccess={props.onSuccess}
+                  onFailure={props.onFailure}
+                  className={'google-login red'}
+                >
+                  <a className="waves-effect waves-light white-text btn-flat red">Google+</a>
+                </GoogleLogin>
+              </div>
 
             </div>
             <div className="card-action">
               <div className="card-action-text">
                 <span className="black-text">New to PostIt? </span>
                 <a href="/register" className="green-text darken-4">Create a new account</a>
-              </div><br />
-              <span className="black-text"> or Login with </span>
-              <GoogleLogin
-                clientId={props.clientId}
-                onSuccess={props.onSuccess}
-                onFailure={props.onFailure}
-                className={'google-login'}
-              >
-                <a className="waves-effect waves-light white-text btn red">Google+</a>
-              </GoogleLogin>
+              </div>
             </div>
           </div>
         </div>
@@ -118,5 +121,14 @@ const LoginComponent = (props) => (
     </div>
   </div>
 );
+
+LoginComponent.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  clientId: PropTypes.string.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired
+};
 
 export default LoginComponent;

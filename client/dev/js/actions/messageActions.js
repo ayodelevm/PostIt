@@ -12,10 +12,10 @@ export const newGroupMessages = newMessage => ({
   newMessage
 });
 
-export const archiveMessages = archivedMessages => ({
-  type: Types.ARCHIVE_MESSAGES,
-  archivedMessages
-});
+// export const archiveMessages = archivedMessages => ({
+//   type: Types.ARCHIVE_MESSAGES,
+//   archivedMessages
+// });
 
 export const groupAndMessagesFailure = failure => ({
   type: Types.GET_GROUP_AND_ITS_MESSAGES_FAILURE,
@@ -27,9 +27,14 @@ export const newGroupMessagesFailure = failure => ({
   failure
 });
 
-export const archiveMessagesFailure = failure => ({
-  type: Types.ARCHIVE_MESSAGES_FAILURE,
-  failure
+// export const archiveMessagesFailure = failure => ({
+//   type: Types.ARCHIVE_MESSAGES_FAILURE,
+//   failure
+// });
+
+export const successfulCreate = message => ({
+  type: Types.SUCCESSFUL_MESSAGE_CREATE,
+  message
 });
 
 export const setNewGroupMessages = mergedMessages => ({
@@ -52,7 +57,8 @@ export const getOneGroupWithMessages = (token, groupId) => (dispatch) => {
 export const createNewMessages = (token, data, groupId) => (dispatch, getState) => api
   .postEndpoint(endpoints.POST_MESSAGES_PATH.replace(':id', `${groupId}`), data, token)
   .then(
-    () => {
+    (success) => {
+      dispatch(successfulCreate(success.success));
     },
     (error) => {
       dispatch(newGroupMessagesFailure(error));

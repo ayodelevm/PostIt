@@ -6,19 +6,35 @@ import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import { logoutAUser } from '../actions/authActions';
 
+/**
+ * This class is the container component for switching nav content
+ * based on whether the user is logged on or not
+ * It is responsible for managing all the state changes in the component
+ */
 class NavContainer extends React.Component {
+  /**
+   * Initializes the state and binds this to the methods in this class
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
 
-    this.logout = this.logout.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
-  logout(e) {
+  /**
+   * Handles loging out a user and removing token from local storage
+   * @returns {void}
+   */
+  handleLogout() {
     this.props.logoutAUser();
     notify.show('Logged out successfully!', 'success', 5000);
     window.location.replace('/');
   }
 
+  /**
+   * @returns {jsx} - an xml/html -like syntax extension to javascript
+   */
   render() {
     const { isAuthenticated } = this.props.logoutAction;
 
@@ -51,20 +67,22 @@ class NavContainer extends React.Component {
     const afterAuth = (
       <div>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li className="active"><a href="" className="lime-text lighthen-5"><i className="material-icons left">notifications</i><span id="notification-number">5</span></a></li>
+          <li className="active"><a href="" className="lime-text lighthen-5">
+            <i className="material-icons left">notifications</i><span id="notification-number">5</span></a></li>
           <li><Link className="lime-text lighthen-5" to="/dashboard">Dashboard</Link></li>
-          <li><Link className="lime-text lighthen-5" onClick={this.logout} to="/">Logout</Link></li>
+          <li><Link className="lime-text lighthen-5" onClick={this.handleLogout} to="/">Logout</Link></li>
         </ul>
 
         <ul id="slide-out" className="side-nav">
           <li><div className="divider" /></li>
           <li className="active">
-            <a href="" className="waves-effect waves-light"><i className="material-icons left">notifications</i><span id="notification-number">5</span></a>
+            <a href="" className="waves-effect waves-light"><i className="material-icons left">notifications</i>
+              <span id="notification-number">5</span></a>
           </li>
           <li><div className="divider" /></li>
           <li><Link className="lime-text lighthen-5" to="/dashboard">Dashboard</Link></li>
           <li><div className="divider" /></li>
-          <li><a href="/" onClick={this.logout} className="waves-effect waves-light">Logout</a></li>
+          <li><a href="/" onClick={this.handleLogout} className="waves-effect waves-light">Logout</a></li>
           <li><div className="divider" /></li>
         </ul>
       </div>
@@ -81,7 +99,6 @@ class NavContainer extends React.Component {
 
 NavContainer.propTypes = {
   logoutAUser: PropTypes.func.isRequired,
-  // eslint-disable-next-line
   logoutAction: PropTypes.object
 };
 

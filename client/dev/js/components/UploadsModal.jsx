@@ -3,14 +3,19 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 
-
+/**
+ * Gives the presentational view for profile picture uploads modal
+ * @param {object} props
+ * @returns {jsx} - an xml/html -like syntax extension to javascript
+ */
 const UploadsModal = (props) => {
-
   return (
-
     <div id="user-new" className="modal">
       <div className="row modal-close-div">
-        <Link to={`/${props.closeModalRoute}`} className="modal-action modal-close waves-effect waves-green btn-flat right"><i className="material-icons center">close</i></Link>
+        <Link to={`/${props.closeModalRoute}`}
+          className="modal-action modal-close waves-effect waves-green btn-flat right">
+          <i className="material-icons center">close</i>
+        </Link>
       </div>
 
       <div className="row">
@@ -37,15 +42,9 @@ const UploadsModal = (props) => {
   );
 };
 
-UploadsModal.defaultProps = {
-  state: {
-  }
-};
-
 UploadsModal.propTypes = {
-  //eslint-disable-next-line
-  state: PropTypes.object,
-  onUploadFile: PropTypes.func.isRequired
+  onUploadFile: PropTypes.func.isRequired,
+  closeModalRoute: PropTypes.string.isRequired
 };
 
 export default UploadsModal;

@@ -1,6 +1,7 @@
 import Types from '../actions/actionTypes';
 
 const initialState = {
+  isVerified: false,
   isAuthenticated: false,
   currentUser: {}
 };
@@ -30,7 +31,7 @@ const authReducer = (state = initialState, action = {}) => {
         errors: action.failure,
         isAuthenticated: false
       });
-    
+
     case Types.GOOGLE_REGISTER:
       return Object.assign({}, state, {
         currentUser: action.newUser,
@@ -42,13 +43,13 @@ const authReducer = (state = initialState, action = {}) => {
         errors: action.failure,
         isAuthenticated: false
       });
-    
+
     case Types.GOOGLE_LOGIN:
       return Object.assign({}, state, {
         currentUser: action.user,
         isAuthenticated: !!Object.keys(action.user)
       });
-    
+
     case Types.GOOGLE_LOGIN_FAILURE:
       return Object.assign({}, state, {
         errors: action.failure,
@@ -64,7 +65,18 @@ const authReducer = (state = initialState, action = {}) => {
     case Types.SET_CURRENT_USER:
       return Object.assign({}, state, {
         currentUser: action.currentUser,
-        isAuthenticated: !!Object.keys(action.currentUser).length
+        isAuthenticated: !!Object.keys(action.currentUser).length,
+      });
+
+    case Types.SET_CURRENT_USER_FAILURE:
+      return Object.assign({}, state, {
+        errors: action.failure,
+        isAuthenticated: false
+      });
+
+    case Types.SET_RESPONSE:
+      return Object.assign({}, state, {
+        isVerified: !!Object.keys(action.resp).length,
       });
 
     default: return state;

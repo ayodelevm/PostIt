@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import Types from './actionTypes';
 import { getOneGroupWithMessages, setNewGroupMessages } from './messageActions';
 import { getAllGroups, getGroupUsers } from './groupActions';
-import { getAllUsers } from './addUserActions';
+import { getAllUsers } from './userActions';
 
 
 export const setNotification = notifyMessage => ({

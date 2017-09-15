@@ -4,12 +4,12 @@ import jwtDecode from 'jwt-decode';
 import app from './../app';
 import { loginUser } from './../seeders/authSeeds';
 import { updateInfo } from './../seeders/groupSeeds';
-import newGroupMembers from './../seeders/adduserSeeds';
+import newGroupMembers from './../seeders/userSeeds';
 import message from './../seeders/messageSeeds';
 
 const server = supertest.agent(app);
 
-describe('Add Users Route', () => {
+describe('Users Route', () => {
   let token;
 
   it('allows a registered user to login successfully', (done) => {
@@ -135,9 +135,9 @@ describe('Add Users Route', () => {
     .post('/api/v1/group/3/user')
     .set('Authorization', `Bearer ${token}`)
     .send(newGroupMembers[0])
-    .expect(400)
+    .expect(403)
     .end((err, res) => {
-      res.status.should.equal(400);
+      res.status.should.equal(403);
       res.body.globals.should.equal('You are not allowed to add new users to this group, please contact admin!');
       done();
     });
@@ -148,9 +148,9 @@ describe('Add Users Route', () => {
     .put('/api/v1/group/3/edit')
     .set('Authorization', `Bearer ${token}`)
     .send(updateInfo)
-    .expect(401)
+    .expect(403)
     .end((err, res) => {
-      res.status.should.equal(401);
+      res.status.should.equal(403);
       res.body.globals.should.equal('You do not have permission to edit this group\'s details');
       done();
     });
@@ -160,9 +160,9 @@ describe('Add Users Route', () => {
     server
     .delete('/api/v1/group/3/delete')
     .set('Authorization', `Bearer ${token}`)
-    .expect(401)
+    .expect(403)
     .end((err, res) => {
-      res.status.should.equal(401);
+      res.status.should.equal(403);
       res.body.globals.should.equal('You do not have permission to delete this group');
       done();
     });

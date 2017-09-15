@@ -53,19 +53,29 @@ export const setCurrentUser = user => ({
   currentUser: user
 });
 
+export const setResponse = resp => ({
+  type: Types.SET_RESPONSE,
+  resp
+});
+
+export const setCurrentUserFailure = failure => ({
+  type: Types.SET_CURRENT_USER_FAILURE,
+  failure
+});
+
 export const createNewUser = data => dispatch => api.postEndpoint(endpoints.SIGNUP_PATH, data)
   .then(
   (success) => {
     const token = success.token;
     window.localStorage.setItem('token', token);
     dispatch(createUser(jwtDecode(token)));
+    dispatch(setResponse(success));
   },
   (error) => {
     dispatch(createUserFailure(error));
+    dispatch(setResponse(error));
   }
-  ).catch((err) => {
-    dispatch(createUserFailure(err.message));
-  });
+  );
 
 export const googleRegister = data => dispatch => api.postEndpoint(endpoints.GOOGLE_REGISTER, data)
   .then(
@@ -73,9 +83,11 @@ export const googleRegister = data => dispatch => api.postEndpoint(endpoints.GOO
     const token = success.token;
     window.localStorage.setItem('token', token);
     dispatch(newGoogleRegister(jwtDecode(token)));
+    dispatch(setResponse(success));
   },
   (error) => {
     dispatch(newGoogleRegisterFailure(error));
+    dispatch(setResponse(error));
   }
   );
 
@@ -85,13 +97,13 @@ export const loginAUser = data => dispatch => api.postEndpoint(endpoints.LOGIN_P
       const token = success.token;
       window.localStorage.setItem('token', token);
       dispatch(loginUser(jwtDecode(token)));
+      dispatch(setResponse(success));
     },
     (error) => {
       dispatch(loginUserFailure(error));
+      dispatch(setResponse(error));
     }
-  ).catch((err) => {
-    dispatch(loginUserFailure(err.message));
-  });
+  );
 
 export const googleLogin = data => dispatch => api.postEndpoint(endpoints.GOOGLE_LOGIN, data)
   .then(
@@ -99,11 +111,29 @@ export const googleLogin = data => dispatch => api.postEndpoint(endpoints.GOOGLE
       const token = success.token;
       window.localStorage.setItem('token', token);
       dispatch(newGoogleLogin(jwtDecode(token)));
+      dispatch(setResponse(success));
     },
     (error) => {
       dispatch(newGoogleLoginFailure(error));
+      dispatch(setResponse(error));
     }
   );
+
+export const verifyUser = (data, token) => (dispatch) => {
+  return api.postEndpoint(endpoints.VERIFY_USER, data, token)
+  .then((success) => {
+    if (success) {
+      const verifiedToken = success.token;
+      window.localStorage.setItem('token', verifiedToken);
+      dispatch(setCurrentUser(jwtDecode(verifiedToken)));
+      dispatch(setResponse(success));
+    }
+  }, (error) => {
+    window.localStorage.removeItem('token');
+    dispatch(setCurrentUserFailure(error));
+    dispatch(setResponse(error));
+  });
+};
 
 export const logoutAUser = () => (dispatch) => {
   window.localStorage.removeItem('token');

@@ -2,15 +2,15 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Notifications, { notify } from 'react-notify-toast';
+import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { createNewUser, googleRegister } from '../actions/authActions';
 import { validateInput } from '../utils/validations';
 import SignUpComponent from '../components/SignUpComponent.jsx';
-import InputFieldGroup from '../components/common/InputFields.jsx';
-
-
+/**
+ * This class is the container component for registering a user
+ * upon submission of signup form or upon verifcation by google and in-app verification
+ */
 class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
@@ -31,6 +31,13 @@ class SignUpForm extends React.Component {
     this.handleGoogleResponse = this.handleGoogleResponse.bind(this);
   }
 
+  /**
+   * Takes in the response object from google after google validation,
+   * handles the error if any, otherwise, makes a post request to the user google register endpoint
+   * and handles response accordingly
+   * @param {object} response
+   * @returns {void}
+   */
   handleGoogleResponse(response) {
     if (response.error) {
       notify.show('SignUp unsuccessful, please try again later', 'warning', 10000);
@@ -53,6 +60,12 @@ class SignUpForm extends React.Component {
     }
   }
 
+  /**
+   * Takes in the target object of the onclick event and sets the state
+   * with the form input and new error object
+   * @param {object} e (i.e event)
+   * @returns {void}
+   */
   handleChange(e) {
     e.persist();
     if (!!this.state.errors && this.state.errors[e.target.name]) {
@@ -72,6 +85,13 @@ class SignUpForm extends React.Component {
     }
   }
 
+  /**
+   * Validates form input. If there's error, sets State with the error
+   * if no error, makes a post request to the register user endpoint
+   * and handles response accordingly
+   * @param {object} e (i.e event)
+   * @returns {void}
+   */
   handleFormSubmit(e) {
     e.preventDefault();
     const { isValid, errors } = validateInput(this.state);
@@ -98,8 +118,10 @@ class SignUpForm extends React.Component {
       );
   }
 
+  /**
+   * @returns {jsx} - an xml/html -like syntax extension to javascript
+   */
   render() {
-
     return (
       <div>
         {
@@ -124,7 +146,7 @@ SignUpForm.defaultProps = {
 
 SignUpForm.propTypes = {
   createNewUser: PropTypes.func.isRequired,
-  // eslint-disable-next-line
+  googleRegister: PropTypes.func.isRequired,
   signupResponse: PropTypes.object
 };
 
@@ -132,6 +154,8 @@ const mapStateToProps = state => ({
   signupResponse: state.authReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ createNewUser, googleRegister }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({
+  createNewUser,
+  googleRegister }, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(SignUpForm);

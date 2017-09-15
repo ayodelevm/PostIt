@@ -7,7 +7,6 @@ export const selectedGroupDetails = groupDetails => ({
   groupDetails
 });
 
-
 export const getMessages = allMessages => ({
   type: Types.GET_ALL_MESSAGES_FOR_ARCHIVE,
   allMessages

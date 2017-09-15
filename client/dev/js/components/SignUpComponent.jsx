@@ -1,12 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Notifications from 'react-notify-toast';
 import GoogleLogin from 'react-google-login';
-
-// import SignUpForm from '../containers/SignUpForm.jsx';
 import InputFieldGroup from './common/InputFields.jsx';
 
-
-const SignUpComponent = (props) => (
+/**
+ * Gives the presentational view for users signup component
+ * @param {object} props
+ * @returns {void}
+ */
+const SignUpComponent = props => (
   <div className="parallax-container">
     <div className="container register center-align">
       <div className="row">
@@ -14,7 +17,9 @@ const SignUpComponent = (props) => (
           <div className="card white z-depth-5">
             <div className="card-head" />
             <div className="card-content black-text">
-              <span className="card-title v-align"><a href="/" className="brand-logo"><i className="material-icons lime-text lighthen-5">insert_chart</i><span id="site_name">PostIt</span></a></span>
+              <span className="card-title v-align"><a href="/" className="brand-logo">
+                <i className="material-icons lime-text lighthen-5">insert_chart</i>
+                <span id="site_name">PostIt</span></a></span>
               <p>Sign up and start using PostIt for FREE.</p>
               <br />
               <br />
@@ -117,13 +122,25 @@ const SignUpComponent = (props) => (
 
                     <div className="row">
                       <div className="input-field col s12">
-                        <button className="btn lime accent-4 waves-effect waves-light center" type="submit" name="action">Create Account
-                            <i className="material-icons right">person_add</i>
+                        <button className="btn lime accent-4 waves-effect waves-light center"
+                          type="submit" name="action">Create Account
+                          <i className="material-icons right">person_add</i>
                         </button>
                       </div>
                     </div>
                   </div>
                 </form>
+              </div>
+              <div className="row center">
+                <span className="black-text"> You can also SignUp with </span><br />
+                <GoogleLogin
+                  clientId={props.clientId}
+                  onSuccess={props.onSuccess}
+                  onFailure={props.onFailure}
+                  className={'google-login red'}
+                >
+                  <a className="waves-effect waves-light white-text btn-flat red">Google+</a>
+                </GoogleLogin>
               </div>
 
             </div>
@@ -131,25 +148,27 @@ const SignUpComponent = (props) => (
               <div className="card-action-text">
                 <span className="black-text">Already have an account on PostIt? </span>
                 <a href="/login" className="green-text darken-4">Sign into your account</a>
-              </div><br />
-              <span className="black-text"> or SignUp with </span>
-              <GoogleLogin
-                clientId={props.clientId}
-                onSuccess={props.onSuccess}
-                onFailure={props.onFailure}
-                className={'google-login'}
-              >
-                <a className="waves-effect waves-light white-text btn red">Google+</a>
-              </GoogleLogin>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
     </div>
-    <div className="parallax"><img className="responsive-img" src={require('../utils/images/jacob-ufkes-195221.jpg')} alt="register section" /><div id="overlay" />
+    <div className="parallax"><img className="responsive-img"
+      src={require('../utils/images/jacob-ufkes-195221.jpg')}
+      alt="register section" /><div id="overlay" />
     </div>
   </div>
 );
+
+SignUpComponent.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  clientId: PropTypes.string.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired
+};
 
 export default SignUpComponent;

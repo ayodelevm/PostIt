@@ -22,7 +22,7 @@ export default class GoogleAuthCtrl {
     if (req.body.id_token) {
       client.verifyIdToken(req.body.id_token, process.env.clientid, (e, login) => {
         const payload = login.getPayload();
-        if (payload.email_verified) {
+        if (payload.email_verified && payload.aud === process.env.clientid) {
           models.User.findOne({
             where: { $or: [
               { googleSubId: payload.sub },
@@ -36,7 +36,7 @@ export default class GoogleAuthCtrl {
               googleSubId: `${payload.sub}`,
               fullname: `${payload.name}`,
               email: `${payload.email}`,
-              username: `${payload.family_name}.${payload.given_name}`,
+              username: `${payload.family_name}.${payload.email.split('@')[0]}`,
               profileImage: `${payload.picture}`
             }).then((newUser) => {
               const token = jwt.sign({
@@ -51,13 +51,13 @@ export default class GoogleAuthCtrl {
             });
           });
         } else {
-          return res.status(403).json({
+          return res.status(401).json({
             globals: 'Email verification Unsuccessful, Please signin with a valid email'
           });
         }
       });
     } else {
-      res.status(403).json({
+      res.status(401).json({
         globals: 'Google signup failed, please try again later!'
       });
     }
@@ -78,13 +78,13 @@ export default class GoogleAuthCtrl {
     if (req.body.id_token) {
       client.verifyIdToken(req.body.id_token, process.env.clientid, (e, login) => {
         const payload = login.getPayload();
-        if (payload.email_verified) {
+        if (payload.email_verified && payload.aud === process.env.clientid) {
           models.User.findOne({
             where: { googleSubId: payload.sub }
           }).then((foundUser) => {
             if (!foundUser) {
               return res.status(401).json({
-                globals: 'Login Failed! You need to signup with your google account to sign in!'
+                globals: 'Login Failed! Please signup with your google email first'
               });
             }
             const token = jwt.sign({
@@ -99,13 +99,13 @@ export default class GoogleAuthCtrl {
             });
           });
         } else {
-          return res.status(403).json({
+          return res.status(401).json({
             globals: 'Email verification Unsuccessful, Please signin with a valid email'
           });
         }
       });
     } else {
-      res.status(403).json({
+      res.status(401).json({
         globals: 'Google sigin failed, please try again later!'
       });
     }

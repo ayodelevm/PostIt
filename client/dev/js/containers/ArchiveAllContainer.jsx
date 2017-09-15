@@ -4,12 +4,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { notify } from 'react-notify-toast';
 import { getGroupWithMessages, archiveMessages } from '../actions/archiveActions';
-import { getOneGroupWithMessages } from '../actions/messageActions';
-import { getGroupUsers, getAllGroups } from '../actions/groupActions';
-import { getAllUsers } from '../actions/addUserActions';
 import ArchiveAllModal from '../components/ArchiveAllModal.jsx';
 
+/**
+ * This class is the container component for archiving all messages in a group
+ * It is responsible for managing all the state changes in the component
+ */
 class ArchiveAllContainer extends React.Component {
+  /**
+   * Initializes the state and binds this to the methods in this class
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -19,11 +24,17 @@ class ArchiveAllContainer extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  /**
+   * Hanldes post request to the archive all endpoint
+   * and handles response accordingly
+   * @param {object} e (i.e event)
+   * @returns {void}
+   */
   handleSubmit(e) {
     e.preventDefault();
 
     const token = window.localStorage.token;
-    const { setGroupDetails, getSuccess } = this.props.archiveData;
+    const { setGroupDetails } = this.props.archiveData;
     this.props.getGroupWithMessages(token, setGroupDetails.id)
     .then(() => {
       if (this.props.archiveData.getSuccess) {
@@ -48,6 +59,9 @@ class ArchiveAllContainer extends React.Component {
     });
   }
 
+  /**
+   * @returns {jsx} - an xml/html -like syntax extension to javascript
+   */
   render() {
     return (
       <ArchiveAllModal
@@ -60,29 +74,18 @@ class ArchiveAllContainer extends React.Component {
 }
 
 ArchiveAllContainer.propTypes = {
-  getGroupUsers: PropTypes.func.isRequired,
-  getOneGroupWithMessages: PropTypes.func.isRequired,
-  getAllGroups: PropTypes.func.isRequired,
-  getAllUsers: PropTypes.func.isRequired,
-  // eslint-disable-next-line
-  groupMessages: PropTypes.object,
-  // eslint-disable-next-line
-  archiveData: PropTypes.object,
-  // eslint-disable-next-line
-  currentUser: PropTypes.object,
-  // eslint-disable-next-line  
-  allUsersData: PropTypes.object
+  getGroupWithMessages: PropTypes.func.isRequired,
+  archiveMessages: PropTypes.func.isRequired,
+  closeModalRoute: PropTypes.string.isRequired,
+  archiveData: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  archiveData: state.archiveReducer,
-  router: state.router,
-  currentUser: state.authReducer,
-  groupMessages: state.messageReducer
+  archiveData: state.archiveReducer
 });
 
 const matchDispatchToProps = dispatch => bindActionCreators({
-  getGroupUsers, getGroupWithMessages, getOneGroupWithMessages, getAllGroups, getAllUsers, archiveMessages
+  getGroupWithMessages, archiveMessages
 }, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(ArchiveAllContainer);

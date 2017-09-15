@@ -35,7 +35,7 @@ export const forgotPassword = data => (dispatch) => {
 };
 
 export const resetPassword = (token, data) => (dispatch) => {
-  return api.postEndpoint(`${endpoints.RESET_PASSWORD}?tok=${token}`, data)
+  return api.updateEndpoint(`${endpoints.RESET_PASSWORD}?tok=${token}`, data)
     .then(
     (success) => {
       dispatch(resetPasswordAction(success));

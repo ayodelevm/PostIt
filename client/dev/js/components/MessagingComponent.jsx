@@ -142,7 +142,7 @@ const MessagingComponent = (props) => {
                     <div>
                       <ul className="group-icons">
                         <li><Link className="modal-trigger tooltipped"
-                          data-position="left" data-tooltip="Add new members"
+                          data-position="top" data-tooltip="Add new members"
                           to="#add-new"><i className="material-icons left">group_add</i></Link></li>
                         <li><Link className="modal-trigger tooltipped"
                           data-position="bottom" data-tooltip="View members"
@@ -162,7 +162,7 @@ const MessagingComponent = (props) => {
                     <div>
                       <ul className="group-icons">
                         <li><Link to=""
-                          data-position="left" data-tooltip="Add new members"
+                          data-position="top" data-tooltip="Add new members"
                           className="tooltipped"><i className="material-icons left" /></Link></li>
                         <li><Link className="modal-trigger tooltipped"
                           data-position="bottom" data-delay="50" data-tooltip="View members"

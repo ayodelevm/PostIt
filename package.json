@@ -136,7 +136,6 @@
     "webpack-dev-server": "^2.5.1",
     "webpack-hot-middleware": "^2.18.2"
   },
-  "proxy": "http://localhost:3002",
   "bugs": {
     "url": "https://github.com/ayodelevm/PostIt/issues"
   },

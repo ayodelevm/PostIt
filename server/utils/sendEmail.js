@@ -6,7 +6,7 @@ const sendEmail = (emails, sentBy, groupName, groupId, origin) => {
     secure: false,
     auth: {
       user: 'noreply.postitapp@gmail.com',
-      pass: process.env.password
+      pass: 'postit2017app'
     },
     tls: {
     }

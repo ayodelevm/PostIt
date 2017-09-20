@@ -116,7 +116,7 @@ AddUsersContainer.propTypes = {
 
 const mapStateToProps = state => ({
 //   groupResponse: state.groupReducer,
-  addUsersResponse: state.addUserReducer
+  addUsersResponse: state.userReducer
 });
 
 const matchDispatchToProps = dispatch => bindActionCreators({ addNewUsersToGroup }, dispatch);

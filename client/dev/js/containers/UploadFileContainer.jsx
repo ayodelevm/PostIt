@@ -118,7 +118,7 @@ UploadFileContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  uploadResponse: state.addUserReducer
+  uploadResponse: state.userReducer
 });
 
 const matchDispatchToProps = dispatch => bindActionCreators({

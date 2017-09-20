@@ -1,13 +1,13 @@
 import Types from '../actions/actionTypes';
 
-const intialState = {
+const initialState = {
   grpMessages: {},
   newMessage: {},
   getMessagesSuccess: false,
   newMessageSuccess: false
 };
 
-const messageReducer = (state = intialState, action = {}) => {
+const messageReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.GET_GROUP_AND_ITS_MESSAGES:
       return Object.assign({}, state, {
@@ -30,11 +30,13 @@ const messageReducer = (state = intialState, action = {}) => {
     case Types.GET_GROUP_AND_ITS_MESSAGES_FAILURE:
       return Object.assign({}, state, {
         errors: action.failure,
+        getMessagesSuccess: false
       });
 
     case Types.CREATE_NEW_MESSAGES_FAILURE:
       return Object.assign({}, state, {
         errors: action.failure,
+        newMessageSuccess: false
       });
 
     default: return state;

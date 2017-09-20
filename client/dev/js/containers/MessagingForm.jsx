@@ -119,7 +119,7 @@ MessagingForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  usersResponse: state.addUserReducer,
+  usersResponse: state.userReducer,
   messageResponse: state.messageReducer,
   notification: state.notificationReducer
 });

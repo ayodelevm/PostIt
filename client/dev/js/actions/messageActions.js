@@ -12,11 +12,6 @@ export const newGroupMessages = newMessage => ({
   newMessage
 });
 
-// export const archiveMessages = archivedMessages => ({
-//   type: Types.ARCHIVE_MESSAGES,
-//   archivedMessages
-// });
-
 export const groupAndMessagesFailure = failure => ({
   type: Types.GET_GROUP_AND_ITS_MESSAGES_FAILURE,
   failure
@@ -26,11 +21,6 @@ export const newGroupMessagesFailure = failure => ({
   type: Types.CREATE_NEW_MESSAGES_FAILURE,
   failure
 });
-
-// export const archiveMessagesFailure = failure => ({
-//   type: Types.ARCHIVE_MESSAGES_FAILURE,
-//   failure
-// });
 
 export const successfulCreate = message => ({
   type: Types.SUCCESSFUL_MESSAGE_CREATE,

@@ -7,10 +7,10 @@ const inititalState = {
   uploadSuccess: false,
   newUsers: [],
   users: [],
-  updatedUser: {}
+  updatedUser: ''
 };
 
-const addUserReducer = (state = inititalState, action = {}) => {
+const userReducer = (state = inititalState, action = {}) => {
   switch (action.type) {
     case Types.GET_ALL_USERS:
       return Object.assign({}, state, {
@@ -52,4 +52,4 @@ const addUserReducer = (state = inititalState, action = {}) => {
   }
 };
 
-export default addUserReducer;
+export default userReducer;

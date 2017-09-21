@@ -169,7 +169,7 @@ GroupForm.propTypes = {
 
 const mapStateToProps = state => ({
   groupResponse: state.groupReducer,
-  usersResponse: state.addUserReducer,
+  usersResponse: state.userReducer,
   currentUser: state.authReducer
 });
 

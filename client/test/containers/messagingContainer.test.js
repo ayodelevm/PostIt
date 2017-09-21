@@ -18,7 +18,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const store = mockStore({
   authReducer: { currentUser: { id: '' } },
-  addUserReducer: { users: [] },
+  userReducer: { users: [] },
   groupReducer: { groups: { id: '', Groups: [] } },
   messageReducer: {},
   archiveReducer: { setGroupDetails: null },

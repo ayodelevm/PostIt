@@ -89,7 +89,7 @@ DashBoardContainer.propTypes = {
 
 const mapStateToProps = state => ({
   getAllGroupsResponse: state.groupReducer,
-  getAllUsersResponse: state.addUserReducer,
+  getAllUsersResponse: state.userReducer,
   currentUser: state.authReducer,
   archiveData: state.archiveReducer
 });

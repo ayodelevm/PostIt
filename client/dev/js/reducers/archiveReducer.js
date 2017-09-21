@@ -1,6 +1,6 @@
 import Types from '../actions/actionTypes';
 
-const intialState = {
+const initialState = {
   setGroupDetails: null,
   archivableMessages: {},
   getSuccess: false,
@@ -9,7 +9,7 @@ const intialState = {
   getArchivedSuccess: false
 };
 
-const archiveReducer = (state = intialState, action = {}) => {
+const archiveReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.SELECT_GROUP_ID_TO_ARCHIVE:
       return Object.assign({}, state, {

@@ -123,7 +123,7 @@ MessagingContainer.propTypes = {
 
 const mapStateToProps = state => ({
   groupData: state.groupReducer,
-  allUsersData: state.addUserReducer,
+  allUsersData: state.userReducer,
   currentUser: state.authReducer,
   groupMessages: state.messageReducer,
   archiveData: state.archiveReducer

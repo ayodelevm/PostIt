@@ -2,7 +2,7 @@ import Types from '../../dev/js/actions/actionTypes';
 import messageReducer from '../../dev/js/reducers/messageReducer';
 
 const initialState = {
-  grpMessages: {},
+  groupMessages: {},
   newMessage: {},
   getMessagesSuccess: false,
   newMessageSuccess: false
@@ -12,10 +12,11 @@ describe('User Reducer', () => {
   it('should get all messages in a group', () => {
     const action = {
       type: Types.GET_GROUP_AND_ITS_MESSAGES,
-      grpMessages: { foundGroupAndMessages: {} }
+      groupMessages: { foundMessages: {} }
     };
     const newState = messageReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ grpMessages: {}, getMessagesSuccess: true } });
+    expect(newState).toEqual({ ...initialState,
+      ...{ groupMessages: {}, getMessagesSuccess: true } });
   });
 
   it('should create a new message', () => {
@@ -24,7 +25,8 @@ describe('User Reducer', () => {
       newMessage: { createdMessage: {} }
     };
     const newState = messageReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ newMessage: {}, newMessageSuccess: true } });
+    expect(newState).toEqual({ ...initialState,
+      ...{ newMessage: {}, newMessageSuccess: true } });
   });
 
   it('should reset all current messages', () => {
@@ -33,7 +35,8 @@ describe('User Reducer', () => {
       mergedMessages: {}
     };
     const newState = messageReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ grpMessages: {}, newMessageSuccess: true } });
+    expect(newState).toEqual({ ...initialState,
+      ...{ groupMessages: {}, newMessageSuccess: true } });
   });
 
   it("should handle error while getting a group's messages", () => {
@@ -42,7 +45,8 @@ describe('User Reducer', () => {
       failure: {}
     };
     const newState = messageReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, getMessagesSuccess: false } });
+    expect(newState).toEqual({ ...initialState,
+      ...{ errors: {}, getMessagesSuccess: false } });
   });
 
   it('should handle error while creating a new message', () => {
@@ -51,6 +55,7 @@ describe('User Reducer', () => {
       failure: {}
     };
     const newState = messageReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, newMessageSuccess: false } });
+    expect(newState).toEqual({ ...initialState,
+      ...{ errors: {}, newMessageSuccess: false } });
   });
 });

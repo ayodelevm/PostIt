@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { notify } from 'react-notify-toast';
 import sha1 from 'sha1';
-import { getAllGroups } from '../actions/groupActions';
-import { getOneGroupWithMessages } from '../actions/messageActions';
+import { getUserGroups } from '../actions/groupActions';
+import { getGroupMessages } from '../actions/messageActions';
 import UploadsModal from '../components/UploadsModal.jsx';
 import { uploadProfileImage, getAllUsers } from '../actions/userActions';
 import { socketConnect } from '../actions/socketActions';
@@ -15,8 +15,10 @@ import { socketConnect } from '../actions/socketActions';
 /**
  * This class is the container component handling user's profile picture upload
  * It is responsible for managing all the state changes in the component
+ * @class UploadsContainer
+ * @extends {Component}
  */
-class UploadFileContainer extends React.Component {
+class UploadsContainer extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -33,6 +35,8 @@ class UploadFileContainer extends React.Component {
   /**
    * Handles uploadig a users profile image to cloudinary, saving the returned
    * link to database and handles response accordingly
+   * @method handleUploadFile
+   * @memberof UploadsContainer
    * @param {array} files
    * @returns {void}
    */
@@ -66,7 +70,7 @@ class UploadFileContainer extends React.Component {
 
     uploadReq.end((err, resp) => {
       if (err) {
-        notify.show('Uploads Failed!', 'warning', 5000);
+        notify.show('Uploads Failed!', 'warning', 3000);
         $('#user-new').modal('close');
         return;
       }
@@ -74,17 +78,17 @@ class UploadFileContainer extends React.Component {
       this.props.uploadProfileImage(token, newImage, this.props.userId)
       .then(() => {
         if (this.props.uploadResponse.uploadSuccess) {
-          notify.show('Upload Successful!', 'success', 5000);
-          this.props.getAllGroups(token)
+          notify.show('Upload Successful!', 'success', 3000);
+          this.props.getUserGroups(token)
           .then(() => {
             if (this.props.groupId !== undefined) {
-              return this.props.getOneGroupWithMessages(token, this.props.groupId)
+              return this.props.getGroupMessages(token, this.props.groupId)
                 .then(() => this.props.getAllUsers(token));
             }
           });
           $('#user-new').modal('close');
         } else {
-          notify.show('Uploads Failed!', 'warning', 5000);
+          notify.show('Uploads Failed!', 'warning', 3000);
           $('#user-new').modal('close');
         }
       });
@@ -105,11 +109,11 @@ class UploadFileContainer extends React.Component {
   }
 }
 
-UploadFileContainer.propTypes = {
-  getAllGroups: PropTypes.func.isRequired,
+UploadsContainer.propTypes = {
+  getUserGroups: PropTypes.func.isRequired,
   getAllUsers: PropTypes.func.isRequired,
   uploadProfileImage: PropTypes.func.isRequired,
-  getOneGroupWithMessages: PropTypes.func.isRequired,
+  getGroupMessages: PropTypes.func.isRequired,
   uploadResponse: PropTypes.object,
   socketConnect: PropTypes.func.isRequired,
   closeModalRoute: PropTypes.string.isRequired,
@@ -123,9 +127,9 @@ const mapStateToProps = state => ({
 
 const matchDispatchToProps = dispatch => bindActionCreators({
   uploadProfileImage,
-  getAllGroups,
-  getOneGroupWithMessages,
+  getUserGroups,
+  getGroupMessages,
   getAllUsers,
   socketConnect }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(UploadFileContainer);
+export default connect(mapStateToProps, matchDispatchToProps)(UploadsContainer);

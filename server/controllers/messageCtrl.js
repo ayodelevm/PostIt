@@ -24,10 +24,10 @@ export default class messageCtrl {
         joinTableAttributes: [],
         order: [['createdAt', 'ASC']]
       }).then((found) => {
-        const foundGroupAndMessages = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Messages: found === null ? [] : found });
+        const foundMessages = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Messages: found === null ? [] : found });
         res.status(200).json({
           success: 'Successful.',
-          foundGroupAndMessages
+          foundMessages
         });
       });
     }).catch((err) => {

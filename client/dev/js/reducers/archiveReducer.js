@@ -18,7 +18,7 @@ const archiveReducer = (state = initialState, action = {}) => {
 
     case Types.GET_ALL_MESSAGES_FOR_ARCHIVE:
       return Object.assign({}, state, {
-        archivableMessages: action.allMessages.foundGroupAndMessages,
+        archivableMessages: action.allMessages.foundMessages,
         getSuccess: !!Object.keys(action.allMessages)
       });
 
@@ -29,7 +29,7 @@ const archiveReducer = (state = initialState, action = {}) => {
 
     case Types.GET_ARCHIVED_MESSAGES:
       return Object.assign({}, state, {
-        archivedMessages: action.archived.foundGroupAndMessages,
+        archivedMessages: action.archived.foundMessages,
         getArchivedSuccess: !!Object.keys(action.archived)
       });
 

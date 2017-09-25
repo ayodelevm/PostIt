@@ -5,13 +5,15 @@ import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import { forgotPassword } from '../actions/resetPasswordActions';
 import { validateEmail } from '../utils/validations';
-import ResetPasswordEmailModal from '../components/ResetPasswordEmailModal.jsx';
+import ForgotPasswordModal from '../components/ForgotPasswordModal.jsx';
 
 /**
  * This class is the container component for submitting email where reset
  * password link will be sent to and handling it's response
+ * @class ForgotPassword
+ * @extends {Component}
  */
-class ResetPasswordEmailContainer extends React.Component {
+class ForgotPassword extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -30,6 +32,8 @@ class ResetPasswordEmailContainer extends React.Component {
   /**
    * Updates the materialize modal when the component mounts
    * and resets form input when the component mounts
+   * @method componentDidMount
+   * @memberof ForgotPassword
    * @returns {void}
    */
   componentDidMount() {
@@ -50,24 +54,26 @@ class ResetPasswordEmailContainer extends React.Component {
   /**
    * Takes in the target object of the onclick event and sets the state
    * with the form input and new error object
-   * @param {object} e (i.e event)
+   * @method handleChange
+   * @memberof ForgotPassword
+   * @param {object} event
    * @returns {void}
    */
-  handleChange(e) {
-    e.persist();
-    if (!!this.state.errors && this.state.errors[e.target.name]) {
+  handleChange(event) {
+    event.persist();
+    if (!!this.state.errors && this.state.errors[event.target.name]) {
       this.setState((prevState) => {
         const errors = Object.assign({}, prevState.errors);
-        delete errors[e.target.name];
+        delete errors[event.target.name];
 
         return {
-          [e.target.name]: e.target.value,
+          [event.target.name]: event.target.value,
           errors,
         };
       });
     } else {
       this.setState({
-        [e.target.name]: e.target.value,
+        [event.target.name]: event.target.value,
       });
     }
   }
@@ -76,11 +82,13 @@ class ResetPasswordEmailContainer extends React.Component {
    * Validates form input. If there's error, sets State with the error
    * if no error, makes a post request to the forgotpassword endpoint
    * and handles response accordingly
-   * @param {object} e (i.e event)
+   * @method handleFormSubmit
+   * @memberof ForgotPassword
+   * @param {object} event
    * @returns {void}
    */
-  handleFormSubmit(e) {
-    e.preventDefault();
+  handleFormSubmit(event) {
+    event.preventDefault();
 
     const { isValid, errors } = validateEmail(this.state);
 
@@ -93,13 +101,14 @@ class ResetPasswordEmailContainer extends React.Component {
     .then(
       () => {
         if (this.props.resetResponse.emailVerified) {
-          notify.show('A link has been sent to your email, follow the link to reset your password', 'success', 5000);
+          notify.show(`A link has been sent to your email,
+            follow the link to reset your password`, 'success', 3000);
           $('#reset-email').modal('close');
         } else {
           if (this.props.resetResponse.errors.errors) {
             return this.setState({ errors: this.props.resetResponse.errors.errors });
           }
-          notify.show(this.props.resetResponse.errors.globals, 'warning', 5000);
+          notify.show(this.props.resetResponse.errors.globals, 'warning', 3000);
         }
       }
     );
@@ -110,7 +119,7 @@ class ResetPasswordEmailContainer extends React.Component {
    */
   render() {
     return (
-      <ResetPasswordEmailModal
+      <ForgotPasswordModal
         onSubmit={this.handleFormSubmit}
         value={this.state.email}
         state={this.state} onChange={this.handleChange}
@@ -122,7 +131,7 @@ class ResetPasswordEmailContainer extends React.Component {
   }
 }
 
-ResetPasswordEmailContainer.propTypes = {
+ForgotPassword.propTypes = {
   forgotPassword: PropTypes.func.isRequired,
   resetResponse: PropTypes.object,
   closeModalRoute: PropTypes.string.isRequired,
@@ -134,4 +143,4 @@ const mapStateToProps = state => ({
 
 const matchDispatchToProps = dispatch => bindActionCreators({ forgotPassword }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(ResetPasswordEmailContainer);
+export default connect(mapStateToProps, matchDispatchToProps)(ForgotPassword);

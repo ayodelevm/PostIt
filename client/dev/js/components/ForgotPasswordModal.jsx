@@ -10,7 +10,7 @@ import InputFieldGroup from './common/InputFields.jsx';
  * @param {object} props
  * @returns {jsx} - an xml/html -like syntax extension to javascript
  */
-const ResetPasswordEmailModal = (props) => {
+const ForgotPasswordModal = (props) => {
   return (
 
     <div id="reset-email" className="modal">
@@ -72,14 +72,14 @@ const ResetPasswordEmailModal = (props) => {
   );
 };
 
-ResetPasswordEmailModal.defaultProps = {
+ForgotPasswordModal.defaultProps = {
   state: {
-    newGroupMembers: [],
+    members: [],
     errors: {},
   }
 };
 
-ResetPasswordEmailModal.propTypes = {
+ForgotPasswordModal.propTypes = {
   state: PropTypes.object,
   closeModalRoute: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
@@ -87,4 +87,4 @@ ResetPasswordEmailModal.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
-export default ResetPasswordEmailModal;
+export default ForgotPasswordModal;

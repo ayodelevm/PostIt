@@ -9,8 +9,10 @@ import AddUsersModal from '../components/AddUsersModal.jsx';
 /**
  * This class is the container component for adding users to a group
  * It is responsible for managing all the state changes in the component
+ * @class AddUsers
+ * @extends {Component}
  */
-class AddUsersContainer extends React.Component {
+class AddUsers extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -18,7 +20,7 @@ class AddUsersContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newGroupMembers: [],
+      members: [],
       createSuccess: false,
       errors: {}
     };
@@ -38,7 +40,7 @@ class AddUsersContainer extends React.Component {
         dismissible: true,
         complete: () => {
           this.setState({
-            newGroupMembers: [],
+            members: [],
             errors: {}
           });
         }
@@ -49,33 +51,37 @@ class AddUsersContainer extends React.Component {
 
   /**
    * This method takes in array of the users selected to be added to a group and sets the state
+   * @method handleChange
+   * @memberof AddUsers
    * @param {array} chips
    * @returns {void}
    */
   handleChange(chips) {
     this.setState({
-      newGroupMembers: chips
+      members: chips
     });
   }
 
   /**
    * Handles post request to the add new users endpoint
    * and handles response accordingly
-   * @param {object} e (i.e event)
+   * @method handleFormSubmit
+   * @memberof AddUsers
+   * @param {object} event
    * @returns {void}
    */
-  handleFormSubmit(e) {
-    e.preventDefault();
+  handleFormSubmit(event) {
+    event.preventDefault();
     const token = window.localStorage.token;
     const { groupId } = this.props;
     this.props.addNewUsersToGroup(token, this.state, groupId)
     .then(
       () => {
         if (this.props.addUsersResponse.addSuccess) {
-          notify.show('Members added successfully!', 'success', 5000);
+          notify.show('Members added successfully!', 'success', 3000);
           $('#add-new').modal('close');
         } else if (this.props.addUsersResponse.errors) {
-          notify.show(this.props.addUsersResponse.errors.globals, 'warning', 5000);
+          notify.show(this.props.addUsersResponse.errors.globals, 'warning', 3000);
         }
       }
     );
@@ -106,7 +112,7 @@ class AddUsersContainer extends React.Component {
   }
 }
 
-AddUsersContainer.propTypes = {
+AddUsers.propTypes = {
   addNewUsersToGroup: PropTypes.func.isRequired,
   addUsersResponse: PropTypes.object.isRequired,
   closeModalRoute: PropTypes.string.isRequired,
@@ -121,4 +127,4 @@ const mapStateToProps = state => ({
 
 const matchDispatchToProps = dispatch => bindActionCreators({ addNewUsersToGroup }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(AddUsersContainer);
+export default connect(mapStateToProps, matchDispatchToProps)(AddUsers);

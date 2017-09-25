@@ -58,7 +58,7 @@ const GroupMembersModal = (props) => {
 
 GroupMembersModal.defaultProps = {
   state: {
-    newGroupMembers: [],
+    members: [],
     errors: {},
   }
 };

@@ -3,7 +3,7 @@ import should from 'should';
 import jwtDecode from 'jwt-decode';
 import app from './../app';
 import { loginUser } from './../seeders/authSeeds';
-import { groupDetails, updateInfo, noGrpName } from './../seeders/groupSeeds';
+import { groupDetails, updateInfo, noGroupName } from './../seeders/groupSeeds';
 
 const server = supertest.agent(app);
 
@@ -27,7 +27,7 @@ describe('Group Routes', () => {
     server
       .post('/api/v1/group')
       .set('Authorization', `Bearer ${token}`)
-      .send(noGrpName)
+      .send(noGroupName)
       .expect(400)
       .end((err, res) => {
         res.status.should.equal(400);
@@ -103,7 +103,7 @@ describe('Group Routes', () => {
     server
     .put('/api/v1/group/2/edit')
     .set('Authorization', `Bearer ${token}`)
-    .send(noGrpName)
+    .send(noGroupName)
     .expect(400)
     .end((err, res) => {
       res.status.should.equal(400);

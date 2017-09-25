@@ -9,7 +9,7 @@ import InputFieldGroup from './common/InputFields.jsx';
  * @param {object} props
  * @returns {void}
  */
-const SignUpComponent = props => (
+const SignUpForm = props => (
   <div className="parallax-container">
     <div className="container register center-align">
       <div className="row">
@@ -162,7 +162,7 @@ const SignUpComponent = props => (
   </div>
 );
 
-SignUpComponent.propTypes = {
+SignUpForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -171,4 +171,4 @@ SignUpComponent.propTypes = {
   onFailure: PropTypes.func.isRequired
 };
 
-export default SignUpComponent;
+export default SignUpForm;

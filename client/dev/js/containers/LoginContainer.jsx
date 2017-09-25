@@ -6,13 +6,15 @@ import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import { loginAUser, googleLogin } from '../actions/authActions';
 import { validateLoginInput } from '../utils/validations';
-import LoginComponent from '../components/LoginComponent.jsx';
+import LoginForm from '../components/LoginForm.jsx';
 
 /**
  * This class is the container component for loging in a user
  * upon submission of login form or upon verifcation by google and in-app verification
+ * @class LoginContainer
+ * @extends {Component}
  */
-class LoginForm extends React.Component {
+class LoginContainer extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -34,14 +36,18 @@ class LoginForm extends React.Component {
   /**
    * initializes the component's parallax image and handles error notification
    * on user validation and redirect to login page
+   * @method componentDidMount
+   * @memberof LoginContainer
    * @returns {void}
    */
   componentDidMount() {
     if (this.props.history.action === 'REPLACE') {
       if (this.props.loginResponse.errors) {
-        notify.show(this.props.loginResponse.errors.globals, 'warning', 5000);
+        notify.show(this.props.loginResponse.errors.globals, 'warning', 3000);
       }
-      notify.show('Access denied! Please create an account or login first!', 'warning', 5000);
+      notify.show(
+        'Access denied! Please create an account or login first!',
+        'warning', 3000);
     }
     $('.parallax').parallax();
   }
@@ -50,24 +56,26 @@ class LoginForm extends React.Component {
    * Takes in the response object from google after google validation,
    * handles the error if any, otherwise, makes a post request to the user google login endpoint
    * and handles response accordingly
+   * @method handleGoogleResponse
+   * @memberof LoginContainer
    * @param {object} response
    * @returns {void}
    */
   handleGoogleResponse(response) {
     if (response.error) {
-      notify.show('Login unsuccessful, please try again later', 'warning', 10000);
+      notify.show('Login unsuccessful, please try again later', 'warning', 3000);
     } else {
       this.props.googleLogin({ id_token: response.tokenObj.id_token })
         .then(
       () => {
         if (this.props.loginResponse.isAuthenticated) {
           this.setState({ redirect: true });
-          notify.show('Welcome back!', 'success', 10000);
+          notify.show('Welcome back!', 'success', 3000);
         } else {
           if (this.props.loginResponse.errors.errors) {
             return this.setState({ errors: this.props.loginResponse.errors.errors });
           }
-          notify.show(this.props.loginResponse.errors.globals, 'warning', 10000);
+          notify.show(this.props.loginResponse.errors.globals, 'warning', 3000);
           window.localStorage.removeItem('token');
         }
       }
@@ -78,24 +86,26 @@ class LoginForm extends React.Component {
   /**
    * Takes in the target object of the onclick event and sets the state
    * with the form input and new error object
-   * @param {object} e (i.e event)
+   * @method handleChange
+   * @memberof LoginContainer
+   * @param {object} event
    * @returns {void}
    */
-  handleChange(e) {
-    e.persist();
-    if (!!this.state.errors && this.state.errors[e.target.name]) {
+  handleChange(event) {
+    event.persist();
+    if (!!this.state.errors && this.state.errors[event.target.name]) {
       this.setState((prevState) => {
         const errors = Object.assign({}, prevState.errors);
-        delete errors[e.target.name];
+        delete errors[event.target.name];
 
         return {
-          [e.target.name]: e.target.value,
+          [event.target.name]: event.target.value,
           errors
         };
       });
     } else {
       this.setState({
-        [e.target.name]: e.target.value
+        [event.target.name]: event.target.value
       });
     }
   }
@@ -104,11 +114,13 @@ class LoginForm extends React.Component {
    * Validates form input. If there's error, sets State with the error
    * if no error, makes a post request to the user login endpoint
    * and handles response accordingly
-   * @param {object} e (i.e event)
+   * @method handleFormSubmit
+   * @memberof LoginContainer
+   * @param {object} event
    * @returns {void}
    */
-  handleFormSubmit(e) {
-    e.preventDefault();
+  handleFormSubmit(event) {
+    event.preventDefault();
 
     const { isValid, errors } = validateLoginInput(this.state);
 
@@ -123,12 +135,12 @@ class LoginForm extends React.Component {
       () => {
         if (this.props.loginResponse.isAuthenticated) {
           this.setState({ redirect: true });
-          notify.show('Welcome back!', 'success', 10000);
+          notify.show('Welcome back!', 'success', 3000);
         } else {
           if (this.props.loginResponse.errors.errors) {
             return this.setState({ errors: this.props.loginResponse.errors.errors });
           }
-          notify.show(this.props.loginResponse.errors.globals, 'warning', 10000);
+          notify.show(this.props.loginResponse.errors.globals, 'warning', 3000);
           window.localStorage.removeItem('token');
         }
       }
@@ -143,7 +155,7 @@ class LoginForm extends React.Component {
       <div>
         {
           this.state.redirect ? <Redirect push to="/dashboard" /> :
-          <LoginComponent
+          <LoginForm
             state={this.state}
             onChange={this.handleChange}
             onSubmit={this.handleFormSubmit}
@@ -157,11 +169,11 @@ class LoginForm extends React.Component {
   }
 }
 
-LoginForm.defaultProps = {
+LoginContainer.defaultProps = {
   loginResponse: {}
 };
 
-LoginForm.propTypes = {
+LoginContainer.propTypes = {
   loginAUser: PropTypes.func.isRequired,
   loginResponse: PropTypes.object,
   googleLogin: PropTypes.func.isRequired,
@@ -174,4 +186,4 @@ const mapStateToProps = state => ({
 
 const matchDispatchToProps = dispatch => bindActionCreators({ loginAUser, googleLogin }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, matchDispatchToProps)(LoginContainer);

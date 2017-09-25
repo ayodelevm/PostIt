@@ -1,7 +1,7 @@
 import Types from '../actions/actionTypes';
 
 const initialState = {
-  grpMessages: {},
+  groupMessages: {},
   newMessage: {},
   getMessagesSuccess: false,
   newMessageSuccess: false
@@ -11,8 +11,8 @@ const messageReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.GET_GROUP_AND_ITS_MESSAGES:
       return Object.assign({}, state, {
-        grpMessages: action.grpMessages.foundGroupAndMessages,
-        getMessagesSuccess: !!Object.keys(action.grpMessages)
+        groupMessages: action.groupMessages.foundMessages,
+        getMessagesSuccess: !!Object.keys(action.groupMessages)
       });
 
     case Types.CREATE_NEW_MESSAGES:
@@ -23,7 +23,7 @@ const messageReducer = (state = initialState, action = {}) => {
     
     case Types.SET_CURRENT_MESSAGES:
       return Object.assign({}, state, {
-        grpMessages: action.mergedMessages,
+        groupMessages: action.mergedMessages,
         newMessageSuccess: !!Object.keys(action.mergedMessages)
       });
 

@@ -4,7 +4,7 @@ import jwtDecode from 'jwt-decode';
 import app from './../app';
 import { loginUser } from './../seeders/authSeeds';
 import { updateInfo } from './../seeders/groupSeeds';
-import newGroupMembers from './../seeders/userSeeds';
+import members from './../seeders/userSeeds';
 import message from './../seeders/messageSeeds';
 
 const server = supertest.agent(app);
@@ -42,7 +42,7 @@ describe('Users Route', () => {
     server
     .post('/api/v1/group/2/user')
     .set('Authorization', `Bearer ${token}`)
-    .send(newGroupMembers[1])
+    .send(members[1])
     .expect(400)
     .end((err, res) => {
       res.status.should.equal(400);
@@ -55,7 +55,7 @@ describe('Users Route', () => {
     server
     .post('/api/v1/group/2/user')
     .set('Authorization', `Bearer ${token}`)
-    .send(newGroupMembers[2])
+    .send(members[2])
     .expect(201)
     .end((err, res) => {
       res.status.should.equal(201);
@@ -68,7 +68,7 @@ describe('Users Route', () => {
     server
     .post('/api/v1/group/3/user')
     .set('Authorization', `Bearer ${token}`)
-    .send(newGroupMembers[4])
+    .send(members[4])
     .expect(201)
     .end((err, res) => {
       res.status.should.equal(201);
@@ -81,7 +81,7 @@ describe('Users Route', () => {
     server
     .post('/api/v1/group/3/user')
     .set('Authorization', `Bearer ${token}`)
-    .send(newGroupMembers[3])
+    .send(members[3])
     .expect(404)
     .end((err, res) => {
       res.status.should.equal(404);
@@ -134,7 +134,7 @@ describe('Users Route', () => {
     server
     .post('/api/v1/group/3/user')
     .set('Authorization', `Bearer ${token}`)
-    .send(newGroupMembers[0])
+    .send(members[0])
     .expect(403)
     .end((err, res) => {
       res.status.should.equal(403);

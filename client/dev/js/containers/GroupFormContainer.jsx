@@ -10,8 +10,10 @@ import GroupModal from '../components/GroupModal.jsx';
 /**
  * This class is the container component for creating a new group and adding new users when creating
  * It is responsible for managing all the state changes in the component
+ * @class GroupFormContainer
+ * @extends {Component}
  */
-class GroupForm extends React.Component {
+class GroupFormContainer extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -21,7 +23,7 @@ class GroupForm extends React.Component {
     this.state = {
       name: '',
       description: '',
-      initialGroupMembers: [],
+      members: [],
       createSuccess: false,
       errors: {},
     };
@@ -34,6 +36,8 @@ class GroupForm extends React.Component {
   /**
    * Updates the materialize modal when the component mounts
    * and resets form input when the component mounts
+   * @method componentDidMount
+   * @memberof GroupFormContainer
    * @returns {void}
    */
   componentDidMount() {
@@ -44,7 +48,7 @@ class GroupForm extends React.Component {
           this.setState({
             name: '',
             description: '',
-            initialGroupMembers: [],
+            members: [],
             errors: {}
           });
         }
@@ -60,36 +64,40 @@ class GroupForm extends React.Component {
   /**
    * Takes in the target object of the onclick event and sets the state
    * with the form input and new error object
-   * @param {object} e (i.e event)
+   * @method handleChange
+   * @memberof GroupFormContainer
+   * @param {object} event
    * @returns {void}
    */
-  handleChange(e) {
-    e.persist();
-    if (!!this.state.errors && this.state.errors[e.target.name]) {
+  handleChange(event) {
+    event.persist();
+    if (!!this.state.errors && this.state.errors[event.target.name]) {
       this.setState((prevState) => {
         const errors = Object.assign({}, prevState.errors);
-        delete errors[e.target.name];
+        delete errors[event.target.name];
 
         return {
-          [e.target.name]: e.target.value,
+          [event.target.name]: event.target.value,
           errors,
         };
       });
     } else {
       this.setState({
-        [e.target.name]: e.target.value,
+        [event.target.name]: event.target.value,
       });
     }
   }
 
   /**
    * This method takes in array of the users selected to be added to a group and sets the state
+   * @method handleChipsChange
+   * @memberof GroupFormContainer
    * @param {array} chips
    * @returns {void}
    */
   handleChipsChange(chips) {
     this.setState({
-      initialGroupMembers: chips
+      members: chips
     });
   }
 
@@ -97,11 +105,13 @@ class GroupForm extends React.Component {
    * Validates form input. If there's error, sets State with the error
    * if no error, makes a post request to the create new group endpoint
    * and handles response accordingly
-   * @param {object} e (i.e event)
+   * @method handleFormSubmit
+   * @memberof GroupFormContainer
+   * @param {object} event
    * @returns {void}
    */
-  handleFormSubmit(e) {
-    e.preventDefault();
+  handleFormSubmit(event) {
+    event.preventDefault();
 
     const token = window.localStorage.token;
     const { isValid, errors } = validateGroupInput(this.state);
@@ -115,14 +125,14 @@ class GroupForm extends React.Component {
     .then(
       () => {
         if (this.props.groupResponse.createSuccess) {
-          notify.show('Group created successfully!', 'success', 5000);
-          this.setState({ name: '', description: '', initialGroupMembers: [] });
+          notify.show('Group created successfully!', 'success', 3000);
+          this.setState({ name: '', description: '', members: [] });
           $('#group-new').modal('close');
         } else {
           if (this.props.groupResponse.errors.errors) {
             return this.setState({ errors: this.props.groupResponse.errors.errors });
           }
-          notify.show(this.props.groupResponse.errors.globals, 'warning', 5000);
+          notify.show(this.props.groupResponse.errors.globals, 'warning', 3000);
         }
       }
     );
@@ -158,7 +168,7 @@ class GroupForm extends React.Component {
   }
 }
 
-GroupForm.propTypes = {
+GroupFormContainer.propTypes = {
   createNewGroup: PropTypes.func.isRequired,
   groupResponse: PropTypes.object,
   usersResponse: PropTypes.object,
@@ -175,4 +185,4 @@ const mapStateToProps = state => ({
 
 const matchDispatchToProps = dispatch => bindActionCreators({ createNewGroup }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(GroupForm);
+export default connect(mapStateToProps, matchDispatchToProps)(GroupFormContainer);

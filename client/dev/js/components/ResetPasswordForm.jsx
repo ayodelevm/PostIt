@@ -9,7 +9,7 @@ import InputFieldGroup from './common/InputFields.jsx';
  * @param {object} props
  * @returns {void}
  */
-const ResetPassword = props => (
+const ResetPasswordForm = props => (
   <div className="parallax-container">
     <div className="container register center-align">
       <div className="row">
@@ -92,7 +92,7 @@ const ResetPassword = props => (
   </div>
 );
 
-ResetPassword.propTypes = {
+ResetPasswordForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired,
@@ -100,4 +100,4 @@ ResetPassword.propTypes = {
   passwordConfirmation: PropTypes.string.isRequired
 };
 
-export default ResetPassword;
+export default ResetPasswordForm;

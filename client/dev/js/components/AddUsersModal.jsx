@@ -36,7 +36,7 @@ const AddUsersModal = (props) => {
                   <div className="row chips-row">
                     <p className="flow-text above-chip">Add members to group (optional)</p>
                     <Chips
-                      value={props.state.newGroupMembers}
+                      value={props.state.members}
                       onChange={props.onChipsChange}
                       suggestions={props.suggestions}
                     />
@@ -64,7 +64,7 @@ const AddUsersModal = (props) => {
 
 AddUsersModal.defaultProps = {
   state: {
-    newGroupMembers: [],
+    members: [],
     errors: {},
   }
 };

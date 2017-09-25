@@ -1,13 +1,13 @@
-const newGroupMembers = [{
-  newGroupMembers: ['tundun']
+const members = [{
+  members: ['tundun']
 }, {
-  newGroupMembers: ['lolade']
+  members: ['lolade']
 }, {
-  newGroupMembers: ['bolu']
+  members: ['bolu']
 }, {
-  newGroupMembers: ['adeleke']
+  members: ['adeleke']
 }, {
-  newGroupMembers: ['jide', 'bolu']
+  members: ['jide', 'bolu']
 }];
 
-export default newGroupMembers;
+export default members;

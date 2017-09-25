@@ -8,7 +8,7 @@ import Select from 'react-select';
  * @param {object} props
  * @returns {void}
  */
-const MessagingFormComponent = props => (
+const MessageForm = props => (
   <form className="col s12" onSubmit={props.onSubmit}>
     <div className="row">
       <div className="input-field col s2 left">
@@ -36,7 +36,7 @@ const MessagingFormComponent = props => (
   </form>
 );
 
-MessagingFormComponent.defaultProps = {
+MessageForm.defaultProps = {
   state: {
     priority: 'Normal',
     groupId: '',
@@ -44,7 +44,7 @@ MessagingFormComponent.defaultProps = {
   }
 };
 
-MessagingFormComponent.propTypes = {
+MessageForm.propTypes = {
   state: PropTypes.object,
   onChange: PropTypes.func,
   options: PropTypes.array.isRequired,
@@ -52,4 +52,4 @@ MessagingFormComponent.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default MessagingFormComponent;
+export default MessageForm;

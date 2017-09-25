@@ -17,17 +17,20 @@ export default class GroupCtrl {
   static getAll(req, res) {
     models.User.findOne({
       where: { id: req.user.dataValues.id },
-      attributes: { exclude: ['mysalt', 'updatedAt', 'password', 'googleSubId', 'createdAt'] }
+      attributes: { exclude: ['mysalt', 'updatedAt',
+        'password', 'googleSubId', 'createdAt'] }
     }).then((foundUser) => {
       foundUser.getGroups({
-        attributes: ['id', 'name', 'description', 'imageUrl', 'createdAt', ['UserId', 'ownerId']],
+        attributes: ['id', 'name', 'description',
+          'imageUrl', 'createdAt', ['UserId', 'ownerId']],
         joinTableAttributes: [],
         order: [['createdAt', 'DESC']],
       }).then((foundGroup) => {
-        const foundUserAndGroups = Object.assign(JSON.parse(JSON.stringify(foundUser)), { Groups: foundGroup });
+        const foundGroups = Object.assign(JSON
+          .parse(JSON.stringify(foundUser)), { Groups: foundGroup });
         res.status(200).json({
           success: 'Successful.',
-          foundUserAndGroups
+          foundGroups
         });
       });
     }).catch((err) => {
@@ -44,9 +47,9 @@ export default class GroupCtrl {
  * @returns {void}
  */
   static createNewGroup(req, res) {
-    let initialGroupMembers = [].concat(req.user.dataValues.username);
-    if (req.body.initialGroupMembers) {
-      initialGroupMembers = ([...req.body.initialGroupMembers, req.user.dataValues.username]);
+    let members = [].concat(req.user.dataValues.username);
+    if (req.body.members) {
+      members = ([...req.body.members, req.user.dataValues.username]);
     }
 
     groupValidation(req.body, validateGroupInput).then(({ errors, isValid }) => {
@@ -54,7 +57,7 @@ export default class GroupCtrl {
         const newDetails = Object.assign(req.body, { UserId: req.user.dataValues.id });
         models.Group.create(newDetails).then((createdGroup) => {
           models.User.findAll({
-            where: { username: initialGroupMembers }
+            where: { username: members }
           })
           .then((foundUsers) => {
             createdGroup.addUsers(foundUsers).then(() => {

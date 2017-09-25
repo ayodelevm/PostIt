@@ -44,29 +44,9 @@ const PrivateRoute = ({ component: Component, path: route, status }) => {
   );
 };
 
-export const AuthProtected = ({ component: Component, path: route }) => (<Route
-  path={route} render={props => (
-      window.localStorage.getItem('token') !== null ?
-        <Redirect
-          to={{
-            pathname: '/dashboard',
-            state: { from: props.location }
-          }}
-        /> : <Component {...props} />)}
-/>
-  );
-
 
 PrivateRoute.propTypes = {
-  // eslint-disable-next-line
   status: PropTypes.object,
-  location: PropTypes.object,
-  path: PropTypes.string.isRequired,
-  component: PropTypes.func.isRequired
-};
-
-AuthProtected.propTypes = {
-  // eslint-disable-next-line
   location: PropTypes.object,
   path: PropTypes.string.isRequired,
   component: PropTypes.func.isRequired

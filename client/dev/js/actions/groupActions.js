@@ -7,9 +7,9 @@ export const getGroups = allGroups => ({
   allGroups
 });
 
-export const groupUsers = grpUsers => ({
+export const groupUsers = users => ({
   type: Types.GET_GROUP_USERS,
-  grpUsers
+  users
 });
 
 export const getGroupsFailure = failure => ({
@@ -32,7 +32,7 @@ export const setCurrentGroups = mergedGroups => ({
   mergedGroups
 });
 
-export const getAllGroups = token => (dispatch) => {
+export const getUserGroups = token => (dispatch) => {
   return api.getEndpoint(endpoints.GET_ALL_GROUPS_PATH, token)
   .then(
     (success) => {

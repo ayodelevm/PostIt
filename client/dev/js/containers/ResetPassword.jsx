@@ -6,13 +6,15 @@ import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import { resetPassword } from '../actions/resetPasswordActions';
 import { validateResetPassword } from '../utils/validations';
-import ResetPassword from '../components/ResetPassword.jsx';
+import ResetPasswordForm from '../components/ResetPasswordForm.jsx';
 
 /**
  * This class is the container component for resetting a users password
  * It is responsible for managing all the state changes in the component
+ * @class ResetPassword
+ * @extends {Component}
  */
-class ResetPasswordContainer extends React.Component {
+class ResetPassword extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -33,24 +35,26 @@ class ResetPasswordContainer extends React.Component {
   /**
    * Takes in the target object of the onclick event and sets the state
    * with the form input and new error object
-   * @param {object} e (i.e event)
+   * @method handleChange
+   * @memberof ResetPassword
+   * @param {object} event
    * @returns {void}
    */
-  handleChange(e) {
-    e.persist();
-    if (!!this.state.errors && this.state.errors[e.target.name]) {
+  handleChange(event) {
+    event.persist();
+    if (!!this.state.errors && this.state.errors[event.target.name]) {
       this.setState((prevState) => {
         const errors = Object.assign({}, prevState.errors);
-        delete errors[e.target.name];
+        delete errors[event.target.name];
 
         return {
-          [e.target.name]: e.target.value,
+          [event.target.name]: event.target.value,
           errors
         };
       });
     } else {
       this.setState({
-        [e.target.name]: e.target.value
+        [event.target.name]: event.target.value
       });
     }
   }
@@ -59,11 +63,13 @@ class ResetPasswordContainer extends React.Component {
    * Validates form input. If there's error, sets State with the error
    * if no error, makes a post request to the reset password endpoint
    * and handles response accordingly
-   * @param {object} e (i.e event)
+   * @method handleFormSubmit
+   * @memberof ResetPassword
+   * @param {object} event
    * @returns {void}
    */
-  handleFormSubmit(e) {
-    e.preventDefault();
+  handleFormSubmit(event) {
+    event.preventDefault();
 
     const { isValid, errors } = validateResetPassword(this.state);
 
@@ -79,12 +85,12 @@ class ResetPasswordContainer extends React.Component {
       () => {
         if (this.props.resetResponse.resetSuccess) {
           this.setState({ redirect: true });
-          notify.show('Password reset successful, please login to continue', 'success', 10000);
+          notify.show('Password reset successful, please login to continue', 'success', 3000);
         } else {
           if (this.props.resetResponse.errors.errors) {
             return this.setState({ errors: this.props.resetResponse.errors.errors });
           }
-          notify.show(this.props.resetResponse.errors.globals, 'warning', 10000);
+          notify.show(this.props.resetResponse.errors.globals, 'warning', 3000);
         }
       }
     );
@@ -104,7 +110,7 @@ class ResetPasswordContainer extends React.Component {
                 pathname: '/login',
               }}
             /> :
-            <ResetPassword
+            <ResetPasswordForm
               onSubmit={this.handleFormSubmit}
               state={this.state}
               password={this.state.password}
@@ -117,11 +123,11 @@ class ResetPasswordContainer extends React.Component {
   }
 }
 
-ResetPasswordContainer.defaultProps = {
+ResetPassword.defaultProps = {
   loginResponse: {}
 };
 
-ResetPasswordContainer.propTypes = {
+ResetPassword.propTypes = {
   resetPassword: PropTypes.func.isRequired,
   resetResponse: PropTypes.object,
   location: PropTypes.object.isRequired
@@ -133,4 +139,4 @@ const mapStateToProps = state => ({
 
 const matchDispatchToProps = dispatch => bindActionCreators({ resetPassword }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(ResetPasswordContainer);
+export default connect(mapStateToProps, matchDispatchToProps)(ResetPassword);

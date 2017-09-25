@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import GoogleLogin from 'react-google-login';
 import Notifications from 'react-notify-toast';
-import ResetPasswordEmailContainer from '../containers/ResetPasswordEmailContainer.jsx';
+import ForgotPassword from '../containers/ForgotPassword.jsx';
 import InputFieldGroup from './common/InputFields.jsx';
 
 
@@ -12,7 +12,7 @@ import InputFieldGroup from './common/InputFields.jsx';
  * @param {object} props
  * @returns {void}
  */
-const LoginComponent = props => (
+const LoginForm = props => (
   <div className="parallax-container">
     <div className="container register center-align">
       <div className="row">
@@ -107,7 +107,7 @@ const LoginComponent = props => (
           </div>
         </div>
       </div>
-      <ResetPasswordEmailContainer
+      <ForgotPassword
         closeModalRoute={'login'}
       />
     </div>
@@ -122,7 +122,7 @@ const LoginComponent = props => (
   </div>
 );
 
-LoginComponent.propTypes = {
+LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   state: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -131,4 +131,4 @@ LoginComponent.propTypes = {
   onFailure: PropTypes.func.isRequired
 };
 
-export default LoginComponent;
+export default LoginForm;

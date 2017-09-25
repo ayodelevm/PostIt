@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
  * @param {object} props
  * @returns {jsx} - an xml/html -like syntax extension to javascript
  */
-const ArchiveAllModal = (props) => {
+const ArchiveModal = (props) => {
   return (
 
     <div id="archive-all" className="modal">
@@ -52,14 +52,14 @@ const ArchiveAllModal = (props) => {
   );
 };
 
-ArchiveAllModal.defaultProps = {
+ArchiveModal.defaultProps = {
   state: {
-    newGroupMembers: [],
+    members: [],
     errors: {},
   }
 };
 
-ArchiveAllModal.propTypes = {
+ArchiveModal.propTypes = {
   //eslint-disable-next-line
   state: PropTypes.object,
   //eslint-disable-next-line
@@ -68,4 +68,4 @@ ArchiveAllModal.propTypes = {
   onHandleSubmit: PropTypes.func.isRequired
 };
 
-export default ArchiveAllModal;
+export default ArchiveModal;

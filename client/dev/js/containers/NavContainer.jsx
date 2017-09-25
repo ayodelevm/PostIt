@@ -10,6 +10,8 @@ import { logoutAUser } from '../actions/authActions';
  * This class is the container component for switching nav content
  * based on whether the user is logged on or not
  * It is responsible for managing all the state changes in the component
+ * @class NavContainer
+ * @extends {Component}
  */
 class NavContainer extends React.Component {
   /**
@@ -24,11 +26,13 @@ class NavContainer extends React.Component {
 
   /**
    * Handles loging out a user and removing token from local storage
+   * @method handleLogout
+   * @memberof NavContainer
    * @returns {void}
    */
   handleLogout() {
     this.props.logoutAUser();
-    notify.show('Logged out successfully!', 'success', 5000);
+    notify.show('Logged out successfully!', 'success', 3000);
     window.location.replace('/');
   }
 

@@ -8,8 +8,8 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import localStorageMock from '../__mocks__/localStorageMock';
-import { DashBoardContainer } from '../../dev/js/containers/DashBoardContainer.jsx';
-import { Dashboard } from '../../dev/js/components/Dashboard.jsx';
+import { DashBoard } from '../../dev/js/containers/DashBoard.jsx';
+import DashboardArea from '../../dev/js/components/DashboardArea.jsx';
 
 // const mountWithRouter = node => mount(<Router>{node}</Router>);
 window.localStorage = localStorageMock;
@@ -27,19 +27,19 @@ const store = mockStore({
 });
 
 const props = {
-  getAllGroupsResponse: { groups: { id: '', Groups: [] } },
+  getUserGroupsResponse: { groups: { id: '', Groups: [] } },
   getAllUsersResponse: { users: [] },
   currentUser: { currentUser: { id: 4 } },
   archiveData: { archivedMessages: { Messages: [] } },
   selectedGroupDetails: jest.fn(),
   getArchivedMessages: jest.fn(),
-  getAllGroups: () => { return Promise.resolve(); },
+  getUserGroups: () => { return Promise.resolve(); },
   getAllUsers: jest.fn()
 };
 
 describe('Dashboard Container', () => {
   it('renders the dashboard container', () => {
-    const wrapper = mount(<Provider store={store}><Router history={history}><DashBoardContainer {...props} /></Router></Provider>);
-    expect(wrapper.find('Dashboard').exists()).toBe(true);
+    const wrapper = mount(<Provider store={store}><Router history={history}><DashBoard {...props} /></Router></Provider>);
+    expect(wrapper.find('DashboardArea').exists()).toBe(true);
   });
 });

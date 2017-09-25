@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Notifications from 'react-notify-toast';
-import GroupForm from '../containers/GroupForm.jsx';
-import UploadFileContainer from '../containers/UploadFileContainer.jsx';
-import ArchiveAllContainer from '../containers/ArchiveAllContainer.jsx';
+import GroupFormContainer from '../containers/GroupFormContainer.jsx';
+import UploadsContainer from '../containers/UploadsContainer.jsx';
+import Archive from '../containers/Archive.jsx';
 import ViewArchivedModal from './ViewArchivedModal.jsx';
 import Nav from './common/Nav.jsx';
 
@@ -13,7 +13,7 @@ import Nav from './common/Nav.jsx';
  * @param {object} props
  * @returns {jsx} - an xml/html -like syntax extension to javascript
  */
-const Dashboard = (props) => {
+const DashboardArea = (props) => {
   const { Groups } = props.groups;
   let sortedGroups = [];
   let filteredGroups = [];
@@ -36,7 +36,11 @@ const Dashboard = (props) => {
                   <a className="modal-trigger tooltipped"
                     data-position="right" data-tooltip="Upload picture"
                     href="#user-new">
-                    <div className="profile-icon" style={{ backgroundImage: `url(${props.groups.profileImage})` }} /></a>
+                    <div className="profile-icon"
+                      style={{
+                        backgroundImage: `url(${props.groups.profileImage})`
+                      }} />
+                  </a>
                 </div>
                 <div className="col s9">
                   <span className="black-text">
@@ -48,8 +52,11 @@ const Dashboard = (props) => {
               <div className="divider" />
               <div id="content" className="row">
                 <br />
-                <a className="modal-trigger add-new-group" href="#group-new"><span className="card-title black-text">
-                  CREATE GROUP <i className="material-icons add-groups right">add_box</i></span></a>
+                <a className="modal-trigger add-new-group" href="#group-new">
+                  <span className="card-title black-text">
+                  CREATE GROUP <i className="material-icons add-groups right">
+                  add_box</i></span>
+                </a>
 
               </div>
               <div className="divider" />
@@ -58,15 +65,21 @@ const Dashboard = (props) => {
                 <h5 className="">Personal Groups</h5>
                 <div className="divider" />
                 {filteredGroups && filteredGroups.map(group => (
-                  <ul key={group.id} className="collapsible z-depth-0" data-collapsible="accordion">
+                  <ul key={group.id} className="collapsible z-depth-0"
+                    data-collapsible="accordion">
                     <li>
-                      <div className="group-display collapsible-header grey lighten-4"><span className="truncate">
-                        <i className="material-icons group-icons">lock_open</i> {group.name}
-                      </span><i className="material-icons right group-settings">arrow_drop_down</i></div>
+                      <div className="group-display collapsible-header grey lighten-4">
+                        <span className="truncate">
+                          <i className="material-icons group-icons">
+                            lock_open</i> {group.name}
+                        </span><i className="material-icons right group-settings">
+                          arrow_drop_down</i>
+                      </div>
 
                       <div className="collapsible-body ">
                         <ul>
-                          <li><Link name={group.name} className="modal-trigger waves-effect waves-blue black-text"
+                          <li><Link name={group.name}
+                            className="modal-trigger waves-effect waves-blue black-text"
                             onClick={props.onActiveGroupClicked}
                             id={group.id} to="#archive-all">Archive All Messages</Link></li>
                           <li><Link name={group.name} className="modal-trigger waves-effect waves-blue black-text"
@@ -107,14 +120,14 @@ const Dashboard = (props) => {
               }
             </div>
           </div>
-          <GroupForm
+          <GroupFormContainer
             closeModalRoute={'dashboard'}
           />
-          <UploadFileContainer
+          <UploadsContainer
             userId={props.currentUser.id}
             closeModalRoute={'dashboard'}
           />
-          <ArchiveAllContainer
+          <Archive
             closeModalRoute={'dashboard'}
           />
 
@@ -131,7 +144,7 @@ const Dashboard = (props) => {
   );
 };
 
-Dashboard.propTypes = {
+DashboardArea.propTypes = {
   onActiveGroupClicked: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
   archivedMessages: PropTypes.object,
@@ -139,4 +152,4 @@ Dashboard.propTypes = {
   currentUser: PropTypes.object
 };
 
-export default Dashboard;
+export default DashboardArea;

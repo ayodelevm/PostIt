@@ -3,16 +3,16 @@ import types from '../../dev/js/actions/actionTypes';
 
 describe('message actions', () => {
   it("should create an action to get a group and it's messages", () => {
-    const grpMessages = { success: '', foundGroupAndMessages: { id: '', name: '', Messages: [{ message: '' }, { message: '' }] } };
+    const groupMessages = { success: '', foundMessages: { id: '', name: '', Messages: [{ message: '' }, { message: '' }] } };
     const expectedAction = {
       type: types.GET_GROUP_AND_ITS_MESSAGES,
-      grpMessages
+      groupMessages
     };
-    expect(actions.groupAndMessages(grpMessages)).toEqual(expectedAction);
+    expect(actions.groupAndMessages(groupMessages)).toEqual(expectedAction);
   });
 
   it('should create an action to create new messages', () => {
-    const newMessage = { success: '', foundGroupAndUsers: { id: '', GroupId: '', UserId: '' } };
+    const newMessage = { success: '', foundUsers: { id: '', GroupId: '', UserId: '' } };
     const expectedAction = {
       type: types.CREATE_NEW_MESSAGES,
       newMessage
@@ -30,7 +30,7 @@ describe('message actions', () => {
   });
 
   it('should create an action to set a users current message after creating a new message', () => {
-    const mergedMessages = { foundGroupAndMessages: { id: '', name: '', Messages: [{ message: '' }, { message: '' }] } };
+    const mergedMessages = { foundMessages: { id: '', name: '', Messages: [{ message: '' }, { message: '' }] } };
     const expectedAction = {
       type: types.SET_CURRENT_MESSAGES,
       mergedMessages

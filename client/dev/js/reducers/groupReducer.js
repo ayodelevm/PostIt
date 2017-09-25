@@ -2,27 +2,27 @@ import Types from '../actions/actionTypes';
 
 const initialState = {
   createSuccess: false,
-  getGrpSuccess: false,
-  getGrpUsersSuccess: false,
+  getGroupSuccess: false,
+  getGroupUsersSuccess: false,
   editSuccess: false,
   archiveSuccess: false,
   newGroup: {},
   groups: {},
-  grpUsers: {}
+  groupUsers: {}
 };
 
 const groupReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.GET_USER_GROUPS:
       return Object.assign({}, state, {
-        groups: action.allGroups.foundUserAndGroups,
-        getGrpSuccess: !!Object.keys(action.allGroups)
+        groups: action.allGroups.foundGroups,
+        getGroupSuccess: !!Object.keys(action.allGroups)
       });
 
     case Types.GET_GROUP_USERS:
       return Object.assign({}, state, {
-        grpUsers: action.grpUsers.foundGroupAndUsers,
-        getGrpUsersSuccess: !!Object.keys(action.grpUsers)
+        groupUsers: action.users.foundUsers,
+        getGroupUsersSuccess: !!Object.keys(action.users)
       });
 
     case Types.SET_CURRENT_GROUPS:
@@ -34,13 +34,13 @@ const groupReducer = (state = initialState, action = {}) => {
     case Types.GET_USER_GROUPS_FAILURE:
       return Object.assign({}, state, {
         errors: action.failure,
-        getGrpSuccess: false
+        getGroupSuccess: false
       });
 
     case Types.GET_GROUP_USERS_FAILURE:
       return Object.assign({}, state, {
         errors: action.failure,
-        getGrpUsersSuccess: false
+        getGroupUsersSuccess: false
       });
 
     case Types.CREATE_GROUP_FAILURE:

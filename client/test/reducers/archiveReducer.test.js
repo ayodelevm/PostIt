@@ -23,7 +23,7 @@ describe('User Reducer', () => {
   it('should get all unarchived messages for archiving', () => {
     const action = {
       type: Types.GET_ALL_MESSAGES_FOR_ARCHIVE,
-      allMessages: { foundGroupAndMessages: {} }
+      allMessages: { foundMessages: {} }
     };
     const newState = archiveReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ archivableMessages: {}, getSuccess: true } });
@@ -41,7 +41,7 @@ describe('User Reducer', () => {
   it('should get archived messages in a group', () => {
     const action = {
       type: Types.GET_ARCHIVED_MESSAGES,
-      archived: { foundGroupAndMessages: {} }
+      archived: { foundMessages: {} }
     };
     const newState = archiveReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ archivedMessages: {}, getArchivedSuccess: true } });

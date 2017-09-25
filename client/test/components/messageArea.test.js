@@ -3,18 +3,18 @@ import Notifications from 'react-notify-toast';
 import { shallow } from 'enzyme';
 
 import MessagingComponent from '../../dev/js/components/MessagingComponent.jsx';
-import GroupForm from '../../dev/js/containers/GroupForm.jsx';
-import UploadFileContainer from '../../dev/js/containers/UploadFileContainer.jsx';
+import GroupFormContainer from '../../dev/js/containers/GroupFormContainer.jsx';
+import UploadsContainer from '../../dev/js/containers/UploadsContainer.jsx';
 import Nav from '../../dev/js/components/common/Nav.jsx';
-import MessagingForm from '../../dev/js/containers/MessagingForm.jsx';
-import AddUsersContainer from '../../dev/js/containers/AddUsersContainer.jsx';
-import ArchiveAllContainer from '../../dev/js/containers/ArchiveAllContainer.jsx';
+import MessageFormContainer from '../../dev/js/containers/MessageFormContainer.jsx';
+import AddUsers from '../../dev/js/containers/AddUsers.jsx';
+import Archive from '../../dev/js/containers/Archive.jsx';
 import GroupMembersModal from '../../dev/js/components/GroupMembersModal.jsx';
 import ViewArchivedModal from '../../dev/js/components/ViewArchivedModal.jsx';
 
 const props = {
   archivedMessages: {},
-  grpUsers: { Users: [] },
+  groupUsers: { Users: [] },
   User: {},
   Users: [],
   groups: {},
@@ -39,24 +39,24 @@ describe('Messaging Component', () => {
     expect(wrapper.find(Notifications)).toHaveLength(1);
   });
 
-  it('renders one <GroupForm /> component', () => {
+  it('renders one <GroupFormContainer /> component', () => {
     const wrapper = shallow(<MessagingComponent {...props} />);
-    expect(wrapper.find(GroupForm)).toHaveLength(1);
+    expect(wrapper.find(GroupFormContainer)).toHaveLength(1);
   });
 
-  it('renders one <MessagingForm /> component', () => {
+  it('renders one <MessageFormContainer /> component', () => {
     const wrapper = shallow(<MessagingComponent {...props} />);
-    expect(wrapper.find(MessagingForm)).toHaveLength(1);
+    expect(wrapper.find(MessageFormContainer)).toHaveLength(1);
   });
 
-  it('renders one <UploadFileContainer /> component', () => {
+  it('renders one <UploadsContainer /> component', () => {
     const wrapper = shallow(<MessagingComponent {...props} />);
-    expect(wrapper.find(UploadFileContainer)).toHaveLength(1);
+    expect(wrapper.find(UploadsContainer)).toHaveLength(1);
   });
 
-  it('renders one <ArchiveAllContainer /> component', () => {
+  it('renders one <Archive /> component', () => {
     const wrapper = shallow(<MessagingComponent {...props} />);
-    expect(wrapper.find(ArchiveAllContainer)).toHaveLength(1);
+    expect(wrapper.find(Archive)).toHaveLength(1);
   });
 
   it('renders one <ViewArchivedModal /> component', () => {
@@ -69,9 +69,9 @@ describe('Messaging Component', () => {
     expect(wrapper.find(GroupMembersModal)).toHaveLength(1);
   });
 
-  it('renders one <AddUsersContainer /> component', () => {
+  it('renders one <AddUsers /> component', () => {
     const wrapper = shallow(<MessagingComponent {...props} />);
-    expect(wrapper.find(AddUsersContainer)).toHaveLength(1);
+    expect(wrapper.find(AddUsers)).toHaveLength(1);
   });
 
   it('renders the accurate number of divs in MessagingComponent component', () => {

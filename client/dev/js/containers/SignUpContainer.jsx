@@ -6,12 +6,18 @@ import { notify } from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import { createNewUser, googleRegister } from '../actions/authActions';
 import { validateInput } from '../utils/validations';
-import SignUpComponent from '../components/SignUpComponent.jsx';
+import SignUpForm from '../components/SignUpForm.jsx';
 /**
  * This class is the container component for registering a user
  * upon submission of signup form or upon verifcation by google and in-app verification
+ * @class SignUpContainer
+ * @extends {Component}
  */
-class SignUpForm extends React.Component {
+class SignUpContainer extends React.Component {
+  /**
+   * Initializes the state and binds this to the methods in this class
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -35,24 +41,26 @@ class SignUpForm extends React.Component {
    * Takes in the response object from google after google validation,
    * handles the error if any, otherwise, makes a post request to the user google register endpoint
    * and handles response accordingly
+   * @method handleGoogleResponse
+   * @memberof SignUpContainer
    * @param {object} response
    * @returns {void}
    */
   handleGoogleResponse(response) {
     if (response.error) {
-      notify.show('SignUp unsuccessful, please try again later', 'warning', 10000);
+      notify.show('SignUp unsuccessful, please try again later', 'warning', 3000);
     } else {
       this.props.googleRegister({ id_token: response.tokenObj.id_token })
         .then(
         () => {
           if (this.props.signupResponse.isAuthenticated) {
             this.setState({ redirect: true });
-            notify.show('Welcome to PostIt!', 'success', 10000);
+            notify.show('Welcome to PostIt!', 'success', 3000);
           } else {
             if (this.props.signupResponse.errors.errors) {
               return this.setState({ errors: this.props.signupResponse.errors.errors });
             }
-            notify.show(this.props.signupResponse.errors.globals, 'warning', 10000);
+            notify.show(this.props.signupResponse.errors.globals, 'warning', 3000);
             window.localStorage.removeItem('token');
           }
         }
@@ -63,24 +71,26 @@ class SignUpForm extends React.Component {
   /**
    * Takes in the target object of the onclick event and sets the state
    * with the form input and new error object
-   * @param {object} e (i.e event)
+   * @method handleChange
+   * @memberof SignUpContainer
+   * @param {object} event
    * @returns {void}
    */
-  handleChange(e) {
-    e.persist();
-    if (!!this.state.errors && this.state.errors[e.target.name]) {
+  handleChange(event) {
+    event.persist();
+    if (!!this.state.errors && this.state.errors[event.target.name]) {
       this.setState((prevState) => {
         const errors = Object.assign({}, prevState.errors);
-        delete errors[e.target.name];
+        delete errors[event.target.name];
 
         return {
-          [e.target.name]: e.target.value,
+          [event.target.name]: event.target.value,
           errors
         };
       });
     } else {
       this.setState({
-        [e.target.name]: e.target.value
+        [event.target.name]: event.target.value
       });
     }
   }
@@ -89,11 +99,13 @@ class SignUpForm extends React.Component {
    * Validates form input. If there's error, sets State with the error
    * if no error, makes a post request to the register user endpoint
    * and handles response accordingly
-   * @param {object} e (i.e event)
+   * @method handleFormSubmit
+   * @memberof SignUpContainer
+   * @param {object} event
    * @returns {void}
    */
-  handleFormSubmit(e) {
-    e.preventDefault();
+  handleFormSubmit(event) {
+    event.preventDefault();
     const { isValid, errors } = validateInput(this.state);
 
     if (!isValid) {
@@ -106,12 +118,15 @@ class SignUpForm extends React.Component {
         () => {
           if (this.props.signupResponse.isAuthenticated) {
             this.setState({ redirect: true });
-            notify.show('Welcome to PostIt!', 'success', 10000);
+            notify.show('Welcome to PostIt!', 'success', 3000);
           } else {
             if (this.props.signupResponse.errors.errors) {
-              return this.setState({ errors: this.props.signupResponse.errors.errors });
+              return this.setState({
+                errors: this.props.signupResponse.errors.errors
+              });
             }
-            notify.show(this.props.signupResponse.errors.globals, 'warning', 10000);
+            notify.show(this.props.signupResponse.errors.globals,
+              'warning', 3000);
             window.localStorage.removeItem('token');
           }
         }
@@ -126,7 +141,7 @@ class SignUpForm extends React.Component {
       <div>
         {
           this.state.redirect ? <Redirect to="/dashboard" /> :
-          <SignUpComponent
+          <SignUpForm
             state={this.state}
             onChange={this.handleChange}
             onSubmit={this.handleFormSubmit}
@@ -140,11 +155,11 @@ class SignUpForm extends React.Component {
   }
 }
 
-SignUpForm.defaultProps = {
+SignUpContainer.defaultProps = {
   signupResponse: {}
 };
 
-SignUpForm.propTypes = {
+SignUpContainer.propTypes = {
   createNewUser: PropTypes.func.isRequired,
   googleRegister: PropTypes.func.isRequired,
   signupResponse: PropTypes.object
@@ -158,4 +173,4 @@ const matchDispatchToProps = dispatch => bindActionCreators({
   createNewUser,
   googleRegister }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(SignUpForm);
+export default connect(mapStateToProps, matchDispatchToProps)(SignUpContainer);

@@ -29,11 +29,6 @@ module.exports = {
           presets: ['es2015', 'react', 'stage-2']
         }
       },
-      // {
-      //   test: /\.scss$/,
-      //   exclude: /node_modules/,
-      //   loader: 'style-loader!css-loader!sass-loader'
-      // },
       {
         test: /\.html$/,
         exclude: /node_modules/,

@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { notify } from 'react-notify-toast';
 import { getGroupWithMessages, archiveMessages } from '../actions/archiveActions';
-import ArchiveAllModal from '../components/ArchiveAllModal.jsx';
+import ArchiveModal from '../components/ArchiveModal.jsx';
 
 /**
  * This class is the container component for archiving all messages in a group
  * It is responsible for managing all the state changes in the component
+ * @class Archive
+ * @extends {Component}
  */
-class ArchiveAllContainer extends React.Component {
+class Archive extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -27,11 +29,13 @@ class ArchiveAllContainer extends React.Component {
   /**
    * Hanldes post request to the archive all endpoint
    * and handles response accordingly
-   * @param {object} e (i.e event)
+   * @method handleSubmit
+   * @memberof Archive
+   * @param {object} event
    * @returns {void}
    */
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
 
     const token = window.localStorage.token;
     const { setGroupDetails } = this.props.archiveData;
@@ -50,10 +54,10 @@ class ArchiveAllContainer extends React.Component {
     })
     .then(() => {
       if (this.props.archiveData.archiveSuccess) {
-        notify.show('Messages have been archived successfully!', 'success', 5000);
+        notify.show('Messages have been archived successfully!', 'success', 3000);
         $('#archive-all').modal('close');
       } else {
-        notify.show(this.props.archiveData.errors.globals, 'warning', 5000);
+        notify.show(this.props.archiveData.errors.globals, 'warning', 3000);
         $('#archive-all').modal('close');
       }
     });
@@ -64,7 +68,7 @@ class ArchiveAllContainer extends React.Component {
    */
   render() {
     return (
-      <ArchiveAllModal
+      <ArchiveModal
         name={this.props.archiveData.setGroupDetails ? this.props.archiveData.setGroupDetails.name : ''}
         closeModalRoute={this.props.closeModalRoute}
         onHandleSubmit={this.handleSubmit}
@@ -73,7 +77,7 @@ class ArchiveAllContainer extends React.Component {
   }
 }
 
-ArchiveAllContainer.propTypes = {
+Archive.propTypes = {
   getGroupWithMessages: PropTypes.func.isRequired,
   archiveMessages: PropTypes.func.isRequired,
   closeModalRoute: PropTypes.string.isRequired,
@@ -88,4 +92,4 @@ const matchDispatchToProps = dispatch => bindActionCreators({
   getGroupWithMessages, archiveMessages
 }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(ArchiveAllContainer);
+export default connect(mapStateToProps, matchDispatchToProps)(Archive);

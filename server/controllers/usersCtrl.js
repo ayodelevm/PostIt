@@ -42,10 +42,10 @@ export default class AddUsersCtrl {
         attributes: { exclude: ['mysalt', 'updatedAt', 'password', 'googleSubId', 'createdAt'] },
         joinTableAttributes: []
       }).then((found) => {
-        const foundGroupAndUsers = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Users: found });
+        const foundUsers = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Users: found });
         res.status(200).json({
           success: 'Successful.',
-          foundGroupAndUsers
+          foundUsers
         });
       }).catch((err) => {
         res.status(500).json({
@@ -66,7 +66,7 @@ export default class AddUsersCtrl {
  * @returns {void}
  */
   static addUsersToGroup(req, res) {
-    const newGroupMembers = [].concat(req.body.newGroupMembers);
+    const members = [].concat(req.body.members);
     models.Group.findOne({
       where: {
         id: req.params.id
@@ -75,7 +75,7 @@ export default class AddUsersCtrl {
       if (foundGroup.UserId === req.user.dataValues.id) {
         models.User.findAll({
           where: {
-            username: newGroupMembers
+            username: members
           }
         }).then((foundUsers) => {
           if (Array.isArray(foundUsers) && foundUsers.length === 0) {

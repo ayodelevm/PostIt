@@ -3,13 +3,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createNewMessages } from '../actions/messageActions';
-import MessagingFormComponent from '../components/MessagingFormComponent.jsx';
+import MessageForm from '../components/MessageForm.jsx';
 
 /**
  * This class is the container component for creating a new message
  * It is responsible for managing all the state changes in the component
+ * @class MessageFormContainer
+ * @extends {Component}
  */
-class MessagingForm extends React.Component {
+class MessageFormContainer extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -17,7 +19,6 @@ class MessagingForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // value: '0',
       message: '',
       errors: {},
       selected: ''
@@ -31,6 +32,8 @@ class MessagingForm extends React.Component {
   /**
    * Updates the materialize modal when the component mounts
    * and resets form input when the component mounts
+   * @method componentDidMount
+   * @memberof MessageFormContainer
    * @returns {void}
    */
   componentDidMount() {
@@ -52,34 +55,41 @@ class MessagingForm extends React.Component {
 
   /**
    * sets the state with the selected priority
-   * @param {object} val
+   * @method handleLogChange
+   * @memberof MessageFormContainer
+   * @param {object} value
    * @returns {void}
    */
-  handleLogChange(val) {
+  handleLogChange(value) {
     this.setState({
-      selected: val
+      selected: value
     });
   }
 
   /**
    * sets the state with the form input
-   * @param {object} e (i.e event)
+   * @method handleChange
+   * @memberof MessageFormContainer
+   * @param {object} event
    * @returns {void}
    */
-  handleChange(e) {
+  handleChange(event) {
     this.setState({
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
   }
 
   /**
-   * Validates that message is not empty and then makes a post request to the create new group endpoint,
+   * Validates that message is not empty and then
+   * makes a post request to the create new group endpoint,
    * handles response accordingly and then reset the state
-   * @param {object} e (i.e event)
+   * @method handleFormSubmit
+   * @memberof MessageFormContainer
+   * @param {object} event
    * @returns {void}
    */
-  handleFormSubmit(e) {
-    e.preventDefault();
+  handleFormSubmit(event) {
+    event.preventDefault();
 
     const token = window.localStorage.token;
     const { groupId } = this.props;
@@ -102,7 +112,7 @@ class MessagingForm extends React.Component {
       { value: 'Critical', label: 'Critical' }
     ];
     return (
-      <MessagingFormComponent
+      <MessageForm
         onSubmit={this.handleFormSubmit}
         state={this.state} onChange={this.handleChange}
         name={this.state.name} id={this.state.id}
@@ -113,7 +123,7 @@ class MessagingForm extends React.Component {
   }
 }
 
-MessagingForm.propTypes = {
+MessageFormContainer.propTypes = {
   createNewMessages: PropTypes.func.isRequired,
   groupId: PropTypes.number
 };
@@ -126,4 +136,4 @@ const mapStateToProps = state => ({
 
 const matchDispatchToProps = dispatch => bindActionCreators({ createNewMessages }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(MessagingForm);
+export default connect(mapStateToProps, matchDispatchToProps)(MessageFormContainer);

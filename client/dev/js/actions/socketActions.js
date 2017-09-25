@@ -1,8 +1,8 @@
 import { notify } from 'react-notify-toast';
 import io from 'socket.io-client';
 import Types from './actionTypes';
-import { getOneGroupWithMessages, setNewGroupMessages } from './messageActions';
-import { getAllGroups, getGroupUsers } from './groupActions';
+import { getGroupMessages, setNewGroupMessages } from './messageActions';
+import { getUserGroups, getGroupUsers } from './groupActions';
 import { getAllUsers } from './userActions';
 
 
@@ -28,15 +28,16 @@ export const socketConnect = () => (dispatch, getState) => {
 
       if (foundGroup !== undefined) {
         if (currentUser.id === data.createdMessage.ownerId) {
-          notify.show('message sent successfully', 'custom', 10000, myColor);          
+          notify.show('message sent successfully', 'custom', 3000, myColor);
         } else {
-          notify.show(data.message, 'custom', 10000, myColor);
+          notify.show(data.message, 'custom', 3000, myColor);
         }
-        const { grpMessages } = prevState.messageReducer;
+        const { groupMessages } = prevState.messageReducer;
 
-        if (grpMessages.id === data.groupId) {
-          const mergedMessages = grpMessages.Messages.concat(data.createdMessage);
-          const currentMessages = { ...grpMessages,
+        if (groupMessages.id === data.groupId) {
+          const mergedMessages = groupMessages.Messages
+            .concat(data.createdMessage);
+          const currentMessages = { ...groupMessages,
             Messages: mergedMessages
           };
           dispatch(setNewGroupMessages(currentMessages));
@@ -51,7 +52,7 @@ export const socketConnect = () => (dispatch, getState) => {
     const { isAuthenticated } = prevState.authReducer;
 
     if (data && isAuthenticated) {
-      dispatch(getAllGroups(token));
+      dispatch(getUserGroups(token));
     }
   });
 
@@ -61,7 +62,7 @@ export const socketConnect = () => (dispatch, getState) => {
     const { isAuthenticated } = prevState.authReducer;
 
     if (data && isAuthenticated) {
-      dispatch(getAllGroups(token))
+      dispatch(getUserGroups(token))
       .then(() => dispatch(getGroupUsers(token, data.groupId)));
     }
   });
@@ -72,10 +73,10 @@ export const socketConnect = () => (dispatch, getState) => {
     const { isAuthenticated } = prevState.authReducer;
 
     if (data && isAuthenticated) {
-      dispatch(getAllGroups(token))
+      dispatch(getUserGroups(token))
         .then(() => {
           if (data.groupId !== undefined) {
-            return dispatch(getOneGroupWithMessages(token, data.groupId))
+            return dispatch(getGroupMessages(token, data.groupId))
               .then(() => dispatch(getAllUsers(token)));
           }
         });

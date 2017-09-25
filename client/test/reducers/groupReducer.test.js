@@ -3,32 +3,34 @@ import groupReducer from '../../dev/js/reducers/groupReducer';
 
 const initialState = {
   createSuccess: false,
-  getGrpSuccess: false,
-  getGrpUsersSuccess: false,
+  getGroupSuccess: false,
+  getGroupUsersSuccess: false,
   editSuccess: false,
   archiveSuccess: false,
   newGroup: {},
   groups: {},
-  grpUsers: {}
+  groupUsers: {}
 };
 
 describe('User Reducer', () => {
   it('should get all groups a user belongs to', () => {
     const action = {
       type: Types.GET_USER_GROUPS,
-      allGroups: { foundUserAndGroups: {} }
+      allGroups: { foundGroups: {} }
     };
     const newState = groupReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ groups: {}, getGrpSuccess: true } });
+    expect(newState).toEqual({ ...initialState,
+      ...{ groups: {}, getGroupSuccess: true } });
   });
 
   it('should get all users in a group', () => {
     const action = {
       type: Types.GET_GROUP_USERS,
-      grpUsers: { foundGroupAndUsers: {} }
+      users: { foundUsers: {} }
     };
     const newState = groupReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ grpUsers: {}, getGrpUsersSuccess: true } });
+    expect(newState).toEqual({ ...initialState,
+      ...{ groupUsers: {}, getGroupUsersSuccess: true } });
   });
 
   it('should reset all groups after creating a new group', () => {
@@ -37,7 +39,8 @@ describe('User Reducer', () => {
       mergedGroups: {}
     };
     const newState = groupReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ groups: {}, createSuccess: true } });
+    expect(newState).toEqual({ ...initialState,
+      ...{ groups: {}, createSuccess: true } });
   });
 
   it('should handle error while getting all a users group', () => {
@@ -46,7 +49,8 @@ describe('User Reducer', () => {
       failure: {}
     };
     const newState = groupReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, getGrpSuccess: false } });
+    expect(newState).toEqual({ ...initialState,
+      ...{ errors: {}, getGroupSuccess: false } });
   });
 
   it('should handle error while getting all users in a group', () => {
@@ -55,7 +59,8 @@ describe('User Reducer', () => {
       failure: {}
     };
     const newState = groupReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, getGrpUsersSuccess: false } });
+    expect(newState).toEqual({ ...initialState,
+      ...{ errors: {}, getGroupUsersSuccess: false } });
   });
 
   it('should handle error while creating a new group', () => {
@@ -64,6 +69,7 @@ describe('User Reducer', () => {
       failure: {}
     };
     const newState = groupReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, createSuccess: false } });
+    expect(newState).toEqual({ ...initialState,
+      ...{ errors: {}, createSuccess: false } });
   });
 });

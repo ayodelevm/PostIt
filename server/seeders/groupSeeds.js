@@ -14,7 +14,7 @@ export const groupDetails = [{
   name: 'Learn JavaScript',
   description: 'We have that synthetic sugar you love',
   imageUrl: 'https://farm9.staticflickr.com/8076/8319742380_4c6dc9c3ef.jpg',
-  initialGroupMembers: ['tundun']
+  members: ['tundun']
 }];
 
 export const updateInfo = {
@@ -23,7 +23,7 @@ export const updateInfo = {
   imageUrl: 'https://farm9.staticflickr.com/8076/8319742380_4c6dc9c3ef.jpg'
 };
 
-export const noGrpName = {
+export const noGroupName = {
   description: 'For all Java lovers!',
   imageUrl: 'https://farm9.staticflickr.com/8076/8319742380_4c6dc9c3ef.jpg'
 };

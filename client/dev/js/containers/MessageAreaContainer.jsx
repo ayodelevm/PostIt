@@ -4,17 +4,19 @@ import { notify } from 'react-notify-toast';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getOneGroupWithMessages, setCurrentMessages } from '../actions/messageActions';
-import { getGroupUsers, getAllGroups } from '../actions/groupActions';
+import { getGroupMessages, setCurrentMessages } from '../actions/messageActions';
+import { getGroupUsers, getUserGroups } from '../actions/groupActions';
 import { getAllUsers } from '../actions/userActions';
 import { selectedGroupDetails, getArchivedMessages } from '../actions/archiveActions';
-import MessagingComponent from '../components/MessagingComponent.jsx';
+import MessageArea from '../components/MessageArea.jsx';
 
 /**
  * This class is the container component for the users messaging board
  * It is responsible for managing all the state changes in the component
+ * @class MessageAreaContainer
+ * @extends {Component}
  */
-export class MessagingContainer extends React.Component {
+export class MessageAreaContainer extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -32,17 +34,19 @@ export class MessagingContainer extends React.Component {
   /**
    * Fetches users, group, group members and group messages data when the component mounts
    * and initializes the materialize dropdown component
+   * @method componentDidMount
+   * @memberof MessageAreaContainer
    * @returns {void}
    */
   componentDidMount() {
     const { match } = this.props;
     const token = window.localStorage.token;
     if (match !== undefined) {
-      this.props.getOneGroupWithMessages(token, match.params.id)
+      this.props.getGroupMessages(token, match.params.id)
         .then(() => {
           if (this.props.groupMessages.getMessagesSuccess) {
             this.props.getGroupUsers(token, match.params.id)
-            .then(() => this.props.getAllGroups(token))
+            .then(() => this.props.getUserGroups(token))
             .then(() => this.props.getAllUsers(token))
             .then(() => {
               $('.dropdown-button').dropdown({
@@ -58,7 +62,7 @@ export class MessagingContainer extends React.Component {
             });
           } else {
             this.setState({ redirect: true });
-            notify.show(this.props.groupMessages.errors.globals, 'warning', 10000);
+            notify.show(this.props.groupMessages.errors.globals, 'warning', 3000);
           }
         });
     }
@@ -68,15 +72,17 @@ export class MessagingContainer extends React.Component {
    * Takes in the target object of the onclick event and passes an object
    * containging the clicked group's id and name to the redux store
    * then fetches all archived messages in the clicked group
-   * @param {object} e (i.e event)
+   * @method handleActiveGroupClicked
+   * @memberof MessageAreaContainer
+   * @param {object} event
    * @returns {void}
    */
-  handleActiveGroupClicked(e) {
-    e.preventDefault();
+  handleActiveGroupClicked(event) {
+    event.preventDefault();
     const token = window.localStorage.token;
 
     Promise.resolve(
-      this.props.selectedGroupDetails({ id: e.target.id, name: e.target.name })
+      this.props.selectedGroupDetails({ id: event.target.id, name: event.target.name })
     )
     .then(() => {
       this.props.getArchivedMessages(token, this.props.archiveData.setGroupDetails.id);
@@ -91,10 +97,10 @@ export class MessagingContainer extends React.Component {
       <div>
         {
           this.state.redirect ? <Redirect push to="/dashboard" /> :
-          <MessagingComponent
+          <MessageArea
             archivedMessages={this.props.archiveData.archivedMessages}
-            messages={this.props.groupMessages.grpMessages}
-            grpUsers={this.props.groupData.grpUsers}
+            messages={this.props.groupMessages.groupMessages}
+            groupUsers={this.props.groupData.groupUsers}
             currentUser={this.props.currentUser.currentUser}
             users={this.props.allUsersData.users}
             groups={this.props.groupData.groups}
@@ -106,12 +112,12 @@ export class MessagingContainer extends React.Component {
   }
 }
 
-MessagingContainer.propTypes = {
+MessageAreaContainer.propTypes = {
   getArchivedMessages: PropTypes.func.isRequired,
   selectedGroupDetails: PropTypes.func.isRequired,
   getGroupUsers: PropTypes.func.isRequired,
-  getOneGroupWithMessages: PropTypes.func.isRequired,
-  getAllGroups: PropTypes.func.isRequired,
+  getGroupMessages: PropTypes.func.isRequired,
+  getUserGroups: PropTypes.func.isRequired,
   getAllUsers: PropTypes.func.isRequired,
   groupMessages: PropTypes.object.isRequired,
   groupData: PropTypes.object.isRequired,
@@ -131,12 +137,12 @@ const mapStateToProps = state => ({
 
 const matchDispatchToProps = dispatch => bindActionCreators({
   getGroupUsers,
-  getOneGroupWithMessages,
-  getAllGroups,
+  getGroupMessages,
+  getUserGroups,
   getAllUsers,
   setCurrentMessages,
   selectedGroupDetails,
   getArchivedMessages
 }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(MessagingContainer);
+export default connect(mapStateToProps, matchDispatchToProps)(MessageAreaContainer);

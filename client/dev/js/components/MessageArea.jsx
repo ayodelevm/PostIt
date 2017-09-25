@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Notifications from 'react-notify-toast';
-import GroupForm from '../containers/GroupForm.jsx';
-import UploadFileContainer from '../containers/UploadFileContainer.jsx';
+import GroupFormContainer from '../containers/GroupFormContainer.jsx';
+import UploadsContainer from '../containers/UploadsContainer.jsx';
 import Nav from './common/Nav.jsx';
-import MessagingForm from '../containers/MessagingForm.jsx';
-import AddUsersContainer from '../containers/AddUsersContainer.jsx';
-import ArchiveAllContainer from '../containers/ArchiveAllContainer.jsx';
+import MessageFormContainer from '../containers/MessageFormContainer.jsx';
+import AddUsers from '../containers/AddUsers.jsx';
+import Archive from '../containers/Archive.jsx';
 import GroupMembersModal from './GroupMembersModal.jsx';
 import ViewArchivedModal from './ViewArchivedModal.jsx';
 
@@ -53,7 +53,7 @@ const renderMessage = (users, message) => {
  * @param {object} props
  * @returns {jsx} - an xml/html -like syntax extension to javascript
  */
-const MessagingComponent = (props) => {
+const MessageArea = (props) => {
   const { messages, currentUser, users, groups } = props;
   const { Groups } = props.groups;
   const { Messages } = props.messages;
@@ -186,28 +186,28 @@ const MessagingComponent = (props) => {
             </div>
             <div className="text-area">
               <div className="row">
-                <MessagingForm groupId={messages.id} />
+                <MessageFormContainer groupId={messages.id} />
               </div>
             </div>
           </div>
         </div>
-        <GroupForm closeModalRoute={`groups/${messages.id}/message`} />
-        <UploadFileContainer
+        <GroupFormContainer closeModalRoute={`groups/${messages.id}/message`} />
+        <UploadsContainer
           userId={props.currentUser.id}
           groupId={messages.id}
           closeModalRoute={`groups/${messages.id}/message`}
         />
-        <AddUsersContainer
+        <AddUsers
           closeModalRoute={`groups/${messages.id}/message`}
           groupId={messages.id}
-          groupMembers={props.grpUsers.Users}
+          groupMembers={props.groupUsers.Users}
         />
         <GroupMembersModal
           closeModalRoute={`groups/${messages.id}/message`}
-          groupMembers={props.grpUsers.Users}
+          groupMembers={props.groupUsers.Users}
         />
 
-        <ArchiveAllContainer
+        <Archive
           closeModalRoute={`groups/${messages.id}/message`}
           groupId={messages.id}
         />
@@ -224,14 +224,14 @@ const MessagingComponent = (props) => {
   </div>);
 };
 
-MessagingComponent.propTypes = {
+MessageArea.propTypes = {
   archivedMessages: PropTypes.object,
   users: PropTypes.array,
   groups: PropTypes.object,
   onActiveGroupClicked: PropTypes.func.isRequired,
   currentUser: PropTypes.object,
-  grpUsers: PropTypes.object,
+  groupUsers: PropTypes.object,
   messages: PropTypes.object,
 };
 
-export default MessagingComponent;
+export default MessageArea;

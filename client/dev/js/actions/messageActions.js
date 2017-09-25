@@ -2,9 +2,9 @@ import Types from './actionTypes';
 import * as api from '../utils/apis';
 import endpoints from '../utils/apiUrls';
 
-export const groupAndMessages = grpMessages => ({
+export const groupAndMessages = groupMessages => ({
   type: Types.GET_GROUP_AND_ITS_MESSAGES,
-  grpMessages
+  groupMessages
 });
 
 export const newGroupMessages = newMessage => ({
@@ -32,7 +32,7 @@ export const setNewGroupMessages = mergedMessages => ({
   mergedMessages
 });
 
-export const getOneGroupWithMessages = (token, groupId) => (dispatch) => {
+export const getGroupMessages = (token, groupId) => (dispatch) => {
   return api.getEndpoint(endpoints.GET_ONE_GROUP_AND_MESSAGES_PATH.replace(':id', `${groupId}`), token)
   .then(
     (success) => {

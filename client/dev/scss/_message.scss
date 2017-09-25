@@ -433,3 +433,16 @@ ul {
   margin: 0;
   overflow: hidden;
 }
+
+.Select-menu-outer { 
+  top: auto;
+  bottom: 100%;
+}
+
+.Select-control {
+  border-radius: 1px;
+  border: none;
+  border-bottom: 1px solid teal;
+  padding-top: 7px;
+  margin-top: 2px;
+}

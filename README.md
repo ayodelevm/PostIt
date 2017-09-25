@@ -54,13 +54,39 @@ This app's functionality depends on multiple NPM packages including;
 
 For detailed information on how to use this api, view the **[documentation](https://ayodelevm.github.io/slate)**
 
+## Fequently Asked Questions (FAQ)
+CLick **[here](https://github.com/ayodelevm/PostIt/wiki/Frequently-Asked-Questions)** to read through our FAQ.
+
+## Limitations
+This app currently have the following limitations:
+1. You cannot delete a group, however there's an endpoint in the backend that allows the creator of a group delete the group
+2. You cannot edit a group's details, however there's an endpoint in the backend that allows the creator of a group update the group
+3. You cannot remove users from a group after they have been added
+4. You cannot edit a users details. Only a users profile image can be changed
+5. Other members of the group are not notified when a new user is added to the group
+6. You cannot edit or delete a message once it has been sent
+
 ## Tests
 *  The tests have been written using **[Mocha](https://www.npmjs.com/package/mocha)** , **[Chai](https://www.npmjs.com/package/chai)** as it's assertion library and **[Supertest](https://www.npmjs.com/package/supertest)** class.
-*  To run the tests, navigate to the project's folder and open
+*  To run the tests, navigate to the project's folder and open.
 *  Issue the following command on terminal.
   *  `npm run test`
 *  If the tests are successful, they will complete without failures or errors.
 
-###### Copyright 2017, Ayodele Victor
+## Contribute to the project
+To contribute to this project:
+
+1. Fork the project, clone your fork, and configure the remotes
+2. If you cloned a while ago, get the latest changes from upstream
+3. Create a new topic branch (off the main project development branch) to contain your feature, change, or fix
+4. Commit your changes in logical chunks
+5. Locally merge (or rebase) the upstream development branch into your topic branch
+6. Push your topic branch up to your fork
+7. Open a Pull Request with a clear title and description
+
+**IMPORTANT:** This guideline for `contributing to the project` was adapted from necolas  issue-guidelines. Navigate to **[necolas/issue-guidelines](https://github.com/necolas/issue-guidelines/blob/master/CONTRIBUTING.md)** for full details and step by step guidelines on how to contribute to this project.
+
+## License
+This project is licensed under the MIT license. Click **[here](https://github.com/ayodelevm/PostIt/blob/client-develop/LICENSE.MD)** to read the license in full
 
 

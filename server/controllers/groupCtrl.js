@@ -15,26 +15,29 @@ export default class GroupCtrl {
  * @returns {void}
  */
   static getAll(req, res) {
-    models.User.findOne({
+    return models.User.findOne({
       where: { id: req.user.dataValues.id },
       attributes: { exclude: ['mysalt', 'updatedAt',
         'password', 'googleSubId', 'createdAt'] }
-    }).then((foundUser) => {
-      foundUser.getGroups({
+    })
+    .then((foundUser) => {
+      return foundUser.getGroups({
         attributes: ['id', 'name', 'description',
           'imageUrl', 'createdAt', ['UserId', 'ownerId']],
         joinTableAttributes: [],
         order: [['createdAt', 'DESC']],
-      }).then((foundGroup) => {
+      })
+      .then((foundGroup) => {
         const foundGroups = Object.assign(JSON
           .parse(JSON.stringify(foundUser)), { Groups: foundGroup });
-        res.status(200).json({
+        return res.status(200).json({
           success: 'Successful.',
           foundGroups
         });
       });
-    }).catch((err) => {
-      res.status(500).json({
+    })
+    .catch((err) => {
+      return res.status(500).json({
         globals: err.message || err.errors[0].message
       });
     });
@@ -52,21 +55,26 @@ export default class GroupCtrl {
       members = ([...req.body.members, req.user.dataValues.username]);
     }
 
-    groupValidation(req.body, validateGroupInput).then(({ errors, isValid }) => {
+    return groupValidation(req.body, validateGroupInput)
+    .then(({ errors, isValid }) => {
       if (isValid) {
-        const newDetails = Object.assign(req.body, { UserId: req.user.dataValues.id });
-        models.Group.create(newDetails).then((createdGroup) => {
-          models.User.findAll({
+        const newDetails = Object.assign(req.body,
+          { UserId: req.user.dataValues.id });
+        return models.Group.create(newDetails)
+        .then((createdGroup) => {
+          return models.User.findAll({
             where: { username: members }
           })
           .then((foundUsers) => {
-            createdGroup.addUsers(foundUsers).then(() => {
-              const newGroup = Object.assign({}, createdGroup.dataValues, { ownerId: createdGroup.dataValues.UserId });
+            return createdGroup.addUsers(foundUsers)
+            .then(() => {
+              const newGroup = Object.assign({}, createdGroup.dataValues,
+                { ownerId: createdGroup.dataValues.UserId });
               io.emit('new.group', {
                 success: 'New group created successfully.',
                 newGroup
               });
-              res.status(201).json({
+              return res.status(201).json({
                 success: 'New group created successfully.',
                 newGroup
               });
@@ -86,15 +94,17 @@ export default class GroupCtrl {
  * @returns {void}
  */
   static getOneGroup(req, res) {
-    models.Group.findOne({
+    return models.Group.findOne({
       where: { id: req.params.id },
-    }).then((foundGroup) => {
-      res.status(200).json({
+    })
+    .then((foundGroup) => {
+      return res.status(200).json({
         success: 'Successful.',
         foundGroup
       });
-    }).catch((err) => {
-      res.status(500).json({
+    })
+    .catch((err) => {
+      return res.status(500).json({
         globals: err.message || err.errors[0].message
       });
     });
@@ -109,30 +119,34 @@ export default class GroupCtrl {
  */
   static updateOneGroup(req, res) {
     if (!req.body.name) {
-      res.status(400).json({
+      return res.status(400).json({
         globals: 'A group needs to have a name'
       });
     } else {
-      models.Group.findOne({
+      return models.Group.findOne({
         where: { id: req.params.id }
-      }).then((group) => {
+      })
+      .then((group) => {
         if (group.UserId === req.user.dataValues.id) {
-          group.update(req.body).then(() => {
-            res.status(200).json({
+          return group.update(req.body)
+          .then(() => {
+            return res.status(200).json({
               success: 'Group details updated successfully.'
             });
-          }).catch((err) => {
-            res.status(500).json({
+          })
+          .catch((err) => {
+            return res.status(500).json({
               globals: err.message || err.errors[0].message
             });
           });
         } else {
-          res.status(403).json({
+          return res.status(403).json({
             globals: 'You do not have permission to edit this group\'s details'
           });
         }
-      }).catch((err) => {
-        res.status(500).json({
+      })
+      .catch((err) => {
+        return res.status(500).json({
           globals: err.message || err.errors[0].message
         });
       });
@@ -146,28 +160,32 @@ export default class GroupCtrl {
  * @returns {void}
  */
   static deleteOneGroup(req, res) {
-    models.Group.findOne({
+    return models.Group.findOne({
       where: {
         id: req.params.id
       }
-    }).then((group) => {
+    })
+    .then((group) => {
       if (group.UserId === req.user.dataValues.id) {
-        group.destroy().then(() => {
-          res.status(200).json({
+        return group.destroy()
+        .then(() => {
+          return res.status(200).json({
             success: 'Group deleted successfully.'
           });
-        }).catch((err) => {
-          res.status(500).json({
+        })
+        .catch((err) => {
+          return res.status(500).json({
             globals: err.message || err.errors[0].message
           });
         });
       } else {
-        res.status(403).json({
+        return res.status(403).json({
           globals: 'You do not have permission to delete this group'
         });
       }
-    }).catch((err) => {
-      res.status(500).json({
+    })
+    .catch((err) => {
+      return res.status(500).json({
         globals: err.message || err.errors[0].message
       });
     });

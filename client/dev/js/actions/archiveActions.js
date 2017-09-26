@@ -7,9 +7,9 @@ export const selectedGroupDetails = groupDetails => ({
   groupDetails
 });
 
-export const getMessages = allMessages => ({
+export const getMessages = messages => ({
   type: Types.GET_ALL_MESSAGES_FOR_ARCHIVE,
-  allMessages
+  messages
 });
 
 export const archivedMessages = archived => ({

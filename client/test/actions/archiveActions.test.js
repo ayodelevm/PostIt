@@ -1,5 +1,13 @@
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import fetchMock from 'fetch-mock';
+
 import * as actions from '../../dev/js/actions/archiveActions';
 import types from '../../dev/js/actions/actionTypes';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+const token = 'kbdHJYCBu.85bireYIRb';
 
 describe('archive actions', () => {
   it('should create an action for selected group details', () => {
@@ -12,12 +20,12 @@ describe('archive actions', () => {
   });
 
   it('should create an action when fetching all messages when archive is false', () => {
-    const allMessages = { foundMessages: [{ name: 'Learning', description: '' }] };
+    const messages = { foundMessages: [{ name: 'Learning', description: '' }] };
     const expectedAction = {
       type: types.GET_ALL_MESSAGES_FOR_ARCHIVE,
-      allMessages
+      messages
     };
-    expect(actions.getMessages(allMessages)).toEqual(expectedAction);
+    expect(actions.getMessages(messages)).toEqual(expectedAction);
   });
 
   it('should create an action to get archived messages', () => {
@@ -65,3 +73,91 @@ describe('archive actions', () => {
     expect(actions.archivedMessagesFailure(failure)).toEqual(expectedAction);
   });
 });
+
+describe('Archive async actions', () => {
+
+  it('should dispatch GET_ALL_MESSAGES_FOR_ARCHIVE', () => {
+    const store = mockStore({});
+    const expectedActions = [
+      { type: 'GET_ALL_MESSAGES_FOR_ARCHIVE', messages: { foundMessages: {} } }
+    ];
+    fetchMock.get('*', { foundMessages: {} });
+    return store.dispatch(actions.getGroupWithMessages(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+      fetchMock.restore();
+    });
+  });
+
+  it('should dispatch GET_ARCHIVED_MESSAGES', () => {
+    const store = mockStore({});
+    const expectedActions = [
+      { type: 'GET_ARCHIVED_MESSAGES', archived: { foundMessages: {} } }
+    ];
+    fetchMock.get('*', { foundMessages: {} });
+
+    return store.dispatch(actions.getArchivedMessages(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+      fetchMock.restore();
+    });
+  });
+
+  it('should dispatch ARCHIVE_MESSAGES', () => {
+    const store = mockStore({});
+    const expectedActions = [
+      { type: 'ARCHIVE_MESSAGES', archiveSuccess: {} }
+    ];
+    fetchMock.put('*', {});
+
+    return store.dispatch(actions.archiveMessages(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+      fetchMock.restore();
+    });
+  });
+});
+
+describe('Archive async action errors', () => {
+  beforeEach(() => {
+    fetch.resetMocks();
+  });
+
+  it('should dispatch GET_ALL_MESSAGES_FOR_ARCHIVE_FAILURE', () => {
+    const store = mockStore({});
+    fetch.mockReject();
+    const expectedActions = [
+      { type: 'GET_ALL_MESSAGES_FOR_ARCHIVE_FAILURE', failure: undefined }
+    ];
+    return store.dispatch(actions.getGroupWithMessages(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch GET_ARCHIVED_MESSAGES_FAILURE', () => {
+    const store = mockStore({});
+    fetch.mockReject();
+    const expectedActions = [
+      { type: 'GET_ARCHIVED_MESSAGES_FAILURE', failure: undefined }
+    ];
+    return store.dispatch(actions.getArchivedMessages(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch ARCHIVE_MESSAGES_FAILURE', () => {
+    const store = mockStore({});
+    fetch.mockReject();
+    const expectedActions = [
+      { type: 'ARCHIVE_MESSAGES_FAILURE', failure: undefined }
+    ];
+    return store.dispatch(actions.archiveMessages(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+});
+
+

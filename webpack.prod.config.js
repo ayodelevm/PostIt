@@ -13,10 +13,13 @@ const config = [{
     filename: 'js/bundle.min.js',
   },
   plugins: [
-    new Dotenv(),
+    new Dotenv({ systemvars: true }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -25,9 +28,8 @@ const config = [{
   ],
   devServer: {
     inline: true,
-    port: 3000
   },
-
+  devtool: 'source-map',
   module: {
     loaders: [
       {

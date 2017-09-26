@@ -16,7 +16,7 @@ describe('User Reducer', () => {
   it('should get all groups a user belongs to', () => {
     const action = {
       type: Types.GET_USER_GROUPS,
-      allGroups: { foundGroups: {} }
+      groups: { foundGroups: {} }
     };
     const newState = groupReducer(initialState, action);
     expect(newState).toEqual({ ...initialState,

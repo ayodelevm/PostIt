@@ -2,6 +2,7 @@
   "name": "postit",
   "jest": {
     "testURL": "http://localhost:3002",
+    "automock": false,
     "verbose": true,
     "setupFiles": [
       "./setup.js"
@@ -75,6 +76,7 @@
     "history": "^4.6.3",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^21.0.1",
+    "jest-fetch-mock": "^1.2.1",
     "jquery": "^3.2.1",
     "jsdom": "^11.2.0",
     "jsonwebtoken": "^7.4.1",

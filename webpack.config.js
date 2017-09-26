@@ -62,6 +62,9 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
     }),
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    }),
   ]
 };

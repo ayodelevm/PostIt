@@ -66,6 +66,7 @@ global.window = window;
 global.navigator = global.window.navigator;
 global.Hammer = Hammer;
 global.$ = require('jquery');
+global.fetch = require('jest-fetch-mock');
 
 global.localStorage = localStorageMock;
 

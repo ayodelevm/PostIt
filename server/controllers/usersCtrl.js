@@ -13,15 +13,33 @@ export default class AddUsersCtrl {
  * @returns {void}
  */
   static getAllUsers(req, res) {
-    models.User.findAll({
-      attributes: { exclude: ['mysalt', 'updatedAt', 'password', 'googleSubId', 'createdAt'] }
-    }).then((users) => {
-      res.status(200).json({
+    const offset = Number(req.query.offset);
+    const limit = Number(req.query.limit);
+    const search = req.query.username || '';
+
+    return models.User.findAndCountAll({
+      limit: Number(req.query.limit) || 30,
+      offset: Number(req.query.offset) || 0,
+      where: { username: { $ilike: `%${search}%` } },
+      attributes: { exclude:
+        ['mysalt', 'updatedAt', 'password', 'googleSubId', 'createdAt']
+      }
+    })
+    .then((result) => {
+      const pagination = {
+        totalCount: result.count,
+        pageCount: Math.ceil(result.count / limit),
+        page: Math.floor(offset / limit) + 1,
+        pageSize: result.rows.length
+      };
+      return res.status(200).json({
         success: 'Successful.',
-        users
+        users: result.rows,
+        pagination
       });
-    }).catch((err) => {
-      res.status(500).json({
+    })
+    .catch((err) => {
+      return res.status(500).json({
         globals: err.message || err.errors[0].message
       });
     });
@@ -34,26 +52,34 @@ export default class AddUsersCtrl {
  * @returns {void}
  */
   static getUsersInGroup(req, res) {
-    models.Group.findOne({
+    return models.Group.findOne({
       where: { id: req.params.id },
-      attributes: ['id', 'name', 'description', 'imageUrl', 'createdAt', ['UserId', 'ownerId']],
-    }).then((foundGroup) => {
-      foundGroup.getUsers({
-        attributes: { exclude: ['mysalt', 'updatedAt', 'password', 'googleSubId', 'createdAt'] },
+      attributes: ['id', 'name', 'description', 'imageUrl',
+        'createdAt', ['UserId', 'ownerId']],
+    })
+    .then((foundGroup) => {
+      return foundGroup.getUsers({
+        attributes: { exclude:
+          ['mysalt', 'updatedAt', 'password', 'googleSubId', 'createdAt']
+        },
         joinTableAttributes: []
-      }).then((found) => {
-        const foundUsers = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Users: found });
-        res.status(200).json({
+      })
+      .then((found) => {
+        const foundUsers = Object.assign(JSON.parse(JSON
+          .stringify(foundGroup)), { Users: found });
+        return res.status(200).json({
           success: 'Successful.',
           foundUsers
         });
-      }).catch((err) => {
-        res.status(500).json({
+      })
+      .catch((err) => {
+        return res.status(500).json({
           globals: err.message || err.errors[0].message
         });
       });
-    }).catch((err) => {
-      res.status(500).json({
+    })
+    .catch((err) => {
+      return res.status(500).json({
         globals: err.message || err.errors[0].message
       });
     });
@@ -67,23 +93,26 @@ export default class AddUsersCtrl {
  */
   static addUsersToGroup(req, res) {
     const members = [].concat(req.body.members);
-    models.Group.findOne({
+    return models.Group.findOne({
       where: {
         id: req.params.id
       }
-    }).then((foundGroup) => {
+    })
+    .then((foundGroup) => {
       if (foundGroup.UserId === req.user.dataValues.id) {
-        models.User.findAll({
+        return models.User.findAll({
           where: {
             username: members
           }
-        }).then((foundUsers) => {
+        })
+        .then((foundUsers) => {
           if (Array.isArray(foundUsers) && foundUsers.length === 0) {
             return res.status(404).json({
               globals: 'User not found'
             });
           }
-          foundGroup.addUsers(foundUsers).then((addedUsers) => {
+          return foundGroup.addUsers(foundUsers)
+          .then((addedUsers) => {
             if (addedUsers.length === 0) {
               return res.status(400).json({
                 globals: 'Selected users are already members of this group'
@@ -93,20 +122,25 @@ export default class AddUsersCtrl {
               success: 'new users added successfully',
               groupId: req.params.id
             });
-            res.status(201).json({
+            return res.status(201).json({
               success: 'new users added successfully',
               addedUsers
             });
           });
-        }).catch(() => {
+        })
+        .catch((err) => {
+          return res.status(500).json({
+            globals: err.message || err.errors[0].message
+          });
         });
       } else {
         return res.status(403).json({
           globals: 'You are not allowed to add new users to this group, please contact admin!'
         });
       }
-    }).catch((err) => {
-      res.status(500).json({
+    })
+    .catch((err) => {
+      return res.status(500).json({
         globals: err.message || err.errors[0].message
       });
     });
@@ -119,20 +153,24 @@ export default class AddUsersCtrl {
  * @returns {void}
  */
   static updateOneUser(req, res) {
-    models.User.findOne({
+    return models.User.findOne({
       where: { id: req.user.dataValues.id }
-    }).then((foundUser) => {
-      foundUser.update(req.body).then(() => {
-        res.status(200).json({
+    })
+    .then((foundUser) => {
+      return foundUser.update(req.body)
+      .then(() => {
+        return res.status(200).json({
           success: 'User details updated successfully.',
         });
-      }).catch((err) => {
-        res.status(500).json({
+      })
+      .catch((err) => {
+        return res.status(500).json({
           globals: err.message || err.errors[0].message
         });
       });
-    }).catch((err) => {
-      res.status(500).json({
+    })
+    .catch((err) => {
+      return res.status(500).json({
         globals: err.message || err.errors[0].message
       });
     });

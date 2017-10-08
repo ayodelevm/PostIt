@@ -4,10 +4,16 @@ import { notify } from 'react-notify-toast';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getGroupMessages, setCurrentMessages } from '../actions/messageActions';
+import {
+  getGroupMessages,
+  setCurrentMessages
+} from '../actions/messageActions';
 import { getGroupUsers, getUserGroups } from '../actions/groupActions';
 import { getAllUsers } from '../actions/userActions';
-import { selectedGroupDetails, getArchivedMessages } from '../actions/archiveActions';
+import {
+  selectedGroupDetails,
+  getArchivedMessages
+} from '../actions/archiveActions';
 import MessageArea from '../components/MessageArea.jsx';
 
 /**
@@ -32,8 +38,8 @@ export class MessageAreaContainer extends React.Component {
   }
 
   /**
-   * Fetches users, group, group members and group messages data when the component mounts
-   * and initializes the materialize dropdown component
+   * Fetches users, group, group members and group messages data when the
+   * component mounts and initializes the materialize dropdown component
    * @method componentDidMount
    * @memberof MessageAreaContainer
    * @returns {void}
@@ -62,7 +68,8 @@ export class MessageAreaContainer extends React.Component {
             });
           } else {
             this.setState({ redirect: true });
-            notify.show(this.props.groupMessages.errors.globals, 'warning', 3000);
+            notify
+              .show(this.props.groupMessages.errors.globals, 'warning', 3000);
           }
         });
     }
@@ -82,10 +89,14 @@ export class MessageAreaContainer extends React.Component {
     const token = window.localStorage.token;
 
     Promise.resolve(
-      this.props.selectedGroupDetails({ id: event.target.id, name: event.target.name })
+      this.props.selectedGroupDetails({
+        id: event.target.id,
+        name: event.target.name
+      })
     )
     .then(() => {
-      this.props.getArchivedMessages(token, this.props.archiveData.setGroupDetails.id);
+      this.props
+        .getArchivedMessages(token, this.props.archiveData.setGroupDetails.id);
     });
   }
 
@@ -145,4 +156,7 @@ const matchDispatchToProps = dispatch => bindActionCreators({
   getArchivedMessages
 }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(MessageAreaContainer);
+export default connect(
+  mapStateToProps,
+  matchDispatchToProps
+)(MessageAreaContainer);

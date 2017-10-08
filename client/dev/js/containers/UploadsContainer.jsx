@@ -1,6 +1,5 @@
 import React from 'react';
 import superagent from 'superagent';
-import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -18,7 +17,7 @@ import { socketConnect } from '../actions/socketActions';
  * @class UploadsContainer
  * @extends {Component}
  */
-class UploadsContainer extends React.Component {
+export class UploadsContainer extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -26,6 +25,7 @@ class UploadsContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false
     };
 
     this.handleUploadFile = this.handleUploadFile.bind(this);
@@ -48,19 +48,20 @@ class UploadsContainer extends React.Component {
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
     const timestamp = Date.now() / 1000;
-    const uploadPreset = 'cg0ikqnk';
+    const preset = 'cg0ikqnk';
+    const secret = 'bvmxbowzriK0XoPK4X_ZBC-6YaQ';
 
-    const paramsStr = `timestamp=${timestamp}&upload_preset=${uploadPreset}bvmxbowzriK0XoPK4X_ZBC-6YaQ`;
+    const paramsStr = `timestamp=${timestamp}&upload_preset=${preset}${secret}`;
 
     const signature = sha1(paramsStr);
     const params = {
       api_key: '335675768189937',
       timestamp,
-      upload_preset: uploadPreset,
+      upload_preset: preset,
       signature
     };
 
-
+    this.setState({ loading: true });
     const uploadReq = superagent.post(url);
     uploadReq.attach('file', image);
 
@@ -77,6 +78,7 @@ class UploadsContainer extends React.Component {
       const newImage = { profileImage: JSON.stringify(resp.body.secure_url) };
       this.props.uploadProfileImage(token, newImage, this.props.userId)
       .then(() => {
+        this.setState({ loading: false });
         if (this.props.uploadResponse.uploadSuccess) {
           notify.show('Upload Successful!', 'success', 3000);
           this.props.getUserGroups(token)
@@ -103,7 +105,8 @@ class UploadsContainer extends React.Component {
       <UploadsModal
         onUploadFile={this.handleUploadFile}
         closeModalRoute={this.props.closeModalRoute}
-      />
+        loading={this.state.loading}
+    />
 
     );
   }
@@ -132,4 +135,7 @@ const matchDispatchToProps = dispatch => bindActionCreators({
   getAllUsers,
   socketConnect }, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(UploadsContainer);
+export default connect(
+  mapStateToProps,
+  matchDispatchToProps
+)(UploadsContainer);

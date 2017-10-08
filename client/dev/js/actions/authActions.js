@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import Types from './actionTypes';
 import * as api from '../utils/apis';
-import endpoints from '../utils/apiUrls';
+import endpoints from '../utils/endpoints';
 
 export const createUser = newUser => ({
   type: Types.CREATE_NEW_USER,
@@ -53,9 +53,9 @@ export const setCurrentUser = user => ({
   currentUser: user
 });
 
-export const setResponse = resp => ({
+export const setResponse = response => ({
   type: Types.SET_RESPONSE,
-  resp
+  response
 });
 
 export const setCurrentUserFailure = failure => ({
@@ -63,78 +63,129 @@ export const setCurrentUserFailure = failure => ({
   failure
 });
 
-export const createNewUser = data => dispatch => api.postEndpoint(endpoints.SIGNUP_PATH, data)
+/**
+ * Async action-creator to create new user
+ * @param {object} userPayload
+ * @returns {function} dispatch
+ */
+export const createNewUser = userPayload => dispatch => api
+  .postEndpoint(endpoints.SIGNUP_PATH, userPayload)
   .then(
   (success) => {
     const token = success.token;
     window.localStorage.setItem('token', token);
-    dispatch(createUser(jwtDecode(token)));
-    dispatch(setResponse(success));
+    const response = {
+      ...{ currentUser: jwtDecode(token) },
+      ...{ status: !!Object.keys(success) }
+    };
+    dispatch(createUser(response));
+    dispatch(setResponse(response));
   },
   (error) => {
     dispatch(createUserFailure(error));
-    dispatch(setResponse(error));
+    dispatch(setResponse({ ...error, status: true }));
   }
   );
 
-export const googleRegister = data => dispatch => api.postEndpoint(endpoints.GOOGLE_REGISTER, data)
+/**
+ * Async action creator to register through google
+ * @param {object} googleIdToken
+ * @returns {function} dispatch
+ */
+export const googleRegister = googleIdToken => dispatch => api
+  .postEndpoint(endpoints.GOOGLE_REGISTER, googleIdToken)
   .then(
   (success) => {
     const token = success.token;
     window.localStorage.setItem('token', token);
-    dispatch(newGoogleRegister(jwtDecode(token)));
-    dispatch(setResponse(success));
+    const response = {
+      ...{ currentUser: jwtDecode(token) },
+      ...{ status: !!Object.keys(success) }
+    };
+    dispatch(newGoogleRegister(response));
+    dispatch(setResponse(response));
   },
   (error) => {
     dispatch(newGoogleRegisterFailure(error));
-    dispatch(setResponse(error));
+    dispatch(setResponse({ ...error, status: true }));
   }
   );
 
-export const loginAUser = data => dispatch => api.postEndpoint(endpoints.LOGIN_PATH, data)
+/**
+ * Async action creator to login a user
+ * @param {object} userPayload
+ * @returns {function} dispatch
+ */
+export const loginAUser = userPayload => dispatch => api
+  .postEndpoint(endpoints.LOGIN_PATH, userPayload)
   .then(
     (success) => {
       const token = success.token;
       window.localStorage.setItem('token', token);
-      dispatch(loginUser(jwtDecode(token)));
-      dispatch(setResponse(success));
+      const response = {
+        ...{ currentUser: jwtDecode(token) },
+        ...{ status: !!Object.keys(success) }
+      };
+      dispatch(loginUser(response));
+      dispatch(setResponse(response));
     },
     (error) => {
       dispatch(loginUserFailure(error));
-      dispatch(setResponse(error));
+      dispatch(setResponse({ ...error, status: true }));
     }
   );
 
-export const googleLogin = data => dispatch => api.postEndpoint(endpoints.GOOGLE_LOGIN, data)
+/**
+ * Async action creator to login a user through google
+ * @param {object} googleIdToken
+ * @returns {function} dispatch
+ */
+export const googleLogin = googleIdToken => dispatch => api
+  .postEndpoint(endpoints.GOOGLE_LOGIN, googleIdToken)
   .then(
     (success) => {
       const token = success.token;
       window.localStorage.setItem('token', token);
-      dispatch(newGoogleLogin(jwtDecode(token)));
-      dispatch(setResponse(success));
+      const response = {
+        ...{ currentUser: jwtDecode(token) },
+        ...{ status: !!Object.keys(success) }
+      };
+      dispatch(newGoogleLogin(response));
+      dispatch(setResponse(response));
     },
     (error) => {
       dispatch(newGoogleLoginFailure(error));
-      dispatch(setResponse(error));
+      dispatch(setResponse({ ...error, status: true }));
     }
   );
 
-export const verifyUser = (data, token) => (dispatch) => {
-  return api.postEndpoint(endpoints.VERIFY_USER, data, token)
+/**
+ * Async action creator to verify a user's token
+ * @param {object} payload
+ * @param {object} token
+ * @returns {function} dispatch
+ */
+export const verifyUser = (payload, token) => dispatch => api
+  .postEndpoint(endpoints.VERIFY_USER, payload, token)
   .then((success) => {
-    if (success) {
-      const verifiedToken = success.token;
-      window.localStorage.setItem('token', verifiedToken);
-      dispatch(setCurrentUser(jwtDecode(verifiedToken)));
-      dispatch(setResponse(success));
-    }
+    const verifiedToken = success.token;
+    window.localStorage.setItem('token', verifiedToken);
+    const response = {
+      ...{ currentUser: jwtDecode(verifiedToken) },
+      ...{ status: !!Object.keys(success) }
+    };
+    dispatch(setCurrentUser(response));
+    dispatch(setResponse(response));
   }, (error) => {
     window.localStorage.removeItem('token');
     dispatch(setCurrentUserFailure(error));
-    dispatch(setResponse(error));
+    dispatch(setResponse({ ...error, status: true }));
   });
-};
 
+/**
+ * Action creator to a user out
+ * @returns {function} dispatch
+ */
 export const logoutAUser = () => (dispatch) => {
   window.localStorage.removeItem('token');
   dispatch(logoutUser({ message: 'Logged out successfully!' }));

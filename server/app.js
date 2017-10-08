@@ -5,13 +5,12 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import socketIo from 'socket.io';
 import http from 'http';
+import winston from 'winston';
 
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.prod.config';
-
-import models from './models/index';
 
 // ROUTES
 
@@ -34,7 +33,10 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
   next();
 });
 
@@ -49,24 +51,31 @@ app.use(groupRoutes);
 app.use(messageRoutes);
 app.use(usersRoutes);
 
-
-const compiler = webpack(webpackConfig);
-
-app.use(webpackMiddleware(compiler, {
-  hot: true,
-  publicPath: '/',
-  noInfo: true
-}));
-app.use(webpackHotMiddleware(compiler));
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// Configure Winston
+winston.configure({
+  transports: [
+    new (winston.transports.File)({ filename: 'server.log' })
+  ]
 });
+
+if (process.env.NODE_ENV !== 'test') {
+  const compiler = webpack(webpackConfig);
+
+  app.use(webpackMiddleware(compiler, {
+    hot: true,
+    publicPath: '/',
+    noInfo: true
+  }));
+  app.use(webpackHotMiddleware(compiler));
+
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  });
+}
 
 // Listening PORT
 server.listen(process.env.PORT || 3002, () => {
-  // eslint-disable-next-line
-  console.log('serving on port 3002');
+  winston.log('info', 'serving on port 3002');
 });
 
 export default app;

@@ -2,10 +2,18 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer';
 import models from './../models/index';
-import { validateSignup, validateInput, validateLoginInput, validateEmailExist, validateEmail, validateResetPassword } from '../utils/validations';
+import {
+  validateSignup,
+  validateInput,
+  validateLoginInput,
+  validateEmailExist,
+  validateEmail,
+  validateResetPassword
+} from '../utils/validations';
 
 /**
- * This class handles the logic for registering an account signin and signing out
+ * This class handles the logic for registering an account
+ * signin and signing out
  */
 export default class AuthCtrl {
 
@@ -32,9 +40,8 @@ export default class AuthCtrl {
 
           return res.status(201).json({ token });
         });
-      } else {
-        return res.status(400).json({ errors });
       }
+      return res.status(422).json({ errors });
     });
   }
 
@@ -64,7 +71,8 @@ export default class AuthCtrl {
 
         if (founduser.googleSubId !== null) {
           return res.status(409).json({
-            globals: 'It seems you signed up through google, please sign in with google!'
+            globals: 'It seems you signed up through google,' +
+            ' please sign in with google!'
           });
         }
 
@@ -85,9 +93,8 @@ export default class AuthCtrl {
           globals: 'Invalid login credentials'
         });
       });
-    } else {
-      return res.status(400).json({ errors });
     }
+    return res.status(422).json({ errors });
   }
 
 /**
@@ -103,7 +110,7 @@ export default class AuthCtrl {
         const email = req.body.email;
         const token = jwt.sign({
           email
-        }, process.env.secret, { expiresIn: 60 * 60 * 1 });
+        }, process.env.secret, { expiresIn: 60 * 60 * 24 * 30 });
 
         const transporter = nodemailer.createTransport({
           service: 'gmail',
@@ -120,8 +127,10 @@ export default class AuthCtrl {
           from: 'noreply.postitapp@gmail.com',
           to: email,
           subject: 'Reset Password',
-          html: `<p>You have received this mail because you asked to reset your account on PostIt. Please
-          <a href="${req.headers.origin}/resetpassword?tok=${token}">Click here</a> to begin the process</p><br />
+          html: `<p>You have received this mail because you asked to
+          reset your account on PostIt. Please
+          <a href="${req.headers.origin}/resetpassword?tok=${token}">
+          Click here</a> to begin the process</p><br />
           <p>Please ignore this mail if you did not make this request.</p>
           <p>Note: This link will expire after one hour</p>`,
         };
@@ -135,14 +144,14 @@ export default class AuthCtrl {
             success: 'Please check your mail for the reset link!'
           });
         });
-      } else {
-        return res.status(400).json({ errors });
       }
+      return res.status(422).json({ errors });
     });
   }
 
 /**
- *  This method handles resetting the password of a registered user to reset password
+ * This method handles resetting the password of a
+ * registered user to reset password
  * @param {object} req
  * @param {object} res
  * @returns {void}
@@ -167,20 +176,19 @@ export default class AuthCtrl {
           return models.User.update({ password: hashedPassword }, {
             where: { email: decoded.email }
           })
-          .then(() => {
-            return res.status(201).json({
-              success: 'password reset successful, Please login to continue!'
-            });
-          });
+          .then(() => res.status(200).json({
+            success: 'password reset successful, Please login to continue!'
+          }));
         });
       }
     } else {
-      return res.status(400).json({ errors });
+      return res.status(422).json({ errors });
     }
   }
 
-  /**
- *  This method handles resetting the password of a registered user to reset password
+/**
+ * This method handles resetting the password of a
+ * registered user to reset password
  * @param {object} req
  * @param {object} res
  * @returns {void}

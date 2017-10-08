@@ -6,12 +6,18 @@ const initialState = {
   currentUser: {}
 };
 
+/**
+ * Reducer hanlding authentication functions
+ * @param {object} state
+ * @param {object} action
+ * @returns {object} state
+ */
 const authReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.CREATE_NEW_USER:
       return Object.assign({}, state, {
-        currentUser: action.newUser,
-        isAuthenticated: !!Object.keys(action.newUser)
+        currentUser: action.newUser.currentUser,
+        isAuthenticated: action.newUser.status
       });
 
     case Types.CREATE_USER_FAILURE:
@@ -22,8 +28,8 @@ const authReducer = (state = initialState, action = {}) => {
 
     case Types.LOGIN_USER:
       return Object.assign({}, state, {
-        currentUser: action.user,
-        isAuthenticated: !!Object.keys(action.user)
+        currentUser: action.user.currentUser,
+        isAuthenticated: action.user.status
       });
 
     case Types.LOGIN_USER_FAILURE:
@@ -34,8 +40,8 @@ const authReducer = (state = initialState, action = {}) => {
 
     case Types.GOOGLE_REGISTER:
       return Object.assign({}, state, {
-        currentUser: action.newUser,
-        isAuthenticated: !!Object.keys(action.newUser)
+        currentUser: action.newUser.currentUser,
+        isAuthenticated: action.newUser.status
       });
 
     case Types.GOOGLE_REGISTER_FAILURE:
@@ -46,8 +52,8 @@ const authReducer = (state = initialState, action = {}) => {
 
     case Types.GOOGLE_LOGIN:
       return Object.assign({}, state, {
-        currentUser: action.user,
-        isAuthenticated: !!Object.keys(action.user)
+        currentUser: action.user.currentUser,
+        isAuthenticated: action.user.status
       });
 
     case Types.GOOGLE_LOGIN_FAILURE:
@@ -64,8 +70,8 @@ const authReducer = (state = initialState, action = {}) => {
 
     case Types.SET_CURRENT_USER:
       return Object.assign({}, state, {
-        currentUser: action.currentUser,
-        isAuthenticated: !!Object.keys(action.currentUser),
+        currentUser: action.currentUser.currentUser,
+        isAuthenticated: action.currentUser.status
       });
 
     case Types.SET_CURRENT_USER_FAILURE:
@@ -76,7 +82,7 @@ const authReducer = (state = initialState, action = {}) => {
 
     case Types.SET_RESPONSE:
       return Object.assign({}, state, {
-        isVerified: !!Object.keys(action.resp),
+        isVerified: action.response.status
       });
 
     default: return state;

@@ -14,7 +14,7 @@ describe('User Reducer', () => {
   it('should get all registered users', () => {
     const action = {
       type: Types.GET_ALL_USERS,
-      allUsers: { users: [] }
+      allUsers: { users: [], status: true }
     };
     const newState = userReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ users: [], getSuccess: true } });
@@ -23,7 +23,7 @@ describe('User Reducer', () => {
   it('should add users to group', () => {
     const action = {
       type: Types.ADD_USERS_TO_GROUP,
-      newUsers: { addedUsers: [] }
+      newUsers: { addedUsers: [], status: true }
     };
     const newState = userReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ newUsers: [], addSuccess: true } });
@@ -32,7 +32,7 @@ describe('User Reducer', () => {
   it('should upload users profile image', () => {
     const action = {
       type: Types.UPLOAD_PROFILE_IMAGE,
-      newUserImage: { success: '' }
+      newUserImage: { success: '', status: true }
     };
     const newState = userReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ updatedUser: '', uploadSuccess: true } });

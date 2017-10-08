@@ -6,11 +6,11 @@ const initialState = {
   resetSuccess: false
 };
 
-describe('User Reducer', () => {
+describe('Reset Password Reducer', () => {
   it('should indicate when email to reset password is sent', () => {
     const action = {
       type: Types.FORGOT_PASSWORD,
-      mailSuccess: {}
+      mailSuccess: { status: true }
     };
     const newState = resetPasswordReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ emailVerified: true } });
@@ -19,7 +19,7 @@ describe('User Reducer', () => {
   it('should indicate when password reset is successful', () => {
     const action = {
       type: Types.RESET_PASSWORD,
-      resetSuccess: {}
+      resetSuccess: { status: true }
     };
     const newState = resetPasswordReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ resetSuccess: true } });

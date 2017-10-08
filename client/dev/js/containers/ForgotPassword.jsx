@@ -13,7 +13,7 @@ import ForgotPasswordModal from '../components/ForgotPasswordModal.jsx';
  * @class ForgotPassword
  * @extends {Component}
  */
-class ForgotPassword extends React.Component {
+export class ForgotPassword extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -27,27 +27,17 @@ class ForgotPassword extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleResetState = this.handleResetState.bind(this);
   }
 
   /**
-   * Updates the materialize modal when the component mounts
-   * and resets form input when the component mounts
-   * @method componentDidMount
-   * @memberof ForgotPassword
+   * Resets the state when modal is closed without submitting
    * @returns {void}
    */
-  componentDidMount() {
-    $(document).ready(() => {
-      $('.modal').modal({
-        dismissible: true,
-        complete: () => {
-          this.setState({
-            email: '',
-            errors: {},
-          });
-        }
-      });
-      Materialize.updateTextFields();
+  handleResetState() {
+    this.setState({
+      email: '',
+      errors: {},
     });
   }
 
@@ -101,12 +91,13 @@ class ForgotPassword extends React.Component {
     .then(
       () => {
         if (this.props.resetResponse.emailVerified) {
+          $('#reset-email').modal('close');
           notify.show(`A link has been sent to your email,
             follow the link to reset your password`, 'success', 3000);
-          $('#reset-email').modal('close');
         } else {
           if (this.props.resetResponse.errors.errors) {
-            return this.setState({ errors: this.props.resetResponse.errors.errors });
+            return this
+              .setState({ errors: this.props.resetResponse.errors.errors });
           }
           notify.show(this.props.resetResponse.errors.globals, 'warning', 3000);
         }
@@ -124,7 +115,7 @@ class ForgotPassword extends React.Component {
         value={this.state.email}
         state={this.state} onChange={this.handleChange}
         email={this.state.email} error={this.state.errors.name}
-        closeModalRoute={this.props.closeModalRoute}
+        onResetState={this.handleResetState}
       />
 
     );
@@ -134,13 +125,14 @@ class ForgotPassword extends React.Component {
 ForgotPassword.propTypes = {
   forgotPassword: PropTypes.func.isRequired,
   resetResponse: PropTypes.object,
-  closeModalRoute: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
   resetResponse: state.resetPasswordReducer,
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ forgotPassword }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({
+  forgotPassword
+}, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(ForgotPassword);

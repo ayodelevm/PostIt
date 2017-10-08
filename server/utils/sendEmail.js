@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 
+// Method to send Email
 const sendEmail = (emails, sentBy, groupName, groupId, origin) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -21,8 +22,7 @@ const sendEmail = (emails, sentBy, groupName, groupId, origin) => {
     <p>Note: You received this mail because you have an account on PostIt and belong to the group ${groupName},<br />
     Please ignore if this mail seem to be a mistake.</p>`,
   };
-  transporter.sendMail(mailOptions, () => {
-  });
+  transporter.sendMail(mailOptions);
 };
 
 export default sendEmail;

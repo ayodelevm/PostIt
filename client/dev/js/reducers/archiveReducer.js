@@ -9,6 +9,12 @@ const initialState = {
   getArchivedSuccess: false
 };
 
+/**
+ * Reducer hanlding archive functions
+ * @param {object} state
+ * @param {object} action
+ * @returns {object} state
+ */
 const archiveReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.SELECT_GROUP_ID_TO_ARCHIVE:
@@ -19,18 +25,18 @@ const archiveReducer = (state = initialState, action = {}) => {
     case Types.GET_ALL_MESSAGES_FOR_ARCHIVE:
       return Object.assign({}, state, {
         archivableMessages: action.messages.foundMessages,
-        getSuccess: !!Object.keys(action.messages)
+        getSuccess: action.messages.status
       });
 
     case Types.ARCHIVE_MESSAGES:
       return Object.assign({}, state, {
-        archiveSuccess: !!Object.keys(action.archiveSuccess),
+        archiveSuccess: action.archiveSuccess.status
       });
 
     case Types.GET_ARCHIVED_MESSAGES:
       return Object.assign({}, state, {
         archivedMessages: action.archived.foundMessages,
-        getArchivedSuccess: !!Object.keys(action.archived)
+        getArchivedSuccess: action.archived.status
       });
 
     case Types.ARCHIVE_MESSAGES_FAILURE:

@@ -19,7 +19,12 @@ const ResetPasswordForm = props => (
             <div className="card-content black-text">
               <span className="card-title v-align">
                 <a href="/" className="brand-logo">
-                  <i className="material-icons lime-text lighthen-5">insert_chart</i><span id="site_name">PostIt</span>
+                  <i
+                    className="material-icons lime-text lighthen-5"
+                  >
+                    insert_chart
+                  </i>
+                  <span id="site_name">PostIt</span>
                 </a>
               </span>
               <p>Log into your account.</p>
@@ -48,7 +53,11 @@ const ResetPasswordForm = props => (
                       onChange={props.onChange}
                       htmlFor={'password'}
                       />
-                    <span className="left error-message grey-text">{props.state.errors.password}</span>
+                    <span
+                      className="left error-message grey-text"
+                    >
+                      {props.state.errors.password}
+                    </span>
                   </div>
                   <div className="row">
                     <InputFieldGroup
@@ -62,13 +71,23 @@ const ResetPasswordForm = props => (
                       onChange={props.onChange}
                       htmlFor={'passwordConfirmation'}
                       />
-                    <span className="left error-message grey-text">{props.state.errors.passwordConfirmation}</span>
+                    <span
+                      className="left error-message grey-text"
+                    >
+                      {props.state.errors.passwordConfirmation}
+                    </span>
                   </div>
 
                   <div className="row">
                     <div className="input-field col s12">
-                      <button className="btn lime accent-4 waves-effect waves-light center" type="submit" name="action">Reset Password
-                          <i className="material-icons right">person</i>
+                      <button
+                        className={'btn lime accent-4 waves-effect' +
+                        ' waves-light center'}
+                        type="submit"
+                        name="action"
+                      >
+                        Reset Password
+                        <i className="material-icons right">person</i>
                       </button>
                     </div>
                   </div>
@@ -79,7 +98,12 @@ const ResetPasswordForm = props => (
             </div>
             <div className="card-action">
               <span className="black-text">New to PostIt? </span>
-              <a href="/register" className="green-text darken-4">Create a new account</a>
+              <a
+                href="/register"
+                className="green-text darken-4"
+              >
+                Create a new account
+              </a>
             </div>
           </div>
         </div>
@@ -87,7 +111,13 @@ const ResetPasswordForm = props => (
 
     </div>
 
-    <div className="parallax"><img className="responsive-img" src={require('../utils/images/jacob-ufkes-195221.jpg')} alt="login section" /><div id="overlay" />
+    <div className="parallax">
+      <img
+        className="responsive-img"
+        src={require('../utils/images/jacob-ufkes-195221.jpg')}
+        alt="login section"
+      />
+      <div id="overlay" />
     </div>
   </div>
 );

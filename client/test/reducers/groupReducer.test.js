@@ -12,11 +12,11 @@ const initialState = {
   groupUsers: {}
 };
 
-describe('User Reducer', () => {
+describe('Group Reducer', () => {
   it('should get all groups a user belongs to', () => {
     const action = {
       type: Types.GET_USER_GROUPS,
-      groups: { foundGroups: {} }
+      groups: { foundGroups: {}, status: true }
     };
     const newState = groupReducer(initialState, action);
     expect(newState).toEqual({ ...initialState,
@@ -26,7 +26,7 @@ describe('User Reducer', () => {
   it('should get all users in a group', () => {
     const action = {
       type: Types.GET_GROUP_USERS,
-      users: { foundUsers: {} }
+      users: { foundUsers: {}, status: true }
     };
     const newState = groupReducer(initialState, action);
     expect(newState).toEqual({ ...initialState,
@@ -36,7 +36,7 @@ describe('User Reducer', () => {
   it('should reset all groups after creating a new group', () => {
     const action = {
       type: Types.SET_CURRENT_GROUPS,
-      mergedGroups: {}
+      mergedGroups: { currentGroups: {}, status: true }
     };
     const newState = groupReducer(initialState, action);
     expect(newState).toEqual({ ...initialState,

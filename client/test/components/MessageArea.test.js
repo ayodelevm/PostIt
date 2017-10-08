@@ -2,7 +2,7 @@ import React from 'react';
 import Notifications from 'react-notify-toast';
 import { shallow } from 'enzyme';
 
-import MessagingComponent from '../../dev/js/components/MessagingComponent.jsx';
+import MessageArea from '../../dev/js/components/MessageArea.jsx';
 import GroupFormContainer from '../../dev/js/containers/GroupFormContainer.jsx';
 import UploadsContainer from '../../dev/js/containers/UploadsContainer.jsx';
 import Nav from '../../dev/js/components/common/Nav.jsx';
@@ -24,69 +24,64 @@ const props = {
   Messages: [],
   currentUser: {},
   onClick: { handleActiveGroupClicked: () => { Promise.resolve(); } },
-  handleActiveGroupClicked: jest.fn()
+  onActiveGroupClicked: jest.fn()
 
 };
 
-describe('Messaging Component', () => {
+describe('Messaging Area', () => {
   it('renders one <Nav /> component', () => {
-    const wrapper = shallow(<MessagingComponent {...props} />);
+    const wrapper = shallow(<MessageArea {...props} />);
     expect(wrapper.find(Nav)).toHaveLength(1);
   });
 
   it('renders one <Notifications /> component', () => {
-    const wrapper = shallow(<MessagingComponent {...props} />);
+    const wrapper = shallow(<MessageArea {...props} />);
     expect(wrapper.find(Notifications)).toHaveLength(1);
   });
 
   it('renders one <GroupFormContainer /> component', () => {
-    const wrapper = shallow(<MessagingComponent {...props} />);
+    const wrapper = shallow(<MessageArea {...props} />);
     expect(wrapper.find(GroupFormContainer)).toHaveLength(1);
   });
 
   it('renders one <MessageFormContainer /> component', () => {
-    const wrapper = shallow(<MessagingComponent {...props} />);
+    const wrapper = shallow(<MessageArea {...props} />);
     expect(wrapper.find(MessageFormContainer)).toHaveLength(1);
   });
 
   it('renders one <UploadsContainer /> component', () => {
-    const wrapper = shallow(<MessagingComponent {...props} />);
+    const wrapper = shallow(<MessageArea {...props} />);
     expect(wrapper.find(UploadsContainer)).toHaveLength(1);
   });
 
   it('renders one <Archive /> component', () => {
-    const wrapper = shallow(<MessagingComponent {...props} />);
+    const wrapper = shallow(<MessageArea {...props} />);
     expect(wrapper.find(Archive)).toHaveLength(1);
   });
 
   it('renders one <ViewArchivedModal /> component', () => {
-    const wrapper = shallow(<MessagingComponent {...props} />);
+    const wrapper = shallow(<MessageArea {...props} />);
     expect(wrapper.find(ViewArchivedModal)).toHaveLength(1);
   });
 
   it('renders one <GroupMembersModal /> component', () => {
-    const wrapper = shallow(<MessagingComponent {...props} />);
+    const wrapper = shallow(<MessageArea {...props} />);
     expect(wrapper.find(GroupMembersModal)).toHaveLength(1);
   });
 
   it('renders one <AddUsers /> component', () => {
-    const wrapper = shallow(<MessagingComponent {...props} />);
+    const wrapper = shallow(<MessageArea {...props} />);
     expect(wrapper.find(AddUsers)).toHaveLength(1);
   });
 
-  it('renders the accurate number of divs in MessagingComponent component', () => {
-    const wrapper = shallow(<MessagingComponent {...props} />);
-    expect(wrapper.find('div')).toHaveLength(25);
-  });
-
-  it('renders h5 text', () => {
-    const wrapper = shallow(<MessagingComponent {...props} />);
-    expect(wrapper.find('h5').text()).toEqual('lock_open ');
+  it('renders the accurate number of divs in MessageArea component', () => {
+    const wrapper = shallow(<MessageArea {...props} />);
+    expect(wrapper.find('div')).toHaveLength(22);
   });
 
   it('renders children when passed in', () => {
     const wrapper = shallow((
-      <MessagingComponent {...props} />
+      <MessageArea {...props} />
     ));
     expect(wrapper.contains(<div className="divider" />)).toEqual(true);
     expect(wrapper.contains(<span className="black-text" />)).toEqual(false);

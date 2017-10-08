@@ -6,25 +6,15 @@ import PropTypes from 'prop-types';
  * @param {object} props
  * @returns {jsx} - an xml/html -like syntax extension to javascript
  */
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  
-
-  render() {
-    return (
-      <div>
-        { this.props.children }
-        <div className="container" />
-      </div>
-    );
-  }
-}
+const App = props => (
+  <div>
+    { props.children }
+    <div className="container" />
+  </div>
+);
 
 App.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-// export default connect(null, null)(App);
 export default App;

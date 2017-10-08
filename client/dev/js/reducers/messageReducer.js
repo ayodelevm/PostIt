@@ -7,24 +7,24 @@ const initialState = {
   newMessageSuccess: false
 };
 
+/**
+ * Reducer hanlding message functions
+ * @param {object} state
+ * @param {object} action
+ * @returns {object} state
+ */
 const messageReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.GET_GROUP_AND_ITS_MESSAGES:
       return Object.assign({}, state, {
         groupMessages: action.groupMessages.foundMessages,
-        getMessagesSuccess: !!Object.keys(action.groupMessages)
+        getMessagesSuccess: action.groupMessages.status
       });
 
-    case Types.CREATE_NEW_MESSAGES:
-      return Object.assign({}, state, {
-        newMessage: action.newMessage.createdMessage,
-        newMessageSuccess: !!Object.keys(action.newMessage)
-      });
-    
     case Types.SET_CURRENT_MESSAGES:
       return Object.assign({}, state, {
-        groupMessages: action.mergedMessages,
-        newMessageSuccess: !!Object.keys(action.mergedMessages)
+        groupMessages: action.mergedMessages.currentMessages,
+        newMessageSuccess: action.mergedMessages.status
       });
 
     case Types.GET_GROUP_AND_ITS_MESSAGES_FAILURE:

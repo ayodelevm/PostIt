@@ -8,12 +8,13 @@ import { validateGroupInput } from '../utils/validations';
 import GroupModal from '../components/GroupModal.jsx';
 
 /**
- * This class is the container component for creating a new group and adding new users when creating
+ * This class is the container component for creating
+ * a new group and adding new users when creating
  * It is responsible for managing all the state changes in the component
  * @class GroupFormContainer
  * @extends {Component}
  */
-class GroupFormContainer extends React.Component {
+export class GroupFormContainer extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -31,6 +32,7 @@ class GroupFormContainer extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChipsChange = this.handleChipsChange.bind(this);
+    this.handleResetState = this.handleResetState.bind(this);
   }
 
   /**
@@ -41,23 +43,25 @@ class GroupFormContainer extends React.Component {
    * @returns {void}
    */
   componentDidMount() {
-    $(document).ready(() => {
-      $('.modal').modal({
-        dismissible: true,
-        ready: () => {
-          this.setState({
-            name: '',
-            description: '',
-            members: [],
-            errors: {}
-          });
-        }
-      });
-      $('.tooltipped').tooltip({ delay: 50 });
-      Materialize.updateTextFields();
-      $('.collapsible').collapsible({
-        accordion: true,
-      });
+    $('.modal').modal({
+      dismissible: true,
+    });
+    $('.tooltipped').tooltip({ delay: 50 });
+    $('.collapsible').collapsible({
+      accordion: true,
+    });
+  }
+
+  /**
+   * Resets the state when modal is closed without submitting
+   * @returns {void}
+   */
+  handleResetState() {
+    this.setState({
+      name: '',
+      description: '',
+      members: [],
+      errors: {}
     });
   }
 
@@ -89,7 +93,8 @@ class GroupFormContainer extends React.Component {
   }
 
   /**
-   * This method takes in array of the users selected to be added to a group and sets the state
+   * This method takes in array of the users selected to be added
+   * to a group and sets the state
    * @method handleChipsChange
    * @memberof GroupFormContainer
    * @param {array} chips
@@ -125,14 +130,16 @@ class GroupFormContainer extends React.Component {
     .then(
       () => {
         if (this.props.groupResponse.createSuccess) {
-          notify.show('Group created successfully!', 'success', 3000);
           this.setState({ name: '', description: '', members: [] });
           $('#group-new').modal('close');
+          notify.show('Group created successfully!', 'success', 3000);
         } else {
           if (this.props.groupResponse.errors.errors) {
-            return this.setState({ errors: this.props.groupResponse.errors.errors });
+            return this
+              .setState({ errors: this.props.groupResponse.errors.errors });
           }
-          notify.show(this.props.groupResponse.errors.globals, 'warning', 3000);
+          notify
+            .show(this.props.groupResponse.errors.globals, 'warning', 3000);
         }
       }
     );
@@ -162,6 +169,7 @@ class GroupFormContainer extends React.Component {
         name={this.state.name} error={this.state.errors.name}
         onChipsChange={this.handleChipsChange} suggestions={allusernames}
         closeModalRoute={this.props.closeModalRoute}
+        onResetState={this.handleResetState}
       />
 
     );
@@ -183,6 +191,11 @@ const mapStateToProps = state => ({
   currentUser: state.authReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ createNewGroup }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({
+  createNewGroup
+}, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(GroupFormContainer);
+export default connect(
+  mapStateToProps,
+  matchDispatchToProps
+)(GroupFormContainer);

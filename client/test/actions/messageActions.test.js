@@ -1,5 +1,13 @@
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import fetchMock from 'fetch-mock';
+
 import * as actions from '../../dev/js/actions/messageActions';
 import types from '../../dev/js/actions/actionTypes';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+const token = 'kbdHJYCBu.85bireYIRb';
 
 describe('message actions', () => {
   it("should create an action to get a group and it's messages", () => {
@@ -9,15 +17,6 @@ describe('message actions', () => {
       groupMessages
     };
     expect(actions.groupAndMessages(groupMessages)).toEqual(expectedAction);
-  });
-
-  it('should create an action to create new messages', () => {
-    const newMessage = { success: '', foundUsers: { id: '', GroupId: '', UserId: '' } };
-    const expectedAction = {
-      type: types.CREATE_NEW_MESSAGES,
-      newMessage
-    };
-    expect(actions.newGroupMessages(newMessage)).toEqual(expectedAction);
   });
 
   it('should create an action when message has been created successfully', () => {
@@ -44,7 +43,7 @@ describe('message actions', () => {
       type: types.GET_GROUP_AND_ITS_MESSAGES_FAILURE,
       failure
     };
-    expect(actions.groupAndMessagesFailure(failure)).toEqual(expectedAction);
+    expect(actions.groupMessagesFailure(failure)).toEqual(expectedAction);
   });
 
   it('should create an action for failure when creating a new message', () => {
@@ -54,6 +53,66 @@ describe('message actions', () => {
       failure
     };
     expect(actions.newGroupMessagesFailure(failure)).toEqual(expectedAction);
+  });
+});
+
+describe('Message async actions', () => {
+
+  it('should dispatch GET_GROUP_AND_ITS_MESSAGES', () => {
+    const store = mockStore({});
+    const expectedActions = [
+      { type: 'GET_GROUP_AND_ITS_MESSAGES', groupMessages: { success: '', status: true, foundMessages: {} } }
+    ];
+    fetchMock.get('*', { success: '', foundMessages: {} });
+    return store.dispatch(actions.getGroupMessages(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+      fetchMock.restore();
+    });
+  });
+
+  it('should dispatch SUCCESSFUL_MESSAGE_CREATE', () => {
+    const store = mockStore({});
+    const expectedActions = [
+      { type: 'SUCCESSFUL_MESSAGE_CREATE', message: '' }
+    ];
+    fetchMock.post('*', { success: '' });
+
+    return store.dispatch(actions.createNewMessages(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+      fetchMock.restore();
+    });
+  });
+});
+
+describe('Message async action errors', () => {
+  beforeEach(() => {
+    fetch.resetMocks();
+  });
+
+  it('should dispatch GET_GROUP_AND_ITS_MESSAGES_FAILURE', () => {
+    const store = mockStore({});
+    fetch.mockReject();
+    const expectedActions = [
+      { type: 'GET_GROUP_AND_ITS_MESSAGES_FAILURE', failure: undefined }
+    ];
+    return store.dispatch(actions.getGroupMessages(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch CREATE_NEW_MESSAGES_FAILURE', () => {
+    const store = mockStore({});
+    fetch.mockReject();
+    const expectedActions = [
+      { type: 'CREATE_NEW_MESSAGES_FAILURE', failure: undefined }
+    ];
+    return store.dispatch(actions.createNewMessages(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
   });
 });
 

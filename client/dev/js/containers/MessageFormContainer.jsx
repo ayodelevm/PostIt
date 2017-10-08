@@ -11,7 +11,7 @@ import MessageForm from '../components/MessageForm.jsx';
  * @class MessageFormContainer
  * @extends {Component}
  */
-class MessageFormContainer extends React.Component {
+export class MessageFormContainer extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -19,38 +19,15 @@ class MessageFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: '',
+      content: '',
       errors: {},
-      selected: ''
+      selected: { value: 'Normal', label: 'Normal' }
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleLogChange = this.handleLogChange.bind(this);
-  }
-
-  /**
-   * Updates the materialize modal when the component mounts
-   * and resets form input when the component mounts
-   * @method componentDidMount
-   * @memberof MessageFormContainer
-   * @returns {void}
-   */
-  componentDidMount() {
-    $(document).ready(() => {
-      $('.modal').modal({
-        dismissible: true,
-        complete: () => {
-          this.setState({
-            message: '',
-            selected: '',
-          });
-        }
-      });
-      $('.tooltipped').tooltip({ delay: 50 });
-      $('select').material_select();
-      Materialize.updateTextFields();
-    });
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   /**
@@ -80,6 +57,20 @@ class MessageFormContainer extends React.Component {
   }
 
   /**
+   * handles submit of text area and dropdown select content
+   * @method handleKeyPress
+   * @memberof MessageFormContainer
+   * @param {object} event
+   * @returns {void}
+   */
+  handleKeyPress(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      this.handleFormSubmit(event);
+    }
+  }
+
+  /**
    * Validates that message is not empty and then
    * makes a post request to the create new group endpoint,
    * handles response accordingly and then reset the state
@@ -93,11 +84,17 @@ class MessageFormContainer extends React.Component {
 
     const token = window.localStorage.token;
     const { groupId } = this.props;
-    const data = { message: this.state.message, priority: this.state.selected.value };
+    const message = {
+      content: this.state.content,
+      priority: this.state.selected.value
+    };
 
-    if (this.state.message !== '') {
-      this.props.createNewMessages(token, data, groupId).then(() => {
-        this.setState({ message: '', selected: '' });
+    if (this.state.content !== '') {
+      this.props.createNewMessages(token, message, groupId).then(() => {
+        this.setState({
+          content: '',
+          selected: { value: 'Normal', label: 'Normal' }
+        });
       });
     }
   }
@@ -115,8 +112,8 @@ class MessageFormContainer extends React.Component {
       <MessageForm
         onSubmit={this.handleFormSubmit}
         state={this.state} onChange={this.handleChange}
-        name={this.state.name} id={this.state.id}
         options={options} onLogChange={this.handleLogChange}
+        onKeyPress={this.handleKeyPress}
       />
 
     );
@@ -134,6 +131,11 @@ const mapStateToProps = state => ({
   notification: state.notificationReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ createNewMessages }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({
+  createNewMessages
+}, dispatch);
 
-export default connect(mapStateToProps, matchDispatchToProps)(MessageFormContainer);
+export default connect(
+  mapStateToProps,
+  matchDispatchToProps
+)(MessageFormContainer);

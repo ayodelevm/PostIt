@@ -1,7 +1,10 @@
 import 'isomorphic-fetch';
-// import apiUrls from './apiUrls';
 
-
+/**
+ * Function processing network response based on the status code in response
+ * @param {object} response
+ * @returns {object} response
+ */
 export const checkStatus = (response) => {
   if (response.ok) {
     return response.json();
@@ -9,6 +12,12 @@ export const checkStatus = (response) => {
   return response.json().then(Promise.reject.bind(Promise));
 };
 
+/**
+ * Funtion  handling all fetch request to a GET endpoint
+ * @param {string} endpoint
+ * @param {string} token
+ * @returns {function} fetch
+ */
 export const getEndpoint = (endpoint, token) => {
   const auth = { Authorization: '' };
   if (token) {
@@ -21,7 +30,14 @@ export const getEndpoint = (endpoint, token) => {
   }).then(checkStatus);
 };
 
-export const postEndpoint = (endpoint, data, token) => {
+/**
+ * Function handling all fetch request to a POST endpoint
+ * @param {string} endpoint
+ * @param {object} payload
+ * @param {string} token
+ * @returns {function} fetch
+ */
+export const postEndpoint = (endpoint, payload, token) => {
   const auth = { Authorization: '' };
   if (token) {
     auth.Authorization = `Bearer ${token}`;
@@ -29,7 +45,7 @@ export const postEndpoint = (endpoint, data, token) => {
   const url = endpoint;
   return fetch(url, {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
     headers: {
       'Content-Type': 'application/json',
       Authorization: auth.Authorization
@@ -38,7 +54,14 @@ export const postEndpoint = (endpoint, data, token) => {
   }).then(checkStatus);
 };
 
-export const updateEndpoint = (endpoint, data, token) => {
+/**
+ * Function handling all fetch request to a PUT endpoint
+ * @param {string} endpoint
+ * @param {object} payload
+ * @param {string} token
+ * @returns {function} fetch
+ */
+export const updateEndpoint = (endpoint, payload, token) => {
   const auth = { Authorization: '' };
   if (token) {
     auth.Authorization = `Bearer ${token}`;
@@ -46,7 +69,7 @@ export const updateEndpoint = (endpoint, data, token) => {
   const url = endpoint;
   return fetch(url, {
     method: 'PUT',
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
     headers: {
       'Content-Type': 'application/json',
       Authorization: auth.Authorization
@@ -55,7 +78,14 @@ export const updateEndpoint = (endpoint, data, token) => {
   }).then(checkStatus);
 };
 
-export const deleteEndpoint = (endpoint, data, token) => {
+/**
+ * Function handling all fetch request to a DELETE endpoint
+ * @param {string} endpoint
+ * @param {object} payload
+ * @param {string} token
+ * @returns {function} fetch
+ */
+export const deleteEndpoint = (endpoint, payload, token) => {
   const auth = { Authorization: '' };
   if (token) {
     auth.Authorization = `Bearer ${token}`;
@@ -63,7 +93,7 @@ export const deleteEndpoint = (endpoint, data, token) => {
   const url = endpoint;
   return fetch(url, {
     method: 'DELETE',
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
     headers: {
       'Content-Type': 'application/json',
       [auth.Authorization]: auth.Authorization

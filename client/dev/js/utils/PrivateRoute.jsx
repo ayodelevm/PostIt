@@ -4,6 +4,12 @@ import { Redirect, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+/**
+ * Function to protect some routes from being accesible
+ * if user is unauthenticated
+ * @param {object} props
+ * @returns {component} route or spinner
+ */
 const PrivateRoute = ({ component: Component, path: route, status }) => {
   if (status.isVerified) {
     return (<Route

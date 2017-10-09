@@ -20,25 +20,27 @@ export default class GoogleAuthCtrl {
     const client = new auth.OAuth2(process.env.clientid, '', '');
 
     if (req.body.id_token) {
-      client.verifyIdToken(req.body.id_token, process.env.clientid, (e, login) => {
+      return client.verifyIdToken(req.body.id_token, process.env.clientid, (e, login) => {
         const payload = login.getPayload();
         if (payload.email_verified && payload.aud === process.env.clientid) {
-          models.User.findOne({
+          return models.User.findOne({
             where: { $or: [
               { googleSubId: payload.sub },
               { email: payload.email }
             ] }
-          }).then((foundUser) => {
+          })
+          .then((foundUser) => {
             if (foundUser !== null) {
               return res.status(409).json({ globals: 'You have already signed up with this email, please login instead' });
             }
-            models.User.create({
+            return models.User.create({
               googleSubId: `${payload.sub}`,
               fullname: `${payload.name}`,
               email: `${payload.email}`,
               username: `${payload.family_name}.${payload.email.split('@')[0]}`,
               profileImage: `${payload.picture}`
-            }).then((newUser) => {
+            })
+            .then((newUser) => {
               const token = jwt.sign({
                 username: newUser.username,
                 email: newUser.email,
@@ -57,7 +59,7 @@ export default class GoogleAuthCtrl {
         }
       });
     } else {
-      res.status(401).json({
+      return res.status(401).json({
         globals: 'Google signup failed, please try again later!'
       });
     }
@@ -74,14 +76,16 @@ export default class GoogleAuthCtrl {
     // eslint-disable-next-line
     const auth = new GoogleAuth;
     const client = new auth.OAuth2(process.env.clientid, '', '');
-    
+
     if (req.body.id_token) {
-      client.verifyIdToken(req.body.id_token, process.env.clientid, (e, login) => {
+      return client.verifyIdToken(req.body.id_token,
+      process.env.clientid, (e, login) => {
         const payload = login.getPayload();
         if (payload.email_verified && payload.aud === process.env.clientid) {
-          models.User.findOne({
+          return models.User.findOne({
             where: { googleSubId: payload.sub }
-          }).then((foundUser) => {
+          })
+          .then((foundUser) => {
             if (!foundUser) {
               return res.status(401).json({
                 globals: 'Login Failed! Please signup with your google email first'
@@ -105,7 +109,7 @@ export default class GoogleAuthCtrl {
         }
       });
     } else {
-      res.status(401).json({
+      return res.status(401).json({
         globals: 'Google sigin failed, please try again later!'
       });
     }

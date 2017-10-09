@@ -70,7 +70,7 @@ describe('Messages Routes', () => {
     .expect(400)
     .end((err, res) => {
       res.status.should.equal(400);
-      res.body.error.should.equal('Message cannot be empty');
+      res.body.globals.should.equal('Message cannot be empty');
       done();
     });
   });

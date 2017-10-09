@@ -16,9 +16,11 @@ export default class AuthCtrl {
  * @returns {void}
  */
   static register(req, res) {
-    validateSignup(req.body, validateInput).then(({ errors, isValid }) => {
+    return validateSignup(req.body, validateInput)
+    .then(({ errors, isValid }) => {
       if (isValid) {
-        models.User.create(req.body).then((newUser) => {
+        return models.User.create(req.body)
+        .then((newUser) => {
           const token = jwt.sign({
             username: newUser.username,
             email: newUser.email,
@@ -47,12 +49,13 @@ export default class AuthCtrl {
     const { errors, isValid } = validateLoginInput(req.body);
 
     if (isValid) {
-      models.User.findOne({
+      return models.User.findOne({
         where: { $or: [
       { username: req.body.userIdentifier },
       { email: req.body.userIdentifier }]
         }
-      }).then((founduser) => {
+      })
+      .then((founduser) => {
         if (!founduser) {
           return res.status(401).json({
             globals: 'Invalid login credentials'
@@ -94,7 +97,8 @@ export default class AuthCtrl {
  * @returns {void}
  */
   static forgotPasswordLink(req, res) {
-    validateEmailExist(req.body, validateEmail).then(({ errors, isValid }) => {
+    return validateEmailExist(req.body, validateEmail)
+    .then(({ errors, isValid }) => {
       if (isValid) {
         const email = req.body.email;
         const token = jwt.sign({
@@ -121,7 +125,7 @@ export default class AuthCtrl {
           <p>Please ignore this mail if you did not make this request.</p>
           <p>Note: This link will expire after one hour</p>`,
         };
-        transporter.sendMail(mailOptions, (error) => {
+        return transporter.sendMail(mailOptions, (error) => {
           if (error) {
             return res.status(501).json({
               globals: 'Mail not sent'
@@ -160,10 +164,11 @@ export default class AuthCtrl {
           const salt = bcrypt.genSaltSync(10);
           const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-          models.User.update({ password: hashedPassword }, {
+          return models.User.update({ password: hashedPassword }, {
             where: { email: decoded.email }
-          }).then(() => {
-            res.status(201).json({
+          })
+          .then(() => {
+            return res.status(201).json({
               success: 'password reset successful, Please login to continue!'
             });
           });
@@ -182,7 +187,7 @@ export default class AuthCtrl {
  */
   static verifyUserToken(req, res) {
     if (req.user) {
-      res.status(200).json({
+      return res.status(200).json({
         success: 'user verification successful!',
         token: req.body.token
       });

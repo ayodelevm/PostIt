@@ -9,7 +9,7 @@ module.exports = {
     port: 3000
   },
   devtool: 'cheap-module-eval-source-map',
-  entry: path.join(__dirname, '/client/dev/js/index.jsx'),
+  entry: path.join(__dirname, '/client/dev/js/Index.jsx'),
   module: {
     loaders: [
       {
@@ -62,6 +62,9 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
     }),
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    }),
   ]
 };

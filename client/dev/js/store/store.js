@@ -11,6 +11,7 @@ import rootReducer from '../reducers/rootReducer';
 export const history = createHistory();
 const middleware = routerMiddleware(history);
 
+
 const logger = createLogger();
 const middlewareConditionals = (process.env.NODE_ENV === 'development') ?
 composeWithDevTools(

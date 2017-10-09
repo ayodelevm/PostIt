@@ -2,12 +2,8 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 
-import * as api from '../../dev/js/utils/apis';
 import * as actions from '../../dev/js/actions/groupActions';
 import types from '../../dev/js/actions/actionTypes';
-
-jest.mock('../__mocks__/apis');
-
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -15,12 +11,12 @@ const token = 'kbdHJYCBu.85bireYIRb';
 
 describe('group actions', () => {
   it("should create an action to get all of a user's groups", () => {
-    const allGroups = { success: '', foundGroups: { id: '', username: '', Groups: [{ name: '' }, { name: '' }] } };
+    const groups = { success: '', foundGroups: { id: '', username: '', Groups: [{ name: '' }, { name: '' }] } };
     const expectedAction = {
       type: types.GET_USER_GROUPS,
-      allGroups
+      groups
     };
-    expect(actions.getGroups(allGroups)).toEqual(expectedAction);
+    expect(actions.getGroups(groups)).toEqual(expectedAction);
   });
 
   it('should create an action to fetch all members of a group', () => {
@@ -71,8 +67,20 @@ describe('group actions', () => {
 
 describe('Group async actions', () => {
 
+  it('should dispatch GET_USER_GROUPS', () => {
+    const store = mockStore({});
+    const expectedActions = [
+      { type: 'GET_USER_GROUPS', groups: { success: '', foundGroups: {} } }
+    ];
+    fetchMock.get('*', { success: '', foundGroups: {} });
+    return store.dispatch(actions.getUserGroups(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+      fetchMock.restore();
+    });
+  });
+
   it('should dispatch GET_GROUP_USERS', () => {
-    // fetch.mockResponse(JSON.stringify({ success: '', foundUsers: {} }));
     const store = mockStore({});
     const expectedActions = [
       { type: 'GET_GROUP_USERS', users: { success: '', foundUsers: {} } }
@@ -86,27 +94,60 @@ describe('Group async actions', () => {
     });
   });
 
-  it('should dispathc GET_GROUP_SERS_FAILURE', () => {
-    const store = mockStore({});
+  it('should dispatch SET_CURRENT_GROUPS', () => {
+    const store = mockStore({ groupReducer: { groups: { id: '', name: '', Groups: [] } } });
     const expectedActions = [
-      { type: 'GET_GROUP_USERS_FAILURE' }
+      { type: 'SET_CURRENT_GROUPS', mergedGroups: { Groups: [{}], id: '', name: '' } }
     ];
-    // Promise.reject(
-      fetchMock.get('*', { response: 401 })
-    // );
-    // const response = await actions.getGroupUsers('*');
-    // const data = await response.json().then(Promise.reject(expectedActions))
+    fetchMock.post('*', { success: '', newGroup: {} });
 
-    return store.dispatch(actions.getGroupUsers(token))
+    return store.dispatch(actions.createNewGroup(token))
     .then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       fetchMock.restore();
-    },
-    () => {
+    });
+  });
+});
+
+describe('Group async action errors', () => {
+  beforeEach(() => {
+    fetch.resetMocks();
+  });
+
+  it('should dispatch GET_USER_GROUPS_FAILURE', () => {
+    const store = mockStore({});
+    fetch.mockReject();
+    const expectedActions = [
+      { type: 'GET_USER_GROUPS_FAILURE', failure: undefined }
+    ];
+    return store.dispatch(actions.getUserGroups(token))
+    .then(() => {
       expect(store.getActions()).toEqual(expectedActions);
-      fetchMock.restore();
-    }
-  );
+    });
+  });
+
+  it('should dispatch GET_GROUP_USERS_FAILURE', () => {
+    const store = mockStore({});
+    fetch.mockReject();
+    const expectedActions = [
+      { type: 'GET_GROUP_USERS_FAILURE', failure: undefined }
+    ];
+    return store.dispatch(actions.getGroupUsers(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('should dispatch CREATE_GROUP_FAILURE', () => {
+    const store = mockStore({});
+    fetch.mockReject();
+    const expectedActions = [
+      { type: 'CREATE_GROUP_FAILURE', failure: undefined }
+    ];
+    return store.dispatch(actions.createNewGroup(token))
+    .then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
   });
 });
 

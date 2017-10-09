@@ -23,7 +23,7 @@ describe('User Reducer', () => {
   it('should get all unarchived messages for archiving', () => {
     const action = {
       type: Types.GET_ALL_MESSAGES_FOR_ARCHIVE,
-      allMessages: { foundMessages: {} }
+      messages: { foundMessages: {} }
     };
     const newState = archiveReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ archivableMessages: {}, getSuccess: true } });

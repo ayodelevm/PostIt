@@ -5,7 +5,7 @@ const Dotenv = require('dotenv-webpack');
 const config = [{
   entry: [
     'webpack-hot-middleware/client',
-    path.join(__dirname, '/client/dev/js/index.jsx'),
+    path.join(__dirname, '/client/dev/js/Index.jsx'),
   ],
   output: {
     path: path.join(__dirname, '/client/build'),
@@ -13,10 +13,13 @@ const config = [{
     filename: 'js/bundle.min.js',
   },
   plugins: [
-    new Dotenv(),
+    new Dotenv({ systemvars: true }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -25,9 +28,8 @@ const config = [{
   ],
   devServer: {
     inline: true,
-    port: 3000
   },
-
+  devtool: 'source-map',
   module: {
     loaders: [
       {

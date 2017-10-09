@@ -2,9 +2,9 @@ import Types from './actionTypes';
 import * as api from '../utils/apis';
 import endpoints from '../utils/apiUrls';
 
-export const getGroups = allGroups => ({
+export const getGroups = groups => ({
   type: Types.GET_USER_GROUPS,
-  allGroups
+  groups
 });
 
 export const groupUsers = users => ({

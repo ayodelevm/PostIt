@@ -14,7 +14,7 @@ import ResetPasswordForm from '../components/ResetPasswordForm.jsx';
  * @class ResetPassword
  * @extends {Component}
  */
-class ResetPassword extends React.Component {
+export class ResetPassword extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -85,12 +85,19 @@ class ResetPassword extends React.Component {
       () => {
         if (this.props.resetResponse.resetSuccess) {
           this.setState({ redirect: true });
-          notify.show('Password reset successful, please login to continue', 'success', 3000);
+          notify.show(
+            'Password reset successful, please login to continue',
+            'success',
+            3000
+          );
         } else {
           if (this.props.resetResponse.errors.errors) {
-            return this.setState({ errors: this.props.resetResponse.errors.errors });
+            return this.setState({
+              errors: this.props.resetResponse.errors.errors
+            });
           }
-          notify.show(this.props.resetResponse.errors.globals, 'warning', 3000);
+          notify
+            .show(this.props.resetResponse.errors.globals, 'warning', 3000);
         }
       }
     );
@@ -137,6 +144,8 @@ const mapStateToProps = state => ({
   resetResponse: state.resetPasswordReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ resetPassword }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({
+  resetPassword
+}, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(ResetPassword);

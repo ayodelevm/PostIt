@@ -4,8 +4,8 @@ import jwtDecode from 'jwt-decode';
 import app from './../app';
 import { loginUser } from './../seeders/authSeeds';
 import { updateInfo } from './../seeders/groupSeeds';
-import members from './../seeders/userSeeds';
-import message from './../seeders/messageSeeds';
+import * as userSeeds from './../seeders/userSeeds';
+import * as messageSeeds from './../seeders/messageSeeds';
 
 const server = supertest.agent(app);
 
@@ -42,10 +42,10 @@ describe('Users Route', () => {
     server
     .post('/api/v1/group/2/user')
     .set('Authorization', `Bearer ${token}`)
-    .send(members[1])
-    .expect(400)
+    .send(userSeeds.members[1])
+    .expect(422)
     .end((err, res) => {
-      res.status.should.equal(400);
+      res.status.should.equal(422);
       res.body.globals.should.equal('Selected users are already members of this group');
       done();
     });
@@ -55,23 +55,23 @@ describe('Users Route', () => {
     server
     .post('/api/v1/group/2/user')
     .set('Authorization', `Bearer ${token}`)
-    .send(members[2])
-    .expect(201)
+    .send(userSeeds.members[2])
+    .expect(200)
     .end((err, res) => {
-      res.status.should.equal(201);
+      res.status.should.equal(200);
       res.body.success.should.equal('new users added successfully');
       done();
     });
   });
 
-  it('allows an admin to multiple users to his group', (done) => {
+  it('allows an admin to add multiple users to his group', (done) => {
     server
     .post('/api/v1/group/3/user')
     .set('Authorization', `Bearer ${token}`)
-    .send(members[4])
-    .expect(201)
+    .send(userSeeds.members[4])
+    .expect(200)
     .end((err, res) => {
-      res.status.should.equal(201);
+      res.status.should.equal(200);
       res.body.success.should.equal('new users added successfully');
       done();
     });
@@ -81,7 +81,7 @@ describe('Users Route', () => {
     server
     .post('/api/v1/group/3/user')
     .set('Authorization', `Bearer ${token}`)
-    .send(members[3])
+    .send(userSeeds.members[3])
     .expect(404)
     .end((err, res) => {
       res.status.should.equal(404);
@@ -102,6 +102,19 @@ describe('Users Route', () => {
     });
   });
 
+  it('allows a registered user update his profile image', (done) => {
+    server
+    .put('/api/v1/user/2/edit')
+    .set('Authorization', `Bearer ${token}`)
+    .send(userSeeds.newImage)
+    .expect(200)
+    .end((err, res) => {
+      res.status.should.equal(200);
+      res.body.success.should.equal('Profile Image updated successfully.');
+      done();
+    });
+  });
+
   it('allows a registered user to login successfully', (done) => {
     server
     .post('/api/v1/user/login')
@@ -117,11 +130,24 @@ describe('Users Route', () => {
     });
   });
 
+  it('prevents non-group-admin from archiving messages in that group', (done) => {
+    server
+    .put('/api/v1/group/3/archivemessages')
+    .set('Authorization', `Bearer ${token}`)
+    .send(messageSeeds.nonExistId)
+    .expect(403)
+    .end((err, res) => {
+      res.status.should.equal(403);
+      res.body.globals.should.equal('You are not allowed to archive in this group, please contact admin!');
+      done();
+    });
+  });
+
   it('allows a non-admins to post messages in group he belongs', (done) => {
     server
     .post('/api/v1/group/3/message')
     .set('Authorization', `Bearer ${token}`)
-    .send(message[2])
+    .send(messageSeeds.messages[2])
     .expect(201)
     .end((err, res) => {
       res.status.should.equal(201);
@@ -134,11 +160,11 @@ describe('Users Route', () => {
     server
     .post('/api/v1/group/3/user')
     .set('Authorization', `Bearer ${token}`)
-    .send(members[0])
+    .send(userSeeds.members[0])
     .expect(403)
     .end((err, res) => {
       res.status.should.equal(403);
-      res.body.globals.should.equal('You are not allowed to add new users to this group, please contact admin!');
+      res.body.globals.should.equal('You are not allowed to add users to this group, please contact admin!');
       done();
     });
   });

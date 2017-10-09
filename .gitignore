@@ -72,3 +72,6 @@ templates/.DS_Store
 client/build/js/
 client/build/*.woff
 client/build/*.woff2
+
+#winston log file
+server.log

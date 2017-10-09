@@ -28,7 +28,8 @@ router.post('/api/v1/user/googlesignup', GoogleAuthCtrl.googleRegister);
 router.post('/api/v1/user/googlelogin', GoogleAuthCtrl.googleLogin);
 
 // Verify Token
-router.post('/api/v1/verifyuser', Middleware.isAuthenticated, AuthCtrl.verifyUserToken);
+router.post('/api/v1/verifyuser', Middleware
+  .isAuthenticated, AuthCtrl.verifyUserToken);
 
 
 export default router;

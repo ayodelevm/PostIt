@@ -10,6 +10,6 @@ before_script:
 script: 
   - npm install
   - npm run test
-  - npm run coverage
-after_success:
+  - npm run coveralls
+  - npm run test:client
   - npm run coveralls

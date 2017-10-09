@@ -7,7 +7,7 @@ import classnames from 'classnames';
  * @param {object} props - destructured
  * @returns {void}
  */
-const InputFieldGroup = ({ 
+const InputFieldGroup = ({
   placeholder, htmlFor, id, name, value, label, error, type, onChange
 }) => (
   <div>

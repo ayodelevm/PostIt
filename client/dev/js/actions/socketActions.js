@@ -14,69 +14,77 @@ export const setNotification = notifyMessage => ({
 
 const myColor = { background: '#c6ff00', text: '#000' };
 
+/**
+ * Function handling socket connections and event listeners
+ * @returns {function} dispatch
+ */
 export const socketConnect = () => (dispatch, getState) => {
   const socket = io(`${window.location.origin}/`);
 
-  socket.on('notification.updateMessage', (data) => {
+  socket.on('notification.updateMessage', (response) => {
     const prevState = getState();
     const { isAuthenticated, currentUser } = prevState.authReducer;
     const { Groups } = prevState.groupReducer.groups;
-    if (data && isAuthenticated) {
+    if (response && isAuthenticated) {
       const foundGroup = Groups.find((group) => {
-        return group.id === data.groupId;
+        return group.id === response.groupId;
       });
 
       if (foundGroup !== undefined) {
-        if (currentUser.id === data.createdMessage.ownerId) {
+        if (currentUser.id === response.createdMessage.ownerId) {
           notify.show('message sent successfully', 'custom', 3000, myColor);
         } else {
-          notify.show(data.message, 'custom', 3000, myColor);
+          notify.show(response.message, 'custom', 3000, myColor);
         }
         const { groupMessages } = prevState.messageReducer;
 
-        if (groupMessages.id === data.groupId) {
+        if (groupMessages.id === response.groupId) {
           const mergedMessages = groupMessages.Messages
-            .concat(data.createdMessage);
+            .concat(response.createdMessage);
           const currentMessages = { ...groupMessages,
             Messages: mergedMessages
           };
-          dispatch(setNewGroupMessages(currentMessages));
+          const newResponse = {
+            ...{ currentMessages },
+            ...{ status: !!Object.keys(response) }
+          };
+          dispatch(setNewGroupMessages(newResponse));
         }
       }
     }
   });
 
-  socket.on('new.group', (data) => {
+  socket.on('new.group', (response) => {
     const token = window.localStorage.token;
     const prevState = getState();
     const { isAuthenticated } = prevState.authReducer;
 
-    if (data && isAuthenticated) {
+    if (response && isAuthenticated) {
       dispatch(getUserGroups(token));
     }
   });
 
-  socket.on('new.member', (data) => {
+  socket.on('new.member', (response) => {
     const token = window.localStorage.token;
     const prevState = getState();
     const { isAuthenticated } = prevState.authReducer;
 
-    if (data && isAuthenticated) {
+    if (response && isAuthenticated) {
       dispatch(getUserGroups(token))
-      .then(() => dispatch(getGroupUsers(token, data.groupId)));
+      .then(() => dispatch(getGroupUsers(token, response.groupId)));
     }
   });
 
-  socket.on('archive.success', (data) => {
+  socket.on('archive.success', (response) => {
     const token = window.localStorage.token;
     const prevState = getState();
     const { isAuthenticated } = prevState.authReducer;
 
-    if (data && isAuthenticated) {
+    if (response && isAuthenticated) {
       dispatch(getUserGroups(token))
         .then(() => {
-          if (data.groupId !== undefined) {
-            return dispatch(getGroupMessages(token, data.groupId))
+          if (response.groupId !== undefined) {
+            return dispatch(getGroupMessages(token, response.groupId))
               .then(() => dispatch(getAllUsers(token)));
           }
         });

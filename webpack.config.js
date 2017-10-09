@@ -1,33 +1,49 @@
 const path = require('path');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
-module.exports = {
-  devServer: {
-    historyApiFallback: true,
-    inline: true,
-    contentBase: path.join(__dirname, '/client/build'),
-    port: 3000
+const config = [{
+  entry: [
+    'webpack-hot-middleware/client',
+    path.join(__dirname, '/client/dev/js/Index.jsx'),
+  ],
+  output: {
+    path: path.join(__dirname, '/client/build'),
+    publicPath: '/',
+    filename: 'js/bundle.min.js',
   },
-  devtool: 'cheap-module-eval-source-map',
-  entry: path.join(__dirname, '/client/dev/js/Index.jsx'),
+  plugins: [
+    new Dotenv({ systemvars: true }),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+    }),
+  ],
+  devServer: {
+    inline: true,
+  },
+  devtool: 'source-map',
   module: {
     loaders: [
-      {
-        test: /\.js$/,
-        loaders: ['babel-loader'],
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.scss/,
-        loader: 'style-loader!css-loader!sass-loader'
-      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
+
         query: {
           presets: ['es2015', 'react', 'stage-2']
-        }
+        },
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.html$/,
@@ -50,21 +66,7 @@ module.exports = {
         },
       },
     ]
-  },
-  output: {
-    path: path.join(__dirname, '/client/build'),
-    filename: 'js/bundle.min.js',
-    publicPath: '/'
-  },
-  plugins: [
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-    }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
-    }),
-  ]
-};
+  }
+}];
+
+module.exports = config;

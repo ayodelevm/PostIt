@@ -1,4 +1,4 @@
-const members = [{
+export const members = [{
   members: ['tundun']
 }, {
   members: ['lolade']
@@ -10,4 +10,7 @@ const members = [{
   members: ['jide', 'bolu']
 }];
 
-export default members;
+export const newImage = {
+  profileImage: 'www.newimage.com/image.jpg'
+};
+

@@ -1,5 +1,6 @@
 import sendEmail from './sendEmail';
 
+// Sends email when priority is urgent
 const urgentNotification = (group, sentBy, origin) => {
   group.getUsers({
     where: { username: { ne: sentBy } },

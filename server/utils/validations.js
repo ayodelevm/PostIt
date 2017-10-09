@@ -1,38 +1,49 @@
 import Validator from 'validator';
 import models from '../models/index';
 
-export const validateInput = (data) => {
+
+// Validation object contains methods to validate payload in server side
+
+export const validateInput = (payload) => {
   const errors = {};
 
-  if (!data.fullname || !(/\S/.test(data.fullname)) || Validator.isEmpty(data.fullname)) {
+  if (!payload.fullname || !(/\S/.test(payload.fullname)) || Validator
+    .isEmpty(payload.fullname)) {
     errors.fullname = 'This field is required';
   }
-  if (!data.email || !(/\S/.test(data.email)) || Validator.isEmpty(data.email)) {
+  if (!payload.email || !(/\S/.test(payload.email)) || Validator
+    .isEmpty(payload.email)) {
     errors.email = 'This field is required';
   }
-  if (data.email && !Validator.isEmail(data.email)) {
+  if (payload.email && !Validator.isEmail(payload.email)) {
     errors.email = 'Email is invalid';
   }
-  if (!data.telephone || !(/\S/.test(data.telephone)) || Validator.isEmpty(data.telephone)) {
+  if (!payload.telephone || !(/\S/.test(payload.telephone)) || Validator
+    .isEmpty(payload.telephone)) {
     errors.telephone = 'This field is required';
   }
-  if (data.telephone && !Validator.isMobilePhone(data.telephone, 'any')) {
+  if (payload.telephone && !Validator.isMobilePhone(payload.telephone, 'any')) {
     errors.telephone = 'Mobile number is invalid';
   }
-  if (data.profileImage && !Validator.isURL(data.profileImage, [{ allow_underscores: true }])) {
+  if (payload.profileImage && !Validator
+    .isURL(payload.profileImage, [{ allow_underscores: true }])) {
     errors.profileImage = 'Url is invalid. Please input a valid one.';
   }
-  if (!data.username || !(/\S/.test(data.username)) || Validator.isEmpty(data.username)) {
+  if (!payload.username || !(/\S/.test(payload.username)) || Validator
+    .isEmpty(payload.username)) {
     errors.username = 'This field is required';
   }
-  if (!data.password || !(/\S/.test(data.password)) || Validator.isEmpty(data.password)) {
+  if (!payload.password || !(/\S/.test(payload.password)) || Validator
+    .isEmpty(payload.password)) {
     errors.password = 'This field is required';
   }
-  if (!data.passwordConfirmation || !(/\S/.test(data.passwordConfirmation)) || Validator.isEmpty(data.passwordConfirmation)) {
+  if (!payload.passwordConfirmation || !(/\S/
+    .test(payload.passwordConfirmation)) || Validator
+    .isEmpty(payload.passwordConfirmation)) {
     errors.passwordConfirmation = 'This field is required';
   }
-  if (data.password && data.passwordConfirmation && !Validator
-    .equals(data.password, data.passwordConfirmation)) {
+  if (payload.password && payload.passwordConfirmation && !Validator
+    .equals(payload.password, payload.passwordConfirmation)) {
     errors.passwordConfirmation = "Passwords don't match";
   }
 
@@ -42,20 +53,20 @@ export const validateInput = (data) => {
   };
 };
 
-export const validateSignup = (data, inputValidations) => {
-  const { errors } = inputValidations(data);
+export const validateSignup = (payload, inputValidations) => {
+  const { errors } = inputValidations(payload);
 
   return models.User.findOne({
     where: { $or: [
-        { username: data.username },
-        { email: data.email }]
+        { username: payload.username },
+        { email: payload.email }]
     },
   }).then((foundUser) => {
     if (foundUser) {
-      if (foundUser.username === data.username) {
+      if (foundUser.username === payload.username) {
         errors.username = 'username is not available';
       }
-      if (foundUser.email === data.email) {
+      if (foundUser.email === payload.email) {
         errors.email = 'email is not available';
       }
     }
@@ -67,13 +78,13 @@ export const validateSignup = (data, inputValidations) => {
   });
 };
 
-export const validateLoginInput = (data) => {
+export const validateLoginInput = (payload) => {
   const errors = {};
 
-  if (!data.password || Validator.isEmpty(data.password)) {
+  if (!payload.password || Validator.isEmpty(payload.password)) {
     errors.password = 'This field is required';
   }
-  if (!data.userIdentifier || Validator.isEmpty(data.userIdentifier)) {
+  if (!payload.userIdentifier || Validator.isEmpty(payload.userIdentifier)) {
     errors.userIdentifier = 'This field is required';
   }
 
@@ -83,10 +94,11 @@ export const validateLoginInput = (data) => {
   };
 };
 
-export const validateGroupInput = (data) => {
+export const validateGroupInput = (payload) => {
   const errors = {};
 
-  if (!data.name || !(/\S/.test(data.name)) || Validator.isEmpty(data.name)) {
+  if (!payload.name || !(/\S/.test(payload.name)) || Validator
+    .isEmpty(payload.name)) {
     errors.name = 'This field is required';
   }
 
@@ -96,16 +108,16 @@ export const validateGroupInput = (data) => {
   };
 };
 
-export const groupValidation = (data, inputValidations) => {
-  const { errors } = inputValidations(data);
+export const groupValidation = (payload, inputValidations) => {
+  const { errors } = inputValidations(payload);
 
   return models.Group.findOne({
     where: {
-      name: data.name
+      name: payload.name
     },
   }).then((foundGroup) => {
     if (foundGroup) {
-      if (foundGroup.name === data.name) {
+      if (foundGroup.name === payload.name) {
         errors.name = 'A group with this name already exists';
       }
     }
@@ -117,17 +129,20 @@ export const groupValidation = (data, inputValidations) => {
   });
 };
 
-export const validateResetPassword = (data) => {
+export const validateResetPassword = (payload) => {
   const errors = {};
 
-  if (!data.password || !(/\S/.test(data.password)) || Validator.isEmpty(data.password)) {
+  if (!payload.password || !(/\S/.test(payload.password)) || Validator
+    .isEmpty(payload.password)) {
     errors.password = 'This field is required';
   }
-  if (!data.passwordConfirmation || !(/\S/.test(data.passwordConfirmation)) || Validator.isEmpty(data.passwordConfirmation)) {
+  if (!payload.passwordConfirmation || !(/\S/.test(payload
+    .passwordConfirmation)) || Validator.isEmpty(payload
+      .passwordConfirmation)) {
     errors.passwordConfirmation = 'This field is required';
   }
-  if (data.password && data.passwordConfirmation && !Validator
-    .equals(data.password, data.passwordConfirmation)) {
+  if (payload.password && payload.passwordConfirmation && !Validator
+    .equals(payload.password, payload.passwordConfirmation)) {
     errors.passwordConfirmation = "Passwords don't match";
   }
 
@@ -137,13 +152,14 @@ export const validateResetPassword = (data) => {
   };
 };
 
-export const validateEmail = (data) => {
+export const validateEmail = (payload) => {
   const errors = {};
 
-  if (!data.email || Validator.isEmpty(data.email)) {
+  if (!payload.email || !(/\S/.test(payload.email)) || Validator
+    .isEmpty(payload.email)) {
     errors.email = 'This field is required';
   }
-  if (data.email && !Validator.isEmail(data.email)) {
+  if (payload.email && !Validator.isEmail(payload.email)) {
     errors.email = 'Email is invalid';
   }
 
@@ -153,16 +169,16 @@ export const validateEmail = (data) => {
   };
 };
 
-export const validateEmailExist = (data, inputValidations) => {
-  const { errors } = inputValidations(data);
+export const validateEmailExist = (payload, inputValidations) => {
+  const { errors } = inputValidations(payload);
 
   return models.User.findOne({
     where: {
-      email: data.email
+      email: payload.email
     },
   }).then((foundUser) => {
     if (!foundUser) {
-      errors.email = "There's no registered user with this email";
+      errors.globals = "There's no registered user with this email";
     }
 
     return {

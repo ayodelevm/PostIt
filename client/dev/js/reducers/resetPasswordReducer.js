@@ -5,16 +5,22 @@ const initialState = {
   resetSuccess: false
 };
 
+/**
+ * Reducer hanlding password reset functions
+ * @param {object} state
+ * @param {object} action
+ * @returns {object} state
+ */
 const resetPasswordReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.FORGOT_PASSWORD:
       return Object.assign({}, state, {
-        emailVerified: !!Object.keys(action.mailSuccess)
+        emailVerified: action.mailSuccess.status
       });
 
     case Types.RESET_PASSWORD:
       return Object.assign({}, state, {
-        resetSuccess: !!Object.keys(action.resetSuccess)
+        resetSuccess: action.resetSuccess.status
       });
 
     case Types.FORGOT_PASSWORD_FAILURE:

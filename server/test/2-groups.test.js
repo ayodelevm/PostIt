@@ -28,9 +28,9 @@ describe('Group Routes', () => {
       .post('/api/v1/group')
       .set('Authorization', `Bearer ${token}`)
       .send(noGroupName)
-      .expect(400)
+      .expect(422)
       .end((err, res) => {
-        res.status.should.equal(400);
+        res.status.should.equal(422);
         res.body.errors.name.should.equal('This field is required');
         done();
       });
@@ -104,9 +104,9 @@ describe('Group Routes', () => {
     .put('/api/v1/group/2/edit')
     .set('Authorization', `Bearer ${token}`)
     .send(noGroupName)
-    .expect(400)
+    .expect(422)
     .end((err, res) => {
-      res.status.should.equal(400);
+      res.status.should.equal(422);
       res.body.globals.should.equal('A group needs to have a name');
       done();
     });
@@ -157,9 +157,9 @@ describe('Group Routes', () => {
       .post('/api/v1/group')
       .set('Authorization', `Bearer ${token}`)
       .send(groupDetails[2])
-      .expect(400)
+      .expect(422)
       .end((err, res) => {
-        res.status.should.equal(400);
+        res.status.should.equal(422);
         res.body.errors.name.should.equal('A group with this name already exists');
         done();
       });

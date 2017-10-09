@@ -7,11 +7,11 @@ const initialState = {
   currentUser: {}
 };
 
-describe('User Reducer', () => {
+describe('Auth Reducer', () => {
   it('should create a new user', () => {
     const action = {
       type: Types.CREATE_NEW_USER,
-      newUser: {}
+      newUser: { status: true, currentUser: {} }
     };
     const newState = authReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ currentUser: {}, isAuthenticated: true } });
@@ -20,7 +20,7 @@ describe('User Reducer', () => {
   it('should log a user in', () => {
     const action = {
       type: Types.LOGIN_USER,
-      user: {}
+      user: { status: true, currentUser: {} }
     };
     const newState = authReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ currentUser: {}, isAuthenticated: true } });
@@ -29,7 +29,7 @@ describe('User Reducer', () => {
   it('should sign a user up through google', () => {
     const action = {
       type: Types.GOOGLE_REGISTER,
-      newUser: {}
+      newUser: { status: true, currentUser: {} }
     };
     const newState = authReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ currentUser: {}, isAuthenticated: true } });
@@ -38,7 +38,7 @@ describe('User Reducer', () => {
   it('should sign a user in through google', () => {
     const action = {
       type: Types.GOOGLE_LOGIN,
-      user: {}
+      user: { status: true, currentUser: {} }
     };
     const newState = authReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ currentUser: {}, isAuthenticated: true } });
@@ -47,7 +47,7 @@ describe('User Reducer', () => {
   it('should set current user', () => {
     const action = {
       type: Types.SET_CURRENT_USER,
-      currentUser: {}
+      currentUser: { status: true, currentUser: {} }
     };
     const newState = authReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ currentUser: {}, isAuthenticated: true } });
@@ -56,7 +56,7 @@ describe('User Reducer', () => {
   it('should set status of signup and signin network response', () => {
     const action = {
       type: Types.SET_RESPONSE,
-      resp: {}
+      response: { status: true }
     };
     const newState = authReducer(initialState, action);
     expect(newState).toEqual({ ...initialState, ...{ isVerified: true } });

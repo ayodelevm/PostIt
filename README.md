@@ -52,7 +52,7 @@ This app's functionality depends on multiple NPM packages including;
 
 ## Endpoints
 
-For detailed information on how to use this api, view the **[documentation](https://ayodelevm.github.io/slate)**
+For detailed information on how to use this api, view the **[documentation](https://vikz-postit.herokuapp.com/api/docs)**
 
 ## Fequently Asked Questions (FAQ)
 CLick **[here](https://github.com/ayodelevm/PostIt/wiki/Frequently-Asked-Questions)** to read through our FAQ.
@@ -82,7 +82,7 @@ To contribute to this project:
 4. Commit your changes in logical chunks
 5. Locally merge (or rebase) the upstream development branch into your topic branch
 6. Push your topic branch up to your fork
-7. Open a Pull Request with a clear title and description
+7. Open a Pull Request to the client-develop branch with a clear title and description
 
 **IMPORTANT:** This guideline for `contributing to the project` was adapted from necolas  issue-guidelines. Navigate to **[necolas/issue-guidelines](https://github.com/necolas/issue-guidelines/blob/master/CONTRIBUTING.md)** for full details and step by step guidelines on how to contribute to this project.
 

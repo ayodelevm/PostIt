@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Notifications from 'react-notify-toast';
 import GoogleLogin from 'react-google-login';
 import InputFieldGroup from './common/InputFields.jsx';
+import parallaxImage from '../utils/images/jacob-ufkes-195221.jpg';
 
 /**
  * Gives the presentational view for users signup component
@@ -17,9 +18,15 @@ const SignUpForm = props => (
           <div className="card white z-depth-5">
             <div className="card-head" />
             <div className="card-content black-text">
-              <span className="card-title v-align"><a href="/" className="brand-logo">
-                <i className="material-icons lime-text lighthen-5">insert_chart</i>
-                <span id="site_name">PostIt</span></a></span>
+              <span className="card-title v-align">
+                <a href="/" className="brand-logo">
+                  <i
+                    className="material-icons lime-text lighthen-5"
+                  >
+                    insert_chart
+                  </i>
+                  <span id="site_name">PostIt</span>
+                </a></span>
               <p>Sign up and start using PostIt for FREE.</p>
               <br />
               <br />
@@ -45,7 +52,11 @@ const SignUpForm = props => (
                       onChange={props.onChange}
                       htmlFor={'fullname'}
                     />
-                    <span className="left error-message grey-text">{props.state.errors.fullname}</span>
+                    <span
+                      className="left error-message grey-text"
+                    >
+                      {props.state.errors.fullname}
+                    </span>
                   </div>
                   <div className="row">
                     <InputFieldGroup
@@ -59,7 +70,11 @@ const SignUpForm = props => (
                       onChange={props.onChange}
                       htmlFor={'email'}
                     />
-                    <span className="left error-message grey-text">{props.state.errors.email}</span>
+                    <span
+                      className="left error-message grey-text"
+                    >
+                      {props.state.errors.email}
+                    </span>
                   </div>
                   <div className="row">
                     <InputFieldGroup
@@ -73,7 +88,11 @@ const SignUpForm = props => (
                       onChange={props.onChange}
                       htmlFor={'telephone'}
                     />
-                    <span className="left error-message grey-text">{props.state.errors.telephone}</span>
+                    <span
+                      className="left error-message grey-text"
+                    >
+                      {props.state.errors.telephone}
+                    </span>
                   </div>
                   <div className="row">
                     <InputFieldGroup
@@ -87,7 +106,11 @@ const SignUpForm = props => (
                       onChange={props.onChange}
                       htmlFor={'username'}
                     />
-                    <span className="left error-message grey-text">{props.state.errors.username}</span>
+                    <span
+                      className="left error-message grey-text"
+                    >
+                      {props.state.errors.username}
+                    </span>
                   </div>
                   <div className="row">
                     <InputFieldGroup
@@ -101,7 +124,11 @@ const SignUpForm = props => (
                       onChange={props.onChange}
                       htmlFor={'password'}
                     />
-                    <span className="left error-message grey-text">{props.state.errors.password}</span>
+                    <span
+                      className="left error-message grey-text"
+                    >
+                      {props.state.errors.password}
+                    </span>
                   </div>
                   <div className="row">
                     <InputFieldGroup
@@ -109,20 +136,26 @@ const SignUpForm = props => (
                       placeholder={'Confirm password'}
                       id={'passwordConfirmation'}
                       value={props.state.passwordConfirmation}
-                      label={'Password *'}
+                      label={'Confirm Password *'}
                       error={props.state.errors.passwordConfirmation}
                       type={'password'}
                       onChange={props.onChange}
                       htmlFor={'passwordConfirmation'}
                     />
-                    <span className="left error-message grey-text">{props.state.errors.passwordConfirmation}</span>
+                    <span
+                      className="left error-message grey-text"
+                    >
+                      {props.state.errors.passwordConfirmation}
+                    </span>
                   </div>
 
                   <div className="row">
 
                     <div className="row">
                       <div className="input-field col s12">
-                        <button className="btn lime accent-4 waves-effect waves-light center"
+                        <button
+                          className={'btn lime accent-4 waves-effect' +
+                          ' waves-light center'}
                           type="submit" name="action">Create Account
                           <i className="material-icons right">person_add</i>
                         </button>
@@ -132,22 +165,32 @@ const SignUpForm = props => (
                 </form>
               </div>
               <div className="row center">
-                <span className="black-text"> You can also SignUp with </span><br />
+                <span
+                  className="black-text"
+                > You can also SignUp with </span><br />
                 <GoogleLogin
                   clientId={props.clientId}
                   onSuccess={props.onSuccess}
                   onFailure={props.onFailure}
                   className={'google-login red'}
                 >
-                  <a className="waves-effect waves-light white-text btn-flat red">Google+</a>
+                  <a
+                    className={'waves-effect waves-light' +
+                    ' white-text btn-flat red'}
+                  >
+                    Google+
+                  </a>
                 </GoogleLogin>
               </div>
 
             </div>
             <div className="card-action">
               <div className="card-action-text">
-                <span className="black-text">Already have an account on PostIt? </span>
-                <a href="/login" className="green-text darken-4">Sign into your account</a>
+                <span className="black-text">
+                  Already have an account on PostIt? </span>
+                <a href="/login" className="green-text darken-4">
+                  Sign into your account
+                </a>
               </div>
             </div>
           </div>
@@ -156,7 +199,7 @@ const SignUpForm = props => (
 
     </div>
     <div className="parallax"><img className="responsive-img"
-      src={require('../utils/images/jacob-ufkes-195221.jpg')}
+      src={parallaxImage}
       alt="register section" /><div id="overlay" />
     </div>
   </div>

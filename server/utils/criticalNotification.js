@@ -1,7 +1,7 @@
 import sendSms from './sendSms';
 import sendEmail from './sendEmail';
 
-
+// sends email and sms when priority is critical
 const criticalNotification = (group, sentBy, origin) => {
   group.getUsers({
     where: { username: { ne: sentBy } },

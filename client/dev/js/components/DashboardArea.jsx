@@ -1,12 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Notifications from 'react-notify-toast';
+
 import GroupFormContainer from '../containers/GroupFormContainer.jsx';
 import UploadsContainer from '../containers/UploadsContainer.jsx';
 import Archive from '../containers/Archive.jsx';
 import ViewArchivedModal from './ViewArchivedModal.jsx';
 import Nav from './common/Nav.jsx';
+import PersonalGroups from './dashboardAreaComponents/PersonalGroups.jsx';
+import AllGroups from './dashboardAreaComponents/AllGroups.jsx';
 
 /**
  * Gives the presentational view for the users dashboard component
@@ -18,7 +20,8 @@ const DashboardArea = (props) => {
   let sortedGroups = [];
   let filteredGroups = [];
   if (Groups) {
-    sortedGroups = Groups.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    sortedGroups = Groups.sort((a, b) => b.createdAt
+    .localeCompare(a.createdAt));
     filteredGroups = Groups.filter(group => group.ownerId === props.groups.id);
   }
   return (
@@ -65,30 +68,11 @@ const DashboardArea = (props) => {
                 <h5 className="">Personal Groups</h5>
                 <div className="divider" />
                 {filteredGroups && filteredGroups.map(group => (
-                  <ul key={group.id} className="collapsible z-depth-0"
-                    data-collapsible="accordion">
-                    <li>
-                      <div className="group-display collapsible-header grey lighten-4">
-                        <span className="truncate">
-                          <i className="material-icons group-icons">
-                            lock_open</i> {group.name}
-                        </span><i className="material-icons right group-settings">
-                          arrow_drop_down</i>
-                      </div>
-
-                      <div className="collapsible-body ">
-                        <ul>
-                          <li><Link name={group.name}
-                            className="modal-trigger waves-effect waves-blue black-text"
-                            onClick={props.onActiveGroupClicked}
-                            id={group.id} to="#archive-all">Archive All Messages</Link></li>
-                          <li><Link name={group.name} className="modal-trigger waves-effect waves-blue black-text"
-                            onClick={props.onActiveGroupClicked}
-                            id={group.id} to="#view-archive">View Archived Messages</Link></li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
+                  <PersonalGroups
+                    group={group}
+                    onActiveGroupClicked={props.onActiveGroupClicked}
+                    key={group.id}
+                  />
                     ))
                   }
 
@@ -99,24 +83,11 @@ const DashboardArea = (props) => {
           <div className="col s12 l9">
             <div className="dashboard-container">
               {sortedGroups && sortedGroups.map(group => (
-                <div key={group.id} className="col s12 m6">
-                  <div className="card horizontal">
-                    <div className="card-image">
-                      <img src="https://lorempixel.com/100/190/nature/6" alt="dashboard" />
-                    </div>
-                    <div className="card-stacked">
-                      <div className="card-content">
-                        <h5>{group.name}</h5>
-                        <p className="flow-text description">
-                          {group.description}
-                        </p>
-                      </div>
-                      <div className="card-action">
-                        <a href={`/groups/${group.id}/message`}>Open</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>))
+                <AllGroups
+                  group={group}
+                  key={group.id}
+                />
+                ))
               }
             </div>
           </div>
@@ -145,7 +116,6 @@ const DashboardArea = (props) => {
 };
 
 DashboardArea.propTypes = {
-  onActiveGroupClicked: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
   archivedMessages: PropTypes.object,
   groups: PropTypes.object,

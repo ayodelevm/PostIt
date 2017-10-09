@@ -1,6 +1,6 @@
 import Types from './actionTypes';
 import * as api from '../utils/apis';
-import endpoints from '../utils/apiUrls';
+import endpoints from '../utils/endpoints';
 
 export const selectedGroupDetails = groupDetails => ({
   type: Types.SELECT_GROUP_ID_TO_ARCHIVE,
@@ -37,11 +37,19 @@ export const archivedMessagesFailure = failure => ({
   failure
 });
 
+/**
+ * Async action creators to get messages for archive
+ * @param {string} token
+ * @param {number} groupId
+ * @returns {function} dispatch
+ */
 export const getGroupWithMessages = (token, groupId) => (dispatch) => {
-  return api.getEndpoint(endpoints.GET_ONE_GROUP_AND_MESSAGES_PATH.replace(':id', `${groupId}`), token)
+  return api.getEndpoint(endpoints.GET_ONE_GROUP_AND_MESSAGES_PATH
+  .replace(':id', `${groupId}`), token)
   .then(
     (success) => {
-      dispatch(getMessages(success));
+      const response = { ...success, ...{ status: !!Object.keys(success) } };
+      dispatch(getMessages(response));
     },
     (error) => {
       dispatch(getMessagesFailure(error));
@@ -49,11 +57,20 @@ export const getGroupWithMessages = (token, groupId) => (dispatch) => {
   );
 };
 
-export const archiveMessages = (token, data, groupId) => (dispatch) => {
-  return api.updateEndpoint(endpoints.ARCHIVE_MESSAGES.replace(':id', `${groupId}`), data, token)
+/**
+ * Async action creators to archive messages in a group
+ * @param {string} token
+ * @param {array} messageIds
+ * @param {number} groupId
+ * @returns {function} dispatch
+ */
+export const archiveMessages = (token, messageIds, groupId) => (dispatch) => {
+  return api.updateEndpoint(endpoints.ARCHIVE_MESSAGES
+  .replace(':id', `${groupId}`), messageIds, token)
   .then(
     (success) => {
-      dispatch(archive(success));
+      const response = { status: !!Object.keys(success) };
+      dispatch(archive(response));
     },
     (error) => {
       dispatch(archiveFailure(error));
@@ -61,11 +78,19 @@ export const archiveMessages = (token, data, groupId) => (dispatch) => {
   );
 };
 
+/**
+ * Async action creators to get archived messages in a group
+ * @param {string} token
+ * @param {number} groupId
+ * @returns {function} dispatch
+ */
 export const getArchivedMessages = (token, groupId) => (dispatch) => {
-  return api.getEndpoint(endpoints.GET_ONE_GROUP_AND_MESSAGES_TRUE_PATH.replace(':id', `${groupId}`), token)
+  return api.getEndpoint(endpoints.GET_ONE_GROUP_AND_MESSAGES_TRUE_PATH
+  .replace(':id', `${groupId}`), token)
   .then(
     (success) => {
-      dispatch(archivedMessages(success));
+      const response = { ...success, ...{ status: !!Object.keys(success) } };
+      dispatch(archivedMessages(response));
     },
     (error) => {
       dispatch(archivedMessagesFailure(error));

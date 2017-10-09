@@ -70,7 +70,7 @@ describe('Group async actions', () => {
   it('should dispatch GET_USER_GROUPS', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'GET_USER_GROUPS', groups: { success: '', foundGroups: {} } }
+      { type: 'GET_USER_GROUPS', groups: { success: '', status: true, foundGroups: {} } }
     ];
     fetchMock.get('*', { success: '', foundGroups: {} });
     return store.dispatch(actions.getUserGroups(token))
@@ -83,7 +83,7 @@ describe('Group async actions', () => {
   it('should dispatch GET_GROUP_USERS', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'GET_GROUP_USERS', users: { success: '', foundUsers: {} } }
+      { type: 'GET_GROUP_USERS', users: { success: '', status: true, foundUsers: {} } }
     ];
     fetchMock.get('*', { success: '', foundUsers: {} });
 
@@ -97,7 +97,7 @@ describe('Group async actions', () => {
   it('should dispatch SET_CURRENT_GROUPS', () => {
     const store = mockStore({ groupReducer: { groups: { id: '', name: '', Groups: [] } } });
     const expectedActions = [
-      { type: 'SET_CURRENT_GROUPS', mergedGroups: { Groups: [{}], id: '', name: '' } }
+      { type: 'SET_CURRENT_GROUPS', mergedGroups: { currentGroups: { Groups: [{}], id: '', name: '' }, status: true } }
     ];
     fetchMock.post('*', { success: '', newGroup: {} });
 

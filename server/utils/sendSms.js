@@ -1,5 +1,7 @@
 import superagent from 'superagent';
 
+// method to send sms
+
 const sendSms = (phoneNumbers, sentBy, groupName) => {
   const message =
   `Hello! A new message has been sent to you by ${sentBy} in group ${groupName}`;

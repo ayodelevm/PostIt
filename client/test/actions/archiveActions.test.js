@@ -79,7 +79,7 @@ describe('Archive async actions', () => {
   it('should dispatch GET_ALL_MESSAGES_FOR_ARCHIVE', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'GET_ALL_MESSAGES_FOR_ARCHIVE', messages: { foundMessages: {} } }
+      { type: 'GET_ALL_MESSAGES_FOR_ARCHIVE', messages: { foundMessages: {}, status: true } }
     ];
     fetchMock.get('*', { foundMessages: {} });
     return store.dispatch(actions.getGroupWithMessages(token))
@@ -92,7 +92,7 @@ describe('Archive async actions', () => {
   it('should dispatch GET_ARCHIVED_MESSAGES', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'GET_ARCHIVED_MESSAGES', archived: { foundMessages: {} } }
+      { type: 'GET_ARCHIVED_MESSAGES', archived: { foundMessages: {}, status: true } }
     ];
     fetchMock.get('*', { foundMessages: {} });
 
@@ -106,7 +106,7 @@ describe('Archive async actions', () => {
   it('should dispatch ARCHIVE_MESSAGES', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'ARCHIVE_MESSAGES', archiveSuccess: {} }
+      { type: 'ARCHIVE_MESSAGES', archiveSuccess: { status: true } }
     ];
     fetchMock.put('*', {});
 
@@ -159,5 +159,4 @@ describe('Archive async action errors', () => {
     });
   });
 });
-
 

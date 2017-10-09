@@ -10,7 +10,7 @@ import Select from 'react-select';
  */
 const MessageForm = props => (
   <form className="col s12" onSubmit={props.onSubmit}>
-    <div className="row">
+    <div className="row text-area-row">
       <div className="input-field col s2 left">
         <Select
           name={'choose priority'}
@@ -18,18 +18,16 @@ const MessageForm = props => (
           options={props.options}
           onChange={props.onLogChange}
           placeholder={'choose priority'}
+          searchable={false}
         />
       </div>
       <div className="input-field col s10 right">
         <textarea
-          value={props.state.message} name="message" id="textarea1"
-          onChange={props.onChange} placeholder="Enter a message here" className="materialize-textarea"
-          onKeyPress={(event) => {
-            if (event.key === 'Enter' && !event.shiftKey) {
-              event.preventDefault();
-              props.onSubmit(event);
-            }
-          }}
+          value={props.state.content} name="content" id="textarea1"
+          onChange={props.onChange}
+          placeholder="Enter a message here"
+          className="materialize-textarea"
+          onKeyPress={props.onKeyPress}
         />
       </div>
     </div>
@@ -38,8 +36,8 @@ const MessageForm = props => (
 
 MessageForm.defaultProps = {
   state: {
-    priority: 'Normal',
-    groupId: '',
+    content: '',
+    selected: { value: 'Normal', label: 'Normal' },
     errors: {},
   }
 };
@@ -50,6 +48,7 @@ MessageForm.propTypes = {
   options: PropTypes.array.isRequired,
   onLogChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func.isRequired
 };
 
 export default MessageForm;

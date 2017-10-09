@@ -1,7 +1,7 @@
 import 'isomorphic-fetch';
 import Types from './actionTypes';
 import * as api from '../utils/apis';
-import endpoints from '../utils/apiUrls';
+import endpoints from '../utils/endpoints';
 
 export const getUsers = allUsers => ({
   type: Types.GET_ALL_USERS,
@@ -33,24 +33,39 @@ export const uploadImageFailure = failure => ({
   failure
 });
 
+/**
+ * Async action creators to fetch all registered users
+ * @param {string} token
+ * @returns {function} dispatch
+ */
 export const getAllUsers = token => (dispatch) => {
   return api.getEndpoint(endpoints.GET_ALL_USERS_PATH, token)
-    .then(
-      (success) => {
-        dispatch(getUsers(success));
-      },
-      (error) => {
-        dispatch(getUserFailure(error));
-      }
-    );
-};
-
-export const addNewUsersToGroup = (token, data, groupId) => (dispatch) => {
-  return api
-  .postEndpoint(endpoints.ADD_USERS_TO_GROUP_PATH.replace(':id', `${groupId}`), data, token)
   .then(
     (success) => {
-      dispatch(newGroupUsers(success));
+      const response = { ...success, ...{ status: !!Object.keys(success) } };
+      dispatch(getUsers(response));
+    },
+    (error) => {
+      dispatch(getUserFailure(error));
+    }
+  );
+};
+
+/**
+ * Async action creators to add new users to a group
+ * @param {string} token
+ * @param {array} users
+ * @param {number} groupId
+ * @returns {function} dispatch
+ */
+export const addNewUsersToGroup = (token, users, groupId) => (dispatch) => {
+  return api
+  .postEndpoint(endpoints.ADD_USERS_TO_GROUP_PATH
+  .replace(':id', `${groupId}`), users, token)
+  .then(
+    (success) => {
+      const response = { ...success, ...{ status: !!Object.keys(success) } };
+      dispatch(newGroupUsers(response));
     },
     (error) => {
       dispatch(newGroupUsersFailure(error));
@@ -58,11 +73,20 @@ export const addNewUsersToGroup = (token, data, groupId) => (dispatch) => {
   );
 };
 
-export const uploadProfileImage = (token, data, userId) => (dispatch) => {
-  return api.updateEndpoint(endpoints.UPDATE_ONE_USER_PATH.replace(':id', `${userId}`), data, token)
+/**
+ * Async action creators to upload new profile picture
+ * @param {string} token
+ * @param {object} imageUrl
+ * @param {number} userId
+ * @returns {function} dispatch
+ */
+export const uploadProfileImage = (token, imageUrl, userId) => (dispatch) => {
+  return api.updateEndpoint(endpoints.UPDATE_ONE_USER_PATH
+  .replace(':id', `${userId}`), imageUrl, token)
   .then(
     (success) => {
-      dispatch(uploadImage(success));
+      const response = { ...success, ...{ status: !!Object.keys(success) } };
+      dispatch(uploadImage(response));
     },
     (error) => {
       dispatch(uploadImageFailure(error));

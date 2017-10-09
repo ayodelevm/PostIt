@@ -5,6 +5,7 @@ import GoogleLogin from 'react-google-login';
 import Notifications from 'react-notify-toast';
 import ForgotPassword from '../containers/ForgotPassword.jsx';
 import InputFieldGroup from './common/InputFields.jsx';
+import parallaxImage from '../utils/images/jacob-ufkes-195221.jpg';
 
 
 /**
@@ -22,7 +23,11 @@ const LoginForm = props => (
             <div className="card-content black-text">
               <span className="card-title v-align">
                 <a href="/" className="brand-logo">
-                  <i className="material-icons lime-text lighthen-5">insert_chart</i>
+                  <i
+                    className="material-icons lime-text lighthen-5"
+                  >
+                    insert_chart
+                  </i>
                   <span id="site_name">PostIt</span>
                 </a>
               </span>
@@ -34,7 +39,11 @@ const LoginForm = props => (
 
                 <p className="left">Required fields are marked *</p>
 
-                <form className="col s12" onSubmit={props.onSubmit} noValidate>
+                <form
+                  className="col s12"
+                  onSubmit={props.onSubmit}
+                  noValidate
+                >
                   <div className="main">
                     <Notifications />
                   </div>
@@ -53,7 +62,11 @@ const LoginForm = props => (
                       onChange={props.onChange}
                       htmlFor={'userIdentifier'}
                     />
-                    <span className="left error-message grey-text">{props.state.errors.userIdentifier}</span>
+                    <span
+                      className="left error-messagegrey-text"
+                    >
+                      {props.state.errors.userIdentifier}
+                    </span>
                   </div>
                   <div className="row">
                     <InputFieldGroup
@@ -67,12 +80,21 @@ const LoginForm = props => (
                       onChange={props.onChange}
                       htmlFor={'password'}
                     />
-                    <span className="left error-message grey-text">{props.state.errors.password}</span>
+                    <span
+                      className="left error-message grey-text"
+                    >
+                      {props.state.errors.password}
+                    </span>
                   </div>
 
                   <div className="row">
                     <div className="input-field col s12">
-                      <button className="btn lime accent-4 waves-effect waves-light center" type="submit" name="action">Login
+                      <button
+                        className={'btn lime accent-4 waves-effect' +
+                        ' waves-light center'}
+                        type="submit" name="action"
+                      >
+                        Login
                         <i className="material-icons right">person</i>
                       </button>
                     </div>
@@ -81,19 +103,33 @@ const LoginForm = props => (
               </div>
               <div className="row">
                 <p className="center">Forgot password?
-                  <Link to="#reset-email" className="modal-trigger green-text darken-4">
-                  Click here</Link> to reset it!
+                  <Link
+                    to="#reset-email"
+                    className="modal-trigger green-text darken-4"
+                  >
+                  Click here
+                  </Link>
+                  to reset it!
                 </p>
               </div>
               <div className="row center">
-                <span className="black-text"> You can also Login with </span><br />
+                <span className="black-text">
+                  You can also Login with
+                </span><br />
                 <GoogleLogin
                   clientId={props.clientId}
                   onSuccess={props.onSuccess}
                   onFailure={props.onFailure}
                   className={'google-login red'}
                 >
-                  <a className="waves-effect waves-light white-text btn-flat red">Google+</a>
+                  <a
+                    className={
+                      'waves-effect waves-light' +
+                      ' white-text btn-flat red'
+                      }
+                  >
+                    Google+
+                  </a>
                 </GoogleLogin>
               </div>
 
@@ -101,21 +137,25 @@ const LoginForm = props => (
             <div className="card-action">
               <div className="card-action-text">
                 <span className="black-text">New to PostIt? </span>
-                <a href="/register" className="green-text darken-4">Create a new account</a>
+                <a
+                  href="/register"
+                  className="green-text darken-4"
+                >
+                  Create a new account
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
       <ForgotPassword
-        closeModalRoute={'login'}
       />
     </div>
 
     <div className="parallax">
       <img
         className="responsive-img"
-        src={require('../utils/images/jacob-ufkes-195221.jpg')}
+        src={parallaxImage}
         alt="login section"
       /><div id="overlay" />
     </div>

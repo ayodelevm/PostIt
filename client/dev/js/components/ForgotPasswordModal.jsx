@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Notifications from 'react-notify-toast';
 import PropTypes from 'prop-types';
+import Spinner from 'react-spinner-material';
 import InputFieldGroup from './common/InputFields.jsx';
 
 /**
@@ -83,7 +84,18 @@ const ForgotPasswordModal = props => (
                 </div>
               </form>
             </div>
-
+            {
+              props.loading ?
+                <div className="before-auth-spinner">
+                  <Spinner
+                    size={120}
+                    spinnerColor={'#333'}
+                    spinnerWidth={2}
+                    visible
+                  />
+                </div> :
+                null
+            }
           </div>
 
         </div>
@@ -97,6 +109,7 @@ ForgotPasswordModal.defaultProps = {
   state: {
     members: [],
     errors: {},
+    loading: false
   }
 };
 
@@ -105,7 +118,8 @@ ForgotPasswordModal.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  onResetState: PropTypes.func.isRequired
+  onResetState: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 export default ForgotPasswordModal;

@@ -77,10 +77,6 @@ export class NavContainer extends React.Component {
     const afterAuth = (
       <div>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li className="active"><a href="" className="lime-text lighthen-5">
-            <i className="material-icons left">notifications</i>
-            <span id="notification-number">5</span></a>
-          </li>
           <li><Link
             className="lime-text lighthen-5"
             to="/dashboard">Dashboard
@@ -95,13 +91,6 @@ export class NavContainer extends React.Component {
         </ul>
 
         <ul id="slide-out" className="side-nav">
-          <li><div className="divider" /></li>
-          <li className="active">
-            <a href="" className="waves-effect waves-light">
-              <i className="material-icons left">notifications</i>
-              <span id="notification-number">5</span>
-            </a>
-          </li>
           <li><div className="divider" /></li>
           <li><Link
             className="lime-text lighthen-5"

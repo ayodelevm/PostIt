@@ -10,7 +10,7 @@ import winston from 'winston';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from '../webpack.prod.config';
+import webpackConfig from '../webpack.config.js';
 
 // ROUTES
 
@@ -25,7 +25,6 @@ const app = express();
 const server = http.createServer(app);
 export const io = socketIo(server);
 
-app.use(express.static(path.resolve(__dirname, 'client/build')));
 app.use(logger('dev'));
 
 // Allow Cross-Origin
@@ -42,8 +41,8 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '../client/build/dist')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 // ROUTES CONFIG
 app.use(authRoutes);
@@ -58,7 +57,11 @@ winston.configure({
   ]
 });
 
-if (process.env.NODE_ENV !== 'test') {
+app.get('/api/docs', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/build/index.html'));
+});
+
+if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(webpackConfig);
 
   app.use(webpackMiddleware(compiler, {
@@ -70,6 +73,11 @@ if (process.env.NODE_ENV !== 'test') {
 
   app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  });
+}
+if (process.env.NODE_ENV === 'production') {
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/dist/index.html'));
   });
 }
 

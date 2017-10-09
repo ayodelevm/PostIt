@@ -10,7 +10,7 @@ import 'react-select/dist/react-select.css';
 import 'materialize-css/dist/js/materialize';
 import './js/main';
 
-import '../scss/main.scss';
+// import '../scss/main.scss';
 
 import store, { history } from './store/store';
 

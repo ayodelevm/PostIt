@@ -1,6 +1,7 @@
 import React from 'react';
 import Notifications from 'react-notify-toast';
 import Nav from './common/Nav.jsx';
+import parallaxImage from '../utils/images/jacob-ufkes-195221.jpg';
 
 /**
  * Gives the presentational view for the landing page component
@@ -39,7 +40,7 @@ const Landing = () => (
       <div className="parallax">
         <img
           className="responsive-img"
-          src={require('../utils/images/jacob-ufkes-195221.jpg')}
+          src={parallaxImage}
           alt="charity section"
         />
         <div id="overlay" />

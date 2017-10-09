@@ -3,7 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { notify } from 'react-notify-toast';
-import { getGroupWithMessages, archiveMessages } from '../actions/archiveActions';
+import {
+  getGroupWithMessages,
+  archiveMessages
+} from '../actions/archiveActions';
 import ArchiveModal from '../components/ArchiveModal.jsx';
 
 /**
@@ -12,7 +15,7 @@ import ArchiveModal from '../components/ArchiveModal.jsx';
  * @class Archive
  * @extends {Component}
  */
-class Archive extends React.Component {
+export class Archive extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -42,7 +45,8 @@ class Archive extends React.Component {
     this.props.getGroupWithMessages(token, setGroupDetails.id)
     .then(() => {
       if (this.props.archiveData.getSuccess) {
-        const fetchedMessages = this.props.archiveData.archivableMessages.Messages;
+        const fetchedMessages = this.props.archiveData
+          .archivableMessages.Messages;
         const messageIds = fetchedMessages.map(message => message.id);
         this.setState({
           messageIds
@@ -54,11 +58,11 @@ class Archive extends React.Component {
     })
     .then(() => {
       if (this.props.archiveData.archiveSuccess) {
-        notify.show('Messages have been archived successfully!', 'success', 3000);
+        notify
+          .show('Messages have been archived successfully!', 'success', 3000);
         $('#archive-all').modal('close');
       } else {
         notify.show(this.props.archiveData.errors.globals, 'warning', 3000);
-        $('#archive-all').modal('close');
       }
     });
   }
@@ -69,7 +73,8 @@ class Archive extends React.Component {
   render() {
     return (
       <ArchiveModal
-        name={this.props.archiveData.setGroupDetails ? this.props.archiveData.setGroupDetails.name : ''}
+        name={this.props.archiveData.setGroupDetails ?
+        this.props.archiveData.setGroupDetails.name : ''}
         closeModalRoute={this.props.closeModalRoute}
         onHandleSubmit={this.handleSubmit}
       />

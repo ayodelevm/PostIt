@@ -9,7 +9,9 @@ import messageReducer from './messageReducer';
 import archiveReducer from './archiveReducer';
 import resetPasswordReducer from './resetPasswordReducer';
 
-
+/**
+ * Combining all reducers into a single reducer
+ */
 const rootReducer = combineReducers({
   authReducer,
   userReducer,

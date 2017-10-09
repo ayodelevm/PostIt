@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import Notifications from 'react-notify-toast';
+
 import GroupFormContainer from '../containers/GroupFormContainer.jsx';
 import UploadsContainer from '../containers/UploadsContainer.jsx';
 import Nav from './common/Nav.jsx';
@@ -11,42 +10,11 @@ import AddUsers from '../containers/AddUsers.jsx';
 import Archive from '../containers/Archive.jsx';
 import GroupMembersModal from './GroupMembersModal.jsx';
 import ViewArchivedModal from './ViewArchivedModal.jsx';
+import AllGroups from './messageAreaComponents/AllGroups.jsx';
+import GroupTitle from './messageAreaComponents/GroupTitle.jsx';
+import MessageBoardIcons from './messageAreaComponents/MessageBoardIcons.jsx';
+import RenderMessage from './messageAreaComponents/RenderMessage.jsx';
 
-/**
- * Gives the presentational view for how messages are displayed in the messaging component
- * @param {array} users
- * @param {object} message
- * @returns {jsx} - an xml/html -like syntax extension to javascript
- */
-const renderMessage = (users, message) => {
-  if (users && message) {
-    const foundUser = users.find(user => user.id === message.ownerId);
-    if (foundUser) {
-      return (
-        <div key={message.id} className="row">
-          <div className="z-depth-1">
-            <div className="col s2 image-div">
-              <div className="profile-img" style={{ backgroundImage: `url(${foundUser.profileImage})` }} />
-            </div>
-            <div className="col s10">
-              <span className="message-username">@{foundUser.username} | </span>
-              <span className="date-time">
-                {(new Date(message.createdAt)).toLocaleString()}
-              </span>
-              <span
-                className={classnames({
-                  'status-normal': message.priority === 'Normal',
-                  'status-urgent': message.priority === 'Urgent',
-                  'status-critical': message.priority === 'Critical'
-                })}
-              > { message.priority} </span><br />
-              <span className="message-actual">{message.message}</span>
-            </div>
-          </div>
-        </div>);
-    }
-  }
-};
 
 /**
  * Gives the presentational view for the users messaging page component
@@ -59,7 +27,8 @@ const MessageArea = (props) => {
   const { Messages } = props.messages;
   let sortedMessages = [];
   if (Messages) {
-    sortedMessages = Messages.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    sortedMessages = Messages.sort((a, b) => a
+    .createdAt.localeCompare(b.createdAt));
   }
 
 
@@ -77,7 +46,10 @@ const MessageArea = (props) => {
                 <a className="modal-trigger tooltipped"
                   data-position="right" data-tooltip="Upload picture"
                   href="#user-new"><div className="profile-icon"
-                    style={{ backgroundImage: `url(${groups.profileImage})` }} /></a>
+                    style={{
+                      backgroundImage: `url(${groups.profileImage})`
+                    }} />
+                </a>
               </div>
               <div className="col s9">
                 <span className="black-text">
@@ -89,25 +61,26 @@ const MessageArea = (props) => {
             <div className="divider" />
             <div id="content" className="row">
               <br />
-              <a className="modal-trigger add-new-group" href="#group-new"><span className="card-title black-text">GROUPS <i
-                className="material-icons add-groups right">add_box</i></span></a>
+              <a className="modal-trigger add-new-group" href="#group-new">
+                <span className="card-title black-text">GROUPS <i
+                  className="material-icons add-groups right">add_box</i>
+                </span></a>
               <div className="row group-section-message">
                 <ul>
                   {
-                    Groups && Groups.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+                    Groups && Groups.sort((a, b) => b.createdAt
+                    .localeCompare(a.createdAt))
                     .map(group => (
                       [
                         groups.id === group.ownerId ?
-                          <div key={group.id}>
-                            <li className="group-display"><a href={`/groups/${group.id}/message`} className="groups black-text">
-                              <span className="left truncate"><i className="material-icons group-icons">lock_open
-                            </i> {group.name}</span><span className="right" /></a></li><br />
-                          </div> :
-                          <div key={group.id}>
-                            <li className="group-display"><a href={`/groups/${group.id}/message`} className="groups black-text">
-                              <span className="left truncate"><i className="material-icons group-icons">lock
-                            </i> {group.name}</span><span className="right" /></a></li><br />
-                          </div>
+                          <AllGroups
+                            group={group}
+                            name={'lock_open'}
+                            /> :
+                          <AllGroups
+                            group={group}
+                            name={'lock'}
+                            />
                       ]
                     ))
                   }
@@ -123,75 +96,57 @@ const MessageArea = (props) => {
               <div className="row">
                 <div className="col s10">
                   {messages.UserId === currentUser.id ?
-                    <div>
-                      <h5 className="group-title"><i className="material-icons group-icons">lock_open</i> {messages.name}</h5>
-                      <div className="row adjust">
-                        <span className="group-description">{messages.description}</span>
-                      </div>
-                    </div> :
-                    <div>
-                      <h5 className="group-title"><i className="material-icons group-icons">lock</i> {messages.name}</h5>
-                      <div className="row adjust">
-                        <span className="group-description">{messages.description}</span>
-                      </div>
-                    </div>
+                    <GroupTitle
+                      messages={messages}
+                      name={'lock_open'}
+                    /> :
+                    <GroupTitle
+                      messages={messages}
+                      name={'lock'}
+                    />
                   }
                 </div>
                 <div className="col s2">
                   {messages.UserId === currentUser.id ?
-                    <div>
-                      <ul className="group-icons">
-                        <li><Link className="modal-trigger tooltipped"
-                          data-position="top" data-tooltip="Add new members"
-                          to="#add-new"><i className="material-icons left">group_add</i></Link></li>
-                        <li><Link className="modal-trigger tooltipped"
-                          data-position="bottom" data-tooltip="View members"
-                          to="#group-members"><i className="material-icons left">group</i></Link></li>
-                        <li><a href="" className="dropdown-button tooltipped"
-                          data-position="top" data-tooltip="Archives"
-                          data-activates="archive-dropdown"><i className="material-icons">settings</i></a></li>
-                      </ul>
-                      <ul id="archive-dropdown" className="dropdown-content">
-                        <li><Link name={messages.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.onActiveGroupClicked}
-                          id={messages.id} to="#archive-all">Archive All Messages</Link></li>
-                        <li><Link name={messages.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.onActiveGroupClicked}
-                          id={messages.id} to="#view-archive">View Archived Messages</Link></li>
-                      </ul>
-                    </div>
-                    :
-                    <div>
-                      <ul className="group-icons">
-                        <li><Link to=""
-                          data-position="top" data-tooltip="Add new members"
-                          className="tooltipped"><i className="material-icons left" /></Link></li>
-                        <li><Link className="modal-trigger tooltipped"
-                          data-position="bottom" data-delay="50" data-tooltip="View members"
-                          to="#group-members"><i className="material-icons left">group</i></Link></li>
-                        <li><a href="" className="dropdown-button tooltipped"
-                          data-position="top" data-delay="50" data-tooltip="Archives"
-                          data-activates="archive-dropdown"><i className="material-icons">settings</i></a></li>
-                      </ul>
-                      <ul id="archive-dropdown" className="dropdown-content">
-                        <li><Link name={messages.name} className="modal-trigger waves-effect waves-blue black-text" onClick={props.onActiveGroupClicked}
-                          id={messages.id} to="#view-archive">View Archived Messages</Link></li>
-                      </ul>
-                    </div>
+                    <MessageBoardIcons
+                      onActiveGroupClicked={props.onActiveGroupClicked}
+                      messages={messages}
+                      groupAdd={'group_add'}
+                      archive={'Archive All Messages'}
+                      view={'View Archived Messages'}
+                      valid
+                    /> :
+                    <MessageBoardIcons
+                      onActiveGroupClicked={props.onActiveGroupClicked}
+                      messages={messages}
+                      groupAdd={''}
+                      view={'View Archived Messages'}
+                      valid={false}
+                    />
                   }
                 </div>
 
               </div>
             </div>
             <div className="message-body">
-              {sortedMessages && sortedMessages.map(message => renderMessage(users, message))}
+              {sortedMessages && sortedMessages.map(message => (
+                <RenderMessage
+                  users={users}
+                  message={message}
+                  key={message.id}
+                  />
+                ))}
             </div>
             <div className="text-area">
-              <div className="row">
+              <div className="row text-area-row">
                 <MessageFormContainer groupId={messages.id} />
               </div>
             </div>
           </div>
         </div>
-        <GroupFormContainer closeModalRoute={`groups/${messages.id}/message`} />
+        <GroupFormContainer
+          closeModalRoute={`groups/${messages.id}/message`}
+        />
         <UploadsContainer
           userId={props.currentUser.id}
           groupId={messages.id}

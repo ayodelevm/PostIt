@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getUserGroups } from '../actions/groupActions';
 import { getAllUsers } from '../actions/userActions';
-import { selectedGroupDetails, getArchivedMessages } from '../actions/archiveActions';
+import {
+  selectedGroupDetails,
+  getArchivedMessages
+} from '../actions/archiveActions';
 import DashboardArea from '../components/DashboardArea.jsx';
 
 /**
@@ -42,6 +45,7 @@ export class DashBoard extends React.Component {
       $('.collapsible').collapsible({
         accordion: true,
       });
+      Materialize.updateTextFields();
     });
   }
 
@@ -59,10 +63,14 @@ export class DashBoard extends React.Component {
     const token = window.localStorage.token;
 
     Promise.resolve(
-      this.props.selectedGroupDetails({ id: event.target.id, name: event.target.name })
+      this.props.selectedGroupDetails({
+        id: event.target.id,
+        name: event.target.name
+      })
     )
     .then(() => {
-      this.props.getArchivedMessages(token, this.props.archiveData.setGroupDetails.id);
+      this.props
+        .getArchivedMessages(token, this.props.archiveData.setGroupDetails.id);
     });
   }
 

@@ -48,6 +48,7 @@
     "import/no-unresolved": 0,
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
+    "max-len": [2, {"code": 80, "tabWidth": 2, "ignoreUrls": true}],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "valid-jsdoc": ["error", {
       "requireReturn": true,

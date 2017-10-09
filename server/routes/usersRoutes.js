@@ -9,12 +9,15 @@ const router = express.Router();
 router.get('/api/v1/users', Middleware.isAuthenticated, UsersCtrl.getAllUsers);
 
 // Get all Users that belongs to a group
-router.get('/api/v1/group/:id/users', Middleware.isAuthenticated, Middleware.isAuthorized, UsersCtrl.getUsersInGroup);
+router.get('/api/v1/group/:id/users', Middleware
+  .isAuthenticated, Middleware.isAuthorized, UsersCtrl.getUsersInGroup);
 
 // Add New Users to a group
-router.post('/api/v1/group/:id/user', Middleware.isAuthenticated, Middleware.isAuthorized, UsersCtrl.addUsersToGroup);
+router.post('/api/v1/group/:id/user', Middleware
+  .isAuthenticated, Middleware.isAuthorized, UsersCtrl.addUsersToGroup);
 
 // Update User details
-router.put('/api/v1/user/:id/edit', Middleware.isAuthenticated, UsersCtrl.updateOneUser);
+router.put('/api/v1/user/:id/edit', Middleware
+  .isAuthenticated, UsersCtrl.updateOneUser);
 
 export default router;

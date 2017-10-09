@@ -1,6 +1,6 @@
 import models from './../models/index';
-import urgentNotification from '../utils/urgentnotification';
-import criticalNotification from '../utils/criticalnotification';
+import urgentNotification from '../utils/urgentNotification';
+import criticalNotification from '../utils/criticalNotification';
 import { io } from '../app';
 
 /**
@@ -18,26 +18,26 @@ export default class messageCtrl {
     return models.Group.findOne({
       where: { id: req.params.id },
     })
-    .then((foundGroup) => {
-      return foundGroup.getMessages({
-        where: { archived: req.query.archived },
-        attributes: ['id', 'message', 'GroupId', 'priority', 'createdAt', ['UserId', 'ownerId']],
-        joinTableAttributes: [],
-        order: [['createdAt', 'ASC']]
-      })
+    .then(foundGroup => foundGroup.getMessages({
+      where: { archived: req.query.archived },
+      attributes: ['id', 'message', 'GroupId', 'priority',
+        'createdAt', ['UserId', 'ownerId']],
+      joinTableAttributes: [],
+      order: [['createdAt', 'ASC']]
+    })
       .then((found) => {
-        const foundMessages = Object.assign(JSON.parse(JSON.stringify(foundGroup)), { Messages: found === null ? [] : found });
+        const foundMessages = Object.assign(JSON
+          .parse(JSON.stringify(foundGroup)), {
+            Messages: found === null ? [] : found
+          });
         return res.status(200).json({
           success: 'Successful.',
           foundMessages
         });
-      });
-    })
-    .catch((err) => {
-      return res.status(500).json({
-        globals: err.message || err.errors[0].message
-      });
-    });
+      }))
+    .catch(err => res.status(500).json({
+      globals: err.message || err.errors[0].message
+    }));
   }
 
 /**
@@ -47,8 +47,8 @@ export default class messageCtrl {
  * @returns {void}
  */
   static createNewMessage(req, res) {
-    if (!req.body.message) {
-      return res.status(400).json({
+    if (!req.body.content) {
+      return res.status(422).json({
         globals: 'Message cannot be empty'
       });
     } else {
@@ -56,9 +56,13 @@ export default class messageCtrl {
         where: { id: req.params.id }
       })
       .then((foundGroup) => {
-        const newMessage = Object.assign(req.body, {
-          UserId: req.user.dataValues.id }, { GroupId: req.params.id });
-        return models.Message.create(newMessage)
+        const payload = {
+          message: req.body.content,
+          priority: req.body.priority,
+          UserId: req.user.dataValues.id,
+          GroupId: req.params.id
+        };
+        return models.Message.create(payload)
         .then((addedMessage) => {
           const createdMessage = Object.assign({},
             addedMessage.dataValues, { ownerId:
@@ -74,8 +78,9 @@ export default class messageCtrl {
               req.user.dataValues.username, req.headers.origin
             );
           }
+          const username = req.user.dataValues.username;
           io.emit('notification.updateMessage', {
-            message: `@${req.user.dataValues.username} posted a new message in ${foundGroup.name}`,
+            message: `@${username} posted a new message in ${foundGroup.name}`,
             groupId: foundGroup.id,
             createdMessage
           });
@@ -84,11 +89,9 @@ export default class messageCtrl {
             createdMessage
           });
         })
-        .catch((err) => {
-          return res.status(500).json({
-            globals: err.message || err.errors[0].message
-          });
-        });
+        .catch(err => res.status(500).json({
+          globals: err.message || err.errors[0].message
+        }));
       });
     }
   }
@@ -101,20 +104,27 @@ export default class messageCtrl {
    */
   static archiveMessages(req, res) {
     if (req.body.messageIds.length === 0) {
-      return res.status(400).json({
+      return res.status(422).json({
         globals: 'There are no messages to archive in this group!'
       });
     }
 
-    return models.Message.findAll({
-      where: { id: req.body.messageIds }
-    })
+    return models.Group.findOne({
+      where: { id: req.params.id }
+    }).then((foundGroup) => {
+      if (foundGroup.UserId !== req.user.dataValues.id) {
+        return res.status(403).json({
+          globals: 'You are not allowed to archive in this' +
+          ' group, please contact admin!'
+        });
+      }
+      return models.Message.findAll({
+        where: { id: req.body.messageIds }
+      })
     .then((foundMessages) => {
-      if (foundMessages) {
+      if (foundMessages.length !== 0) {
         Promise.all(
-          foundMessages.map((found) => {
-            return found.update({ archived: true });
-          })
+          foundMessages.map(found => found.update({ archived: true }))
         )
         .then(() => {
           io.emit('archive.success', {
@@ -130,11 +140,13 @@ export default class messageCtrl {
         });
       }
     })
-    .catch((err) => {
-      return res.status(500).json({
-        globals: err.message || err.errors[0].message
-      });
-    });
+    .catch(err => res.status(500).json({
+      globals: err.message || err.errors[0].message
+    }));
+    })
+    .catch(err => res.status(500).json({
+      globals: err.message || err.errors[0].message
+    }));
   }
 }
 

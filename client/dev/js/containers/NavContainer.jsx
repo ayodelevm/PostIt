@@ -13,7 +13,7 @@ import { logoutAUser } from '../actions/authActions';
  * @class NavContainer
  * @extends {Component}
  */
-class NavContainer extends React.Component {
+export class NavContainer extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -32,8 +32,8 @@ class NavContainer extends React.Component {
    */
   handleLogout() {
     this.props.logoutAUser();
-    notify.show('Logged out successfully!', 'success', 3000);
     window.location.replace('/');
+    notify.show('Logged out successfully!', 'success', 3000);
   }
 
   /**
@@ -49,7 +49,9 @@ class NavContainer extends React.Component {
             <a href="" className="lime-text lighthen-5">Site Guide</a>
           </li>
           <li>
-            <a href="/register" className="lime-text lighthen-5">Create Account</a>
+            <a href="/register" className="lime-text lighthen-5">
+              Create Account
+            </a>
           </li>
           <li>
             <a href="/login" className="lime-text lighthen-5">Login</a>
@@ -59,10 +61,14 @@ class NavContainer extends React.Component {
         <ul id="slide-out" className="side-nav">
           <li><div className="divider" /></li>
           <li className="active">
-            <a href="/register" className="waves-effect waves-light">Create New Account</a>
+            <a href="/register" className="waves-effect waves-light">
+              Create New Account
+            </a>
           </li>
           <li><div className="divider" /></li>
-          <li><a href="/login" className="waves-effect waves-light">Login</a></li>
+          <li><a href="/login" className="waves-effect waves-light">
+            Login</a>
+          </li>
           <li><div className="divider" /></li>
         </ul>
       </div>
@@ -71,22 +77,33 @@ class NavContainer extends React.Component {
     const afterAuth = (
       <div>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li className="active"><a href="" className="lime-text lighthen-5">
-            <i className="material-icons left">notifications</i><span id="notification-number">5</span></a></li>
-          <li><Link className="lime-text lighthen-5" to="/dashboard">Dashboard</Link></li>
-          <li><Link className="lime-text lighthen-5" onClick={this.handleLogout} to="/">Logout</Link></li>
+          <li><Link
+            className="lime-text lighthen-5"
+            to="/dashboard">Dashboard
+            </Link>
+          </li>
+          <li><Link
+            className="lime-text lighthen-5"
+            onClick={this.handleLogout}
+            to="/">Logout
+            </Link>
+          </li>
         </ul>
 
         <ul id="slide-out" className="side-nav">
           <li><div className="divider" /></li>
-          <li className="active">
-            <a href="" className="waves-effect waves-light"><i className="material-icons left">notifications</i>
-              <span id="notification-number">5</span></a>
+          <li><Link
+            className="lime-text lighthen-5"
+            to="/dashboard">Dashboard
+            </Link>
           </li>
           <li><div className="divider" /></li>
-          <li><Link className="lime-text lighthen-5" to="/dashboard">Dashboard</Link></li>
-          <li><div className="divider" /></li>
-          <li><a href="/" onClick={this.handleLogout} className="waves-effect waves-light">Logout</a></li>
+          <li><a
+            href="/"
+            onClick={this.handleLogout}
+            className="waves-effect waves-light">Logout
+            </a>
+          </li>
           <li><div className="divider" /></li>
         </ul>
       </div>
@@ -110,7 +127,9 @@ const mapStateToProps = state => ({
   logoutAction: state.authReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ logoutAUser }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({
+  logoutAUser
+}, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(NavContainer);
 

@@ -1,6 +1,6 @@
 import Types from './actionTypes';
 import * as api from '../utils/apis';
-import endpoints from '../utils/apiUrls';
+import endpoints from '../utils/endpoints';
 
 export const forgotPasswordAction = mailSuccess => ({
   type: Types.FORGOT_PASSWORD,
@@ -22,11 +22,18 @@ export const resetPasswordFailure = failure => ({
   failure
 });
 
-export const forgotPassword = data => (dispatch) => {
-  return api.postEndpoint(endpoints.FORGOT_PASSWORD, data)
+/**
+ * Async action creators to handle sending email to server for verification and
+ * sendning of link to reset password
+ * @param {object} email
+ * @returns {function} dispatch
+ */
+export const forgotPassword = email => (dispatch) => {
+  return api.postEndpoint(endpoints.FORGOT_PASSWORD, email)
     .then(
     (success) => {
-      dispatch(forgotPasswordAction(success));
+      const response = { status: !!Object.keys(success) };
+      dispatch(forgotPasswordAction(response));
     },
     (error) => {
       dispatch(forgotPasswordFailure(error));
@@ -34,11 +41,19 @@ export const forgotPassword = data => (dispatch) => {
   );
 };
 
-export const resetPassword = (token, data) => (dispatch) => {
-  return api.updateEndpoint(`${endpoints.RESET_PASSWORD}?tok=${token}`, data)
+/**
+ * Async action creator to reset a user's password
+ * @param {string} token
+ * @param {object} password
+ * @returns {function} dispatch
+ */
+export const resetPassword = (token, password) => (dispatch) => {
+  return api
+    .updateEndpoint(`${endpoints.RESET_PASSWORD}?tok=${token}`, password)
     .then(
     (success) => {
-      dispatch(resetPasswordAction(success));
+      const response = { status: !!Object.keys(success) };
+      dispatch(resetPasswordAction(response));
     },
     (error) => {
       dispatch(resetPasswordFailure(error));

@@ -11,24 +11,30 @@ const initialState = {
   groupUsers: {}
 };
 
+/**
+ * Reducer hanlding group functions
+ * @param {object} state
+ * @param {object} action
+ * @returns {object} state
+ */
 const groupReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case Types.GET_USER_GROUPS:
       return Object.assign({}, state, {
         groups: action.groups.foundGroups,
-        getGroupSuccess: !!Object.keys(action.groups)
+        getGroupSuccess: action.groups.status
       });
 
     case Types.GET_GROUP_USERS:
       return Object.assign({}, state, {
         groupUsers: action.users.foundUsers,
-        getGroupUsersSuccess: !!Object.keys(action.users)
+        getGroupUsersSuccess: action.users.status
       });
 
     case Types.SET_CURRENT_GROUPS:
       return Object.assign({}, state, {
-        groups: action.mergedGroups,
-        createSuccess: !!Object.keys(action.mergedGroups),
+        groups: action.mergedGroups.currentGroups,
+        createSuccess: action.mergedGroups.status,
       });
 
     case Types.GET_USER_GROUPS_FAILURE:

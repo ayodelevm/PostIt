@@ -10,7 +10,7 @@ export default class Middlewares {
    * This method checks if a user is logged in and prevents jumping routes
    * @param {object} req
    * @param {object} res
-   * @param {object} next
+   * @param {function} next
    * @returns {void}
    */
   static isAuthenticated(req, res, next) {
@@ -24,10 +24,13 @@ export default class Middlewares {
         } else {
           models.User.findOne({
             where: { id: decoded.id },
-            attributes: ['fullname', 'email', 'telephone', 'profileImage', 'id', 'username']
+            attributes: ['fullname', 'email', 'telephone',
+              'profileImage', 'id', 'username']
           }).then((foundUser) => {
             if (!foundUser) {
-              res.status(404).json({ globals: 'No such user, please create an account!' });
+              res.status(404).json({
+                globals: 'No such user, please create an account!'
+              });
             } else {
               req.user = foundUser;
               next();
@@ -43,11 +46,12 @@ export default class Middlewares {
   }
 
   /**
-   * This method checks if the user is in a group before allowing the user to perform
+   * This method checks if the user is in a group before
+   * allowing the user to perform
    * any action in that group
    * @param {object} req
    * @param {object} res
-   * @param {object} next
+   * @param {function} next
    * @returns {void}
    */
   static isAuthorized(req, res, next) {

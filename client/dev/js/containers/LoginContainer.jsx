@@ -10,11 +10,12 @@ import LoginForm from '../components/LoginForm.jsx';
 
 /**
  * This class is the container component for loging in a user
- * upon submission of login form or upon verifcation by google and in-app verification
+ * upon submission of login form or upon verifcation by
+ * google and in-app verification
  * @class LoginContainer
  * @extends {Component}
  */
-class LoginContainer extends React.Component {
+export class LoginContainer extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -54,7 +55,8 @@ class LoginContainer extends React.Component {
 
   /**
    * Takes in the response object from google after google validation,
-   * handles the error if any, otherwise, makes a post request to the user google login endpoint
+   * handles the error if any, otherwise, makes a post request
+   * to the user google login endpoint
    * and handles response accordingly
    * @method handleGoogleResponse
    * @memberof LoginContainer
@@ -63,7 +65,8 @@ class LoginContainer extends React.Component {
    */
   handleGoogleResponse(response) {
     if (response.error) {
-      notify.show('Login unsuccessful, please try again later', 'warning', 3000);
+      notify
+        .show('Login unsuccessful, please try again later', 'warning', 3000);
     } else {
       this.props.googleLogin({ id_token: response.tokenObj.id_token })
         .then(
@@ -73,9 +76,11 @@ class LoginContainer extends React.Component {
           notify.show('Welcome back!', 'success', 3000);
         } else {
           if (this.props.loginResponse.errors.errors) {
-            return this.setState({ errors: this.props.loginResponse.errors.errors });
+            return this
+              .setState({ errors: this.props.loginResponse.errors.errors });
           }
-          notify.show(this.props.loginResponse.errors.globals, 'warning', 3000);
+          notify
+            .show(this.props.loginResponse.errors.globals, 'warning', 3000);
           window.localStorage.removeItem('token');
         }
       }
@@ -138,9 +143,11 @@ class LoginContainer extends React.Component {
           notify.show('Welcome back!', 'success', 3000);
         } else {
           if (this.props.loginResponse.errors.errors) {
-            return this.setState({ errors: this.props.loginResponse.errors.errors });
+            return this
+              .setState({ errors: this.props.loginResponse.errors.errors });
           }
-          notify.show(this.props.loginResponse.errors.globals, 'warning', 3000);
+          notify
+            .show(this.props.loginResponse.errors.globals, 'warning', 3000);
           window.localStorage.removeItem('token');
         }
       }
@@ -159,7 +166,8 @@ class LoginContainer extends React.Component {
             state={this.state}
             onChange={this.handleChange}
             onSubmit={this.handleFormSubmit}
-            clientId={'239318376704-022mld5juktsrae2384bbibcc2vlh5cv.apps.googleusercontent.com'}
+            clientId={'239318376704-022mld5juktsrae2384bbibcc2vlh5cv' +
+            '.apps.googleusercontent.com'}
             onSuccess={this.handleGoogleResponse}
             onFailure={this.handleGoogleResponse}
           />
@@ -184,6 +192,9 @@ const mapStateToProps = state => ({
   loginResponse: state.authReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ loginAUser, googleLogin }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({
+  loginAUser,
+  googleLogin
+}, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(LoginContainer);

@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     profileImage: {
       type: DataTypes.STRING,
-      defaultValue: 'https://www.conncoll.edu/media/major-images/Art.jpg'
+      defaultValue: 'https://res.cloudinary.com/dr6ynr4o0/image/upload/v1506624353/alygvc4f2hm2kjxokgps.jpg'
     }
   }, {
     classMethods: {

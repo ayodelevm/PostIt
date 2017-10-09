@@ -12,7 +12,7 @@ import AddUsersModal from '../components/AddUsersModal.jsx';
  * @class AddUsers
  * @extends {Component}
  */
-class AddUsers extends React.Component {
+export class AddUsers extends React.Component {
   /**
    * Initializes the state and binds this to the methods in this class
    * @param {object} props
@@ -27,30 +27,22 @@ class AddUsers extends React.Component {
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleResetState = this.handleResetState.bind(this);
   }
 
   /**
-   * Updates the materialize modal when the component mounts
-   * and resets form input when the component mounts
+   * Resets the state when modal is closed without submitting
    * @returns {void}
    */
-  componentDidMount() {
-    $(document).ready(() => {
-      $('.modal').modal({
-        dismissible: true,
-        complete: () => {
-          this.setState({
-            members: [],
-            errors: {}
-          });
-        }
-      });
-      Materialize.updateTextFields();
+  handleResetState() {
+    this.setState({
+      members: [], errors: {}, createSuccess: false
     });
   }
 
   /**
-   * This method takes in array of the users selected to be added to a group and sets the state
+   * This method takes in array of the users selected to be
+   * added to a group and sets the state
    * @method handleChange
    * @memberof AddUsers
    * @param {array} chips
@@ -78,8 +70,8 @@ class AddUsers extends React.Component {
     .then(
       () => {
         if (this.props.addUsersResponse.addSuccess) {
-          notify.show('Members added successfully!', 'success', 3000);
           $('#add-new').modal('close');
+          notify.show('Members added successfully!', 'success', 3000);
         } else if (this.props.addUsersResponse.errors) {
           notify.show(this.props.addUsersResponse.errors.globals, 'warning', 3000);
         }
@@ -106,6 +98,7 @@ class AddUsers extends React.Component {
         state={this.state}
         onChipsChange={this.handleChange} suggestions={allusernames}
         closeModalRoute={this.props.closeModalRoute}
+        onResetState={this.handleResetState}
       />
 
     );
@@ -121,10 +114,11 @@ AddUsers.propTypes = {
 };
 
 const mapStateToProps = state => ({
-//   groupResponse: state.groupReducer,
   addUsersResponse: state.userReducer
 });
 
-const matchDispatchToProps = dispatch => bindActionCreators({ addNewUsersToGroup }, dispatch);
+const matchDispatchToProps = dispatch => bindActionCreators({
+  addNewUsersToGroup
+}, dispatch);
 
 export default connect(mapStateToProps, matchDispatchToProps)(AddUsers);

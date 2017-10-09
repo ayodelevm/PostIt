@@ -38,11 +38,9 @@ export default class AddUsersCtrl {
         pagination
       });
     })
-    .catch((err) => {
-      return res.status(500).json({
-        globals: err.message || err.errors[0].message
-      });
-    });
+    .catch(err => res.status(500).json({
+      globals: err.message || err.errors[0].message
+    }));
   }
 
 /**
@@ -57,13 +55,12 @@ export default class AddUsersCtrl {
       attributes: ['id', 'name', 'description', 'imageUrl',
         'createdAt', ['UserId', 'ownerId']],
     })
-    .then((foundGroup) => {
-      return foundGroup.getUsers({
-        attributes: { exclude:
+    .then(foundGroup => foundGroup.getUsers({
+      attributes: { exclude:
           ['mysalt', 'updatedAt', 'password', 'googleSubId', 'createdAt']
-        },
-        joinTableAttributes: []
-      })
+      },
+      joinTableAttributes: []
+    })
       .then((found) => {
         const foundUsers = Object.assign(JSON.parse(JSON
           .stringify(foundGroup)), { Users: found });
@@ -72,17 +69,12 @@ export default class AddUsersCtrl {
           foundUsers
         });
       })
-      .catch((err) => {
-        return res.status(500).json({
-          globals: err.message || err.errors[0].message
-        });
-      });
-    })
-    .catch((err) => {
-      return res.status(500).json({
+      .catch(err => res.status(500).json({
         globals: err.message || err.errors[0].message
-      });
-    });
+      })))
+    .catch(err => res.status(500).json({
+      globals: err.message || err.errors[0].message
+    }));
   }
 
 /**
@@ -93,6 +85,11 @@ export default class AddUsersCtrl {
  */
   static addUsersToGroup(req, res) {
     const members = [].concat(req.body.members);
+    if (members.length === 0) {
+      return res.status(422).json({
+        globals: 'No user selected, please select from dropdown!'
+      });
+    }
     return models.Group.findOne({
       where: {
         id: req.params.id
@@ -114,7 +111,7 @@ export default class AddUsersCtrl {
           return foundGroup.addUsers(foundUsers)
           .then((addedUsers) => {
             if (addedUsers.length === 0) {
-              return res.status(400).json({
+              return res.status(422).json({
                 globals: 'Selected users are already members of this group'
               });
             }
@@ -122,28 +119,24 @@ export default class AddUsersCtrl {
               success: 'new users added successfully',
               groupId: req.params.id
             });
-            return res.status(201).json({
+            return res.status(200).json({
               success: 'new users added successfully',
               addedUsers
             });
           });
         })
-        .catch((err) => {
-          return res.status(500).json({
-            globals: err.message || err.errors[0].message
-          });
-        });
-      } else {
-        return res.status(403).json({
-          globals: 'You are not allowed to add new users to this group, please contact admin!'
-        });
+        .catch(err => res.status(500).json({
+          globals: err.message || err.errors[0].message
+        }));
       }
-    })
-    .catch((err) => {
-      return res.status(500).json({
-        globals: err.message || err.errors[0].message
+      return res.status(403).json({
+        globals: 'You are not allowed to add users' +
+          ' to this group, please contact admin!'
       });
-    });
+    })
+    .catch(err => res.status(500).json({
+      globals: err.message || err.errors[0].message
+    }));
   }
 
   /**
@@ -156,23 +149,15 @@ export default class AddUsersCtrl {
     return models.User.findOne({
       where: { id: req.user.dataValues.id }
     })
-    .then((foundUser) => {
-      return foundUser.update(req.body)
-      .then(() => {
-        return res.status(200).json({
-          success: 'User details updated successfully.',
-        });
-      })
-      .catch((err) => {
-        return res.status(500).json({
-          globals: err.message || err.errors[0].message
-        });
-      });
-    })
-    .catch((err) => {
-      return res.status(500).json({
+    .then(foundUser => foundUser.update(req.body)
+      .then(() => res.status(200).json({
+        success: 'Profile Image updated successfully.',
+      }))
+      .catch(err => res.status(500).json({
         globals: err.message || err.errors[0].message
-      });
-    });
+      })))
+    .catch(err => res.status(500).json({
+      globals: err.message || err.errors[0].message
+    }));
   }
 }

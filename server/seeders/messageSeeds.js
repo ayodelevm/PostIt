@@ -1,9 +1,22 @@
-const messages = [{
-  message: 'Getting through to you again!'
+export const messages = [{
+  content: 'Getting through to you again!',
+  priority: 'Normal'
 }, {
-  message: 'I love this group and all the opportunities to learn'
+  content: 'I love this group and all the opportunities to learn',
+  priority: 'Urgent'
 }, {
-  message: 'Excited about learning today!'
+  content: 'Excited about learning today!',
+  priority: 'Critical'
 }];
 
-export default messages;
+export const emptyMessageIds = {
+  messageIds: []
+};
+
+export const validMessageIds = {
+  messageIds: [1]
+};
+
+export const nonExistId = {
+  messageIds: ['74']
+};

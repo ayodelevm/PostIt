@@ -44,7 +44,8 @@ describe('forgot password container', () => {
     wrapper.setState(data.errors);
     wrapper.instance().handleChange(data.passwordEvent);
     expect(wrapper.state().errors.password).toEqual(undefined);
-    expect(wrapper.state().errors.passwordConfirmation).toEqual('this field is required');
+    expect(wrapper.state().errors.passwordConfirmation)
+    .toEqual('this field is required');
   });
 
   it('should setState with error when validation failure', () => {
@@ -60,21 +61,32 @@ describe('forgot password container', () => {
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<ForgotPassword {...{ ...props, resetResponse: { emailVerified: true } }} />);
+    const enzymeWrapper = mount(<ForgotPassword {...{
+      ...props,
+      resetResponse: { emailVerified: true }
+    }} />);
     enzymeWrapper.setState({ email: 'ayo@mail.com' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.forgotPassword.mock.calls.length).toEqual(2);
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<ForgotPassword {...{ ...props, resetResponse: { errors: { errors: 'E-mail already exist' } } }} />);
+    const enzymeWrapper = mount(<ForgotPassword {...{
+      ...props,
+      resetResponse: {
+        errors: { errors: 'E-mail already exist' } }
+    }} />);
     enzymeWrapper.setState({ email: 'ayo@mail.com' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.forgotPassword.mock.calls.length).toEqual(3);
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<ForgotPassword {...{ ...props, resetResponse: { errors: { globals: 'E-mail already exist' } } }} />);
+    const enzymeWrapper = mount(<ForgotPassword {...{
+      ...props,
+      resetResponse: {
+        errors: { globals: 'E-mail already exist' } }
+    }} />);
     enzymeWrapper.setState({ email: 'ayo@mail.com' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.forgotPassword.mock.calls.length).toEqual(4);

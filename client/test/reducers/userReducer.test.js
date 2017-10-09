@@ -17,7 +17,8 @@ describe('User Reducer', () => {
       allUsers: { users: [], status: true }
     };
     const newState = userReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ users: [], getSuccess: true } });
+    expect(newState)
+    .toEqual({ ...initialState, ...{ users: [], getSuccess: true } });
   });
 
   it('should add users to group', () => {
@@ -26,7 +27,8 @@ describe('User Reducer', () => {
       newUsers: { addedUsers: [], status: true }
     };
     const newState = userReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ newUsers: [], addSuccess: true } });
+    expect(newState)
+    .toEqual({ ...initialState, ...{ newUsers: [], addSuccess: true } });
   });
 
   it('should upload users profile image', () => {
@@ -35,7 +37,8 @@ describe('User Reducer', () => {
       newUserImage: { success: '', status: true }
     };
     const newState = userReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ updatedUser: '', uploadSuccess: true } });
+    expect(newState)
+    .toEqual({ ...initialState, ...{ updatedUser: '', uploadSuccess: true } });
   });
 
   it('should handle error while getting all users', () => {
@@ -44,7 +47,8 @@ describe('User Reducer', () => {
       failure: {}
     };
     const newState = userReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, getSuccess: false } });
+    expect(newState)
+    .toEqual({ ...initialState, ...{ errors: {}, getSuccess: false } });
   });
 
   it('should handle error while adding users to a group', () => {
@@ -53,7 +57,8 @@ describe('User Reducer', () => {
       failure: {}
     };
     const newState = userReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, addSuccess: false } });
+    expect(newState)
+    .toEqual({ ...initialState, ...{ errors: {}, addSuccess: false } });
   });
 
   it('should handle error while uploading a users image', () => {
@@ -62,6 +67,7 @@ describe('User Reducer', () => {
       failure: {}
     };
     const newState = userReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, uploadSuccess: false } });
+    expect(newState)
+    .toEqual({ ...initialState, ...{ errors: {}, uploadSuccess: false } });
   });
 });

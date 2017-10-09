@@ -67,11 +67,13 @@ describe('user actions', () => {
 });
 
 describe('User async actions', () => {
-
   it('should dispatch GET_ALL_USERS', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'GET_ALL_USERS', allUsers: { success: '', status: true, users: [] } }
+      {
+        type: 'GET_ALL_USERS',
+        allUsers: { success: '', status: true, users: [] }
+      }
     ];
     fetchMock.get('*', { success: '', users: [] });
     return store.dispatch(actions.getAllUsers(token))
@@ -84,7 +86,10 @@ describe('User async actions', () => {
   it('should dispatch ADD_USERS_TO_GROUP', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'ADD_USERS_TO_GROUP', newUsers: { success: '', status: true, addedUsers: [] } }
+      {
+        type: 'ADD_USERS_TO_GROUP',
+        newUsers: { success: '', status: true, addedUsers: [] }
+      }
     ];
     fetchMock.post('*', { success: '', addedUsers: [] });
 
@@ -98,7 +103,10 @@ describe('User async actions', () => {
   it('should dispatch UPLOAD_PROFILE_IMAGE', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'UPLOAD_PROFILE_IMAGE', newUserImage: { success: '', status: true } }
+      {
+        type: 'UPLOAD_PROFILE_IMAGE',
+        newUserImage: { success: '', status: true }
+      }
     ];
     fetchMock.put('*', { success: '' });
 

@@ -25,7 +25,8 @@ describe('Signup Authentication', () => {
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
-        res.body.globals.should.equal('Access denied! Please create an account or login first!');
+        res.body.globals.should
+        .equal('Access denied! Please create an account or login first!');
         done();
       });
   });
@@ -42,8 +43,7 @@ describe('Signup Authentication', () => {
       });
   });
 
-  it('prevents signing up with empty data', function (done) {
-    this.timeout(10000);
+  it('prevents signing up with empty data', (done) => {
     server
       .post('/api/v1/user/register')
       .send(authSeeds.user[0])
@@ -143,7 +143,10 @@ describe('Signup Authentication', () => {
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
-        res.body.globals.should.equal('Email verification Unsuccessful, Please signup with a valid email');
+        res.body.globals.should
+        .equal(
+          'Email verification Unsuccessful, Please signup with a valid email'
+        );
         done();
       });
   });
@@ -155,7 +158,8 @@ describe('Signup Authentication', () => {
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
-        res.body.globals.should.equal('Google signup failed, please try again later!');
+        res.body.globals.should
+        .equal('Google signup failed, please try again later!');
         done();
       });
   });
@@ -246,7 +250,10 @@ describe('Login Authentication', () => {
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
-        res.body.globals.should.equal('Email verification Unsuccessful, Please signin with a valid email');
+        res.body.globals.should
+        .equal(
+          'Email verification Unsuccessful, Please signin with a valid email'
+        );
         done();
       });
   });
@@ -265,7 +272,6 @@ describe('Login Authentication', () => {
 });
 
 describe('password Reset', () => {
-
   it('sends a reset password link to email on success', (done) => {
     const stub = sinon.stub(nodemailer, 'createTransport');
     stub.returns({
@@ -278,7 +284,8 @@ describe('password Reset', () => {
       .end((err, res) => {
         stub.restore();
         res.status.should.equal(200);
-        res.body.success.should.equal('Please check your mail for the reset link!');
+        res.body.success.should
+        .equal('Please check your mail for the reset link!');
         done();
       });
   });
@@ -331,7 +338,8 @@ describe('password Reset', () => {
       .expect(422)
       .end((err, res) => {
         res.status.should.equal(422);
-        res.body.errors.globals.should.equal("There's no registered user with this email");
+        res.body.errors.globals.should
+        .equal("There's no registered user with this email");
         done();
       });
   });
@@ -344,7 +352,8 @@ describe('password Reset', () => {
       .end((err, res) => {
         res.status.should.equal(422);
         res.body.errors.password.should.equal('This field is required');
-        res.body.errors.passwordConfirmation.should.equal('This field is required');
+        res.body.errors.passwordConfirmation.should
+        .equal('This field is required');
         done();
       });
   });
@@ -356,7 +365,8 @@ describe('password Reset', () => {
       .expect(422)
       .end((err, res) => {
         res.status.should.equal(422);
-        res.body.errors.passwordConfirmation.should.equal("Passwords don't match");
+        res.body.errors.passwordConfirmation.should
+        .equal("Passwords don't match");
         done();
       });
   });
@@ -368,7 +378,8 @@ describe('password Reset', () => {
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
-        res.body.globals.should.equal('This link has expired or is invalid. Please try again');
+        res.body.globals.should
+        .equal('This link has expired or is invalid. Please try again');
         done();
       });
   });
@@ -380,7 +391,8 @@ describe('password Reset', () => {
       .expect(200)
       .end((err, res) => {
         res.status.should.equal(200);
-        res.body.success.should.equal('password reset successful, Please login to continue!');
+        res.body.success.should
+        .equal('password reset successful, Please login to continue!');
         done();
       });
   });

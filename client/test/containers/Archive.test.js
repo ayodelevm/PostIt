@@ -11,8 +11,8 @@ jest.mock('react-router-dom');
 
 const setup = () => {
   const props = {
-    getGroupWithMessages: jest.fn(() => { return Promise.resolve(); }),
-    archiveMessages: jest.fn(() => { return Promise.resolve(); }),
+    getGroupWithMessages: jest.fn(() => Promise.resolve()),
+    archiveMessages: jest.fn(() => Promise.resolve()),
     archiveData: data.archiveData,
     closeModalRoute: '/dashboard',
   };
@@ -32,14 +32,24 @@ describe('archive container', () => {
   });
 
   it('should call handleSubmit', () => {
-    const enzymeWrapper = mount(<Archive {...{ ...props, archiveData: { ...props.archiveData, ...{ getSuccess: true } } }} />);
+    const enzymeWrapper = mount(<Archive {...{
+      ...props,
+      archiveData: {
+        ...props.archiveData,
+        ...{ getSuccess: true } }
+    }} />);
 
     enzymeWrapper.instance().handleSubmit(data.event);
     expect(props.getGroupWithMessages.mock.calls.length).toEqual(1);
   });
 
   it('should call handleSubmit and notify on success', () => {
-    const enzymeWrapper = mount(<Archive {...{ ...props, archiveData: { ...props.archiveData, ...{ archiveSuccess: true } } }} />);
+    const enzymeWrapper = mount(<Archive {...{
+      ...props,
+      archiveData: {
+        ...props.archiveData,
+        ...{ archiveSuccess: true } }
+    }} />);
 
     enzymeWrapper.instance().handleSubmit(data.event);
     expect(props.getGroupWithMessages.mock.calls.length).toEqual(2);

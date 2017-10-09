@@ -11,7 +11,8 @@ const token = 'kbdHJYCBu.85bireYIRb';
 
 
 describe('message actions', () => {
-  it('should create an action when reset password link has been sent successfully', () => {
+  it('should create action when reset password link has been sent successfully',
+  () => {
     const mailSuccess = { success: '' };
     const expectedAction = {
       type: types.FORGOT_PASSWORD,
@@ -29,7 +30,8 @@ describe('message actions', () => {
     expect(actions.resetPasswordAction(resetSuccess)).toEqual(expectedAction);
   });
 
-  it('should create an action for failure if forgot password link not sent successfully', () => {
+  it('should create an action for failure if forgot password link not sent',
+  () => {
     const failure = { errors: {} };
     const expectedAction = {
       type: types.FORGOT_PASSWORD_FAILURE,
@@ -38,7 +40,8 @@ describe('message actions', () => {
     expect(actions.forgotPasswordFailure(failure)).toEqual(expectedAction);
   });
 
-  it('should create an action for failure if reset password not successful', () => {
+  it('should create an action for failure if reset password not successful',
+  () => {
     const failure = { errors: {} };
     const expectedAction = {
       type: types.RESET_PASSWORD_FAILURE,
@@ -49,7 +52,6 @@ describe('message actions', () => {
 });
 
 describe('Reset Password async actions', () => {
-
   it('should dispatch FORGOT_PASSWORD', () => {
     const store = mockStore({});
     const expectedActions = [

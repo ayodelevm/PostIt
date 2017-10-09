@@ -85,6 +85,7 @@ describe('Messaging Area', () => {
     ));
     expect(wrapper.contains(<div className="divider" />)).toEqual(true);
     expect(wrapper.contains(<span className="black-text" />)).toEqual(false);
-    expect(wrapper.contains(<div className="main"><Notifications /></div>)).toEqual(true);
+    expect(wrapper.contains(<div className="main"><Notifications /></div>))
+    .toEqual(true);
   });
 });

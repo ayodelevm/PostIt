@@ -19,16 +19,6 @@ describe('User Reducer', () => {
       ...{ groupMessages: {}, getMessagesSuccess: true } });
   });
 
-  // it('should create a new message', () => {
-  //   const action = {
-  //     type: Types.CREATE_NEW_MESSAGES,
-  //     newMessage: { createdMessage: {}, status: true }
-  //   };
-  //   const newState = messageReducer(initialState, action);
-  //   expect(newState).toEqual({ ...initialState,
-  //     ...{ newMessage: {}, newMessageSuccess: true } });
-  // });
-
   it('should reset all current messages', () => {
     const action = {
       type: Types.SET_CURRENT_MESSAGES,

@@ -62,7 +62,8 @@ describe('Messages Routes', () => {
     });
   });
 
-  it('post messages with priority critical and sends sms and email', (done) => {
+  it('post messages with priority critical and sends sms and email',
+  (done) => {
     server
     .post('/api/v1/group/3/message')
     .set('Authorization', `Bearer ${token}`)
@@ -70,7 +71,8 @@ describe('Messages Routes', () => {
     .expect(201)
     .end((err, res) => {
       res.status.should.equal(201);
-      res.body.success.should.equal('New message added successfully.');
+      res.body.success.should
+      .equal('New message added successfully.');
       done();
     });
   });
@@ -96,7 +98,8 @@ describe('Messages Routes', () => {
     .expect(422)
     .end((err, res) => {
       res.status.should.equal(422);
-      res.body.globals.should.equal('There are no messages to archive in this group!');
+      res.body.globals.should
+      .equal('There are no messages to archive in this group!');
       done();
     });
   });
@@ -109,7 +112,8 @@ describe('Messages Routes', () => {
     .expect(200)
     .end((err, res) => {
       res.status.should.equal(200);
-      res.body.success.should.equal('Messages have been archived successfully');
+      res.body.success.should
+      .equal('Messages have been archived successfully');
       done();
     });
   });

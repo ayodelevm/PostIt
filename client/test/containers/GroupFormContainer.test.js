@@ -4,7 +4,9 @@ import 'materialize-css/dist/js/materialize';
 
 import localStorageMock from '../__mocks__/localStorageMock';
 import * as data from '../__mocks__/mockData';
-import { GroupFormContainer } from '../../dev/js/containers/GroupFormContainer.jsx';
+import {
+  GroupFormContainer
+} from '../../dev/js/containers/GroupFormContainer.jsx';
 
 window.localStorage = localStorageMock;
 jest.mock('react-router-dom');
@@ -71,22 +73,39 @@ describe('group form container', () => {
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<GroupFormContainer {...{ ...props, groupResponse: { ...props.groupResponse, createSuccess: true } }} />);
-    enzymeWrapper.setState({ name: 'learn python', description: '', members: [] });
+    const enzymeWrapper = mount(<GroupFormContainer {...{
+      ...props,
+      groupResponse: {
+        ...props.groupResponse, createSuccess: true }
+    }} />);
+    enzymeWrapper
+    .setState({ name: 'learn python', description: '', members: [] });
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.createNewGroup.mock.calls.length).toEqual(2);
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<GroupFormContainer {...{ ...props, groupResponse: { ...props.groupResponse, errors: { errors: 'name already exist' } } }} />);
-    enzymeWrapper.setState({ name: 'learn python', description: '', members: [] });
+    const enzymeWrapper = mount(<GroupFormContainer {...{
+      ...props,
+      groupResponse: {
+        ...props.groupResponse,
+        errors: { errors: 'name already exist' } }
+    }} />);
+    enzymeWrapper
+    .setState({ name: 'learn python', description: '', members: [] });
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.createNewGroup.mock.calls.length).toEqual(3);
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<GroupFormContainer {...{ ...props, groupResponse: { ...props.groupResponse, errors: { globals: 'name already exist' } } }} />);
-    enzymeWrapper.setState({ name: 'learn python', description: '', members: [] });
+    const enzymeWrapper = mount(<GroupFormContainer {...{
+      ...props,
+      groupResponse: {
+        ...props.groupResponse,
+        errors: { globals: 'name already exist' } }
+    }} />);
+    enzymeWrapper
+    .setState({ name: 'learn python', description: '', members: [] });
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.createNewGroup.mock.calls.length).toEqual(4);
   });

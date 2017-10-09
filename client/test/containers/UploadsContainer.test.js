@@ -1,11 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import superagent from 'superagent';
-import sinon from 'sinon';
 import 'materialize-css/dist/js/materialize';
 
 import localStorageMock from '../__mocks__/localStorageMock';
-import * as data from '../__mocks__/mockData';
 import { UploadsContainer } from '../../dev/js/containers/UploadsContainer.jsx';
 
 window.localStorage = localStorageMock;
@@ -13,8 +10,6 @@ jest.mock('react-router-dom');
 jest.mock('sha1');
 jest.mock('react-notify-toast');
 jest.mock('superagent');
-// jest.mock('superagent/lib/request-base.js');
-// jest.mock('superagent/lib/node/index.js');
 
 
 const setup = () => {
@@ -51,7 +46,10 @@ describe('uploads container', () => {
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<UploadsContainer {...{ ...props, uploadResponse: { uploadSuccess: true } }} />);
+    const enzymeWrapper = mount(<UploadsContainer {...{
+      ...props,
+      uploadResponse: { uploadSuccess: true } }
+      } />);
     const files = ['newimage.jpg'];
     enzymeWrapper.instance().handleUploadFile(files);
     expect(props.uploadProfileImage).toHaveBeenCalled();

@@ -11,7 +11,13 @@ const token = 'kbdHJYCBu.85bireYIRb';
 
 describe('message actions', () => {
   it("should create an action to get a group and it's messages", () => {
-    const groupMessages = { success: '', foundMessages: { id: '', name: '', Messages: [{ message: '' }, { message: '' }] } };
+    const groupMessages = {
+      success: '',
+      foundMessages: {
+        id: '',
+        name: '',
+        Messages: [{ message: '' }, { message: '' }] }
+    };
     const expectedAction = {
       type: types.GET_GROUP_AND_ITS_MESSAGES,
       groupMessages
@@ -19,7 +25,8 @@ describe('message actions', () => {
     expect(actions.groupAndMessages(groupMessages)).toEqual(expectedAction);
   });
 
-  it('should create an action when message has been created successfully', () => {
+  it('should create an action when message has been created successfully',
+  () => {
     const message = { success: '' };
     const expectedAction = {
       type: types.SUCCESSFUL_MESSAGE_CREATE,
@@ -28,8 +35,14 @@ describe('message actions', () => {
     expect(actions.successfulCreate(message)).toEqual(expectedAction);
   });
 
-  it('should create an action to set a users current message after creating a new message', () => {
-    const mergedMessages = { foundMessages: { id: '', name: '', Messages: [{ message: '' }, { message: '' }] } };
+  it('should create an action to set a current message after posting messge',
+  () => {
+    const mergedMessages = {
+      foundMessages: {
+        id: '',
+        name: '',
+        Messages: [{ message: '' }, { message: '' }] }
+    };
     const expectedAction = {
       type: types.SET_CURRENT_MESSAGES,
       mergedMessages
@@ -37,7 +50,8 @@ describe('message actions', () => {
     expect(actions.setNewGroupMessages(mergedMessages)).toEqual(expectedAction);
   });
 
-  it('should create an action for failure when getting a group and its messages', () => {
+  it('should create an action for failure when getting a groups messages',
+  () => {
     const failure = { errors: {} };
     const expectedAction = {
       type: types.GET_GROUP_AND_ITS_MESSAGES_FAILURE,
@@ -61,7 +75,10 @@ describe('Message async actions', () => {
   it('should dispatch GET_GROUP_AND_ITS_MESSAGES', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'GET_GROUP_AND_ITS_MESSAGES', groupMessages: { success: '', status: true, foundMessages: {} } }
+      {
+        type: 'GET_GROUP_AND_ITS_MESSAGES',
+        groupMessages: { success: '', status: true, foundMessages: {} }
+      }
     ];
     fetchMock.get('*', { success: '', foundMessages: {} });
     return store.dispatch(actions.getGroupMessages(token))

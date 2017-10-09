@@ -26,7 +26,11 @@ describe('User Reducer', () => {
       messages: { foundMessages: {}, status: true }
     };
     const newState = archiveReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ archivableMessages: {}, getSuccess: true } });
+    expect(newState).toEqual({
+      ...initialState,
+      ...{ archivableMessages: {},
+        getSuccess: true }
+    });
   });
 
   it('should archive messages', () => {
@@ -44,7 +48,10 @@ describe('User Reducer', () => {
       archived: { foundMessages: {}, status: true }
     };
     const newState = archiveReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ archivedMessages: {}, getArchivedSuccess: true } });
+    expect(newState).toEqual({
+      ...initialState,
+      ...{ archivedMessages: {}, getArchivedSuccess: true }
+    });
   });
 
   it('should handle error while getting unarchived messages', () => {
@@ -53,7 +60,11 @@ describe('User Reducer', () => {
       failure: {}
     };
     const newState = archiveReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, getSuccess: false } });
+    expect(newState).toEqual({
+      ...initialState,
+      ...{ errors: {},
+        getSuccess: false }
+    });
   });
 
   it('should handle error while archiveng messages', () => {
@@ -62,7 +73,10 @@ describe('User Reducer', () => {
       failure: {}
     };
     const newState = archiveReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, archiveSuccess: false } });
+    expect(newState).toEqual({
+      ...initialState,
+      ...{ errors: {}, archiveSuccess: false }
+    });
   });
 
   it('should handle error while getting archived messages', () => {
@@ -71,6 +85,9 @@ describe('User Reducer', () => {
       failure: {}
     };
     const newState = archiveReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, getArchivedSuccess: false } });
+    expect(newState).toEqual({
+      ...initialState,
+      ...{ errors: {}, getArchivedSuccess: false }
+    });
   });
 });

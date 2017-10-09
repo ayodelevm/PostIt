@@ -62,7 +62,8 @@ describe('Group Routes', () => {
     });
   });
 
-  it('allows a logged in user to create a new group and add other users while creating', (done) => {
+  it('allows a logged in user to create a new group and add other users',
+  (done) => {
     server
     .post('/api/v1/group')
     .set('Authorization', `Bearer ${token}`)
@@ -160,7 +161,8 @@ describe('Group Routes', () => {
       .expect(422)
       .end((err, res) => {
         res.status.should.equal(422);
-        res.body.errors.name.should.equal('A group with this name already exists');
+        res.body.errors.name.should
+        .equal('A group with this name already exists');
         done();
       });
   });
@@ -173,7 +175,8 @@ describe('Group Routes', () => {
     .expect(401)
     .end((err, res) => {
       res.status.should.equal(401);
-      res.body.globals.should.equal('You are not authorized to access this group!');
+      res.body.globals.should
+      .equal('You are not authorized to access this group!');
       done();
     });
   });
@@ -185,7 +188,8 @@ describe('Group Routes', () => {
     .expect(401)
     .end((err, res) => {
       res.status.should.equal(401);
-      res.body.globals.should.equal('You are not authorized to access this group!');
+      res.body.globals.should
+      .equal('You are not authorized to access this group!');
       done();
     });
   });

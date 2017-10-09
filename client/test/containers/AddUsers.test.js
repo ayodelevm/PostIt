@@ -45,14 +45,24 @@ describe('addUsers container', () => {
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<AddUsers {...{ ...props, addUsersResponse: { ...props.addUsersResponse, ...{ addSuccess: true } } }} />);
+    const enzymeWrapper = mount(<AddUsers {...{
+      ...props,
+      addUsersResponse: {
+        ...props.addUsersResponse,
+        ...{ addSuccess: true } }
+    }} />);
 
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.addNewUsersToGroup.mock.calls.length).toEqual(1);
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<AddUsers {...{ ...props, addUsersResponse: { ...props.addUsersResponse, ...{ errors: { globals: '' } } } }} />);
+    const enzymeWrapper = mount(<AddUsers {...{
+      ...props,
+      addUsersResponse: {
+        ...props.addUsersResponse,
+        ...{ errors: { globals: '' } } }
+    }} />);
 
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.addNewUsersToGroup.mock.calls.length).toEqual(2);

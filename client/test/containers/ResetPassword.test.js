@@ -44,7 +44,8 @@ describe('forgot password container', () => {
     wrapper.setState(data.errors);
     wrapper.instance().handleChange(data.passwordEvent);
     expect(wrapper.state().errors.password).toEqual(undefined);
-    expect(wrapper.state().errors.passwordConfirmation).toEqual('this field is required');
+    expect(wrapper.state().errors.passwordConfirmation)
+    .toEqual('this field is required');
   });
 
   it('should setState with error when validation failure', () => {
@@ -60,21 +61,30 @@ describe('forgot password container', () => {
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<ResetPassword {...{ ...props, resetResponse: { resetSuccess: true } }} />);
+    const enzymeWrapper = mount(<ResetPassword {...{
+      ...props, resetResponse: { resetSuccess: true }
+    }} />);
     enzymeWrapper.setState({ password: 'ayo', passwordConfirmation: 'ayo' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.resetPassword.mock.calls.length).toEqual(2);
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<ResetPassword {...{ ...props, resetResponse: { errors: { errors: "passwords don't match" } } }} />);
+    const enzymeWrapper = mount(<ResetPassword {...{
+      ...props,
+      resetResponse: { errors: { errors: "passwords don't match" } }
+    }} />);
     enzymeWrapper.setState({ password: 'ayo', passwordConfirmation: 'ayo' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.resetPassword.mock.calls.length).toEqual(3);
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<ResetPassword {...{ ...props, resetResponse: { errors: { globals: 'password change unsuccessful' } } }} />);
+    const enzymeWrapper = mount(<ResetPassword {...{
+      ...props,
+      resetResponse: { errors: {
+        globals: 'password change unsuccessful' } }
+    }} />);
     enzymeWrapper.setState({ password: 'ayo', passwordConfirmation: 'ayo' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.resetPassword.mock.calls.length).toEqual(4);

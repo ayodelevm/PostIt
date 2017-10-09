@@ -14,7 +14,10 @@ describe('Auth Reducer', () => {
       newUser: { status: true, currentUser: {} }
     };
     const newState = authReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ currentUser: {}, isAuthenticated: true } });
+    expect(newState)
+    .toEqual({
+      ...initialState, ...{ currentUser: {}, isAuthenticated: true }
+    });
   });
 
   it('should log a user in', () => {
@@ -23,7 +26,10 @@ describe('Auth Reducer', () => {
       user: { status: true, currentUser: {} }
     };
     const newState = authReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ currentUser: {}, isAuthenticated: true } });
+    expect(newState)
+    .toEqual({
+      ...initialState, ...{ currentUser: {}, isAuthenticated: true }
+    });
   });
 
   it('should sign a user up through google', () => {
@@ -32,7 +38,10 @@ describe('Auth Reducer', () => {
       newUser: { status: true, currentUser: {} }
     };
     const newState = authReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ currentUser: {}, isAuthenticated: true } });
+    expect(newState)
+    .toEqual({
+      ...initialState, ...{ currentUser: {}, isAuthenticated: true }
+    });
   });
 
   it('should sign a user in through google', () => {
@@ -41,7 +50,10 @@ describe('Auth Reducer', () => {
       user: { status: true, currentUser: {} }
     };
     const newState = authReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ currentUser: {}, isAuthenticated: true } });
+    expect(newState)
+    .toEqual({
+      ...initialState, ...{ currentUser: {}, isAuthenticated: true }
+    });
   });
 
   it('should set current user', () => {
@@ -50,7 +62,10 @@ describe('Auth Reducer', () => {
       currentUser: { status: true, currentUser: {} }
     };
     const newState = authReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ currentUser: {}, isAuthenticated: true } });
+    expect(newState)
+    .toEqual({
+      ...initialState, ...{ currentUser: {}, isAuthenticated: true }
+    });
   });
 
   it('should set status of signup and signin network response', () => {
@@ -68,7 +83,10 @@ describe('Auth Reducer', () => {
       failure: {}
     };
     const newState = authReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, isAuthenticated: false } });
+    expect(newState)
+    .toEqual({
+      ...initialState, ...{ errors: {}, isAuthenticated: false }
+    });
   });
 
   it('should handle error while logging a user in', () => {
@@ -77,7 +95,10 @@ describe('Auth Reducer', () => {
       failure: {}
     };
     const newState = authReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, isAuthenticated: false } });
+    expect(newState)
+    .toEqual({
+      ...initialState, ...{ errors: {}, isAuthenticated: false }
+    });
   });
 
   it('should handle error while registering through google', () => {
@@ -86,7 +107,10 @@ describe('Auth Reducer', () => {
       failure: {}
     };
     const newState = authReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, isAuthenticated: false } });
+    expect(newState)
+    .toEqual({
+      ...initialState, ...{ errors: {}, isAuthenticated: false }
+    });
   });
 
   it('should handle error while signing in through google', () => {
@@ -95,7 +119,10 @@ describe('Auth Reducer', () => {
       failure: {}
     };
     const newState = authReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, isAuthenticated: false } });
+    expect(newState)
+    .toEqual({
+      ...initialState, ...{ errors: {}, isAuthenticated: false }
+    });
   });
 
   it('should handle error while setting current user fails', () => {
@@ -104,7 +131,8 @@ describe('Auth Reducer', () => {
       failure: {}
     };
     const newState = authReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, isAuthenticated: false } });
+    expect(newState)
+    .toEqual({ ...initialState, ...{ errors: {}, isAuthenticated: false } });
   });
 
   it('should log a user out', () => {
@@ -113,6 +141,10 @@ describe('Auth Reducer', () => {
       successMessage: ''
     };
     const newState = authReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ successMessage: '', isAuthenticated: false } });
+    expect(newState)
+    .toEqual({
+      ...initialState,
+      ...{ successMessage: '', isAuthenticated: false }
+    });
   });
 });

@@ -38,7 +38,8 @@ describe('Users Route', () => {
     });
   });
 
-  it('prevents a user/admin from being re-added to a group if already a member', (done) => {
+  it('prevents a user/admin from being re-added to group if already a member',
+  (done) => {
     server
     .post('/api/v1/group/2/user')
     .set('Authorization', `Bearer ${token}`)
@@ -46,7 +47,8 @@ describe('Users Route', () => {
     .expect(422)
     .end((err, res) => {
       res.status.should.equal(422);
-      res.body.globals.should.equal('Selected users are already members of this group');
+      res.body.globals.should
+      .equal('Selected users are already members of this group');
       done();
     });
   });
@@ -77,7 +79,8 @@ describe('Users Route', () => {
     });
   });
 
-  it('prevents an unregistered user from being added to a group', (done) => {
+  it('prevents an unregistered user from being added to a group',
+  (done) => {
     server
     .post('/api/v1/group/3/user')
     .set('Authorization', `Bearer ${token}`)
@@ -130,7 +133,8 @@ describe('Users Route', () => {
     });
   });
 
-  it('prevents non-group-admin from archiving messages in that group', (done) => {
+  it('prevents non-group-admin from archiving messages in that group',
+  (done) => {
     server
     .put('/api/v1/group/3/archivemessages')
     .set('Authorization', `Bearer ${token}`)
@@ -138,7 +142,10 @@ describe('Users Route', () => {
     .expect(403)
     .end((err, res) => {
       res.status.should.equal(403);
-      res.body.globals.should.equal('You are not allowed to archive in this group, please contact admin!');
+      res.body.globals.should
+      .equal(
+        'You are not allowed to archive in this group, please contact admin!'
+      );
       done();
     });
   });
@@ -164,7 +171,10 @@ describe('Users Route', () => {
     .expect(403)
     .end((err, res) => {
       res.status.should.equal(403);
-      res.body.globals.should.equal('You are not allowed to add users to this group, please contact admin!');
+      res.body.globals.should
+      .equal(
+        'You are not allowed to add users to this group, please contact admin!'
+      );
       done();
     });
   });
@@ -177,7 +187,8 @@ describe('Users Route', () => {
     .expect(403)
     .end((err, res) => {
       res.status.should.equal(403);
-      res.body.globals.should.equal('You do not have permission to edit this group\'s details');
+      res.body.globals.should
+      .equal('You do not have permission to edit this group\'s details');
       done();
     });
   });
@@ -189,7 +200,8 @@ describe('Users Route', () => {
     .expect(403)
     .end((err, res) => {
       res.status.should.equal(403);
-      res.body.globals.should.equal('You do not have permission to delete this group');
+      res.body.globals.should
+      .equal('You do not have permission to delete this group');
       done();
     });
   });

@@ -45,14 +45,20 @@ describe('login container', () => {
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<SignUpContainer {...{ ...props, signupResponse: { isAuthenticated: true } }} />);
+    const enzymeWrapper = mount(<SignUpContainer {...{
+      ...props,
+      signupResponse: { isAuthenticated: true } }
+      } />);
     const response = { tokenObj: { id_token: 'jldhvschHJKEVc' } };
     enzymeWrapper.instance().handleGoogleResponse(response);
     expect(props.googleRegister).toHaveBeenCalled();
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<SignUpContainer {...{ ...props, signupResponse: { errors: { errors: 'E-mail already exist' } } }} />);
+    const enzymeWrapper = mount(<SignUpContainer {...{
+      ...props,
+      signupResponse: { errors: { errors: 'E-mail already exist' } } }
+      } />);
     const response = { tokenObj: { id_token: 'jldhvschHJKEVc' } };
     enzymeWrapper.instance().handleGoogleResponse(response);
     expect(props.googleRegister).toHaveBeenCalled();
@@ -67,7 +73,8 @@ describe('login container', () => {
     wrapper.setState(data.errors);
     wrapper.instance().handleChange(data.passwordEvent);
     expect(wrapper.state().errors.password).toEqual(undefined);
-    expect(wrapper.state().errors.passwordConfirmation).toEqual('this field is required');
+    expect(wrapper.state().errors.passwordConfirmation)
+    .toEqual('this field is required');
   });
 
   it('should setState with error when validation failure', () => {
@@ -83,14 +90,21 @@ describe('login container', () => {
   });
 
   it('should call createNewUser and notify onSuccess', () => {
-    const enzymeWrapper = mount(<SignUpContainer {...{ ...props, signupResponse: { isAuthenticated: true } }} />);
+    const enzymeWrapper = mount(<SignUpContainer {...{
+      ...props,
+      signupResponse: { isAuthenticated: true } }} />);
     enzymeWrapper.setState(data.stateData);
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.createNewUser.mock.calls.length).toEqual(2);
   });
 
   it('should call createNewUser and notify onSuccess', () => {
-    const enzymeWrapper = mount(<SignUpContainer {...{ ...props, signupResponse: { errors: { errors: 'invalid login credentials' } } }} />);
+    const enzymeWrapper = mount(<SignUpContainer {...{
+      ...props,
+      signupResponse: { errors: {
+        errors: 'invalid login credentials'
+      } }
+    }} />);
     enzymeWrapper.setState(data.stateData);
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.createNewUser.mock.calls.length).toEqual(3);

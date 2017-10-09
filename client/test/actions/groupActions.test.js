@@ -11,7 +11,14 @@ const token = 'kbdHJYCBu.85bireYIRb';
 
 describe('group actions', () => {
   it("should create an action to get all of a user's groups", () => {
-    const groups = { success: '', foundGroups: { id: '', username: '', Groups: [{ name: '' }, { name: '' }] } };
+    const groups = {
+      success: '',
+      foundGroups: {
+        id: '',
+        username: '',
+        Groups: [{ name: '' },
+        { name: '' }] }
+    };
     const expectedAction = {
       type: types.GET_USER_GROUPS,
       groups
@@ -20,7 +27,11 @@ describe('group actions', () => {
   });
 
   it('should create an action to fetch all members of a group', () => {
-    const users = { success: '', foundUsers: { id: '', name: '', Users: [{ username: '' }, { username: '' }] } };
+    const users = { success: '',
+      foundUsers: { id: '',
+        name: '',
+        Users: [{ username: '' }, { username: '' }] }
+    };
     const expectedAction = {
       type: types.GET_GROUP_USERS,
       users
@@ -29,7 +40,12 @@ describe('group actions', () => {
   });
 
   it('should create an action to set a users current groups after creating a new group', () => {
-    const mergedGroups = { foundUserAndGroup: { id: '', username: '', Groups: [{ name: '' }, { name: '' }] } };
+    const mergedGroups = {
+      foundUserAndGroup: {
+        id: '',
+        username: '',
+        Groups: [{ name: '' }, { name: '' }] }
+    };
     const expectedAction = {
       type: types.SET_CURRENT_GROUPS,
       mergedGroups
@@ -37,7 +53,9 @@ describe('group actions', () => {
     expect(actions.setCurrentGroups(mergedGroups)).toEqual(expectedAction);
   });
 
-  it('should create an action for failure when getting groups a user belongs to', () => {
+  it(
+    'should create an action for failure when getting groups a user belongs to',
+  () => {
     const failure = { errors: {} };
     const expectedAction = {
       type: types.GET_USER_GROUPS_FAILURE,
@@ -46,7 +64,8 @@ describe('group actions', () => {
     expect(actions.getGroupsFailure(failure)).toEqual(expectedAction);
   });
 
-  it('should create an action for failure when fetching members of a group', () => {
+  it('should create an action for failure when fetching members of a group',
+  () => {
     const failure = { errors: {} };
     const expectedAction = {
       type: types.GET_GROUP_USERS_FAILURE,
@@ -66,11 +85,13 @@ describe('group actions', () => {
 });
 
 describe('Group async actions', () => {
-
   it('should dispatch GET_USER_GROUPS', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'GET_USER_GROUPS', groups: { success: '', status: true, foundGroups: {} } }
+      {
+        type: 'GET_USER_GROUPS',
+        groups: { success: '', status: true, foundGroups: {} }
+      }
     ];
     fetchMock.get('*', { success: '', foundGroups: {} });
     return store.dispatch(actions.getUserGroups(token))
@@ -83,7 +104,10 @@ describe('Group async actions', () => {
   it('should dispatch GET_GROUP_USERS', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'GET_GROUP_USERS', users: { success: '', status: true, foundUsers: {} } }
+      {
+        type: 'GET_GROUP_USERS',
+        users: { success: '', status: true, foundUsers: {} }
+      }
     ];
     fetchMock.get('*', { success: '', foundUsers: {} });
 
@@ -95,9 +119,17 @@ describe('Group async actions', () => {
   });
 
   it('should dispatch SET_CURRENT_GROUPS', () => {
-    const store = mockStore({ groupReducer: { groups: { id: '', name: '', Groups: [] } } });
+    const store = mockStore({
+      groupReducer: {
+        groups: { id: '', name: '', Groups: [] } }
+    });
     const expectedActions = [
-      { type: 'SET_CURRENT_GROUPS', mergedGroups: { currentGroups: { Groups: [{}], id: '', name: '' }, status: true } }
+      {
+        type: 'SET_CURRENT_GROUPS',
+        mergedGroups: { currentGroups: {
+          Groups: [{}], id: '', name: '' },
+          status: true
+        } }
     ];
     fetchMock.post('*', { success: '', newGroup: {} });
 

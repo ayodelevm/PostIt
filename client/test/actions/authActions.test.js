@@ -59,7 +59,8 @@ describe('auth actions', () => {
     expect(actions.createUserFailure(failure)).toEqual(expectedAction);
   });
 
-  it('should create an action for failure when registering through google', () => {
+  it('should create an action for failure when registering through google',
+  () => {
     const failure = { errors: {} };
     const expectedAction = {
       type: types.GOOGLE_REGISTER_FAILURE,
@@ -68,7 +69,8 @@ describe('auth actions', () => {
     expect(actions.newGoogleRegisterFailure(failure)).toEqual(expectedAction);
   });
 
-  it('should create an action for failure when loging in through google', () => {
+  it('should create an action for failure when loging in through google',
+  () => {
     const failure = { errors: {} };
     const expectedAction = {
       type: types.GOOGLE_LOGIN_FAILURE,
@@ -104,7 +106,8 @@ describe('auth actions', () => {
     expect(actions.setCurrentUser(user)).toEqual(expectedAction);
   });
 
-  it('should create an action to check if user token verification is done', () => {
+  it('should create an action to check if user token verification is done',
+  () => {
     const response = { fullname: '', username: '' };
     const expectedAction = {
       type: types.SET_RESPONSE,
@@ -128,8 +131,14 @@ describe('Auth async actions', () => {
   it('should dispatch create user actions on success', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'CREATE_NEW_USER', newUser: { currentUser: undefined, status: true } },
-      { type: 'SET_RESPONSE', response: { currentUser: undefined, status: true } }
+      {
+        type: 'CREATE_NEW_USER',
+        newUser: { currentUser: undefined, status: true }
+      },
+      {
+        type: 'SET_RESPONSE',
+        response: { currentUser: undefined, status: true }
+      }
     ];
     fetchMock.post('*', { token: '' });
     return store.dispatch(actions.createNewUser(token))
@@ -142,8 +151,14 @@ describe('Auth async actions', () => {
   it('should dispatch google register actions', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'GOOGLE_REGISTER', newUser: { currentUser: undefined, status: true } },
-      { type: 'SET_RESPONSE', response: { currentUser: undefined, status: true } }
+      {
+        type: 'GOOGLE_REGISTER',
+        newUser: { currentUser: undefined, status: true }
+      },
+      {
+        type: 'SET_RESPONSE',
+        response: { currentUser: undefined, status: true }
+      }
     ];
     fetchMock.post('*', { token: '' });
 
@@ -158,7 +173,10 @@ describe('Auth async actions', () => {
     const store = mockStore({});
     const expectedActions = [
       { type: 'LOGIN_USER', user: { currentUser: undefined, status: true } },
-      { type: 'SET_RESPONSE', response: { currentUser: undefined, status: true } }
+      {
+        type: 'SET_RESPONSE',
+        response: { currentUser: undefined, status: true }
+      }
     ];
     fetchMock.post('*', { token: '' });
 
@@ -173,7 +191,10 @@ describe('Auth async actions', () => {
     const store = mockStore({});
     const expectedActions = [
       { type: 'GOOGLE_LOGIN', user: { currentUser: undefined, status: true } },
-      { type: 'SET_RESPONSE', response: { currentUser: undefined, status: true } }
+      {
+        type: 'SET_RESPONSE',
+        response: { currentUser: undefined, status: true }
+      }
     ];
     fetchMock.post('*', { token: '' });
 
@@ -187,8 +208,14 @@ describe('Auth async actions', () => {
   it('should dispatch verify user actions', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'SET_CURRENT_USER', currentUser: { currentUser: undefined, status: true } },
-      { type: 'SET_RESPONSE', response: { currentUser: undefined, status: true } }
+      {
+        type: 'SET_CURRENT_USER',
+        currentUser: { currentUser: undefined, status: true }
+      },
+      {
+        type: 'SET_RESPONSE',
+        response: { currentUser: undefined, status: true }
+      }
     ];
     fetchMock.post('*', { token: '' });
 
@@ -202,7 +229,10 @@ describe('Auth async actions', () => {
   it('should dispatch logout actions', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'LOG_USER_OUT', successMessage: { message: 'Logged out successfully!' } },
+      {
+        type: 'LOG_USER_OUT',
+        successMessage: { message: 'Logged out successfully!' }
+      },
     ];
 
     store.dispatch(actions.logoutAUser());

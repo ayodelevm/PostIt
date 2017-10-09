@@ -31,7 +31,8 @@ describe('Reset Password Reducer', () => {
       failure: {}
     };
     const newState = resetPasswordReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, emailVerified: false } });
+    expect(newState)
+    .toEqual({ ...initialState, ...{ errors: {}, emailVerified: false } });
   });
 
   it('should handle error when password reset fails', () => {
@@ -40,6 +41,7 @@ describe('Reset Password Reducer', () => {
       failure: {}
     };
     const newState = resetPasswordReducer(initialState, action);
-    expect(newState).toEqual({ ...initialState, ...{ errors: {}, resetSuccess: false } });
+    expect(newState)
+    .toEqual({ ...initialState, ...{ errors: {}, resetSuccess: false } });
   });
 });

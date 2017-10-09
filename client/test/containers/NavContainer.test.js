@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import 'materialize-css/dist/js/materialize';
 
 import localStorageMock from '../__mocks__/localStorageMock';
-import * as data from '../__mocks__/mockData';
 import { NavContainer } from '../../dev/js/containers/NavContainer.jsx';
 
 window.localStorage = localStorageMock;
@@ -32,7 +31,10 @@ describe('message form container', () => {
   });
 
   it('should call logoutAUser method and render after auth', () => {
-    const enzymeWrapper = mount(<NavContainer {...{ ...props, logoutAction: { isAuthenticated: true } }} />);
+    const enzymeWrapper = mount(<NavContainer {...{
+      ...props,
+      logoutAction: { isAuthenticated: true }
+    }} />);
     enzymeWrapper.instance().handleLogout();
     expect(props.logoutAUser).toHaveBeenCalled();
   });

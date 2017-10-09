@@ -10,7 +10,9 @@ window.localStorage = localStorageMock;
 jest.mock('react-router-dom');
 jest.mock('react-google-login');
 jest.mock('react-notify-toast');
-jest.mock('../../dev/js/containers/ForgotPassword.jsx', () => 'ForgotPassword');
+jest.mock(
+  '../../dev/js/containers/ForgotPassword.jsx', () => 'ForgotPassword'
+);
 
 const setup = () => {
   const props = {
@@ -47,14 +49,20 @@ describe('login container', () => {
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<LoginContainer {...{ ...props, loginResponse: { isAuthenticated: true } }} />);
+    const enzymeWrapper = mount(<LoginContainer {...{
+      ...props, loginResponse: { isAuthenticated: true }
+    }} />);
     const response = { tokenObj: { id_token: 'jldhvschHJKEVc' } };
     enzymeWrapper.instance().handleGoogleResponse(response);
     expect(props.googleLogin).toHaveBeenCalled();
   });
 
   it('should call handleFormSubmit and notify onSuccess', () => {
-    const enzymeWrapper = mount(<LoginContainer {...{ ...props, loginResponse: { errors: { errors: 'E-mail already exist' } } }} />);
+    const enzymeWrapper = mount(<LoginContainer {...{
+      ...props,
+      loginResponse: {
+        errors: { errors: 'E-mail already exist' } }
+    }} />);
     const response = { tokenObj: { id_token: 'jldhvschHJKEVc' } };
     enzymeWrapper.instance().handleGoogleResponse(response);
     expect(props.googleLogin).toHaveBeenCalled();
@@ -69,13 +77,15 @@ describe('login container', () => {
     wrapper.setState(data.errors);
     wrapper.instance().handleChange(data.passwordEvent);
     expect(wrapper.state().errors.password).toEqual(undefined);
-    expect(wrapper.state().errors.passwordConfirmation).toEqual('this field is required');
+    expect(wrapper.state().errors.passwordConfirmation)
+    .toEqual('this field is required');
   });
 
   it('should setState with error when validation failure', () => {
     wrapper.setState({ userIdentifier: '' });
     wrapper.instance().handleFormSubmit(data.event);
-    expect(wrapper.state().errors.userIdentifier).toEqual('This field is required');
+    expect(wrapper.state().errors.userIdentifier)
+    .toEqual('This field is required');
   });
 
   it('should call loginAUser method', () => {
@@ -85,15 +95,22 @@ describe('login container', () => {
   });
 
   it('should call loginAUser and notify onSuccess', () => {
-    const enzymeWrapper = mount(<LoginContainer {...{ ...props, loginResponse: { isAuthenticated: true } }} />);
+    const enzymeWrapper = mount(<LoginContainer {...{
+      ...props, loginResponse: { isAuthenticated: true }
+    }} />);
     enzymeWrapper.setState({ userIdentifier: 'ayo@mail.com', password: 'ayo' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.loginAUser.mock.calls.length).toEqual(2);
   });
 
   it('should call loginAUser and notify onSuccess', () => {
-    const enzymeWrapper = mount(<LoginContainer {...{ ...props, loginResponse: { errors: { errors: 'invalid login credentials' } } }} />);
-    enzymeWrapper.setState({ userIdentifier: 'ayo@mail.com', password: 'ayo' });
+    const enzymeWrapper = mount(<LoginContainer {...{
+      ...props,
+      loginResponse: {
+        errors: { errors: 'invalid login credentials' } }
+    }} />);
+    enzymeWrapper
+    .setState({ userIdentifier: 'ayo@mail.com', password: 'ayo' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
     expect(props.loginAUser.mock.calls.length).toEqual(3);
   });

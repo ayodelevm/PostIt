@@ -19,7 +19,8 @@ describe('archive actions', () => {
     expect(actions.selectedGroupDetails(groupDetails)).toEqual(expectedAction);
   });
 
-  it('should create an action when fetching all messages when archive is false', () => {
+  it('should create an action when fetching all messages when archive is false',
+  () => {
     const messages = { foundMessages: [{ name: 'Learning', description: '' }] };
     const expectedAction = {
       type: types.GET_ALL_MESSAGES_FOR_ARCHIVE,
@@ -29,7 +30,9 @@ describe('archive actions', () => {
   });
 
   it('should create an action to get archived messages', () => {
-    const archived = { foundMessages: [{ name: 'Learning', description: '' }] };
+    const archived = {
+      foundMessages: [{ name: 'Learning', description: '' }]
+    };
     const expectedAction = {
       type: types.GET_ARCHIVED_MESSAGES,
       archived
@@ -38,7 +41,9 @@ describe('archive actions', () => {
   });
 
   it('should create an action to archive messages in a group', () => {
-    const archiveSuccess = { foundMessages: [{ name: 'Learning', description: '' }] };
+    const archiveSuccess = {
+      foundMessages: [{ name: 'Learning', description: '' }]
+    };
     const expectedAction = {
       type: types.ARCHIVE_MESSAGES,
       archiveSuccess
@@ -46,7 +51,8 @@ describe('archive actions', () => {
     expect(actions.archive(archiveSuccess)).toEqual(expectedAction);
   });
 
-  it('should create an action for failure when archiving messages', () => {
+  it('should create an action for failure when archiving messages',
+  () => {
     const failure = { errors: {} };
     const expectedAction = {
       type: types.ARCHIVE_MESSAGES_FAILURE,
@@ -55,7 +61,8 @@ describe('archive actions', () => {
     expect(actions.archiveFailure(failure)).toEqual(expectedAction);
   });
 
-  it('should create an action for failure when getting messages to archive', () => {
+  it('should create an action for failure when getting messages to archive',
+  () => {
     const failure = { errors: {} };
     const expectedAction = {
       type: types.GET_ALL_MESSAGES_FOR_ARCHIVE_FAILURE,
@@ -64,7 +71,8 @@ describe('archive actions', () => {
     expect(actions.getMessagesFailure(failure)).toEqual(expectedAction);
   });
 
-  it('should create an action for failure when getting archived messages', () => {
+  it('should create an action for failure when getting archived messages',
+  () => {
     const failure = { errors: {} };
     const expectedAction = {
       type: types.GET_ARCHIVED_MESSAGES_FAILURE,
@@ -75,11 +83,13 @@ describe('archive actions', () => {
 });
 
 describe('Archive async actions', () => {
-
   it('should dispatch GET_ALL_MESSAGES_FOR_ARCHIVE', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'GET_ALL_MESSAGES_FOR_ARCHIVE', messages: { foundMessages: {}, status: true } }
+      {
+        type: 'GET_ALL_MESSAGES_FOR_ARCHIVE',
+        messages: { foundMessages: {}, status: true }
+      }
     ];
     fetchMock.get('*', { foundMessages: {} });
     return store.dispatch(actions.getGroupWithMessages(token))
@@ -92,7 +102,10 @@ describe('Archive async actions', () => {
   it('should dispatch GET_ARCHIVED_MESSAGES', () => {
     const store = mockStore({});
     const expectedActions = [
-      { type: 'GET_ARCHIVED_MESSAGES', archived: { foundMessages: {}, status: true } }
+      {
+        type: 'GET_ARCHIVED_MESSAGES',
+        archived: { foundMessages: {}, status: true }
+      }
     ];
     fetchMock.get('*', { foundMessages: {} });
 

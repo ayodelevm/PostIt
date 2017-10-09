@@ -4,7 +4,9 @@ import { mount } from 'enzyme';
 
 import localStorageMock from '../__mocks__/localStorageMock';
 import * as data from '../__mocks__/mockData';
-import { MessageAreaContainer } from '../../dev/js/containers/MessageAreaContainer.jsx';
+import {
+  MessageAreaContainer
+} from '../../dev/js/containers/MessageAreaContainer.jsx';
 
 window.localStorage = localStorageMock;
 
@@ -49,7 +51,12 @@ describe('Messaging Container', () => {
   });
 
   it('should call componentDidMount', () => {
-    const enzymeWrapper = mount(<MessageAreaContainer {...{ ...props, ...{ groupMessages: { groupMessages: { Messages: [] }, getMessagesSuccess: true } } }} />);
+    const enzymeWrapper = mount(<MessageAreaContainer {...{
+      ...props,
+      ...{ groupMessages: {
+        groupMessages: { Messages: [] },
+        getMessagesSuccess: true } }
+    }} />);
     expect(enzymeWrapper.find('MessageBoardIcons').exists()).toBe(true);
   });
 

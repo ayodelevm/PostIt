@@ -7,7 +7,9 @@ import { Provider } from 'react-redux';
 import store, { history } from '../../dev/js/store/store';
 import localStorageMock from '../__mocks__/localStorageMock';
 import * as data from '../__mocks__/mockData';
-import { MessageFormContainer } from '../../dev/js/containers/MessageFormContainer.jsx';
+import {
+  MessageFormContainer
+} from '../../dev/js/containers/MessageFormContainer.jsx';
 
 window.localStorage = localStorageMock;
 jest.mock('react-router-dom');

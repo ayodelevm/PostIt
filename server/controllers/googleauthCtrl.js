@@ -100,7 +100,7 @@ export default class GoogleAuthCtrl {
             if (!foundUser) {
               return res.status(401).json({
                 globals: 'Login Failed! Please'
-                + 'signup with your google email first'
+                + ' signup with your google email first'
               });
             }
             const token = jwt.sign({

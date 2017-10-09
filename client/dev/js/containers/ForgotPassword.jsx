@@ -23,6 +23,7 @@ export class ForgotPassword extends React.Component {
     this.state = {
       email: '',
       errors: {},
+      loading: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -86,10 +87,11 @@ export class ForgotPassword extends React.Component {
       return this.setState({ errors });
     }
 
-    this.setState({ errors: {} });
+    this.setState({ errors: {}, loading: true });
     this.props.forgotPassword(this.state)
     .then(
       () => {
+        this.setState({ loading: false });
         if (this.props.resetResponse.emailVerified) {
           $('#reset-email').modal('close');
           notify.show(`A link has been sent to your email,
@@ -116,6 +118,7 @@ export class ForgotPassword extends React.Component {
         state={this.state} onChange={this.handleChange}
         email={this.state.email} error={this.state.errors.name}
         onResetState={this.handleResetState}
+        loading={this.state.loading}
       />
 
     );

@@ -136,7 +136,7 @@ export default class AuthCtrl {
         };
         return transporter.sendMail(mailOptions, (error) => {
           if (error) {
-            return res.status(501).json({
+            return res.status(500).json({
               globals: 'Mail not sent'
             });
           }

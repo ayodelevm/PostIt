@@ -52,7 +52,7 @@ This app's functionality depends on multiple NPM packages including;
 
 ## Endpoints
 
-For detailed information on how to use this api, view the **[documentation](https://ayodelevm.github.io/slate)**
+For detailed information on how to use this api, view the **[documentation](https://vikz-postit.herokuapp.com/api/docs)**
 
 ## Fequently Asked Questions (FAQ)
 CLick **[here](https://github.com/ayodelevm/PostIt/wiki/Frequently-Asked-Questions)** to read through our FAQ.

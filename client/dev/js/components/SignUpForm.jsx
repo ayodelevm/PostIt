@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Notifications from 'react-notify-toast';
 import GoogleLogin from 'react-google-login';
 import InputFieldGroup from './common/InputFields.jsx';
+import parallaxImage from '../utils/images/jacob-ufkes-195221.jpg';
 
 /**
  * Gives the presentational view for users signup component
@@ -198,7 +199,7 @@ const SignUpForm = props => (
 
     </div>
     <div className="parallax"><img className="responsive-img"
-      src={require('../utils/images/jacob-ufkes-195221.jpg')}
+      src={parallaxImage}
       alt="register section" /><div id="overlay" />
     </div>
   </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import Notifications from 'react-notify-toast';
 import PropTypes from 'prop-types';
 import InputFieldGroup from './common/InputFields.jsx';
+import parallaxImage from '../utils/images/jacob-ufkes-195221.jpg';
 
 /**
  * Gives the presentational view for the form to enter new password
@@ -114,7 +115,7 @@ const ResetPasswordForm = props => (
     <div className="parallax">
       <img
         className="responsive-img"
-        src={require('../utils/images/jacob-ufkes-195221.jpg')}
+        src={parallaxImage}
         alt="login section"
       />
       <div id="overlay" />

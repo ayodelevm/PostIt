@@ -1,5 +1,4 @@
 const endpoints = {
-  BASE_PATH: `${window.location.protocol}//${window.location.host}`,
   SIGNUP_PATH: '/api/v1/user/register',
   LOGIN_PATH: '/api/v1/user/login',
   LOGOUT_PATH: '/api/v1/user/logout',

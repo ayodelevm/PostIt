@@ -5,6 +5,7 @@ import GoogleLogin from 'react-google-login';
 import Notifications from 'react-notify-toast';
 import ForgotPassword from '../containers/ForgotPassword.jsx';
 import InputFieldGroup from './common/InputFields.jsx';
+import parallaxImage from '../utils/images/jacob-ufkes-195221.jpg';
 
 
 /**
@@ -154,7 +155,7 @@ const LoginForm = props => (
     <div className="parallax">
       <img
         className="responsive-img"
-        src={require('../utils/images/jacob-ufkes-195221.jpg')}
+        src={parallaxImage}
         alt="login section"
       /><div id="overlay" />
     </div>

@@ -8,7 +8,7 @@ import {
   selectedGroupDetails,
   getArchivedMessages
 } from '../actions/archiveActions';
-import DashboardArea from '../components/DashboardArea.jsx';
+import DashboardArea from '../components/DashboardArea';
 
 /**
  * This class is the container component for the users dashboard

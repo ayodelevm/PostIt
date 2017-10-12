@@ -25,7 +25,7 @@ const MessageForm = props => (
         <textarea
           value={props.state.content} name="content" id="textarea1"
           onChange={props.onChange}
-          placeholder="Enter a message here"
+          placeholder="Enter a message here. Hit 'Enter' key to send!"
           className="materialize-textarea"
           onKeyPress={props.onKeyPress}
         />

@@ -29,6 +29,9 @@ const config = [{
   devServer: {
     inline: true,
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   devtool: 'source-map',
   module: {
     loaders: [

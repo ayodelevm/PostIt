@@ -196,20 +196,20 @@
   color: #f92672;
 }
     </style>
-    <link href="/build/stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="/build/stylesheets/print.css" rel="stylesheet" media="print" />
-      <script src="/build/javascripts/all.js"></script>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
   </head>
 
   <body class="index" data-languages="[&quot;javascript&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="/build/images/navbar.png" alt="Navbar" />
+        <img src="images/navbar.png" alt="Navbar" />
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="/build/images/logo.png" class="logo" alt="Logo" />
+      <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="javascript">javascript</a>
         </div>
@@ -356,7 +356,7 @@ It has the following features:</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">token</span><span class="p">:</span><span class="w"> </span><span class="s2">"kfjbHJKD787ygiduewedykdubc8ebwu.Yjgkcdveucvo"</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kfjbHJKD787ygiduewedykdubc8ebwu.Yjgkcdveucvo"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='code-login-post-api-v1-user-login-code'><code>Login [POST - /api/v1/user/login]</code></h2>
 <blockquote>
@@ -378,7 +378,7 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">token</span><span class="p">:</span><span class="w"> </span><span class="s2">"kfjbHJKD787ygiduewedykdubc8ebwu.Yjgkcdveucvo"</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kfjbHJKD787ygiduewedykdubc8ebwu.Yjgkcdveucvo"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='code-forgot-password-post-api-v1-user-forgotpassword-code'><code>Forgot Password [POST - /api/v1/user/forgotpassword]</code></h2>
 <blockquote>
@@ -398,14 +398,14 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please check your mail for the reset link!"</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Please check your mail for the reset link!"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='code-reset-password-put-api-v1-resetpassword-code'><code>Reset Password [PUT - /api/v1/resetpassword]</code></h2>
 <blockquote>
 <p>Request Body</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newpassword"</span><span class="w">
+  </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newpassword"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"passwordConfirmation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newpassword"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -419,7 +419,7 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"password reset successful, Please login to continue!"</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password reset successful, Please login to continue!"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='code-google-signup-post-api-v1-user-googlesignup-code'><code>Google Signup [POST - /api/v1/user/googlesignup]</code></h2>
 <blockquote>
@@ -439,7 +439,7 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">token</span><span class="p">:</span><span class="w"> </span><span class="s2">"kfjbHJKD787ygiduewedykdubc8ebwu.Yjgkcdveucvo"</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kfjbHJKD787ygiduewedykdubc8ebwu.Yjgkcdveucvo"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='code-google-sign-in-post-api-v1-user-googlelogin-code'><code>Google Sign-in [POST - /api/v1/user/googlelogin]</code></h2>
 <blockquote>
@@ -459,7 +459,7 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">token</span><span class="p">:</span><span class="w"> </span><span class="s2">"kfjbHJKD787ygiduewedykdubc8ebwu.Yjgkcdveucvo"</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kfjbHJKD787ygiduewedykdubc8ebwu.Yjgkcdveucvo"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='code-verify-user-post-api-v1-verifyuser-code'><code>Verify User [POST - /api/v1/verifyuser]</code></h2>
 <blockquote>
@@ -479,30 +479,36 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"user verification successful!"</span><span class="p">,</span><span class="w">
-  </span><span class="err">token</span><span class="p">:</span><span class="w"> </span><span class="s2">"kfjbHJKD787ygiduewedykdubc8ebwu.Yjgkcdveucvo"</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user verification successful!"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kfjbHJKD787ygiduewedykdubc8ebwu.Yjgkcdveucvo"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h1 id='user-endpoints'>User Endpoints</h1><h2 id='code-get-all-registered-users-get-api-v1-users-code'><code>Get All Registered Users [GET - /api/v1/users]</code></h2>
 <blockquote>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successful."</span><span class="p">,</span><span class="w">
-  </span><span class="err">users</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
-    </span><span class="err">username</span><span class="p">:</span><span class="w"> </span><span class="s2">"toria"</span><span class="p">,</span><span class="w">
-    </span><span class="err">profileImage</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/dr6ynr4o0/image/upload/v1506624353/alygvc4f2hm2kjxokgps.jpg"</span><span class="p">,</span><span class="w">
-    </span><span class="err">fullname</span><span class="p">:</span><span class="w"> </span><span class="s2">"Toria Tobias"</span><span class="p">,</span><span class="w">
-    </span><span class="err">email</span><span class="p">:</span><span class="w"> </span><span class="s2">"ay@gmail.com"</span><span class="p">,</span><span class="w">
-    </span><span class="err">telephone</span><span class="p">:</span><span class="w"> </span><span class="s2">"08087584922"</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successful."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"toria"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"profileImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/dr6ynr4o0/image/upload/v1506624353/alygvc4f2hm2kjxokgps.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fullname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Toria Tobias"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ay@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"telephone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08087584922"</span><span class="w">
   </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="w">
-    </span><span class="err">username</span><span class="p">:</span><span class="w"> </span><span class="s2">"jide"</span><span class="p">,</span><span class="w">
-    </span><span class="err">profileImage</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/dr6ynr4o0/image/upload/v1506624353/alygvc4f2hm2kjxokgps.jpg"</span><span class="p">,</span><span class="w">
-    </span><span class="err">fullname</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jide Tobias"</span><span class="p">,</span><span class="w">
-    </span><span class="err">email</span><span class="p">:</span><span class="w"> </span><span class="s2">"jide@gmail.com"</span><span class="p">,</span><span class="w">
-    </span><span class="err">telephone</span><span class="p">:</span><span class="w"> </span><span class="s2">"09074384397"</span><span class="w">
-  </span><span class="p">}]</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jide"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"profileImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/dr6ynr4o0/image/upload/v1506624353/alygvc4f2hm2kjxokgps.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fullname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jide Tobias"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jide@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"telephone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09074384397"</span><span class="w">
+  </span><span class="p">}],</span><span class="w">
+  </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"pageCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currentPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint fetches all registered users</p>
@@ -515,27 +521,27 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successful."</span><span class="p">,</span><span class="w">
-  </span><span class="err">foundUsers</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="err">name</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Group"</span><span class="p">,</span><span class="w">
-    </span><span class="err">description</span><span class="p">:</span><span class="w"> </span><span class="s2">"It's a new group"</span><span class="p">,</span><span class="w">
-    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
-    </span><span class="err">ownerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-    </span><span class="err">createdAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
-    </span><span class="err">Users</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-      </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w">
-      </span><span class="err">username</span><span class="p">:</span><span class="w"> </span><span class="s2">"toria"</span><span class="p">,</span><span class="w">
-      </span><span class="err">profileImage</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/dr6ynr4o0/image/upload/v1506624353/alygvc4f2hm2kjxokgps.jpg"</span><span class="p">,</span><span class="w">
-      </span><span class="err">fullname</span><span class="p">:</span><span class="w"> </span><span class="s2">"Toria Tobias"</span><span class="p">,</span><span class="w">
-      </span><span class="err">email</span><span class="p">:</span><span class="w"> </span><span class="s2">"ay@gmail.com"</span><span class="p">,</span><span class="w">
-      </span><span class="err">telephone</span><span class="p">:</span><span class="w"> </span><span class="s2">"08087584922"</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successful."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"foundUsers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Group"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"It's a new group"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ownerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Users"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"toria"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profileImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/dr6ynr4o0/image/upload/v1506624353/alygvc4f2hm2kjxokgps.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"fullname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Toria Tobias"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ay@gmail.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"telephone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08087584922"</span><span class="w">
     </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="w">
-      </span><span class="err">username</span><span class="p">:</span><span class="w"> </span><span class="s2">"jide"</span><span class="p">,</span><span class="w">
-      </span><span class="err">profileImage</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/dr6ynr4o0/image/upload/v1506624353/alygvc4f2hm2kjxokgps.jpg"</span><span class="p">,</span><span class="w">
-      </span><span class="err">fullname</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jide Tobias"</span><span class="p">,</span><span class="w">
-      </span><span class="err">email</span><span class="p">:</span><span class="w"> </span><span class="s2">"jide@gmail.com"</span><span class="p">,</span><span class="w">
-      </span><span class="err">telephone</span><span class="p">:</span><span class="w"> </span><span class="s2">"09074384397"</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jide"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"profileImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/dr6ynr4o0/image/upload/v1506624353/alygvc4f2hm2kjxokgps.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"fullname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jide Tobias"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jide@gmail.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"telephone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09074384397"</span><span class="w">
     </span><span class="p">}]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -563,17 +569,17 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"new users added successfully"</span><span class="p">,</span><span class="w">
-  </span><span class="err">addedUsers</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-      </span><span class="err">GroupId</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-      </span><span class="err">UserId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-      </span><span class="err">createdAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
-      </span><span class="err">updatedAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new users added successfully"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"addedUsers"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"GroupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"UserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="w">
     </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="err">GroupId</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-      </span><span class="err">UserId</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-      </span><span class="err">createdAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
-      </span><span class="err">updatedAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="w">
+      </span><span class="s2">"GroupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"UserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="w">
     </span><span class="p">}]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='code-upload-profile-picture-put-api-v1-user-id-edit-code'><code>Upload Profile Picture [PUT - /api/v1/user/:id/edit]</code></h2>
@@ -594,33 +600,33 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"Profile Image updated successfully."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Profile Image updated successfully."</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h1 id='group-endpoints'>Group Endpoints</h1><h2 id='code-get-one-user-and-all-his-groups-get-api-v1-groups-code'><code>Get One User And All His Groups [GET - /api/v1/groups]</code></h2>
 <blockquote>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="err">'Successful.'</span><span class="p">,</span><span class="w">
-  </span><span class="err">foundGroups</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-    </span><span class="err">username</span><span class="p">:</span><span class="w"> </span><span class="s2">"toria"</span><span class="p">,</span><span class="w">
-    </span><span class="err">profileImage</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/dr6ynr4o0/image/upload/v1506624353/alygvc4f2hm2kjxokgps.jpg"</span><span class="p">,</span><span class="w">
-    </span><span class="err">fullname</span><span class="p">:</span><span class="w"> </span><span class="s2">"Toria Tobias"</span><span class="p">,</span><span class="w">
-    </span><span class="err">email</span><span class="p">:</span><span class="w"> </span><span class="s2">"ay@gmail.com"</span><span class="p">,</span><span class="w">
-    </span><span class="err">telephone</span><span class="p">:</span><span class="w"> </span><span class="s2">"08087584922"</span><span class="p">,</span><span class="w">
-    </span><span class="err">Groups</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-      </span><span class="err">name</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Group"</span><span class="p">,</span><span class="w">
-      </span><span class="err">description</span><span class="p">:</span><span class="w"> </span><span class="s2">"It's a new group"</span><span class="p">,</span><span class="w">
-      </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
-      </span><span class="err">ownerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-      </span><span class="err">createdAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successful."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"foundGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"toria"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"profileImage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://res.cloudinary.com/dr6ynr4o0/image/upload/v1506624353/alygvc4f2hm2kjxokgps.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fullname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Toria Tobias"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ay@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"telephone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08087584922"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Group"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"It's a new group"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ownerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
     </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="err">name</span><span class="p">:</span><span class="w"> </span><span class="s2">"A Second Group"</span><span class="p">,</span><span class="w">
-      </span><span class="err">description</span><span class="p">:</span><span class="w"> </span><span class="s2">"A second for demo"</span><span class="p">,</span><span class="w">
-      </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span><span class="w">
-      </span><span class="err">ownerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-      </span><span class="err">createdAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A Second Group"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A second for demo"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ownerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
     </span><span class="p">}]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -650,13 +656,13 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"New group created successfully."</span><span class="p">,</span><span class="w">
-  </span><span class="err">newGroup</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="err">name</span><span class="p">:</span><span class="w"> </span><span class="s2">"Learn Python"</span><span class="p">,</span><span class="w">
-    </span><span class="err">description</span><span class="p">:</span><span class="w"> </span><span class="s2">"We teach python!"</span><span class="p">,</span><span class="w">
-    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
-    </span><span class="err">ownerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-    </span><span class="err">createdAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New group created successfully."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"newGroup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Learn Python"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"We teach python!"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ownerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='other-group-endpoints'>Other Group Endpoints</h2>
@@ -668,13 +674,13 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successful."</span><span class="p">,</span><span class="w">
-  </span><span class="err">foundGroup</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="err">name</span><span class="p">:</span><span class="w"> </span><span class="s2">"Learn Python"</span><span class="p">,</span><span class="w">
-    </span><span class="err">description</span><span class="p">:</span><span class="w"> </span><span class="s2">"We teach python!"</span><span class="p">,</span><span class="w">
-    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
-    </span><span class="err">UserId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-    </span><span class="err">createdAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successful."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"foundGroup"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Learn Python"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"We teach python!"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"UserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -701,14 +707,14 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"Group details updated successfully."</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Group details updated successfully."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='code-delete-a-group-delete-api-v1-group-id-delete-code'><code>Delete A Group [DELETE - /api/v1/group/:id/delete]</code></h2>
 <blockquote>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"Group deleted successfully."</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Group deleted successfully."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint handles deleting a group along with it&#39;s messages and users</p>
@@ -721,27 +727,27 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successful."</span><span class="p">,</span><span class="w">
-  </span><span class="err">foundMessages</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="err">name</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Group"</span><span class="p">,</span><span class="w">
-    </span><span class="err">description</span><span class="p">:</span><span class="w"> </span><span class="s2">"It's a new group"</span><span class="p">,</span><span class="w">
-    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
-    </span><span class="err">ownerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-    </span><span class="err">createdAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
-    </span><span class="err">Users</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
-      </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-      </span><span class="err">GroupId</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
-      </span><span class="err">ownerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-      </span><span class="err">createdAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
-      </span><span class="err">message</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello World!"</span><span class="p">,</span><span class="w">
-      </span><span class="err">priority</span><span class="p">:</span><span class="w"> </span><span class="s2">"Normal"</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successful."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"foundMessages"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Group"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"It's a new group"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ownerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Users"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"GroupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ownerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello World!"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Normal"</span><span class="w">
     </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-      </span><span class="err">GroupId</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-      </span><span class="err">ownerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
-      </span><span class="err">createdAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
-      </span><span class="err">message</span><span class="p">:</span><span class="w"> </span><span class="s2">"Welcome to this group!"</span><span class="p">,</span><span class="w">
-      </span><span class="err">priority</span><span class="p">:</span><span class="w"> </span><span class="s2">"Urgent"</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"GroupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ownerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Welcome to this group!"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Urgent"</span><span class="w">
     </span><span class="p">}]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -770,14 +776,14 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"New message added successfully."</span><span class="p">,</span><span class="w">
-  </span><span class="err">createdMessage</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="err">id</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
-    </span><span class="err">GroupId</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
-    </span><span class="err">ownerId</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
-    </span><span class="err">createdAt</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
-    </span><span class="err">message</span><span class="p">:</span><span class="w"> </span><span class="s2">"Welcome to this group!"</span><span class="p">,</span><span class="w">
-    </span><span class="err">priority</span><span class="p">:</span><span class="w"> </span><span class="s2">"Urgent"</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New message added successfully."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"createdMessage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"GroupId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ownerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"017-09-10T16:29:08.087Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Welcome to this group!"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Urgent"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='code-archive-all-messages-put-api-v1-group-id-archivemessages-code'><code>Archive All Messages [PUT - /api/v1/group/:id/archivemessages]</code></h2>
@@ -798,7 +804,7 @@ You can login with either username or email</p>
 <p>Sample Response</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="err">success</span><span class="p">:</span><span class="w"> </span><span class="s2">"Messages have been archived successfully"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Messages have been archived successfully"</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='note'>Note</h2>
 <aside class="notice">

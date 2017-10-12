@@ -105,7 +105,7 @@ export default class AuthCtrl {
  */
   static forgotPasswordLink(req, res) {
     return validateEmailExist(req.body, validateEmail)
-    .then(({ errors, isValid }) => {
+    .then(({ errors, isValid, foundUser }) => {
       if (isValid) {
         const email = req.body.email;
         const token = jwt.sign({
@@ -127,12 +127,17 @@ export default class AuthCtrl {
           from: 'noreply.postitapp@gmail.com',
           to: email,
           subject: 'Reset Password',
-          html: `<p>You have received this mail because you asked to
+          html: `<p><h2>Hi ${foundUser.username}!</h2><b></p> 
+          <p><h3 style="color: 'grey';">
+          You have received this mail because you asked to
           reset your account on PostIt. Please
           <a href="${req.headers.origin}/resetpassword?tok=${token}">
-          Click here</a> to begin the process</p><br />
-          <p>Please ignore this mail if you did not make this request.</p>
-          <p>Note: This link will expire after one hour</p>`,
+          Click here</a> to reset it. <b>
+          This link is only valid for the next 1 hour.</b></h3></p>
+          <p style="color: 'grey';">
+          Please ignore this mail if you did not make this request.</p>
+          <p style="color: 'grey';">Thanks,</p>
+          <p style="color: 'grey';">The Postit team</p>`,
         };
         return transporter.sendMail(mailOptions, (error) => {
           if (error) {

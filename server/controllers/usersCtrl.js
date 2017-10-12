@@ -1,4 +1,5 @@
 import models from './../models/index';
+import paginate from '../utils/paginate';
 import { io } from '../app';
 
 /**
@@ -26,12 +27,7 @@ export default class AddUsersCtrl {
       }
     })
     .then((result) => {
-      const pagination = {
-        totalCount: result.count,
-        pageCount: Math.ceil(result.count / limit),
-        page: Math.floor(offset / limit) + 1,
-        pageSize: result.rows.length
-      };
+      const pagination = paginate(limit, offset, result);
       return res.status(200).json({
         success: 'Successful.',
         users: result.rows,
@@ -130,8 +126,7 @@ export default class AddUsersCtrl {
         }));
       }
       return res.status(403).json({
-        globals: 'You are not allowed to add users' +
-          ' to this group, please contact admin!'
+        globals: 'Unauthorized! please contact admin!'
       });
     })
     .catch(err => res.status(500).json({

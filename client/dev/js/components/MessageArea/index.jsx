@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Notifications from 'react-notify-toast';
 
-import GroupFormContainer from '../containers/GroupFormContainer.jsx';
-import UploadsContainer from '../containers/UploadsContainer.jsx';
-import Nav from './common/Nav.jsx';
-import MessageFormContainer from '../containers/MessageFormContainer.jsx';
-import AddUsers from '../containers/AddUsers.jsx';
-import Archive from '../containers/Archive.jsx';
-import GroupMembersModal from './GroupMembersModal.jsx';
-import ViewArchivedModal from './ViewArchivedModal.jsx';
-import AllGroups from './messageAreaComponents/AllGroups.jsx';
-import GroupTitle from './messageAreaComponents/GroupTitle.jsx';
-import MessageBoardIcons from './messageAreaComponents/MessageBoardIcons.jsx';
-import RenderMessage from './messageAreaComponents/RenderMessage.jsx';
+import GroupFormContainer from '../../containers/GroupFormContainer.jsx';
+import UploadsContainer from '../../containers/UploadsContainer.jsx';
+import Nav from '../common/Nav.jsx';
+import MessageFormContainer from '../../containers/MessageFormContainer.jsx';
+import AddUsers from '../../containers/AddUsers.jsx';
+import Archive from '../../containers/Archive.jsx';
+import GroupMembersModal from '../GroupMembersModal.jsx';
+import ViewArchivedModal from '../ViewArchivedModal.jsx';
+import AllGroups from './AllGroups.jsx';
+import GroupTitle from './GroupTitle.jsx';
+import MessageBoardIcons from './MessageBoardIcons.jsx';
+import RenderMessage from './RenderMessage.jsx';
 
 
 /**

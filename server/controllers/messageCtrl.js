@@ -113,8 +113,7 @@ export default class messageCtrl {
     }).then((foundGroup) => {
       if (foundGroup.UserId !== req.user.dataValues.id) {
         return res.status(403).json({
-          globals: 'You are not allowed to archive in this' +
-          ' group, please contact admin!'
+          globals: 'Unauthorized! please contact admin!'
         });
       }
       return models.Message.findAll({

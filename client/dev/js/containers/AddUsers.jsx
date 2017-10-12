@@ -70,10 +70,12 @@ export class AddUsers extends React.Component {
     .then(
       () => {
         if (this.props.addUsersResponse.addSuccess) {
+          this.setState({ members: [] });
           $('#add-new').modal('close');
           notify.show('Members added successfully!', 'success', 3000);
         } else if (this.props.addUsersResponse.errors) {
-          notify.show(this.props.addUsersResponse.errors.globals, 'warning', 3000);
+          notify.show(this.props.addUsersResponse
+            .errors.globals, 'warning', 3000);
         }
       }
     );

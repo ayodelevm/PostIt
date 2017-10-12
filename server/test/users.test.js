@@ -144,7 +144,7 @@ describe('Users Route', () => {
       res.status.should.equal(403);
       res.body.globals.should
       .equal(
-        'You are not allowed to archive in this group, please contact admin!'
+        'Unauthorized! please contact admin!'
       );
       done();
     });
@@ -173,7 +173,7 @@ describe('Users Route', () => {
       res.status.should.equal(403);
       res.body.globals.should
       .equal(
-        'You are not allowed to add users to this group, please contact admin!'
+        'Unauthorized! please contact admin!'
       );
       done();
     });

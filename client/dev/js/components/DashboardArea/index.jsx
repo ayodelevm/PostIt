@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Notifications from 'react-notify-toast';
 
-import GroupFormContainer from '../containers/GroupFormContainer.jsx';
-import UploadsContainer from '../containers/UploadsContainer.jsx';
-import Archive from '../containers/Archive.jsx';
-import ViewArchivedModal from './ViewArchivedModal.jsx';
-import Nav from './common/Nav.jsx';
-import PersonalGroups from './dashboardAreaComponents/PersonalGroups.jsx';
-import AllGroups from './dashboardAreaComponents/AllGroups.jsx';
+import GroupFormContainer from '../../containers/GroupFormContainer.jsx';
+import UploadsContainer from '../../containers/UploadsContainer.jsx';
+import Archive from '../../containers/Archive.jsx';
+import ViewArchivedModal from '../ViewArchivedModal.jsx';
+import Nav from '../common/Nav.jsx';
+import PersonalGroups from './PersonalGroups.jsx';
+import AllGroups from './AllGroups.jsx';
 
 /**
  * Gives the presentational view for the users dashboard component

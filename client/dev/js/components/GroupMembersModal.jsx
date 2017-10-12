@@ -24,9 +24,9 @@ const GroupMembersModal = props => (
       </Link>
     </div>
 
-    <div className="row">
+    <div className="row members-modal">
       <div className="col s12 m8 offset-m2 l6 offset-l3">
-        <div className="card white">
+        <div className="card white members-form">
           <div className="card-content black-text">
             <div className="row card-title-area">
               <span className="card-title create">

@@ -95,11 +95,11 @@ export class NavContainer extends React.Component {
             </Link>
           </li>
           <li><div className="divider" /></li>
-          <li><a
-            href="/"
+          <li><Link
+            to="/"
             onClick={this.handleLogout}
             className="waves-effect waves-light">Logout
-            </a>
+            </Link>
           </li>
           <li><div className="divider" /></li>
           <li><a className="modal-trigger" href="#group-new">

@@ -14,7 +14,7 @@ import {
   selectedGroupDetails,
   getArchivedMessages
 } from '../actions/archiveActions';
-import MessageArea from '../components/MessageArea.jsx';
+import MessageArea from '../components/MessageArea';
 
 /**
  * This class is the container component for the users messaging board

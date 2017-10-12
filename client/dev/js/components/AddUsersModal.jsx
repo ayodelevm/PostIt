@@ -50,6 +50,7 @@ const AddUsersModal = props => (
                     value={props.state.members}
                     onChange={props.onChipsChange}
                     suggestions={props.suggestions}
+                    fromSuggestionsOnly
                     />
                   <p className="flow-text below-chip grey-text">
                       Search by username

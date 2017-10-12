@@ -58,7 +58,7 @@ winston.configure({
 });
 
 app.get('/api/docs', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/build/index.html'));
+  res.sendFile(path.join(__dirname, '../client/build/slate/index.html'));
 });
 
 if (process.env.NODE_ENV === 'development') {

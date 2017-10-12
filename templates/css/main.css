@@ -118,7 +118,7 @@ div.row.group-section-message {
   margin: 0; }
 
 .description {
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   color: grey;
   font-style: italic; }
 
@@ -213,7 +213,7 @@ ul #archive-dropdown {
   left: 0;
   width: 100%; }
   .message-header .group-description {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     font-style: italic;
     color: grey;
     margin-left: 10px; }
@@ -337,6 +337,13 @@ i.material-icons.add-groups {
 .card-title-area {
   padding-left: 60px;
   padding-right: 40px; }
+
+.row.members-modal {
+  overflow-y: none; }
+
+.card.white.members-form {
+  max-height: 80vh;
+  overflow-y: scroll; }
 
 .card-form-section {
   padding: 0 40px; }

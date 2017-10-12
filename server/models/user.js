@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      // allowNull: false
     },
     googleSubId: {
       type: DataTypes.STRING

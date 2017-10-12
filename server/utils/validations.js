@@ -188,7 +188,8 @@ export const validateEmailExist = (payload, inputValidations) => {
 
     return {
       errors,
-      isValid: !Object.keys(errors).length
+      isValid: !Object.keys(errors).length,
+      foundUser
     };
   });
 };

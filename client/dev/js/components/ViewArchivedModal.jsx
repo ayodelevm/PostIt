@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import RenderMessage from './messageAreaComponents/RenderMessage.jsx';
+import RenderMessage from './MessageArea/RenderMessage.jsx';
 
 /**
  * Gives the presentational view for displaying archived messages

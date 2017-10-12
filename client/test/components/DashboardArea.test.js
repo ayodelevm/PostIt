@@ -2,7 +2,7 @@ import React from 'react';
 import Notifications from 'react-notify-toast';
 import { shallow } from 'enzyme';
 
-import DashboardArea from '../../dev/js/components/DashboardArea.jsx';
+import DashboardArea from '../../dev/js/components/DashboardArea';
 import Nav from '../../dev/js/components/common/Nav.jsx';
 import GroupFormContainer from '../../dev/js/containers/GroupFormContainer.jsx';
 import UploadsContainer from '../../dev/js/containers/UploadsContainer.jsx';

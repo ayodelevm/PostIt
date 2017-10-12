@@ -14,6 +14,11 @@
 //   background: rgba(0,0,0,.5);
 // }
 
+#sidenav-overlay {
+  position: relative; 
+ /* background-color: initial; */
+}
+
 .parallax-container {
   .landing {
     position: relative;
@@ -36,9 +41,20 @@
 
 .parallax-container {
   min-height: 100vh;   
-  // min-width: 100vw;
+  min-width: 100vw;
   // line-height: 0;
   height: auto;  
+  color: rgba(255,255,255,1); 
+  .container {
+    width: 100vw;
+  }
+}
+
+.parallax-container.valign-wrapper.cloak {
+  min-height: 82vh;   
+  min-width: 100vw;
+  // line-height: 0;
+  // height: auto;  
   color: rgba(255,255,255,1); 
   .container {
     width: 100vw;
@@ -72,3 +88,73 @@
     margin: 0 auto;
   }
 }
+
+@media only screen and (min-width: 900px) {
+  .parallax-container2 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width : 899px) {
+  .parallax-container.valign-wrapper.cloak {
+    display: none;
+  }
+
+  .parallax-container2 {
+    min-height: 82vh;
+    // min-width: 100vw;
+    // line-height: 0;
+    // height: auto;  
+    color: rgba(255,255,255,1); 
+    .container {
+      // width: 100vw;
+      padding: 20px;
+    }
+  }
+
+  .parallax-container2 {
+    background-image: url('../js/utils/images/jacob-ufkes-195221.jpg');
+    // background-image: url('../../client/dev/js/utils/images/jacob-ufkes-195221.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    color: #000;
+    // position: relative;
+    // min-height: auto;
+    // font-size: 0.9em;
+  }
+
+    .landing-btn {
+      .btn-large.btn-flat {
+      border: 2px solid green;  
+      border-radius: 10px;
+      }
+      .btn-large.btn-flat.lime-text.accent-2:hover {
+        background-color: green;
+        color: white;
+      }
+    }
+  
+    .parallax-container2::before {
+      content: '';  
+      position: absolute; 
+      left: 0; right: 0;
+      top: 0; bottom: 0;
+      background: rgba(0,0,0,.5);
+      height: 650px;
+      // line-height: 0;
+      // height: 100%;
+      // min-width: 100%; 
+    }
+  
+    .paralax.container {
+      /* padding-top: 120px; */
+       position: relative; 
+      /* left: 0; right: 0;
+      top: 0; bottom: 0; */
+    }
+  
+  }
+  

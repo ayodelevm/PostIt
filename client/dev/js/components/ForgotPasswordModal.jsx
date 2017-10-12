@@ -52,7 +52,7 @@ const ForgotPasswordModal = props => (
                       placeholder={'e.g new@mail.com'}
                       id={'email'}
                       value={props.value}
-                      label={'email (Required)'}
+                      label={'email (Required) *'}
                       error={props.state.errors.email ||
                         props.state.errors.globals}
                       type={'email'}

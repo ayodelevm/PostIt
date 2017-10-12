@@ -52,7 +52,7 @@ const MessageArea = (props) => {
                 </a>
               </div>
               <div className="col s9">
-                <span className="black-text">
+                <span className="black-text truncate">
                   {groups.fullname} <br />
                   {groups.email}
                 </span>
@@ -94,7 +94,7 @@ const MessageArea = (props) => {
           <div className="message-text z-depth-3">
             <div className="message-header z-depth-2">
               <div className="row">
-                <div className="col s10">
+                <div className="col s12 l9">
                   {messages.UserId === currentUser.id ?
                     <GroupTitle
                       messages={messages}
@@ -106,7 +106,7 @@ const MessageArea = (props) => {
                     />
                   }
                 </div>
-                <div className="col s2">
+                <div className="col s12 l3 message-board-icons">
                   {messages.UserId === currentUser.id ?
                     <MessageBoardIcons
                       onActiveGroupClicked={props.onActiveGroupClicked}

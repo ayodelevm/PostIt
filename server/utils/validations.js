@@ -181,6 +181,11 @@ export const validateEmailExist = (payload, inputValidations) => {
       errors.globals = "There's no registered user with this email";
     }
 
+    if (foundUser && foundUser.googleSubId !== null) {
+      errors.globals = "You cannot reset this email's password," +
+      ' please sign in with google!';
+    }
+
     return {
       errors,
       isValid: !Object.keys(errors).length

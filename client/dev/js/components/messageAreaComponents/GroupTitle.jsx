@@ -15,7 +15,7 @@ const GroupTitle = (props) => {
           {name}
         </i> {messages.name}
       </h5>
-      <div className="row adjust">
+      <div className="row adjust hide-on-med-and-down">
         <span className="group-description">
           {messages.description}
         </span>

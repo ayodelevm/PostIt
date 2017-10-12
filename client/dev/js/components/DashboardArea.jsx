@@ -46,7 +46,7 @@ const DashboardArea = (props) => {
                   </a>
                 </div>
                 <div className="col s9">
-                  <span className="black-text">
+                  <span className="black-text truncate">
                     {props.groups.fullname} <br />
                     {props.groups.email}
                   </span>

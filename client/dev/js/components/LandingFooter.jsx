@@ -6,13 +6,13 @@ import React from 'react';
  * @returns {void}
  */
 const LandingFooter = () => (
-  <footer className="page-footer transparent">
-    <div className="footer-copyright footer-ish blue-grey darken-2">
-      <div className="container">
+  <footer className="page-footer black">
+    <div className="footer-copyright footer-ish">
+      <div className="container lime-text lighthen-5">
         © 2017 Ayodele Victor
         <a
-          className="grey-text text-lighten-4 right"
-          href=""
+          className="right"
+          href="https://github.com/ayodelevm/PostIt"
         >
           Check Code on GitHub
         </a>

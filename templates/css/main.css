@@ -122,10 +122,6 @@ div.row.group-section-message {
   color: grey;
   font-style: italic; }
 
-body {
-  min-width: 1100px;
-  overflow: auto; }
-
 div#message-board-background {
   background-color: #e6ee9c;
   background-size: 45%;
@@ -154,13 +150,13 @@ i.left {
 
 div#message-container {
   max-height: 100vh;
-  margin: 0 40px; }
+  margin: 8px 40px; }
 
 .card.right-side {
   display: block;
   width: 100%;
   height: 84vh;
-  overflow: scroll; }
+  overflow-y: scroll; }
 
 ul #dropdown1 {
   width: 422.047px !important;
@@ -219,7 +215,8 @@ ul #archive-dropdown {
   .message-header .group-description {
     font-size: 0.6rem;
     font-style: italic;
-    color: grey; }
+    color: grey;
+    margin-left: 10px; }
 
 .message-body {
   position: absolute;
@@ -432,6 +429,17 @@ ul li a.groups {
   padding-top: 7px;
   margin-top: 2px; }
 
+@media (max-width: 601px) {
+  .input-field {
+    margin-top: 0; } }
+@media (max-width: 1039px) {
+  div#message-container {
+    max-height: 100vh;
+    margin: 8px 0px; } }
+#sidenav-overlay {
+  position: relative;
+  /* background-color: initial; */ }
+
 .parallax-container .landing {
   position: relative; }
 .parallax-container .below_landing {
@@ -446,9 +454,17 @@ ul li a.groups {
 
 .parallax-container {
   min-height: 100vh;
+  min-width: 100vw;
   height: auto;
   color: white; }
   .parallax-container .container {
+    width: 100vw; }
+
+.parallax-container.valign-wrapper.cloak {
+  min-height: 82vh;
+  min-width: 100vw;
+  color: white; }
+  .parallax-container.valign-wrapper.cloak .container {
     width: 100vw; }
 
 #overlay {
@@ -474,6 +490,50 @@ ul li a.groups {
     font-weight: bold;
     margin: 0 auto; }
 
+@media only screen and (min-width: 900px) {
+  .parallax-container2 {
+    display: none; } }
+@media only screen and (max-width: 899px) {
+  .parallax-container.valign-wrapper.cloak {
+    display: none; }
+
+  .parallax-container2 {
+    min-height: 82vh;
+    color: white; }
+    .parallax-container2 .container {
+      padding: 20px; }
+
+  .parallax-container2 {
+    background-image: url("../js/utils/images/jacob-ufkes-195221.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    color: #000; }
+
+  .landing-btn .btn-large.btn-flat {
+    border: 2px solid green;
+    border-radius: 10px; }
+  .landing-btn .btn-large.btn-flat.lime-text.accent-2:hover {
+    background-color: green;
+    color: white; }
+
+  .parallax-container2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    height: 650px; }
+
+  .paralax.container {
+    /* padding-top: 120px; */
+    position: relative;
+    /* left: 0; right: 0;
+    top: 0; bottom: 0; */ } }
 body {
   font-family: 'Open Sans', sans-serif; }
 
@@ -501,5 +561,19 @@ body {
 
 nav i.material-icons {
   font-size: 1.5em; }
+
+@media only screen and (max-width: 992px) {
+  nav .brand-logo.left {
+    margin-left: 409px !important; } }
+@media only screen and (max-width: 860px) {
+  nav .brand-logo.left {
+    margin-left: 279px !important; } }
+@media only screen and (max-width: 540px) {
+  nav .brand-logo.left {
+    margin-left: 150px !important; } }
+@media only screen and (max-width: 430px) {
+  nav .brand-logo.left {
+    left: 0;
+    margin-left: 75px !important; } }
 
 /*# sourceMappingURL=main.css.map */

@@ -11,7 +11,7 @@ import Select from 'react-select';
 const MessageForm = props => (
   <form className="col s12" onSubmit={props.onSubmit}>
     <div className="row text-area-row">
-      <div className="input-field col s2 left">
+      <div className="input-field col s12 m2 left">
         <Select
           name={'choose priority'}
           value={props.state.selected}
@@ -21,7 +21,7 @@ const MessageForm = props => (
           searchable={false}
         />
       </div>
-      <div className="input-field col s10 right">
+      <div className="input-field col s12 m10 right">
         <textarea
           value={props.state.content} name="content" id="textarea1"
           onChange={props.onChange}

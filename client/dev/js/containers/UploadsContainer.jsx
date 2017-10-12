@@ -69,8 +69,9 @@ export class UploadsContainer extends React.Component {
       uploadReq.field(key, params[key]);
     });
 
-    uploadReq.end((err, resp) => {
-      if (err) {
+    uploadReq.end((error, resp) => {
+      if (error) {
+        this.setState({ loading: false });
         notify.show('Uploads Failed!', 'warning', 3000);
         $('#user-new').modal('close');
         return;

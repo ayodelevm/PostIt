@@ -45,9 +45,6 @@ export class NavContainer extends React.Component {
     const beforeAuth = (
       <div>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
-          <li className="active">
-            <a href="" className="lime-text lighthen-5">Site Guide</a>
-          </li>
           <li>
             <a href="/register" className="lime-text lighthen-5">
               Create Account
@@ -105,6 +102,12 @@ export class NavContainer extends React.Component {
             </a>
           </li>
           <li><div className="divider" /></li>
+          <li><a className="modal-trigger" href="#group-new">
+            <span className="card-title black-text">
+          CREATE GROUP <i className="material-icons right">
+          add_box</i></span>
+          </a>
+          </li>
         </ul>
       </div>
     );

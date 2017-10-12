@@ -69,7 +69,7 @@ export default class AuthCtrl {
           });
         }
 
-        if (founduser.googleSubId !== null) {
+        if (founduser && founduser.googleSubId !== null) {
           return res.status(409).json({
             globals: 'It seems you signed up through google,' +
             ' please sign in with google!'

@@ -45,3 +45,29 @@ body {
 nav i.material-icons {
   font-size: 1.5em;
 }
+
+@media only screen and (max-width: 992px) {
+  nav .brand-logo.left {
+    margin-left: 409px !important;
+  }
+}
+
+@media only screen and (max-width: 860px) {
+  nav .brand-logo.left {
+    margin-left: 279px !important;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  nav .brand-logo.left {
+    margin-left: 150px !important;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  nav .brand-logo.left {
+    left: 0;
+    margin-left: 75px !important;
+  }
+}
+

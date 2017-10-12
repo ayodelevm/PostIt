@@ -51,10 +51,10 @@ export default class messageCtrl {
       return res.status(422).json({
         globals: 'Message cannot be empty'
       });
-    } else {
-      return models.Group.findOne({
-        where: { id: req.params.id }
-      })
+    }
+    return models.Group.findOne({
+      where: { id: req.params.id }
+    })
       .then((foundGroup) => {
         const payload = {
           message: req.body.content,
@@ -93,7 +93,6 @@ export default class messageCtrl {
           globals: err.message || err.errors[0].message
         }));
       });
-    }
   }
 
   /**

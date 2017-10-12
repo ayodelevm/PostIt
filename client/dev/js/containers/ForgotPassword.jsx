@@ -52,9 +52,13 @@ export class ForgotPassword extends React.Component {
    */
   handleChange(event) {
     event.persist();
-    if (!!this.state.errors && this.state.errors[event.target.name]) {
+    if (!!this.state.errors && (this.state.errors[event.target.name] || this
+      .state.errors.globals)) {
       this.setState((prevState) => {
         const errors = Object.assign({}, prevState.errors);
+        if (errors.globals) {
+          delete errors.globals;
+        }
         delete errors[event.target.name];
 
         return {
@@ -93,13 +97,15 @@ export class ForgotPassword extends React.Component {
       () => {
         this.setState({ loading: false });
         if (this.props.resetResponse.emailVerified) {
+          this.setState({ email: '' });
           $('#reset-email').modal('close');
           notify.show(`A link has been sent to your email,
             follow the link to reset your password`, 'success', 3000);
         } else {
           if (this.props.resetResponse.errors.errors) {
             return this
-              .setState({ errors: this.props.resetResponse.errors.errors });
+              .setState({ errors: this.props.resetResponse.errors.errors ||
+                this.props.resetResponse.errors.globals });
           }
           notify.show(this.props.resetResponse.errors.globals, 'warning', 3000);
         }

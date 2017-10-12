@@ -45,6 +45,12 @@ export class DashBoard extends React.Component {
       $('.collapsible').collapsible({
         accordion: true,
       });
+      $('.button-collapse').sideNav({
+        menuWidth: 315,
+        edge: 'left',
+        closeOnClick: true,
+        draggable: true,
+      });
       Materialize.updateTextFields();
     });
   }

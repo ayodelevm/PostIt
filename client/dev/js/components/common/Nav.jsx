@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import NavContainer from '../../containers/NavContainer.jsx';
 
 /**
@@ -15,9 +16,9 @@ const Nav = () => (
             insert_chart </i>
           <span id="site_name">PostIt</span>
         </a>
-        <a href="" data-activates="slide-out" className="button-collapse">
+        <Link to="" data-activates="slide-out" className="button-collapse">
           <i className="material-icons">menu</i>
-        </a>
+        </Link>
         <NavContainer />
       </div>
     </nav>

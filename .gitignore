@@ -57,3 +57,21 @@ typings/
 # dotenv environment variables file
 .env
 
+# Sass cache
+.sass-cache
+
+# Views 
+server/views
+
+#DS_STORE
+.DS_STORE
+templates/html/.DS_STORE
+templates/.DS_Store
+
+#build
+client/build/js/
+client/build/*.woff
+client/build/*.woff2
+
+#winston log file
+server.log

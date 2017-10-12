@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Sacramento');
+@import url('https://fonts.googleapis.com/css?family=Homemade+Apple');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Rambla');
+
+@import "signin";
+@import "register";
+@import "dashboard";
+@import "message";
+@import "landing_page";
+
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#site_name {
+  font-family: 'Homemade Apple', cursive;
+  font-weight: 100px;
+  // color: greenyellow;
+}
+
+.nav-wrapper {
+  background-color: black;
+  padding: 0 30px;
+}
+
+.before-auth-spinner {
+  display: block;
+  position: fixed;
+  margin: auto;
+  top: 40%;
+  left: 45%;
+}
+
+.not-found {
+  display: block;
+  position: fixed;
+  margin: auto;
+  top: 40%;
+  left: 45%;
+}
+
+nav i.material-icons {
+  font-size: 1.5em;
+}
+
+@media only screen and (max-width: 992px) {
+  nav .brand-logo.left {
+    margin-left: 409px !important;
+  }
+}
+
+@media only screen and (max-width: 860px) {
+  nav .brand-logo.left {
+    margin-left: 279px !important;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  nav .brand-logo.left {
+    margin-left: 150px !important;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  nav .brand-logo.left {
+    left: 0;
+    margin-left: 75px !important;
+  }
+}
+

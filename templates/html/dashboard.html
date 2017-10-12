@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>PostIt</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <div  id="message-board-background">
+    <!-- Nav Section -->
+    <div class="navbar-fixed">
+      <nav class="lime-text accent-2 z-depth-0" role="navigation">
+        <div class="nav-wrapper lime-text accent-2">
+          <a href="#" class="brand-logo left"><i class="left large material-icons lime-text lighthen-5">insert_chart  </i><span id="site_name">PostIt</span></a>
+          <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li class="active"><a href="" class="lime-text lighthen-5"><i class="material-icons left">notifications</i><span id="notification-number">5</span></a></li>
+            <li><a class="lime-text lighthen-5" href=""><i class="material-icons">people</i></a></li>
+            <li><a class="lime-text lighthen-5" href="">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="row">
+      <div id="message-container">
+        <div class="col l3 hide-on-med-and-down">
+          <div class="card right-side grey lighten-4 z-depth-3">
+            <div class="row valign-wrapper">
+              <div id="img-div" class="col s3">
+                <div class="profile-icon"   style="background-image: url('https://pbs.twimg.com/profile_images/660946436801101824/niM7azZS.jpg');"></div>
+              </div>
+              <div class="col s9">
+                <span class="black-text">
+                  Sola paulina <br>
+                  solap@gmail.com
+                </span>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div id="content" class="row">
+              <br>
+              <a class="modal-trigger add-new-group" href="#modal1"><span class="card-title black-text">GROUPS <i class="material-icons add-groups right">add_box</i></span></a>
+              
+            </div>
+            <div class="divider"></div>
+            <div class="row group-section">
+
+              <!-- <h5 class="center">Personal Groups</h5> -->
+              <!-- <div class="row"></div> -->
+              <!-- <ul>
+                <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">lock</i> Learn Python</span><i class="material-icons right">settings</i></a></li><br>
+                <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">lock</i> Learn Python</span><i class="material-icons right">settings</i></a></li><br>
+                <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">lock</i> Learn Python</span><i class="material-icons right">settings</i></a></li><br>
+                <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">lock</i> Learn Python</span><i class="material-icons right">settings</i></a></li><br>
+                <li class="group-display"><a href="" class="groups grey-text"><span class="left truncate"><i class="material-icons group-icons">lock</i> Learn Python</span><i class="material-icons right">settings</i></a></li><br>
+
+              </ul> -->
+
+              <!-- <ul class="collapsible collapsible-accordion">
+              <li>
+                <a class="collapsible-header white-text waves-effect waves-blue "><i class="material-icons white-text ">language</i>Language <i class="material-icons right white-text" style="margin-right:0;">arrow_drop_down</i></a>
+                <div class="collapsible-body z-depth-3">
+                  <ul>
+                    <li><a class="waves-effect waves-blue" href="#">English</a></li>
+                    <li><a class="waves-effect waves-blue" href="#">العربية</a></li>
+                    <li><a class="waves-effect waves-blue" href="#">中文</a></li
+                    <li><div class="divider"></div></li>
+                  </ul>
+                </div>
+              </li>
+          </ul>
+        </li> -->
+
+              <ul class="collapsible z-depth-0" data-collapsible="accordion">
+                <li>
+                  <div class="group-display collapsible-header grey lighten-4"><span class="truncate"><i class="material-icons group-icons">lock</i> Learn Python</span><i class="material-icons right group-settings" style="margin-right:0;">arrow_drop_down</i></div>
+
+                  <div class="collapsible-body ">
+                    <ul>
+                      <li><a class="waves-effect waves-blue black-text" href="#">Archive All Messages</a></li>
+                      <li><a class="waves-effect waves-blue black-text" href="#">Archive Selected Messages</a></li>
+                      <li><a class="waves-effect waves-blue black-text" href="#">View Archived Messages</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 l9">
+          <div class="dashboard-container">
+          <div class="col s12 m6">
+            <div class="card horizontal">
+              <div class="card-image">
+                <img src="https://lorempixel.com/100/190/nature/6">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                  <h5>Learn Python</h5>
+                  <p class="flow-text description">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro sunt vel recusandae magni eum nam unde, laudantium hic quos iusto dignissimos
+                    Porro sunt
+                  </p>
+                </div>
+                <div class="card-action">
+                  <a href="#">Open</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <div class="card horizontal">
+              <div class="card-image">
+                <img src="https://lorempixel.com/100/190/nature/6">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                  <h5>Learn Python</h5>
+                </div>
+                <div class="card-action">
+                  <a href="#">Open</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <div class="card horizontal">
+              <div class="card-image">
+                <img src="https://lorempixel.com/100/190/nature/6">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                  <h5>Learn Python</h5>
+                </div>
+                <div class="card-action">
+                  <a href="#">Open</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <div class="card horizontal">
+              <div class="card-image">
+                <img src="https://lorempixel.com/100/190/nature/6">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                  <h5>Learn Python</h5>
+                </div>
+                <div class="card-action">
+                  <a href="#">Open</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <div class="card horizontal">
+              <div class="card-image">
+                <img src="https://lorempixel.com/100/190/nature/6">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                  <h5>Learn Python</h5>
+                </div>
+                <div class="card-action">
+                  <a href="#">Open</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m6">
+            <div class="card horizontal">
+              <div class="card-image">
+                <img src="https://lorempixel.com/100/190/nature/6">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                  <h5>Learn Python</h5>
+                </div>
+                <div class="card-action">
+                  <a href="#">Open</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+ 
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <!-- <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      </div> -->
+      <div class="row modal-close-div">
+        <a href="" class="modal-action modal-close waves-effect waves-green btn-flat right"><i class="material-icons center">close</i></a>
+      </div>
+
+      <!-- <div class="container register center-align"> -->
+      <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card white">
+            <div class="card-content black-text">
+              <div class="row card-title-area">
+                <span class="card-title create">Create a group</span>
+                <p class="flow-text par grey-text">Groups are where you communicate with your friends, family and teams. They are best utilized when organized around a particular purpose</p>
+              </div>
+              <div class="row card-form-section">
+
+                <form class="col s12">
+                  <div class="divider"></div>
+                  <br>
+                    <div class="row">
+                      <div class="input-field name-desc col s12">
+                        <input placeholder="e.g learn-python" id="name" type="text">
+                        <label for="name">Name</label>
+                      </div>
+                      <p class="flow-text form grey-text">Names should be short and not more than 20 chracters</p>
+                    </div>
+                    <div class="row">
+                      <div class="input-field name-desc col s12">
+                        <input placeholder="Learn python" id="description" type="text">
+                        <label for="description">Purpose (optional)</label>
+                      </div>
+                      <p class="flow-text form grey-text">What's this group about?</p>
+                    </div>
+                    <div class="row chips-row">
+                      <p class="flow-text above-chip">Add members to group (optional)</p>
+                      <div class="chips chips-autocomplete"></div>
+                      <p class="flow-text below-chip grey-text">Search by username</p>
+                    </div>                    
+                    <!-- <div class="row"> -->
+
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <button class="btn lime accent-4 right waves-effect waves-light center" type="submit" name="action">Create Group
+                          </button>
+                        </div>
+                      </div>
+                    <!-- </div> -->
+                  </form>
+                </div>
+
+              </div>
+                
+            </div>
+          </div>
+        </div>
+        
+      <!-- </div> -->
+    </div>
+
+    
+
+    <!-- Side Nav -->
+    <ul id="slide-out" class="side-nav">
+      <li><div class="divider"></div></li>
+      <li class="active"><a class="waves-effect waves-light" href="">Create New Account</a></li>
+      <li><div class="divider"></div></li>
+      <li><a class="waves-effect waves-light" href="">Login</a></li>
+      <li><div class="divider"></div></li>
+    </ul>
+
+  </div>
+
+
+  <!--JQuery Script-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <!-- Materialize Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+  <!--My custom JavaScript -->
+  <script src="../js/main.js"></script>
+</body>
+</html>

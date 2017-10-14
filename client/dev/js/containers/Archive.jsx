@@ -53,9 +53,8 @@ export class Archive extends React.Component {
         });
       }
     })
-    .then(() => {
-      return this.props.archiveMessages(token, this.state, setGroupDetails.id);
-    })
+    .then(() => this.props
+    .archiveMessages(token, this.state, setGroupDetails.id))
     .then(() => {
       if (this.props.archiveData.archiveSuccess) {
         notify

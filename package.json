@@ -27,7 +27,7 @@
     "test:client": "NODE_ENV=jest jest ./client/test/*/*.test.js --coverage --collectCoverageFrom=client/**/*.{js,jsx}",
     "test:watch": "npm run test:client -- --watch",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "test": "NODE_ENV=test nyc mocha ./server/test/*.test.js --timeout 10000",
+    "test": "NODE_ENV=test nyc mocha ./server/test/index.test.js --timeout 10000",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "webpack -p --config webpack.config.prod.js"
   },

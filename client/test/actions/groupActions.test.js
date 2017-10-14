@@ -9,7 +9,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const token = 'kbdHJYCBu.85bireYIRb';
 
-describe('group actions', () => {
+describe('Group actions', () => {
   it("should create an action to get all of a user's groups", () => {
     const groups = {
       success: '',

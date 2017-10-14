@@ -24,14 +24,14 @@ const setup = () => {
   };
 };
 
-describe('archive container', () => {
+describe('Given Archive component is mounted', () => {
   const { props, wrapper } = setup();
 
-  it('should render add users modal', () => {
+  it('should indicate that ArchiveModal exists', () => {
     expect(wrapper.find('ArchiveModal').exists()).toEqual(true);
   });
 
-  it('should call handleSubmit', () => {
+  it('should call handleSubmit when archive button is clicked', () => {
     const enzymeWrapper = mount(<Archive {...{
       ...props,
       archiveData: {
@@ -43,7 +43,8 @@ describe('archive container', () => {
     expect(props.getGroupWithMessages.mock.calls.length).toEqual(1);
   });
 
-  it('should call handleSubmit and notify on success', () => {
+  it('should dispatch action and return success when archive button is clicked',
+  () => {
     const enzymeWrapper = mount(<Archive {...{
       ...props,
       archiveData: {

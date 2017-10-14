@@ -150,7 +150,7 @@ ul {
   }
   .group-description {
     font-size: 0.7rem;
-    font-style: italic;
+    // font-style: italic;
     color: grey;
     margin-left: 10px;
     // margin-top: -500px;
@@ -321,6 +321,15 @@ i.material-icons.add-groups {
 }
 
 .card.white.members-form {
+  max-height: 80vh;
+  overflow-y: scroll;
+}
+
+.row.archive-modal {
+  overflow-y: none
+}
+
+.card.white.archive-form {
   max-height: 80vh;
   overflow-y: scroll;
 }

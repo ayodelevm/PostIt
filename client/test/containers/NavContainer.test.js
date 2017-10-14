@@ -22,15 +22,17 @@ const setup = () => {
   };
 };
 
-describe('message form container', () => {
+describe('Given NavContainer component is mounted', () => {
   const { props, wrapper } = setup();
 
-  it('should call logoutAUser method and render before auth', () => {
+  it('should call handleLogout method when a user clicks logsout button',
+  () => {
     wrapper.instance().handleLogout();
     expect(props.logoutAUser).toBeCalled();
   });
 
-  it('should call logoutAUser method and render after auth', () => {
+  it('should render a different nav content when a user is authenticated',
+  () => {
     const enzymeWrapper = mount(<NavContainer {...{
       ...props,
       logoutAction: { isAuthenticated: true }

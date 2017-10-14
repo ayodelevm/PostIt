@@ -22,25 +22,26 @@ const setup = () => {
   };
 };
 
-describe('forgot password container', () => {
+describe('Given ForgotPassword component is mounted', () => {
   const { props, wrapper } = setup();
 
-  it('should render add users modal', () => {
+  it('should indicate that ForgotPasswordModal component is rendered', () => {
     expect(wrapper.find('ForgotPasswordModal').exists()).toEqual(true);
   });
 
-  it('should call set setstate when handleResetState is called', () => {
+  it('should reset state when modal is closed', () => {
     wrapper.instance().handleResetState();
     expect(wrapper.state().email).toEqual('');
     expect(wrapper.state().errors).toEqual({});
   });
 
-  it('should call set setstate on input change', () => {
+  it('should set state on each input into form input field', () => {
     wrapper.instance().handleChange(data.passwordEvent);
     expect(wrapper.state().password).toEqual('adeleke');
   });
 
-  it('should delete errors from state', () => {
+  it('should delete errors from state when a user corrects error in form input',
+  () => {
     wrapper.setState(data.errors);
     wrapper.instance().handleChange(data.passwordEvent);
     expect(wrapper.state().errors.password).toEqual(undefined);
@@ -48,19 +49,20 @@ describe('forgot password container', () => {
     .toEqual('this field is required');
   });
 
-  it('should setState with error when validation failure', () => {
+  it('should setState with error object when validation is not successful',
+  () => {
     wrapper.setState({ email: '' });
     wrapper.instance().handleFormSubmit(data.event);
     expect(wrapper.state().errors.email).toEqual('This field is required');
   });
 
-  it('should call forgot password method', () => {
+  it('should call handleFormSubmit method when form is submitted', () => {
     wrapper.setState({ email: 'ayo@mail.com' });
     wrapper.instance().handleFormSubmit(data.event);
     expect(props.forgotPassword.mock.calls.length).toEqual(1);
   });
 
-  it('should call handleFormSubmit and notify onSuccess', () => {
+  it('should dispatch action and return success when form is submitted', () => {
     const enzymeWrapper = mount(<ForgotPassword {...{
       ...props,
       resetResponse: { emailVerified: true }
@@ -70,7 +72,8 @@ describe('forgot password container', () => {
     expect(props.forgotPassword.mock.calls.length).toEqual(2);
   });
 
-  it('should call handleFormSubmit and notify onSuccess', () => {
+  it('should dispatch action and return error when form is submitted',
+  () => {
     const enzymeWrapper = mount(<ForgotPassword {...{
       ...props,
       resetResponse: {
@@ -81,7 +84,7 @@ describe('forgot password container', () => {
     expect(props.forgotPassword.mock.calls.length).toEqual(3);
   });
 
-  it('should call handleFormSubmit and notify onSuccess', () => {
+  it('should dispatch action and return error when form is submitted', () => {
     const enzymeWrapper = mount(<ForgotPassword {...{
       ...props,
       resetResponse: {

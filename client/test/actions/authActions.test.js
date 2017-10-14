@@ -13,7 +13,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const token = 'kbdHJYCBu.85bireYIRb';
 
-describe('auth actions', () => {
+describe('Auth actions', () => {
   it('should create an action fto create a new user', () => {
     const newUser = { fullname: '', username: '' };
     const expectedAction = {
@@ -127,7 +127,6 @@ describe('auth actions', () => {
 });
 
 describe('Auth async actions', () => {
-
   it('should dispatch create user actions on success', () => {
     const store = mockStore({});
     const expectedActions = [

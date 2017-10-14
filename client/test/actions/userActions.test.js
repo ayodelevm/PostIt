@@ -10,7 +10,7 @@ const mockStore = configureMockStore(middlewares);
 const token = 'kbdHJYCBu.85bireYIRb';
 
 
-describe('user actions', () => {
+describe('User actions', () => {
   it('should create an action to get all users', () => {
     const allUsers = { users: [{ id: '1', username: 'adeleke' }] };
     const expectedAction = {

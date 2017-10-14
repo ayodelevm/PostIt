@@ -9,7 +9,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const token = 'kbdHJYCBu.85bireYIRb';
 
-describe('archive actions', () => {
+describe('Archive actions', () => {
   it('should create an action for selected group details', () => {
     const groupDetails = [{ name: 'Learning' }];
     const expectedAction = {

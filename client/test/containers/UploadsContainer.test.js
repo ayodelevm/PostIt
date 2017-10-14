@@ -32,20 +32,22 @@ const setup = () => {
   };
 };
 
-describe('uploads container', () => {
+describe('Given UploadsContainer component is mounted', () => {
   const { props, wrapper } = setup();
 
-  it('should find and render reset password form component', () => {
+  it('should indicate that LoginForm component is rendered', () => {
     expect(wrapper.find('UploadsModal').exists()).toEqual(true);
   });
 
-  it('should call uploadProfileImage action', () => {
+  it('should call handleUploadFile when a user uploads a profile picture',
+  () => {
     const files = ['newimage.jpg'];
     wrapper.instance().handleUploadFile(files);
     expect(props.uploadProfileImage).toBeCalled();
   });
 
-  it('should call handleFormSubmit and notify onSuccess', () => {
+  it('should dispatch action and return success when picture is uploaded',
+  () => {
     const enzymeWrapper = mount(<UploadsContainer {...{
       ...props,
       uploadResponse: { uploadSuccess: true } }

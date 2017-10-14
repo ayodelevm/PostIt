@@ -42,10 +42,10 @@ const setup = () => {
   };
 };
 
-describe('Messaging Container', () => {
+describe('Given MessageAreaContainer component is mounted', () => {
   const { props, wrapper } = setup();
 
-  it('renders the message area container', () => {
+  it('should indicate that MessageArea component is rendered', () => {
     wrapper.setState({ redirect: false });
     expect(wrapper.find('MessageArea').exists()).toEqual(true);
   });
@@ -60,7 +60,8 @@ describe('Messaging Container', () => {
     expect(enzymeWrapper.find('MessageBoardIcons').exists()).toBe(true);
   });
 
-  it('should call handleActiveGroupClicked', () => {
+  it('should call handleActiveGroupClicked method when archive modal is opened',
+  () => {
     wrapper.instance().handleActiveGroupClicked(data.event);
     expect(props.selectedGroupDetails.mock.calls.length).toEqual(1);
   });

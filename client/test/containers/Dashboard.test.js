@@ -33,13 +33,14 @@ const setup = () => {
   };
 };
 
-describe('Dashboard Container', () => {
+describe('Given Dashboard component is mounted', () => {
   const { props, wrapper } = setup();
-  it('renders the dashboard container', () => {
+  it('should indicate that DashboardArea component is rendered', () => {
     expect(wrapper.find('DashboardArea').exists()).toBe(true);
   });
 
-  it('should call handleActiveGroupClicked', () => {
+  it('should call handleActiveGroupClicked method when archive modal is opened',
+  () => {
     wrapper.instance().handleActiveGroupClicked(data.event);
     expect(props.selectedGroupDetails.mock.calls.length).toEqual(1);
   });

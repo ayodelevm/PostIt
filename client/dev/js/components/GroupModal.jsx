@@ -50,7 +50,7 @@ const GroupModal = props => (
                 <div className="row">
                   <InputFieldGroup
                     name={'name'}
-                    placeholder={'e.g learn-python'}
+                    placeholder={'e.g Learning'}
                     id={'name'}
                     value={props.state.name}
                     label={'name (Required)'}

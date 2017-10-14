@@ -18,7 +18,7 @@ const AllGroups = (props) => {
         <div className="card-stacked">
           <div className="card-content">
             <h5>{group.name}</h5>
-            <p className="flow-text description">
+            <p className="flow-text grey-text description">
               {group.description}
             </p>
           </div>

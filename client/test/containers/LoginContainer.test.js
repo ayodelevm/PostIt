@@ -29,26 +29,28 @@ const setup = () => {
   };
 };
 
-describe('login container', () => {
+describe('Given LoginContainer component is mounted', () => {
   const { props, wrapper } = setup();
 
-  it('should render add login form', () => {
+  it('should indicate that LoginForm component is rendered', () => {
     expect(wrapper.find('LoginForm').exists()).toEqual(true);
   });
 
-  it('should notify on handle google response error', () => {
+  it('should return error from google when google login button is clicked',
+  () => {
     const response = { error: 'Login Unsuccessful!' };
     wrapper.instance().handleGoogleResponse(response);
     expect(props.googleLogin).not.toBeCalled();
   });
 
-  it('should notify on handle google response error', () => {
+  it('should return success from google when google login button is clicked',
+  () => {
     const response = { tokenObj: { id_token: 'jldhvschHJKEVc' } };
     wrapper.instance().handleGoogleResponse(response);
     expect(props.googleLogin).toBeCalled();
   });
 
-  it('should call handleFormSubmit and notify onSuccess', () => {
+  it('should return success when google login button is clicked', () => {
     const enzymeWrapper = mount(<LoginContainer {...{
       ...props, loginResponse: { isAuthenticated: true }
     }} />);
@@ -57,7 +59,7 @@ describe('login container', () => {
     expect(props.googleLogin).toHaveBeenCalled();
   });
 
-  it('should call handleFormSubmit and notify onSuccess', () => {
+  it('should return error when google login button is clicked', () => {
     const enzymeWrapper = mount(<LoginContainer {...{
       ...props,
       loginResponse: {
@@ -68,12 +70,13 @@ describe('login container', () => {
     expect(props.googleLogin).toHaveBeenCalled();
   });
 
-  it('should call set setstate on input change', () => {
+  it('should set state on each input into form input field', () => {
     wrapper.instance().handleChange(data.passwordEvent);
     expect(wrapper.state().password).toEqual('adeleke');
   });
 
-  it('should delete errors from state', () => {
+  it('should delete errors from state when a user corrects error in form input',
+  () => {
     wrapper.setState(data.errors);
     wrapper.instance().handleChange(data.passwordEvent);
     expect(wrapper.state().errors.password).toEqual(undefined);
@@ -81,20 +84,21 @@ describe('login container', () => {
     .toEqual('this field is required');
   });
 
-  it('should setState with error when validation failure', () => {
+  it('should setState with error object when validation is not successful',
+  () => {
     wrapper.setState({ userIdentifier: '' });
     wrapper.instance().handleFormSubmit(data.event);
     expect(wrapper.state().errors.userIdentifier)
     .toEqual('This field is required');
   });
 
-  it('should call loginAUser method', () => {
+  it('should call handleFormSubmit method when form is submitted', () => {
     wrapper.setState({ userIdentifier: 'ayo@mail.com', password: 'ayo' });
     wrapper.instance().handleFormSubmit(data.event);
     expect(props.loginAUser.mock.calls.length).toEqual(1);
   });
 
-  it('should call loginAUser and notify onSuccess', () => {
+  it('should dispatch action and return success when form is submitted', () => {
     const enzymeWrapper = mount(<LoginContainer {...{
       ...props, loginResponse: { isAuthenticated: true }
     }} />);
@@ -103,7 +107,7 @@ describe('login container', () => {
     expect(props.loginAUser.mock.calls.length).toEqual(2);
   });
 
-  it('should call loginAUser and notify onSuccess', () => {
+  it('should dispatch action and return error when form is submitted', () => {
     const enzymeWrapper = mount(<LoginContainer {...{
       ...props,
       loginResponse: {

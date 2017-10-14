@@ -10,7 +10,7 @@ const mockStore = configureMockStore(middlewares);
 const token = 'kbdHJYCBu.85bireYIRb';
 
 
-describe('message actions', () => {
+describe('Reset password actions', () => {
   it('should create action when reset password link has been sent successfully',
   () => {
     const mailSuccess = { success: '' };

@@ -119,8 +119,7 @@ div.row.group-section-message {
 
 .description {
   font-size: 0.8rem;
-  color: grey;
-  font-style: italic; }
+  color: grey; }
 
 div#message-board-background {
   background-color: #e6ee9c;
@@ -214,7 +213,6 @@ ul #archive-dropdown {
   width: 100%; }
   .message-header .group-description {
     font-size: 0.7rem;
-    font-style: italic;
     color: grey;
     margin-left: 10px; }
 
@@ -342,6 +340,13 @@ i.material-icons.add-groups {
   overflow-y: none; }
 
 .card.white.members-form {
+  max-height: 80vh;
+  overflow-y: scroll; }
+
+.row.archive-modal {
+  overflow-y: none; }
+
+.card.white.archive-form {
   max-height: 80vh;
   overflow-y: scroll; }
 

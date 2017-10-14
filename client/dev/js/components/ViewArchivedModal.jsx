@@ -27,9 +27,9 @@ const ViewArchivedModal = (props) => {
         </Link>
       </div>
 
-      <div className="row">
+      <div className="row archive-modal">
         <div className="col s12 m8 offset-m2 l6 offset-l3">
-          <div className="card white">
+          <div className="card white archive-form">
             <div className="card-content black-text">
               <div className="row card-title-area">
                 <span

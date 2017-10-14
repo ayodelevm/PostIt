@@ -25,26 +25,27 @@ const setup = () => {
   };
 };
 
-describe('addUsers container', () => {
+describe('Given AddUsers component is mounted', () => {
   const { props, wrapper } = setup();
 
-  it('should render add users modal', () => {
+  it('should indicate that AddUsersModal component is rendered', () => {
     expect(wrapper.find('AddUsersModal').exists()).toEqual(true);
   });
 
-  it('should call set setstate on chips change', () => {
+  it('should setState with users array when users to be added are selected',
+  () => {
     wrapper.instance().handleChange(['ayodapov', 'tundun']);
     expect(wrapper.state().members).toEqual(['ayodapov', 'tundun']);
   });
 
-  it('should call set setstate when handleResetState is called', () => {
+  it('should reset state when modal is closed', () => {
     wrapper.instance().handleResetState();
     expect(wrapper.state().members).toEqual([]);
     expect(wrapper.state().errors).toEqual({});
     expect(wrapper.state().createSuccess).toEqual(false);
   });
 
-  it('should call handleFormSubmit and notify onSuccess', () => {
+  it('should call handleFormSubmit method when form is submitted', () => {
     const enzymeWrapper = mount(<AddUsers {...{
       ...props,
       addUsersResponse: {
@@ -56,7 +57,8 @@ describe('addUsers container', () => {
     expect(props.addNewUsersToGroup.mock.calls.length).toEqual(1);
   });
 
-  it('should call handleFormSubmit and notify onSuccess', () => {
+  it('should dispatch action and return success when form is submitted',
+  () => {
     const enzymeWrapper = mount(<AddUsers {...{
       ...props,
       addUsersResponse: {

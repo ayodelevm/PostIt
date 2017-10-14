@@ -127,17 +127,31 @@ export default class AuthCtrl {
           from: 'noreply.postitapp@gmail.com',
           to: email,
           subject: 'Reset Password',
-          html: `<p><h2>Hi ${foundUser.username}!</h2><b></p> 
-          <p><h3 style="color: 'grey';">
-          You have received this mail because you asked to
-          reset your account on PostIt. Please
-          <a href="${req.headers.origin}/resetpassword?tok=${token}">
-          Click here</a> to reset it. <b>
-          This link is only valid for the next 1 hour.</b></h3></p>
-          <p style="color: 'grey';">
-          Please ignore this mail if you did not make this request.</p>
-          <p style="color: 'grey';">Thanks,</p>
-          <p style="color: 'grey';">The Postit team</p>`,
+          html: `<div>
+          <div style="max-width:100%; height:60px; background-color:gray">
+          <span> </span>
+          </div>
+          <div style="padding:20px 80px; color:darkgray; font-size:1.4rem; 
+          font-family:Verdana, Geneva, Tahoma, sans-serif">
+              <p style="color:black">Hi ${foundUser.username},<b></p> 
+                <p style="line-height:2">
+                You have received this mail because you asked to
+                reset your account on PostIt. Please
+                <a href="${req.headers.origin}/resetpassword?tok=${token}">
+                Click here</a> to reset it. <span style="color:grey">
+                This link is only valid for the next 1 hour.</span></p>
+                <p>
+                Please ignore this mail if you did not make this request.
+                </p>
+                <p>Thanks,</p>
+                <p>The Postit team.</p>
+          </div>
+          <div style="max-width:100%; height:60px; background-color:gray;
+          text-align:center">
+            <p style="color:white; padding-top:20px">
+            &copy;2017 PostIt. All Rights Reserved</p>
+          </div>
+        </div>`,
         };
         return transporter.sendMail(mailOptions, (error) => {
           if (error) {

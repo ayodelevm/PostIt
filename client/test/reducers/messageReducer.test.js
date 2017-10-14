@@ -8,7 +8,7 @@ const initialState = {
   newMessageSuccess: false
 };
 
-describe('User Reducer', () => {
+describe('Message Reducer', () => {
   it('should get all messages in a group', () => {
     const action = {
       type: Types.GET_GROUP_AND_ITS_MESSAGES,

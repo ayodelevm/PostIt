@@ -27,39 +27,39 @@ const setup = () => {
   };
 };
 
-describe('message form container', () => {
+describe('Given MessageFormContainer component is mounted', () => {
   const { props, wrapper } = setup();
 
-  it('should render message form', () => {
+  it('should indicate that MessageForm component is rendered', () => {
     const enzymeWrapper = mount(
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <MessageFormContainer {...props} />
-      </ConnectedRouter>
-    </Provider>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <MessageFormContainer {...props} />
+        </ConnectedRouter>
+      </Provider>
 );
     expect(enzymeWrapper.find('MessageForm').exists()).toEqual(true);
   });
 
-  it('should setState on dropdown select', () => {
+  it('should setState with message priority when priority is selected', () => {
     const value = { value: 'Urgent', label: 'Urgent' };
     wrapper.instance().handleLogChange(value);
     expect(wrapper.state().selected.value).toEqual('Urgent');
     expect(wrapper.state().selected.label).toEqual('Urgent');
   });
 
-  it('should call set setstate on input change', () => {
+  it('should set state on each input into form input field', () => {
     wrapper.instance().handleChange(data.passwordEvent);
     expect(wrapper.state().password).toEqual('adeleke');
   });
 
-  it('should call handleFormSubmit on enter in text area', () => {
+  it('should enable user to post message by pressing enter key', () => {
     wrapper.setState(data.newState);
     wrapper.instance().handleKeyPress(data.event);
     expect(props.createNewMessages).toBeCalled();
   });
 
-  it('should call create new messages method', () => {
+  it('should call handleFormSubmit method when message is posted', () => {
     wrapper.setState(data.newState);
     wrapper.instance().handleFormSubmit(data.event);
     expect(props.createNewMessages.mock.calls.length).toEqual(2);

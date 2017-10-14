@@ -10,7 +10,7 @@ const initialState = {
   getArchivedSuccess: false
 };
 
-describe('User Reducer', () => {
+describe('Archive Reducer', () => {
   it('should get the id of group to be archived', () => {
     const action = {
       type: Types.SELECT_GROUP_ID_TO_ARCHIVE,

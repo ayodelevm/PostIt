@@ -9,7 +9,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const token = 'kbdHJYCBu.85bireYIRb';
 
-describe('message actions', () => {
+describe('Message actions', () => {
   it("should create an action to get a group and it's messages", () => {
     const groupMessages = {
       success: '',
@@ -35,7 +35,7 @@ describe('message actions', () => {
     expect(actions.successfulCreate(message)).toEqual(expectedAction);
   });
 
-  it('should create an action to set a current message after posting messge',
+  it('should create an action to set a current message after posting message',
   () => {
     const mergedMessages = {
       foundMessages: {
@@ -71,7 +71,6 @@ describe('message actions', () => {
 });
 
 describe('Message async actions', () => {
-
   it('should dispatch GET_GROUP_AND_ITS_MESSAGES', () => {
     const store = mockStore({});
     const expectedActions = [

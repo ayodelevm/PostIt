@@ -24,10 +24,11 @@ const RenderMessage = (props) => {
             </div>
             <div className="col s10">
               <span
-                className="message-username">@{foundUser.username} | </span>
+                className="message-username">@{foundUser.username} |&nbsp;&nbsp;</span>
               <span className="date-time">
                 {(new Date(message.createdAt)).toLocaleString()}
               </span>
+              <span>&nbsp;&nbsp;</span>
               <span
                 className={classnames({
                   'status-normal': message.priority === 'Normal',

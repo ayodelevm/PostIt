@@ -8,6 +8,7 @@ import { AddUsers } from '../../dev/js/containers/AddUsers.jsx';
 
 window.localStorage = localStorageMock;
 jest.mock('react-router-dom');
+jest.mock('react-notify-toast');
 
 const setup = () => {
   const props = {
@@ -46,6 +47,12 @@ describe('Given AddUsers component is mounted', () => {
   });
 
   it('should call handleFormSubmit method when form is submitted', () => {
+    wrapper.instance().handleFormSubmit(data.event);
+    expect(props.addNewUsersToGroup.mock.calls.length).toEqual(1);
+  });
+
+  it('should reset state when addNewUsersToGroup action is succesful',
+  (done) => {
     const enzymeWrapper = mount(<AddUsers {...{
       ...props,
       addUsersResponse: {
@@ -54,19 +61,9 @@ describe('Given AddUsers component is mounted', () => {
     }} />);
 
     enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.addNewUsersToGroup.mock.calls.length).toEqual(1);
-  });
-
-  it('should dispatch action and return success when form is submitted',
-  () => {
-    const enzymeWrapper = mount(<AddUsers {...{
-      ...props,
-      addUsersResponse: {
-        ...props.addUsersResponse,
-        ...{ errors: { globals: '' } } }
-    }} />);
-
-    enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.addNewUsersToGroup.mock.calls.length).toEqual(2);
+    setImmediate(() => {
+      expect(enzymeWrapper.state().members).toEqual([]);
+      done();
+    });
   });
 });

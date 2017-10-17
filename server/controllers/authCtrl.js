@@ -147,7 +147,7 @@ export default class AuthCtrl {
               <p>The Postit team.</p>
           </div>
           <p style="padding:0px 80px; font-size:0.8rem">
-          Discalimer: Please ignore this mail if you did not make this request.
+          Disclaimer: Please ignore this mail if you did not make this request.
           </p>
           <div style="max-width:100%; height:60px; background-color:#f5f5f5;
           text-align:center">

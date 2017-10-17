@@ -85,7 +85,8 @@ export const userData = {
     fullname: 'Jide Tobias',
     email: 'jide@gmail.com',
     telephone: '09074384397'
-  }]
+  }],
+  errors: { globals: '' }
 };
 
 export const currentUser = {

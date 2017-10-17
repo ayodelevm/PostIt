@@ -10,6 +10,7 @@ import {
 
 window.localStorage = localStorageMock;
 jest.mock('react-router-dom');
+jest.mock('react-notify-toast');
 
 const setup = () => {
   const props = {
@@ -76,19 +77,26 @@ describe('Given GroupFormContainer component is mounted', () => {
     expect(props.createNewGroup.mock.calls.length).toEqual(1);
   });
 
-  it('should dispatch action and return success when form is submitted', () => {
+  it('should reset state when createNewGroup action is succesful',
+  (done) => {
     const enzymeWrapper = mount(<GroupFormContainer {...{
       ...props,
       groupResponse: {
         ...props.groupResponse, createSuccess: true }
     }} />);
     enzymeWrapper
-    .setState({ name: 'learn python', description: '', members: [] });
+    .setState({ name: 'learn python', description: 'learn', members: ['2'] });
     enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.createNewGroup.mock.calls.length).toEqual(2);
+    setImmediate(() => {
+      expect(enzymeWrapper.state().name).toEqual('');
+      expect(enzymeWrapper.state().description).toEqual('');
+      expect(enzymeWrapper.state().members).toEqual([]);
+      done();
+    });
   });
 
-  it('should dispatch action and return error when form is submitted', () => {
+  it('should setState with error object when forgotPassword action fails',
+  (done) => {
     const enzymeWrapper = mount(<GroupFormContainer {...{
       ...props,
       groupResponse: {
@@ -98,19 +106,9 @@ describe('Given GroupFormContainer component is mounted', () => {
     enzymeWrapper
     .setState({ name: 'learn python', description: '', members: [] });
     enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.createNewGroup.mock.calls.length).toEqual(3);
-  });
-
-  it('should dispatch action and return error when form is submitted', () => {
-    const enzymeWrapper = mount(<GroupFormContainer {...{
-      ...props,
-      groupResponse: {
-        ...props.groupResponse,
-        errors: { globals: 'name already exist' } }
-    }} />);
-    enzymeWrapper
-    .setState({ name: 'learn python', description: '', members: [] });
-    enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.createNewGroup.mock.calls.length).toEqual(4);
+    setImmediate(() => {
+      expect(enzymeWrapper.state().errors).toEqual('name already exist');
+      done();
+    });
   });
 });

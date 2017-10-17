@@ -42,7 +42,7 @@ export class NavContainer extends React.Component {
   render() {
     const { isAuthenticated } = this.props.logoutAction;
 
-    const beforeAuth = (
+    const BeforeAuth = () => (
       <div>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>
@@ -71,7 +71,7 @@ export class NavContainer extends React.Component {
       </div>
     );
 
-    const afterAuth = (
+    const AfterAuth = () => (
       <div>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li><Link
@@ -114,7 +114,7 @@ export class NavContainer extends React.Component {
 
     return (
       <div>
-        { isAuthenticated ? afterAuth : beforeAuth }
+        { isAuthenticated ? <AfterAuth /> : <BeforeAuth /> }
       </div>
     );
   }

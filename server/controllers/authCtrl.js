@@ -128,30 +128,38 @@ export default class AuthCtrl {
           to: email,
           subject: 'Reset Password',
           html: `<div>
-          <div style="max-width:100%; height:60px; background-color:gray">
-          <span> </span>
-          </div>
-          <div style="padding:20px 80px; color:darkgray; font-size:1.4rem; 
+          <header style="max-width:100%; height:60px; background-color:#aeea00">
+          <p style="color:black; padding-top:15px; padding-left:5px
+          font-size:1.2rem">
+          </p>
+          </header>
+          <div style="padding:20px 80px; color:darkgray; font-size:1.1rem; 
           font-family:Verdana, Geneva, Tahoma, sans-serif">
-              <p style="color:black">Hi ${foundUser.username},<b></p> 
-                <p style="line-height:2">
-                You have received this mail because you asked to
-                reset your account on PostIt. Please
-                <a href="${req.headers.origin}/resetpassword?tok=${token}">
-                Click here</a> to reset it. <span style="color:grey">
-                This link is only valid for the next 1 hour.</span></p>
-                <p>
-                Please ignore this mail if you did not make this request.
-                </p>
-                <p>Thanks,</p>
-                <p>The Postit team.</p>
+            <img src="cid:unique@kreata.ee" style="padding-left: 35%" />
+            <p style="color:black">Hi ${foundUser.username},<b></p> 
+              <p style="line-height:2">
+              You have received this mail because you asked to
+              reset your account on PostIt. Please
+              <a href="${req.headers.origin}/resetpassword?tok=${token}">
+              Click here</a> to reset it.</p> <p><span style="color:grey">
+              This link is only valid for the next 1 hour.</span></p>
+              <p>Thanks,</p>
+              <p>The Postit team.</p>
           </div>
-          <div style="max-width:100%; height:60px; background-color:gray;
+          <p style="padding:0px 80px; font-size:0.8rem">
+          Discalimer: Please ignore this mail if you did not make this request.
+          </p>
+          <div style="max-width:100%; height:60px; background-color:#f5f5f5;
           text-align:center">
-            <p style="color:white; padding-top:20px">
+            <p style="color:black; padding-top:20px">
             &copy;2017 PostIt. All Rights Reserved</p>
           </div>
         </div>`,
+          attachments: [{
+            filename: 'logo.png',
+            path: 'http://res.cloudinary.com/dr6ynr4o0/image/upload/c_scale,e_sharpen:918,h_43,q_100/v1508254787/b9ortnas2haeooztbjhz.png',
+            cid: 'unique@kreata.ee'
+          }]
         };
         return transporter.sendMail(mailOptions, (error) => {
           if (error) {

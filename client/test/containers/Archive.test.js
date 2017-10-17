@@ -8,6 +8,7 @@ import { Archive } from '../../dev/js/containers/Archive.jsx';
 
 window.localStorage = localStorageMock;
 jest.mock('react-router-dom');
+jest.mock('react-notify-toast');
 
 const setup = () => {
   const props = {
@@ -31,7 +32,7 @@ describe('Given Archive component is mounted', () => {
     expect(wrapper.find('ArchiveModal').exists()).toEqual(true);
   });
 
-  it('should call handleSubmit when archive button is clicked', () => {
+  it('should setState with message Ids', (done) => {
     const enzymeWrapper = mount(<Archive {...{
       ...props,
       archiveData: {
@@ -41,9 +42,13 @@ describe('Given Archive component is mounted', () => {
 
     enzymeWrapper.instance().handleSubmit(data.event);
     expect(props.getGroupWithMessages.mock.calls.length).toEqual(1);
+    setImmediate(() => {
+      expect(enzymeWrapper.state().messageIds).toEqual(['5', '6']);
+      done();
+    });
   });
 
-  it('should dispatch action and return success when archive button is clicked',
+  it('should dispatch getGroupWithMessages action',
   () => {
     const enzymeWrapper = mount(<Archive {...{
       ...props,

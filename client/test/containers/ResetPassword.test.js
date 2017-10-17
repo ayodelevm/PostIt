@@ -8,11 +8,12 @@ import { ResetPassword } from '../../dev/js/containers/ResetPassword.jsx';
 
 window.localStorage = localStorageMock;
 jest.mock('react-router-dom');
+jest.mock('react-notify-toast');
 
 const setup = () => {
   const props = {
     resetPassword: jest.fn(() => Promise.resolve()),
-    resetResponse: {},
+    resetResponse: { errors: { globals: 'password change unsuccessful' } },
     location: data.location
   };
 
@@ -62,34 +63,30 @@ describe('Given ResetPassword component is mounted', () => {
     expect(props.resetPassword.mock.calls.length).toEqual(1);
   });
 
-  it('should dispatch action and return success when form is submitted',
-  () => {
+  it('should should setState when resetPassword action is successful',
+  (done) => {
     const enzymeWrapper = mount(<ResetPassword {...{
       ...props, resetResponse: { resetSuccess: true }
     }} />);
     enzymeWrapper.setState({ password: 'ayo', passwordConfirmation: 'ayo' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.resetPassword.mock.calls.length).toEqual(2);
+    setImmediate(() => {
+      expect(enzymeWrapper.state().redirect).toEqual(true);
+      done();
+    });
   });
 
-  it('should dispatch action and return error when form is submitted', () => {
+  it('should setState with error object when resetPassword action fails',
+  (done) => {
     const enzymeWrapper = mount(<ResetPassword {...{
       ...props,
       resetResponse: { errors: { errors: "passwords don't match" } }
     }} />);
     enzymeWrapper.setState({ password: 'ayo', passwordConfirmation: 'ayo' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.resetPassword.mock.calls.length).toEqual(3);
-  });
-
-  it('should dispatch action and return error when form is submitted', () => {
-    const enzymeWrapper = mount(<ResetPassword {...{
-      ...props,
-      resetResponse: { errors: {
-        globals: 'password change unsuccessful' } }
-    }} />);
-    enzymeWrapper.setState({ password: 'ayo', passwordConfirmation: 'ayo' });
-    enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.resetPassword.mock.calls.length).toEqual(4);
+    setImmediate(() => {
+      expect(enzymeWrapper.state().errors).toEqual("passwords don't match");
+      done();
+    });
   });
 });

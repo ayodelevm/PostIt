@@ -32,38 +32,46 @@ describe('Given SignUpContainer component is mounted', () => {
     expect(wrapper.find('SignUpForm').exists()).toEqual(true);
   });
 
-  it('should return error from google when google signup button is clicked',
+  it('should not dispatch googleLogin action when google verification fails',
   () => {
     const response = { error: 'SignUp Unsuccessful!' };
     wrapper.instance().handleGoogleResponse(response);
     expect(props.googleRegister).not.toBeCalled();
   });
 
-  it('should return success from google when google login button is clicked',
+  it('should dispatch googleRegister action on successful google verification',
   () => {
     const response = { tokenObj: { id_token: 'jldhvschHJKEVc' } };
     wrapper.instance().handleGoogleResponse(response);
     expect(props.googleRegister).toBeCalled();
   });
 
-  it('should return success when google login button is clicked', () => {
+  it('should set redirect in state when googleRegister action is successful',
+  (done) => {
     const enzymeWrapper = mount(<SignUpContainer {...{
       ...props,
       signupResponse: { isAuthenticated: true } }
       } />);
     const response = { tokenObj: { id_token: 'jldhvschHJKEVc' } };
     enzymeWrapper.instance().handleGoogleResponse(response);
-    expect(props.googleRegister).toHaveBeenCalled();
+    setImmediate(() => {
+      expect(enzymeWrapper.state().redirect).toEqual(true);
+      done();
+    });
   });
 
-  it('should return error when google login button is clicked', () => {
+  it('should setState with error object when googleRegister action fails',
+  (done) => {
     const enzymeWrapper = mount(<SignUpContainer {...{
       ...props,
       signupResponse: { errors: { errors: 'E-mail already exist' } } }
       } />);
     const response = { tokenObj: { id_token: 'jldhvschHJKEVc' } };
     enzymeWrapper.instance().handleGoogleResponse(response);
-    expect(props.googleRegister).toHaveBeenCalled();
+    setImmediate(() => {
+      expect(enzymeWrapper.state().errors).toEqual('E-mail already exist');
+      done();
+    });
   });
 
   it('should set state on each input into form input field', () => {
@@ -93,17 +101,21 @@ describe('Given SignUpContainer component is mounted', () => {
     expect(props.createNewUser.mock.calls.length).toEqual(1);
   });
 
-  it('should dispatch action and return success when form is submitted',
-  () => {
+  it('should should set redirect in state when dipatch is successful',
+  (done) => {
     const enzymeWrapper = mount(<SignUpContainer {...{
       ...props,
       signupResponse: { isAuthenticated: true } }} />);
     enzymeWrapper.setState(data.stateData);
     enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.createNewUser.mock.calls.length).toEqual(2);
+    setImmediate(() => {
+      expect(enzymeWrapper.state().redirect).toEqual(true);
+      done();
+    });
   });
 
-  it('should dispatch action and return error when form is submitted', () => {
+  it('should setState with error object when createNewUser action fails',
+  (done) => {
     const enzymeWrapper = mount(<SignUpContainer {...{
       ...props,
       signupResponse: { errors: {
@@ -112,6 +124,9 @@ describe('Given SignUpContainer component is mounted', () => {
     }} />);
     enzymeWrapper.setState(data.stateData);
     enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.createNewUser.mock.calls.length).toEqual(3);
+    setImmediate(() => {
+      expect(enzymeWrapper.state().errors).toEqual('invalid login credentials');
+      done();
+    });
   });
 });

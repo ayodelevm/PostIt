@@ -19,7 +19,7 @@ const setup = () => {
     uploadProfileImage: jest.fn(() => Promise.resolve()),
     getGroupMessages: jest.fn(() => Promise.resolve()),
     socketConnect: jest.fn(() => Promise.resolve()),
-    uploadResponse: {},
+    uploadResponse: { uploadSuccess: true },
     closeModalRoute: 'dashboard',
     groupId: 2,
     userId: 2
@@ -44,16 +44,5 @@ describe('Given UploadsContainer component is mounted', () => {
     const files = ['newimage.jpg'];
     wrapper.instance().handleUploadFile(files);
     expect(props.uploadProfileImage).toBeCalled();
-  });
-
-  it('should dispatch action and return success when picture is uploaded',
-  () => {
-    const enzymeWrapper = mount(<UploadsContainer {...{
-      ...props,
-      uploadResponse: { uploadSuccess: true } }
-      } />);
-    const files = ['newimage.jpg'];
-    enzymeWrapper.instance().handleUploadFile(files);
-    expect(props.uploadProfileImage).toHaveBeenCalled();
   });
 });

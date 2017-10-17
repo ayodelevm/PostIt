@@ -19,6 +19,7 @@ const MessageForm = props => (
           onChange={props.onLogChange}
           placeholder={'choose priority'}
           searchable={false}
+          clearable={false}
         />
       </div>
       <div className="input-field col s12 m10 right">

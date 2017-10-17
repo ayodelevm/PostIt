@@ -41,7 +41,8 @@ export const groupData = {
       email: 'jide@gmail.com',
       telephone: '09074384397'
     }]
-  }
+  },
+  errors: { globals: 'name already exist' }
 };
 
 export const messageData = {
@@ -146,7 +147,8 @@ export const archiveData = {
   setGroupDetails: {
     id: 2,
     name: 'learn python'
-  }
+  },
+  errors: { globals: 'invalid credentials' }
 };
 
 export const event = {

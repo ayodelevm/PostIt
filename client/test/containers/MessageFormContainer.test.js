@@ -53,15 +53,9 @@ describe('Given MessageFormContainer component is mounted', () => {
     expect(wrapper.state().password).toEqual('adeleke');
   });
 
-  it('should enable user to post message by pressing enter key', () => {
+  it('should call handleFormSubmit method when message is posted', () => {
     wrapper.setState(data.newState);
     wrapper.instance().handleKeyPress(data.event);
     expect(props.createNewMessages).toBeCalled();
-  });
-
-  it('should call handleFormSubmit method when message is posted', () => {
-    wrapper.setState(data.newState);
-    wrapper.instance().handleFormSubmit(data.event);
-    expect(props.createNewMessages.mock.calls.length).toEqual(2);
   });
 });

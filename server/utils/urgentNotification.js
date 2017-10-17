@@ -1,6 +1,12 @@
 import sendEmail from './sendEmail';
 
-// Sends email when priority is urgent
+/**
+ * Method handling sending notification when priority is urgent
+ * @param {object} group
+ * @param {string} sentBy
+ * @param {string} origin
+ * @returns {void}
+ */
 const urgentNotification = (group, sentBy, origin) => {
   group.getUsers({
     where: { username: { ne: sentBy } },

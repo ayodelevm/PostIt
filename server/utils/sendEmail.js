@@ -1,6 +1,14 @@
 import nodemailer from 'nodemailer';
 
-// Method to send Email
+/**
+ * Method to handle sending email notification
+ * @param {array} emails
+ * @param {string} sentBy
+ * @param {string} groupName
+ * @param {number} groupId
+ * @param {string} origin
+ * @returns {void}
+ */
 const sendEmail = (emails, sentBy, groupName, groupId, origin) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',

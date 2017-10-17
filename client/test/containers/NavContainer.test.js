@@ -25,7 +25,7 @@ const setup = () => {
 describe('Given NavContainer component is mounted', () => {
   const { props, wrapper } = setup();
 
-  it('should call handleLogout method when a user clicks logsout button',
+  it('should call handleLogout method when a user clicks logout button',
   () => {
     wrapper.instance().handleLogout();
     expect(props.logoutAUser).toBeCalled();
@@ -37,7 +37,7 @@ describe('Given NavContainer component is mounted', () => {
       ...props,
       logoutAction: { isAuthenticated: true }
     }} />);
-    enzymeWrapper.instance().handleLogout();
-    expect(props.logoutAUser).toHaveBeenCalled();
+    expect(enzymeWrapper.find('AfterAuth').exists()).toEqual(true);
+    expect(enzymeWrapper.find('BeforeAuth').exists()).toEqual(false);
   });
 });

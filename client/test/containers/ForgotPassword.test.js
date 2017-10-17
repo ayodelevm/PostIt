@@ -8,11 +8,12 @@ import { ForgotPassword } from '../../dev/js/containers/ForgotPassword.jsx';
 
 window.localStorage = localStorageMock;
 jest.mock('react-router-dom');
+jest.mock('react-notify-toast');
 
 const setup = () => {
   const props = {
     forgotPassword: jest.fn(() => Promise.resolve()),
-    resetResponse: {},
+    resetResponse: { errors: { globals: 'E-mail already exist' } },
   };
 
   const wrapper = mount(<ForgotPassword {...props} />);
@@ -62,18 +63,22 @@ describe('Given ForgotPassword component is mounted', () => {
     expect(props.forgotPassword.mock.calls.length).toEqual(1);
   });
 
-  it('should dispatch action and return success when form is submitted', () => {
+  it('should reset email in state when forgotPassword action is succesful',
+  (done) => {
     const enzymeWrapper = mount(<ForgotPassword {...{
       ...props,
       resetResponse: { emailVerified: true }
     }} />);
     enzymeWrapper.setState({ email: 'ayo@mail.com' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.forgotPassword.mock.calls.length).toEqual(2);
+    setImmediate(() => {
+      expect(enzymeWrapper.state().email).toEqual('');
+      done();
+    });
   });
 
-  it('should dispatch action and return error when form is submitted',
-  () => {
+  it('should setState with error object when forgotPassword action fails',
+  (done) => {
     const enzymeWrapper = mount(<ForgotPassword {...{
       ...props,
       resetResponse: {
@@ -81,17 +86,9 @@ describe('Given ForgotPassword component is mounted', () => {
     }} />);
     enzymeWrapper.setState({ email: 'ayo@mail.com' });
     enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.forgotPassword.mock.calls.length).toEqual(3);
-  });
-
-  it('should dispatch action and return error when form is submitted', () => {
-    const enzymeWrapper = mount(<ForgotPassword {...{
-      ...props,
-      resetResponse: {
-        errors: { globals: 'E-mail already exist' } }
-    }} />);
-    enzymeWrapper.setState({ email: 'ayo@mail.com' });
-    enzymeWrapper.instance().handleFormSubmit(data.event);
-    expect(props.forgotPassword.mock.calls.length).toEqual(4);
+    setImmediate(() => {
+      expect(enzymeWrapper.state().errors).toEqual('E-mail already exist');
+      done();
+    });
   });
 });

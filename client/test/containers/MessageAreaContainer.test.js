@@ -11,12 +11,18 @@ import {
 window.localStorage = localStorageMock;
 
 jest.mock('react-router-dom');
-jest.mock('../../dev/js/containers/GroupFormContainer.jsx', () => jest.fn().mockReturnValue(null));
-jest.mock('../../dev/js/containers/UploadsContainer.jsx', () => jest.fn().mockReturnValue(null));
-jest.mock('../../dev/js/containers/Archive.jsx', () => jest.fn().mockReturnValue(null));
-jest.mock('../../dev/js/containers/NavContainer.jsx', () => jest.fn().mockReturnValue(null));
-jest.mock('../../dev/js/containers/MessageFormContainer.jsx', () => jest.fn().mockReturnValue(null));
-jest.mock('../../dev/js/containers/AddUsers.jsx', () => jest.fn().mockReturnValue(null));
+jest.mock('../../dev/js/containers/GroupFormContainer.jsx',
+() => jest.fn().mockReturnValue(null));
+jest.mock('../../dev/js/containers/UploadsContainer.jsx',
+() => jest.fn().mockReturnValue(null));
+jest.mock('../../dev/js/containers/Archive.jsx',
+() => jest.fn().mockReturnValue(null));
+jest.mock('../../dev/js/containers/NavContainer.jsx',
+() => jest.fn().mockReturnValue(null));
+jest.mock('../../dev/js/containers/MessageFormContainer.jsx',
+() => jest.fn().mockReturnValue(null));
+jest.mock('../../dev/js/containers/AddUsers.jsx',
+() => jest.fn().mockReturnValue(null));
 
 const setup = () => {
   const props = {

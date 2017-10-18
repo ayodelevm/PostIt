@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import 'materialize-css/dist/js/materialize';
 
 import localStorageMock from '../__mocks__/localStorageMock';
 import * as data from '../__mocks__/mockData';

@@ -11,12 +11,12 @@ import {
 window.localStorage = localStorageMock;
 
 jest.mock('react-router-dom');
-jest.mock('../../dev/js/containers/GroupFormContainer.jsx');
-jest.mock('../../dev/js/containers/UploadsContainer.jsx');
-jest.mock('../../dev/js/containers/Archive.jsx');
-jest.mock('../../dev/js/containers/NavContainer.jsx');
-jest.mock('../../dev/js/containers/MessageFormContainer.jsx');
-jest.mock('../../dev/js/containers/AddUsers.jsx');
+jest.mock('../../dev/js/containers/GroupFormContainer.jsx', () => jest.fn().mockReturnValue(null));
+jest.mock('../../dev/js/containers/UploadsContainer.jsx', () => jest.fn().mockReturnValue(null));
+jest.mock('../../dev/js/containers/Archive.jsx', () => jest.fn().mockReturnValue(null));
+jest.mock('../../dev/js/containers/NavContainer.jsx', () => jest.fn().mockReturnValue(null));
+jest.mock('../../dev/js/containers/MessageFormContainer.jsx', () => jest.fn().mockReturnValue(null));
+jest.mock('../../dev/js/containers/AddUsers.jsx', () => jest.fn().mockReturnValue(null));
 
 const setup = () => {
   const props = {
@@ -26,11 +26,11 @@ const setup = () => {
     currentUser: data.currentUser,
     archiveData: data.archiveData,
     groupMessages: data.messageData,
-    getGroupMessages: () => Promise.resolve(),
+    getGroupMessages: jest.fn(() => Promise.resolve()),
     getGroupUsers: jest.fn(() => Promise.resolve()),
     selectedGroupDetails: jest.fn(),
     getArchivedMessages: jest.fn(),
-    getUserGroups: () => Promise.resolve(),
+    getUserGroups: jest.fn(() => Promise.resolve()),
     getAllUsers: jest.fn(() => Promise.resolve()),
     handleActiveGroupClicked: jest.fn()
   };
@@ -50,14 +50,12 @@ describe('Given MessageAreaContainer component is mounted', () => {
     expect(wrapper.find('MessageArea').exists()).toEqual(true);
   });
 
-  it('should call componentDidMount', () => {
-    const enzymeWrapper = mount(<MessageAreaContainer {...{
-      ...props,
-      ...{ groupMessages: {
-        groupMessages: { Messages: [] },
-        getMessagesSuccess: true } }
-    }} />);
-    expect(enzymeWrapper.find('MessageBoardIcons').exists()).toBe(true);
+  it('should dispatch actions in componentDidMount when component mounts',
+  () => {
+    expect(props.getGroupMessages.mock.calls.length).toEqual(1);
+    expect(props.getGroupUsers.mock.calls.length).toEqual(1);
+    expect(props.getUserGroups.mock.calls.length).toEqual(1);
+    expect(props.getAllUsers.mock.calls.length).toEqual(1);
   });
 
   it('should call handleActiveGroupClicked method when archive modal is opened',

@@ -58,7 +58,7 @@ describe('Given GroupFormContainer component is mounted', () => {
     .toEqual('this field is required');
   });
 
-  it('should setState with users array when users to be added are selected',
+  it('should setState with members array when users to be added are selected',
   () => {
     wrapper.instance().handleChipsChange(['ayodapov', 'tundun']);
     expect(wrapper.state().members).toEqual(['ayodapov', 'tundun']);
@@ -71,13 +71,13 @@ describe('Given GroupFormContainer component is mounted', () => {
     expect(wrapper.state().errors.name).toEqual('This field is required');
   });
 
-  it('should call handleFormSubmit method when form is submitted', () => {
+  it('should dispatch createNewGroup action when form is submitted', () => {
     wrapper.setState({ name: 'learn python' });
     wrapper.instance().handleFormSubmit(data.event);
     expect(props.createNewGroup.mock.calls.length).toEqual(1);
   });
 
-  it('should reset state when createNewGroup action is succesful',
+  it('should reset state when createNewGroup action returns success',
   (done) => {
     const enzymeWrapper = mount(<GroupFormContainer {...{
       ...props,
@@ -95,12 +95,12 @@ describe('Given GroupFormContainer component is mounted', () => {
     });
   });
 
-  it('should setState with error object when forgotPassword action fails',
+  it('should setState with error object when forgotPassword action returns error',
   (done) => {
     const enzymeWrapper = mount(<GroupFormContainer {...{
       ...props,
       groupResponse: {
-        ...props.groupResponse,
+        ...props.grnoupResponse,
         errors: { errors: 'name already exist' } }
     }} />);
     enzymeWrapper

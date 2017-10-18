@@ -17,8 +17,7 @@ const AddUsersModal = props => (
       <Link
         to={`/${props.closeModalRoute}`}
         className={
-            'modal-action modal-close' +
-            ' waves-effect waves-green btn-flat right'
+            'modal-action modal-close waves-effect waves-green btn-flat right'
             }
         onClick={props.onResetState}
           ><i className="material-icons center">close</i></Link>
@@ -61,8 +60,7 @@ const AddUsersModal = props => (
                   <div className="input-field col s12">
                     <button
                       className={
-                        'btn lime accent-4 right' +
-                        ' waves-effect waves-light center'
+                        'btn lime accent-4 right waves-effect waves-light center'
                         }
                       type="submit" name="action">
                         Add Users

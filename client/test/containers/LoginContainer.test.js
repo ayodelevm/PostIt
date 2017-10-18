@@ -50,7 +50,7 @@ describe('Given LoginContainer component is mounted', () => {
     expect(props.googleLogin).toBeCalled();
   });
 
-  it('should set redirect in state when googleLogin action is successful',
+  it('should set redirect in state to true when googleLogin action returns success',
   (done) => {
     const enzymeWrapper = mount(<LoginContainer {...{
       ...props, loginResponse: { isAuthenticated: true }
@@ -63,7 +63,7 @@ describe('Given LoginContainer component is mounted', () => {
     });
   });
 
-  it('should setState with error object when googleLogin action fails',
+  it('should setState with error object when googleLogin action returns error',
   (done) => {
     const enzymeWrapper = mount(<LoginContainer {...{
       ...props,
@@ -92,7 +92,7 @@ describe('Given LoginContainer component is mounted', () => {
     .toEqual('this field is required');
   });
 
-  it('should setState with error object when validation is not successful',
+  it('should setState with error object when validation fails',
   () => {
     wrapper.setState({ userIdentifier: '' });
     wrapper.instance().handleFormSubmit(data.event);
@@ -106,7 +106,7 @@ describe('Given LoginContainer component is mounted', () => {
     expect(props.loginAUser.mock.calls.length).toEqual(1);
   });
 
-  it('should should set redirect in state when loginAUser action is successful',
+  it('should should set redirect in state to true when loginAUser action returns success',
   (done) => {
     const enzymeWrapper = mount(<LoginContainer {...{
       ...props, loginResponse: { isAuthenticated: true }
@@ -119,7 +119,7 @@ describe('Given LoginContainer component is mounted', () => {
     });
   });
 
-  it('should setState with error object when loginAUser action fails',
+  it('should setState with error object when loginAUser action returns error',
   (done) => {
     const enzymeWrapper = mount(<LoginContainer {...{
       ...props,

@@ -32,7 +32,8 @@ describe('Given Archive component is mounted', () => {
     expect(wrapper.find('ArchiveModal').exists()).toEqual(true);
   });
 
-  it('should setState with message Ids', (done) => {
+  it('should dispatch getGroupWithMessages and setState with messageIds',
+  (done) => {
     const enzymeWrapper = mount(<Archive {...{
       ...props,
       archiveData: {
@@ -48,7 +49,7 @@ describe('Given Archive component is mounted', () => {
     });
   });
 
-  it('should dispatch getGroupWithMessages action',
+  it('should dispatch archiveMessages action when user archives messages',
   () => {
     const enzymeWrapper = mount(<Archive {...{
       ...props,
@@ -58,6 +59,6 @@ describe('Given Archive component is mounted', () => {
     }} />);
 
     enzymeWrapper.instance().handleSubmit(data.event);
-    expect(props.getGroupWithMessages.mock.calls.length).toEqual(2);
+    expect(props.archiveMessages.mock.calls.length).toEqual(1);
   });
 });

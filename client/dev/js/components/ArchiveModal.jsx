@@ -13,8 +13,7 @@ const ArchiveModal = props => (
   <div id="archive-all" className="modal">
     <div className="row modal-close-div">
       <Link to={`/${props.closeModalRoute}`}
-        className={'modal-action modal-close' +
-          ' waves-effect waves-green btn-flat right'
+        className={'modal-action modal-close waves-effect waves-green btn-flat right'
           }
         >
         <i className="material-icons center">
@@ -50,8 +49,7 @@ const ArchiveModal = props => (
                   <div className="input-field col s12">
                     <button
                       className={
-                        'btn lime accent-4 right' +
-                        ' waves-effect waves-light center'
+                        'btn lime accent-4 right waves-effect waves-light center'
                         }
                       type="submit"
                       name="action"

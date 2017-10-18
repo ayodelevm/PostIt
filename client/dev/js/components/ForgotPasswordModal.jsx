@@ -16,8 +16,7 @@ const ForgotPasswordModal = props => (
   <div id="reset-email" className="modal">
     <div className="row modal-close-div">
       <Link to="/login"
-        className={'modal-action modal-close' +
-          ' waves-effect waves-green btn-flat right'}
+        className={'modal-action modal-close waves-effect waves-green btn-flat right'}
         onClick={props.onResetState}
           ><i className="material-icons center">close</i></Link>
     </div>
@@ -73,8 +72,7 @@ const ForgotPasswordModal = props => (
                 <div className="row">
                   <div className="input-field col s12">
                     <button
-                      className={'btn lime accent-4 right' +
-                        ' waves-effect waves-light center'}
+                      className={'btn lime accent-4 right waves-effect waves-light center'}
                       type="submit"
                       name="action"
                       >

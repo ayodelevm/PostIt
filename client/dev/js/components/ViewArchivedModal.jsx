@@ -18,8 +18,7 @@ const ViewArchivedModal = (props) => {
         <Link
           to={`/${props.closeModalRoute}`}
           className={
-            'modal-action modal-close waves-effect' +
-            ' waves-green btn-flat right'
+            'modal-action modal-close waves-effect waves-green btn-flat right'
           }
         >
           <i className="material-icons center"

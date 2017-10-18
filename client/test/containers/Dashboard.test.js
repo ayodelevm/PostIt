@@ -39,7 +39,7 @@ describe('Given Dashboard component is mounted', () => {
     expect(wrapper.find('DashboardArea').exists()).toBe(true);
   });
 
-  it('should call handleActiveGroupClicked method when archive modal is opened',
+  it('should dispatch selectedGroupDetails action when archive modal is opened',
   () => {
     wrapper.instance().handleActiveGroupClicked(data.event);
     expect(props.selectedGroupDetails.mock.calls.length).toEqual(1);

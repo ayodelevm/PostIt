@@ -25,13 +25,13 @@ const setup = () => {
 describe('Given NavContainer component is mounted', () => {
   const { props, wrapper } = setup();
 
-  it('should call handleLogout method when a user clicks logout button',
+  it('should dispatch logoutAUser action when a user logs out',
   () => {
     wrapper.instance().handleLogout();
     expect(props.logoutAUser).toBeCalled();
   });
 
-  it('should render a different nav content when a user is authenticated',
+  it("should switch nav's BeforeAuth component to AfterAuth component when user is authenticated",
   () => {
     const enzymeWrapper = mount(<NavContainer {...{
       ...props,

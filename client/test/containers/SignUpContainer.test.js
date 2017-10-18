@@ -32,7 +32,7 @@ describe('Given SignUpContainer component is mounted', () => {
     expect(wrapper.find('SignUpForm').exists()).toEqual(true);
   });
 
-  it('should not dispatch googleLogin action when google verification fails',
+  it('should not dispatch googleRegister action when google verification fails',
   () => {
     const response = { error: 'SignUp Unsuccessful!' };
     wrapper.instance().handleGoogleResponse(response);
@@ -46,7 +46,7 @@ describe('Given SignUpContainer component is mounted', () => {
     expect(props.googleRegister).toBeCalled();
   });
 
-  it('should set redirect in state when googleRegister action is successful',
+  it('should set redirect in state when googleRegister action returns success',
   (done) => {
     const enzymeWrapper = mount(<SignUpContainer {...{
       ...props,
@@ -60,7 +60,7 @@ describe('Given SignUpContainer component is mounted', () => {
     });
   });
 
-  it('should setState with error object when googleRegister action fails',
+  it('should setState with error object when googleRegister action returns error',
   (done) => {
     const enzymeWrapper = mount(<SignUpContainer {...{
       ...props,
@@ -88,20 +88,20 @@ describe('Given SignUpContainer component is mounted', () => {
     .toEqual('this field is required');
   });
 
-  it('should setState with error object when validation is not successful',
+  it('should setState with error object when validation fails',
   () => {
     wrapper.setState({ fullname: '' });
     wrapper.instance().handleFormSubmit(data.event);
     expect(wrapper.state().errors.fullname).toEqual('This field is required');
   });
 
-  it('should call handleFormSubmit method when form is submitted', () => {
+  it('should dispatch createNewUser action when form is submitted', () => {
     wrapper.setState(data.stateData);
     wrapper.instance().handleFormSubmit(data.event);
     expect(props.createNewUser.mock.calls.length).toEqual(1);
   });
 
-  it('should should set redirect in state when dipatch is successful',
+  it('should should set redirect in state when createNewUser action returns success',
   (done) => {
     const enzymeWrapper = mount(<SignUpContainer {...{
       ...props,
@@ -114,7 +114,7 @@ describe('Given SignUpContainer component is mounted', () => {
     });
   });
 
-  it('should setState with error object when createNewUser action fails',
+  it('should setState with error object when createNewUser action returns error',
   (done) => {
     const enzymeWrapper = mount(<SignUpContainer {...{
       ...props,

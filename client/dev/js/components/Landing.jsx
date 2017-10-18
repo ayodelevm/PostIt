@@ -27,8 +27,7 @@ const Landing = () => (
           <div className="row landing-btn center-align">
             <a
               href="/register"
-              className={'waves-effect waves-light' +
-              ' btn-large btn-flat lime-text accent-2'}
+              className={'waves-effect waves-light btn-large btn-flat lime-text accent-2'}
             >
               Get Started With PostIt
             </a>
@@ -60,8 +59,7 @@ const Landing = () => (
           <div className="row landing-btn center-align">
             <a
               href="/register"
-              className={'waves-effect waves-light' +
-              ' btn-large btn-flat lime-text accent-2'}>
+              className={'waves-effect waves-light btn-large btn-flat lime-text accent-2'}>
               Get Started With PostIt
             </a>
           </div>

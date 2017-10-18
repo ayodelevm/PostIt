@@ -149,8 +149,7 @@ export class SignUpContainer extends React.Component {
             onChange={this.handleChange}
             onSubmit={this.handleFormSubmit}
             clientId={
-              '239318376704-022mld5juktsrae2384bbibcc2vlh5cv' +
-              '.apps.googleusercontent.com'
+              '239318376704-022mld5juktsrae2384bbibcc2vlh5cv.apps.googleusercontent.com'
               }
             onSuccess={this.handleGoogleResponse}
             onFailure={this.handleGoogleResponse}

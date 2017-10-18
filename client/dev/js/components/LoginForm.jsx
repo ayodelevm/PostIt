@@ -90,8 +90,7 @@ const LoginForm = props => (
                   <div className="row">
                     <div className="input-field col s12">
                       <button
-                        className={'btn lime accent-4 waves-effect' +
-                        ' waves-light center'}
+                        className={'btn lime accent-4 waves-effect waves-light center'}
                         type="submit" name="action"
                       >
                         Login
@@ -124,8 +123,7 @@ const LoginForm = props => (
                 >
                   <a
                     className={
-                      'waves-effect waves-light' +
-                      ' white-text btn-flat red'
+                      'waves-effect waves-light white-text btn-flat red'
                       }
                   >
                     Google+

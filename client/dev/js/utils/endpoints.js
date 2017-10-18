@@ -8,8 +8,7 @@ const endpoints = {
   UPDATE_ONE_GROUP_PATH: '/api/v1/group/:id/edit',
   DELETE_ONE_GROUP_PATH: '/api/v1/group/delete',
   GET_ONE_GROUP_AND_MESSAGES_PATH: '/api/v1/group/:id/messages?archived=false',
-  GET_ONE_GROUP_AND_MESSAGES_TRUE_PATH: '/api/v1/group/:id/' +
-  'messages?archived=true',
+  GET_ONE_GROUP_AND_MESSAGES_TRUE_PATH: '/api/v1/group/:id/messages?archived=true',
   POST_MESSAGES_PATH: '/api/v1/group/:id/message',
   GET_ALL_USERS_PATH: '/api/v1/users',
   GET_GROUP_USERS_PATH: '/api/v1/group/:id/users',

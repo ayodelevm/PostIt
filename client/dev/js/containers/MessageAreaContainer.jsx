@@ -30,7 +30,6 @@ export class MessageAreaContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {},
       redirect: false
     };
 

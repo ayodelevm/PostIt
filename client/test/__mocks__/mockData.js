@@ -68,6 +68,7 @@ export const messageData = {
       priority: 'Urgent'
     }]
   },
+  getMessagesSuccess: true
 };
 
 export const userData = {

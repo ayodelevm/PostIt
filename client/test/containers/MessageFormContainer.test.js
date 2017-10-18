@@ -53,7 +53,7 @@ describe('Given MessageFormContainer component is mounted', () => {
     expect(wrapper.state().password).toEqual('adeleke');
   });
 
-  it('should call handleFormSubmit method when message is posted', () => {
+  it('should dispatch createNewMessages action when message is posted', () => {
     wrapper.setState(data.newState);
     wrapper.instance().handleKeyPress(data.event);
     expect(props.createNewMessages).toBeCalled();

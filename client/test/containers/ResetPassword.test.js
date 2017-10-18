@@ -50,20 +50,20 @@ describe('Given ResetPassword component is mounted', () => {
     .toEqual('this field is required');
   });
 
-  it('should setState with error object when validation is not successful',
+  it('should setState with error object when validation fails',
   () => {
     wrapper.setState({ password: '' });
     wrapper.instance().handleFormSubmit(data.event);
     expect(wrapper.state().errors.password).toEqual('This field is required');
   });
 
-  it('should call handleFormSubmit method when form is submitted', () => {
+  it('should dispatch resetPassword action when form is submitted', () => {
     wrapper.setState({ password: 'ayo', passwordConfirmation: 'ayo' });
     wrapper.instance().handleFormSubmit(data.event);
     expect(props.resetPassword.mock.calls.length).toEqual(1);
   });
 
-  it('should should setState when resetPassword action is successful',
+  it('should should setState when resetPassword action returns success',
   (done) => {
     const enzymeWrapper = mount(<ResetPassword {...{
       ...props, resetResponse: { resetSuccess: true }
@@ -76,7 +76,7 @@ describe('Given ResetPassword component is mounted', () => {
     });
   });
 
-  it('should setState with error object when resetPassword action fails',
+  it('should setState with error object when resetPassword action returns error',
   (done) => {
     const enzymeWrapper = mount(<ResetPassword {...{
       ...props,

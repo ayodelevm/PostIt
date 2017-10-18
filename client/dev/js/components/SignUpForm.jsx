@@ -154,8 +154,7 @@ const SignUpForm = props => (
                     <div className="row">
                       <div className="input-field col s12">
                         <button
-                          className={'btn lime accent-4 waves-effect' +
-                          ' waves-light center'}
+                          className={'btn lime accent-4 waves-effect waves-light center'}
                           type="submit" name="action">Create Account
                           <i className="material-icons right">person_add</i>
                         </button>
@@ -175,8 +174,7 @@ const SignUpForm = props => (
                   className={'google-login red'}
                 >
                   <a
-                    className={'waves-effect waves-light' +
-                    ' white-text btn-flat red'}
+                    className={'waves-effect waves-light white-text btn-flat red'}
                   >
                     Google+
                   </a>

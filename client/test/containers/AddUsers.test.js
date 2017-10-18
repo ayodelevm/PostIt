@@ -46,12 +46,12 @@ describe('Given AddUsers component is mounted', () => {
     expect(wrapper.state().createSuccess).toEqual(false);
   });
 
-  it('should call handleFormSubmit method when form is submitted', () => {
+  it('should dispatch addNewUsersToGroup action when form is submitted', () => {
     wrapper.instance().handleFormSubmit(data.event);
     expect(props.addNewUsersToGroup.mock.calls.length).toEqual(1);
   });
 
-  it('should reset state when addNewUsersToGroup action is succesful',
+  it('should reset state when addNewUsersToGroup action returns success',
   (done) => {
     const enzymeWrapper = mount(<AddUsers {...{
       ...props,

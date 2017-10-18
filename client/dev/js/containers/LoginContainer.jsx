@@ -166,8 +166,7 @@ export class LoginContainer extends React.Component {
             state={this.state}
             onChange={this.handleChange}
             onSubmit={this.handleFormSubmit}
-            clientId={'239318376704-022mld5juktsrae2384bbibcc2vlh5cv' +
-            '.apps.googleusercontent.com'}
+            clientId={'239318376704-022mld5juktsrae2384bbibcc2vlh5cv.apps.googleusercontent.com'}
             onSuccess={this.handleGoogleResponse}
             onFailure={this.handleGoogleResponse}
           />

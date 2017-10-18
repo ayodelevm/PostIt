@@ -57,13 +57,13 @@ describe('Given ForgotPassword component is mounted', () => {
     expect(wrapper.state().errors.email).toEqual('This field is required');
   });
 
-  it('should call handleFormSubmit method when form is submitted', () => {
+  it('should dispatch forgotPassword action when form is submitted', () => {
     wrapper.setState({ email: 'ayo@mail.com' });
     wrapper.instance().handleFormSubmit(data.event);
     expect(props.forgotPassword.mock.calls.length).toEqual(1);
   });
 
-  it('should reset email in state when forgotPassword action is succesful',
+  it('should reset email in state when forgotPassword action returns success',
   (done) => {
     const enzymeWrapper = mount(<ForgotPassword {...{
       ...props,
@@ -77,7 +77,7 @@ describe('Given ForgotPassword component is mounted', () => {
     });
   });
 
-  it('should setState with error object when forgotPassword action fails',
+  it('should setState with error object when forgotPassword action returns error',
   (done) => {
     const enzymeWrapper = mount(<ForgotPassword {...{
       ...props,

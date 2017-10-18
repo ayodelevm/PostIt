@@ -35,11 +35,11 @@ const setup = () => {
 describe('Given UploadsContainer component is mounted', () => {
   const { props, wrapper } = setup();
 
-  it('should indicate that LoginForm component is rendered', () => {
+  it('should indicate that UploadsModal component is rendered', () => {
     expect(wrapper.find('UploadsModal').exists()).toEqual(true);
   });
 
-  it('should call handleUploadFile when a user uploads a profile picture',
+  it('should dispatch uploadProfileImage action when a user uploads a profile picture',
   () => {
     const files = ['newimage.jpg'];
     wrapper.instance().handleUploadFile(files);
